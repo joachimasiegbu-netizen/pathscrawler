@@ -1,0 +1,2 @@
+cd PathScrawler
+npm install

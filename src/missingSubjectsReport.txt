@@ -1,0 +1,248 @@
+﻿missing count 236
+category counts {
+  GCSE: 15,
+  Vocational: 42,
+  University: 97,
+  'A-Level': 29,
+  'T-Level': 19,
+  'Refugee ESOL': 9,
+  'Refugee GCSE': 11,
+  'Refugee Vocational': 10,
+  'Refugee Foundation': 4
+}
+GCSE	gcse-biology	GCSE Biology
+GCSE	gcse-chemistry	GCSE Chemistry
+GCSE	gcse-physics	GCSE Physics
+GCSE	gcse-history	GCSE History
+GCSE	gcse-geography	GCSE Geography
+GCSE	gcse-religious-studies	GCSE Religious Studies
+GCSE	gcse-spanish	GCSE Spanish
+GCSE	gcse-french	GCSE French
+GCSE	gcse-german	GCSE German
+GCSE	gcse-mandarin	GCSE Mandarin
+GCSE	gcse-music	GCSE Music
+GCSE	gcse-drama	GCSE Drama
+GCSE	gcse-economics	GCSE Economics
+GCSE	gcse-food-technology	GCSE Food Technology
+GCSE	gcse-pe	GCSE Physical Education
+Vocational	nvq-plumbing	NVQ Plumbing (Level 2/3)
+Vocational	nvq-electrical-installation	NVQ Electrical Installation (Level 2/3)
+Vocational	nvq-carpentry	NVQ Carpentry (Level 2/3)
+Vocational	btec-construction	BTEC Construction (Level 3)
+Vocational	bricklaying-apprenticeship	Bricklaying Apprenticeship
+Vocational	nvq-health-social-care	NVQ Health & Social Care (Level 2/3)
+Vocational	nvq-early-years-educator	NVQ Early Years Educator (Level 3)
+Vocational	healthcare-assistant-apprenticeship	Healthcare Assistant Apprenticeship
+Vocational	dental-nursing-apprenticeship	Dental Nursing Apprenticeship
+Vocational	cyber-security-apprenticeship	Cyber Security Apprenticeship
+Vocational	software-development-apprenticeship	Software Development Apprenticeship
+Vocational	network-engineer-apprenticeship	Network Engineer Apprenticeship
+Vocational	nvq-business-administration	NVQ Business Administration (Level 2/3)
+Vocational	hr-apprenticeship	HR Apprenticeship
+Vocational	accounting-apprenticeship-aat	Accounting Apprenticeship (AAT)
+Vocational	btec-engineering	BTEC Engineering (Level 3)
+Vocational	nvq-vehicle-maintenance	NVQ Vehicle Maintenance (Level 2/3)
+Vocational	mechanical-engineering-apprenticeship	Mechanical Engineering Apprenticeship
+Vocational	electrical-engineering-apprenticeship	Electrical Engineering Apprenticeship
+Vocational	aerospace-manufacturing-apprenticeship	Aerospace Manufacturing Apprenticeship
+Vocational	nvq-catering-professional-cookery	NVQ Catering & Professional Cookery (Level 2/3)
+Vocational	btec-hospitality	BTEC Hospitality (Level 3)
+Vocational	chef-apprenticeship	Chef Apprenticeship
+Vocational	hotel-management-apprenticeship	Hotel Management Apprenticeship
+Vocational	nvq-hairdressing	NVQ Hairdressing (Level 2/3)
+Vocational	nvq-beauty-therapy	NVQ Beauty Therapy (Level 2/3)
+Vocational	barbering-apprenticeship	Barbering Apprenticeship
+Vocational	btec-sport	BTEC Sport (Level 3)
+Vocational	personal-training	Personal Training (Level 3)
+Vocational	sports-coaching-apprenticeship	Sports Coaching Apprenticeship
+Vocational	leisure-management-apprenticeship	Leisure Management Apprenticeship
+Vocational	btec-performing-arts	BTEC Performing Arts (Level 3)
+Vocational	btec-music	BTEC Music (Level 3)
+Vocational	btec-art-design	BTEC Art & Design (Level 3)
+Vocational	nvq-land-based-studies	NVQ Land-Based Studies (Level 2/3)
+Vocational	horticulture-apprenticeship	Horticulture Apprenticeship
+Vocational	agriculture-apprenticeship	Agriculture Apprenticeship
+Vocational	animal-care-apprenticeship	Animal Care Apprenticeship
+Vocational	btec-public-services	BTEC Public Services (Level 3)
+Vocational	police-apprenticeship	Police Apprenticeship
+Vocational	firefighter-apprenticeship	Firefighter Apprenticeship
+Vocational	military-apprenticeship	Military Apprenticeship
+University	computer-science-bsc	Computer Science (BSc)
+University	software-engineering-bsc	Software Engineering (BSc)
+University	cyber-security-bsc	Cyber Security (BSc)
+University	artificial-intelligence-bsc	Artificial Intelligence (BSc)
+University	computer-forensics-bsc	Computer Forensics (BSc)
+University	web-development-bsc	Web Development (BSc)
+University	game-development-bsc	Game Development (BSc)
+University	network-engineering-bsc	Network Engineering (BSc)
+University	economics-bsc	Economics (BSc)
+University	human-resource-management-ba	Human Resource Management (BA)
+University	international-business-ba	International Business (BA)
+University	entrepreneurship-ba	Entrepreneurship (BA)
+University	supply-chain-management-ba	Supply Chain Management (BA)
+University	law-llb	Law (LLB)
+University	criminology-ba	Criminology (BA)
+University	criminal-justice-ba	Criminal Justice (BA)
+University	international-law-llb	International Law (LLB)
+University	business-law-llb	Business Law (LLB)
+University	nursing-mental-health-bsc	Nursing (Mental Health) (BSc)
+University	nursing-children-bsc	Nursing (Children) (BSc)
+University	radiography-therapeutic-bsc	Radiography (Therapeutic) (BSc)
+University	speech-language-therapy-bsc	Speech & Language Therapy (BSc)
+University	operating-department-practice-bsc	Operating Department Practice (BSc)
+University	dietetics-bsc	Dietetics (BSc)
+University	veterinary-medicine-bvetmed	Veterinary Medicine (BVetMed)
+University	psychotherapy-bsc	Psychotherapy (BSc)
+University	mental-health-nursing-bsc	Mental Health Nursing (BSc)
+University	biomedical-science-bsc	Biomedical Science (BSc)
+University	biochemistry-bsc	Biochemistry (BSc)
+University	microbiology-bsc	Microbiology (BSc)
+University	forensic-science-bsc	Forensic Science (BSc)
+University	environmental-science-bsc	Environmental Science (BSc)
+University	marine-biology-bsc	Marine Biology (BSc)
+University	astrophysics-bsc	Astrophysics (BSc)
+University	mathematics-bsc	Mathematics (BSc)
+University	physics-bsc	Physics (BSc)
+University	chemistry-bsc	Chemistry (BSc)
+University	biology-bsc	Biology (BSc)
+University	geology-bsc	Geology (BSc)
+University	meteorology-bsc	Meteorology (BSc)
+University	materials-science-bsc	Materials Science (BSc)
+University	nanotechnology-bsc	Nanotechnology (BSc)
+University	automotive-engineering-beng	Automotive Engineering (BEng)
+University	petroleum-engineering-beng	Petroleum Engineering (BEng)
+University	nuclear-engineering-beng	Nuclear Engineering (BEng)
+University	renewable-energy-engineering-beng	Renewable Energy Engineering (BEng)
+University	railway-engineering-beng	Railway Engineering (BEng)
+University	mechatronics-beng	Mechatronics (BEng)
+University	robotics-beng	Robotics (BEng)
+University	interior-design-ba	Interior Design (BA)
+University	product-design-ba	Product Design (BA)
+University	fashion-design-ba	Fashion Design (BA)
+University	urban-planning-ba	Urban Planning (BA)
+University	landscape-architecture-ba	Landscape Architecture (BA)
+University	journalism-ba	Journalism (BA)
+University	photography-ba	Photography (BA)
+University	theatre-performance-ba	Theatre & Performance (BA)
+University	dance-ba	Dance (BA)
+University	game-design-ba	Game Design (BA)
+University	virtual-reality-development-bsc	Virtual Reality Development (BSc)
+University	augmented-reality-development-bsc	Augmented Reality Development (BSc)
+University	special-educational-needs-ba	Special Educational Needs (BA)
+University	early-childhood-education-ba	Early Childhood Education (BA)
+University	tesol-tefl-ba	TESOL / TEFL (BA)
+University	sociology-ba	Sociology (BA)
+University	youth-work-ba	Youth Work (BA)
+University	politics-ba	Politics (BA)
+University	international-relations-ba	International Relations (BA)
+University	anthropology-ba	Anthropology (BA)
+University	archaeology-ba	Archaeology (BA)
+University	development-studies-ba	Development Studies (BA)
+University	gender-studies-ba	Gender Studies (BA)
+University	disability-studies-ba	Disability Studies (BA)
+University	history-ba	History (BA)
+University	philosophy-ba	Philosophy (BA)
+University	classical-studies-ba	Classical Studies (BA)
+University	medieval-studies-ba	Medieval Studies (BA)
+University	art-history-ba	Art History (BA)
+University	linguistics-ba	Linguistics (BA)
+University	comparative-literature-ba	Comparative Literature (BA)
+University	modern-languages-ba	Modern Languages (BA)
+University	translation-interpreting-ba	Translation & Interpreting (BA)
+University	english-language-ba	English Language (BA)
+University	policing-criminal-investigation-bsc	Policing & Criminal Investigation (BSc)
+University	fire-rescue-bsc	Fire & Rescue (BSc)
+University	emergency-planning-bsc	Emergency Planning (BSc)
+University	disaster-management-bsc	Disaster Management (BSc)
+University	public-administration-ba	Public Administration (BA)
+University	local-government-management-ba	Local Government Management (BA)
+University	hotel-hospitality-management-ba	Hotel & Hospitality Management (BA)
+University	event-management-ba	Event Management (BA)
+University	tourism-management-ba	Tourism Management (BA)
+University	culinary-arts-ba	Culinary Arts (BA)
+University	nutrition-food-science-bsc	Nutrition & Food Science (BSc)
+University	sports-therapy-bsc	Sports Therapy (BSc)
+University	exercise-physiology-bsc	Exercise Physiology (BSc)
+University	coaching-sports-development-bsc	Coaching & Sports Development (BSc)
+A-Level	alevel-physics	A-Level Physics
+A-Level	alevel-law	A-Level Law
+A-Level	alevel-english-lit	A-Level English Literature
+A-Level	alevel-english-language	A-Level English Language
+A-Level	alevel-history	A-Level History
+A-Level	alevel-geography	A-Level Geography
+A-Level	alevel-politics	A-Level Politics
+A-Level	alevel-sociology	A-Level Sociology
+A-Level	alevel-photography	A-Level Photography
+A-Level	alevel-music-technology	A-Level Music Technology
+A-Level	alevel-drama-theatre	A-Level Drama & Theatre
+A-Level	alevel-physical-education	A-Level Physical Education
+A-Level	alevel-modern-languages	A-Level Modern Languages
+A-Level	alevel-philosophy	A-Level Philosophy
+A-Level	alevel-religious-studies	A-Level Religious Studies
+A-Level	alevel-classical-civilisation	A-Level Classical Civilisation
+A-Level	alevel-environmental-science	A-Level Environmental Science
+A-Level	alevel-film-studies	A-Level Film Studies
+A-Level	alevel-graphic-communication	A-Level Graphic Communication
+A-Level	btec-applied-science	BTEC Applied Science (Level 3)
+A-Level	btec-engineering	BTEC Engineering (Level 3)
+A-Level	btec-performing-arts	BTEC Performing Arts (Level 3)
+A-Level	btec-sport	BTEC Sport (Level 3)
+A-Level	btec-art-design	BTEC Art & Design (Level 3)
+A-Level	btec-construction	BTEC Construction (Level 3)
+A-Level	btec-hospitality	BTEC Hospitality (Level 3)
+A-Level	btec-public-services	BTEC Public Services (Level 3)
+A-Level	btec-travel-tourism	BTEC Travel & Tourism (Level 3)
+A-Level	btec-forensic-science	BTEC Forensic Science (Level 3)
+T-Level	tlevel-digital-business-services	T-Level Digital Business Services
+T-Level	tlevel-construction-design-surveying-planning	T-Level Construction: Design, Surveying & Planning
+T-Level	tlevel-construction-building-services-engineering	T-Level Construction: Building Services Engineering
+T-Level	tlevel-construction-on-site-construction	T-Level Construction: On-Site Construction
+T-Level	tlevel-education-childcare	T-Level Education & Childcare
+T-Level	tlevel-health	T-Level Health
+T-Level	tlevel-healthcare-science	T-Level Healthcare Science
+T-Level	tlevel-science	T-Level Science
+T-Level	tlevel-engineering-manufacturing-maintenance-installation-repair	T-Level Engineering & Manufacturing: Maintenance, Installation & Repair
+T-Level	tlevel-finance	T-Level Finance
+T-Level	tlevel-accounting	T-Level Accounting
+T-Level	tlevel-management-administration	T-Level Management & Administration
+T-Level	tlevel-legal-services	T-Level Legal Services
+T-Level	tlevel-agriculture-land-management-production	T-Level Agriculture, Land Management & Production
+T-Level	tlevel-animal-care-management	T-Level Animal Care & Management
+T-Level	tlevel-hairdressing-barbering-beauty-therapy	T-Level Hairdressing, Barbering & Beauty Therapy
+T-Level	tlevel-craft-design	T-Level Craft & Design
+T-Level	tlevel-media-broadcast-production	T-Level Media, Broadcast & Production
+T-Level	tlevel-catering	T-Level Catering
+Refugee ESOL	esol-entry-1	ESOL Entry Level 1
+Refugee ESOL	esol-entry-2	ESOL Entry Level 2
+Refugee ESOL	esol-entry-3	ESOL Entry Level 3
+Refugee ESOL	esol-level-1	ESOL Level 1
+Refugee ESOL	esol-level-2	ESOL Level 2
+Refugee ESOL	ielts-preparation	IELTS Preparation
+Refugee ESOL	functional-skills-english	Functional Skills English
+Refugee ESOL	academic-writing	Academic Writing
+Refugee ESOL	conversation-pronunciation	Conversation & Pronunciation
+Refugee GCSE	functional-skills-maths-entry-1	Functional Skills Maths Entry 1
+Refugee GCSE	functional-skills-maths-entry-2	Functional Skills Maths Entry 2
+Refugee GCSE	functional-skills-maths-level-1	Functional Skills Maths Level 1
+Refugee GCSE	functional-skills-maths-level-2	Functional Skills Maths Level 2
+Refugee GCSE	functional-skills-english-entry-1	Functional Skills English Entry 1
+Refugee GCSE	functional-skills-english-entry-2	Functional Skills English Entry 2
+Refugee GCSE	functional-skills-english-level-1	Functional Skills English Level 1
+Refugee GCSE	functional-skills-english-level-2	Functional Skills English Level 2
+Refugee GCSE	functional-skills-ict	Functional Skills ICT
+Refugee GCSE	gcse-maths-refugee	GCSE Maths
+Refugee GCSE	gcse-english-refugee	GCSE English
+Refugee Vocational	vocational-hospitality-catering	Hospitality & Catering
+Refugee Vocational	vocational-cleaning-facilities	Cleaning & Facilities Services
+Refugee Vocational	vocational-warehouse-logistics	Warehouse & Logistics
+Refugee Vocational	vocational-construction-labourer	Construction Labourer
+Refugee Vocational	vocational-care-worker	Care Worker
+Refugee Vocational	vocational-retail	Retail
+Refugee Vocational	vocational-security-guard	Security Guard
+Refugee Vocational	vocational-driving	Driving (HGV, delivery)
+Refugee Vocational	vocational-hairdressing	Hairdressing
+Refugee Vocational	vocational-beauty-therapy	Beauty Therapy
+Refugee Foundation	foundation-access-he-diploma	Access to HE Diploma
+Refugee Foundation	foundation-international-year	International Foundation Year
+Refugee Foundation	foundation-pre-sessional-english	Pre-Sessional English
+Refugee Foundation	foundation-study-skills	Study Skills

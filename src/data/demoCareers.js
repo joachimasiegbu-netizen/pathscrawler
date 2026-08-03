@@ -1,0 +1,3756 @@
+const rawDemoCareers = [
+  {
+    id: 1,
+    category: 'Technology & Digital',
+    title: 'Software Developer',
+    salary: '£25k - £70k',
+    description: 'Build applications, solve technical problems and write clean code across web and mobile platforms.',
+    requirements: [
+    'Degree in computing or related field',
+    'Strong programming skills',
+    'Portfolio of projects',
+    'GCSE Maths and Computer Science'
+    ],
+    matchedSubjects: [
+    'alevel-compsci',
+    'gcse-computer-science',
+    'btec-it',
+    'gcse-food-technology',
+    'cyber-security-apprenticeship',
+    'software-development-apprenticeship',
+    'network-engineer-apprenticeship',
+    'software-engineering-bsc',
+    'cyber-security-bsc',
+    'computer-forensics-bsc',
+    'web-development-bsc',
+    'game-development-bsc',
+    'network-engineering-bsc',
+    'nanotechnology-bsc',
+    'functional-skills-maths-entry-1',
+    'functional-skills-maths-entry-2',
+    'functional-skills-maths-level-1',
+    'functional-skills-maths-level-2',
+    'gcse-maths-refugee',
+    'vocational-security-guard',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Developer Apprentice / Junior (Entry (£18k-£30k))',
+    'Developer (Mid-level (£30k-£50k))',
+    'Senior Developer (Senior (£45k-£70k))',
+    'Lead Developer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    2,
+    3,
+    4,
+    5
+    ],
+    supportTags: [
+    'Remote friendly'
+    ]
+  },
+  {
+    id: 2,
+    category: 'Technology & Digital',
+    title: 'Data Analyst',
+    salary: '£28k - £55k',
+    description: 'Use data to uncover insights, build reports and support decisions with analytics tools.',
+    requirements: [
+    'Degree or bootcamp in data/analytics',
+    'Excel and SQL experience',
+    'Strong numerical skills',
+    'GCSE Maths and A-Level Maths'
+    ],
+    matchedSubjects: [
+    'alevel-mathematics',
+    'gcse-maths',
+    'alevel-mathematics',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Collect and analyse data from multiple sources',
+    'Build reports and dashboards for teams',
+    'Interpret trends and share insights',
+    'Work with stakeholders to improve decisions'
+    ],
+    whereToStudy: [
+    'Data analysis or statistics degree',
+    'Excel, SQL and analytics course',
+    'Bootcamp in data and reporting tools',
+    'Apprenticeship in data analytics'
+    ],
+    progression: [
+    'Junior Data Analyst (£28k-£35k)',
+    'Data Analyst (£35k-£50k)',
+    'Senior Data Analyst (£50k-£65k)',
+    'Analytics Lead (£65k+)'
+    ],
+    similarCareers: [
+    2,
+    8,
+    52,
+    63
+    ]
+  },
+  {
+    id: 3,
+    category: 'Technology & Digital',
+    title: 'Cyber Security Analyst',
+    salary: '£30k - £65k',
+    description: 'Protect systems from attacks, monitor networks and respond to security incidents.',
+    requirements: [
+    'Degree or security certifications',
+    'Understanding of networks',
+    'Attention to detail',
+    'GCSE Computer Science'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'alevel-compsci',
+    'tlevel-digital-support-services',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Monitor security alerts and investigate incidents',
+    'Test systems for vulnerabilities and patch issues',
+    'Analyse logs and report on risk',
+    'Work with teams to improve security controls'
+    ],
+    whereToStudy: [
+    'Cyber security degree',
+    'Security certification such as CompTIA or CISSP',
+    'Technical cyber security training',
+    'Security apprenticeship or industry experience'
+    ],
+    progression: [
+    'Junior Cyber Security Analyst (£30k-£40k)',
+    'Cyber Security Analyst (£40k-£55k)',
+    'Senior Cyber Security Analyst (£55k-£70k)',
+    'Security Consultant (£70k+)'
+    ],
+    similarCareers: [
+    3,
+    8,
+    63,
+    66
+    ]
+  },
+  {
+    id: 4,
+    category: 'Technology & Digital',
+    title: 'UX/UI Designer',
+    salary: '£25k - £60k',
+    description: 'Design user experiences and interfaces that are intuitive, accessible and visually engaging.',
+    requirements: [
+    'Portfolio of design work',
+    'UX research knowledge',
+    'Familiarity with design tools',
+    'GCSE Art and Computer Science'
+    ],
+    matchedSubjects: [
+    'gcse-art-design',
+    'gcse-computer-science',
+    'alevel-media',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Create and refine visual or written content',
+    'Work with teams to meet campaign and project goals',
+    'Use software tools to design, edit and present work',
+    'Gather feedback and improve creative deliverables'
+    ],
+    whereToStudy: [
+    'Creative arts or media degree with practical projects',
+    'Portfolio-based design, film or writing course',
+    'Workshops and short courses for creative skills',
+    'Industry placements or internships in media work'
+    ],
+    progression: [
+    'Designer Apprentice / Junior (Entry (£18k-£30k))',
+    'Designer (Mid-level (£30k-£50k))',
+    'Senior Designer (Senior (£45k-£70k))',
+    'Lead Designer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    5
+    ]
+  },
+  {
+    id: 5,
+    category: 'Technology & Digital',
+    title: 'IT Support Technician',
+    salary: '£20k - £40k',
+    description: 'Provide technical support, fix hardware and help users solve computing problems in business settings.',
+    requirements: [
+    'CompTIA A+ or equivalent',
+    'Customer service skills',
+    'Basic networking knowledge',
+    'GCSEs'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'btec-it',
+    'tlevel-digital-support-services',
+    'military-apprenticeship',
+    'landscape-architecture-ba',
+    'augmented-reality-development-bsc',
+    'disability-studies-ba',
+    'comparative-literature-ba',
+    'academic-writing',
+    'vocational-cleaning-facilities',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Work on it support technician tasks throughout the day',
+    'Collaborate with colleagues and share ideas',
+    'Review work, solve problems and improve outcomes',
+    'Learn new techniques and stay up to date with trends'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Technician Apprentice / Junior (Entry (£18k-£30k))',
+    'Technician (Mid-level (£30k-£50k))',
+    'Senior Technician (Senior (£45k-£70k))',
+    'Lead Technician / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 6,
+    category: 'Technology & Digital',
+    title: 'Network Engineer',
+    salary: '£26k - £55k',
+    description: 'Design, install and maintain networks while ensuring reliable connectivity and system performance.',
+    requirements: [
+    'CCNA or degree',
+    'Network troubleshooting skills',
+    'Understanding of routing and switching',
+    'GCSE Computer Science'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'tlevel-engineering-manufacturing-processing-control',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Work on network engineer tasks throughout the day',
+    'Collaborate with colleagues and share ideas',
+    'Review work, solve problems and improve outcomes',
+    'Learn new techniques and stay up to date with trends'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Engineer Apprentice / Junior (Entry (£18k-£30k))',
+    'Engineer (Mid-level (£30k-£50k))',
+    'Senior Engineer (Senior (£45k-£70k))',
+    'Lead Engineer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 7,
+    category: 'Technology & Digital',
+    title: 'Cloud Architect',
+    salary: '£50k - £90k',
+    description: 'Design cloud infrastructure, optimize deployments and manage services on AWS, Azure or Google Cloud.',
+    requirements: [
+    'Cloud certifications',
+    'Experience with cloud platforms',
+    'Architecture knowledge',
+    'Degree'
+    ],
+    matchedSubjects: [
+    'university-engineering',
+    'alevel-mathematics',
+    'information-technology-bsc',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Design cloud systems and infrastructure',
+    'Guide cloud deployments and migrations',
+    'Set architecture standards for scalability',
+    'Review performance and optimise costs'
+    ],
+    whereToStudy: [
+    'Cloud computing degree or IT degree',
+    'AWS/Azure certification training',
+    'Cloud architecture bootcamps',
+    'Apprenticeship in cloud or infrastructure support'
+    ],
+    progression: [
+    'Junior Cloud Architect (£45k-£55k)',
+    'Cloud Architect (£55k-£70k)',
+    'Senior Cloud Architect (£70k-£85k)',
+    'Principal Cloud Architect (£85k+)'
+    ],
+    similarCareers: [
+    7,
+    8,
+    66,
+    57
+    ]
+  },
+  {
+    id: 8,
+    category: 'Technology & Digital',
+    title: 'AI/Machine Learning Engineer',
+    salary: '£35k - £80k',
+    description: 'Build intelligent models and systems that learn from data and automate decision-making.',
+    requirements: [
+    'Degree in AI or computing',
+    'Python programming',
+    'Machine learning knowledge',
+    'A-Level Maths'
+    ],
+    matchedSubjects: [
+    'alevel-mathematics',
+    'data-science-bsc',
+    'tlevel-digital-production-design-development',
+    'nvq-vehicle-maintenance',
+    'nvq-hairdressing',
+    'vocational-retail',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Build and train machine learning models',
+    'Clean and prepare large datasets',
+    'Test model accuracy and performance',
+    'Deploy AI solutions into production',
+    'Research new algorithms and techniques'
+    ],
+    whereToStudy: [
+    'University degree in computer science or AI',
+    'Masters in machine learning or data science',
+    'Online specialisation (Coursera, DeepLearning.AI)',
+    'AI apprenticeship programmes'
+    ],
+    progression: [
+    'Junior ML Engineer (£35k-£45k)',
+    'ML Engineer (£45k-£60k)',
+    'Senior ML Engineer (£60k-£80k)',
+    'Principal AI Scientist (£80k+)'
+    ],
+    similarCareers: [
+    3,
+    2,
+    7,
+    9
+    ]
+  },
+  {
+    id: 9,
+    category: 'Technology & Digital',
+    title: 'Web Developer',
+    salary: '£22k - £50k',
+    description: 'Create responsive websites and web applications using modern front-end and back-end technologies.',
+    requirements: [
+    'Portfolio or bootcamp experience',
+    'HTML/CSS/JavaScript skills',
+    'Problem solving',
+    'GCSE Computer Science'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'alevel-compsci',
+    'btec-it',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Developer Apprentice / Junior (Entry (£18k-£30k))',
+    'Developer (Mid-level (£30k-£50k))',
+    'Senior Developer (Senior (£45k-£70k))',
+    'Lead Developer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ],
+    supportTags: [
+    'Remote friendly'
+    ]
+  },
+  {
+    id: 10,
+    category: 'Technology & Digital',
+    title: 'Game Developer',
+    salary: '£24k - £60k',
+    description: 'Develop interactive games, write gameplay code and build immersive experiences for players.',
+    requirements: [
+    'Degree or portfolio',
+    'Programming and creative skills',
+    'Knowledge of game engines',
+    'GCSE Computer Science and Art'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'gcse-art-design',
+    'alevel-art-design',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Developer Apprentice / Junior (Entry (£18k-£30k))',
+    'Developer (Mid-level (£30k-£50k))',
+    'Senior Developer (Senior (£45k-£70k))',
+    'Lead Developer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 11,
+    category: 'Business & Finance',
+    title: 'Business Analyst',
+    salary: '£30k - £60k',
+    description: 'Translate business needs into technical solutions and support strategy with clear insight.',
+    requirements: [
+    'Degree or experience in business',
+    'Analytical thinking',
+    'Communication skills',
+    'GCSE English and Business'
+    ],
+    matchedSubjects: [
+    'gcse-business-studies',
+    'alevel-business-studies',
+    'gcse-english',
+    'gcse-maths',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Gather and analyse business requirements',
+    'Create reports, process maps and recommendations',
+    'Work with stakeholders to improve systems',
+    'Support project planning and decision-making'
+    ],
+    whereToStudy: [
+    'Business analysis or management degree',
+    'Professional analysis diploma or certificate',
+    'College business and finance courses',
+    'Apprenticeship in business or project support'
+    ],
+    progression: [
+    'Junior Business Analyst (£28k-£35k)',
+    'Business Analyst (£35k-£50k)',
+    'Senior Business Analyst (£50k-£65k)',
+    'Lead Business Analyst (£65k+)'
+    ],
+    similarCareers: [
+    12,
+    13,
+    14,
+    18
+    ]
+  },
+  {
+    id: 12,
+    category: 'Business & Finance',
+    title: 'Accountant',
+    salary: '£25k - £60k',
+    description: 'Prepare financial records, manage accounts and support compliance for businesses and clients.',
+    requirements: [
+    'ACA/ACCA/CIMA qualifications',
+    'Numerical accuracy',
+    'Attention to detail',
+    'A-Level Maths'
+    ],
+    matchedSubjects: [
+    'a-level-mathematics',
+    'gcse-maths',
+    'accounting-bsc',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Prepare financial records and reconcile accounts',
+    'Manage invoices, payroll and expense reports',
+    'Support audits and financial compliance',
+    'Communicate with clients and stakeholders'
+    ],
+    whereToStudy: [
+    'Accounting degree or finance degree',
+    'Apprenticeship or AAT/CIMA training',
+    'Professional bookkeeping courses',
+    'College finance and business programmes'
+    ],
+    progression: [
+    'Trainee Accountant (£25k-£35k)',
+    'Accountant (£35k-£50k)',
+    'Senior Accountant (£50k-£70k)',
+    'Finance Manager (£70k+)'
+    ],
+    similarCareers: [
+    11,
+    13,
+    74,
+    71
+    ]
+  },
+  {
+    id: 13,
+    category: 'Business & Finance',
+    title: 'Financial Advisor',
+    salary: '£24k - £70k',
+    description: 'Advise clients on savings, pensions and investments while helping them meet long-term goals.',
+    requirements: [
+    'Degree and Level 4 Diploma',
+    'Financial regulation knowledge',
+    'Communication skills',
+    'GCSE Maths'
+    ],
+    matchedSubjects: [
+    'gcse-maths',
+    'finance-bsc',
+    'business-management-ba',
+    'gcse-economics',
+    'nvq-business-administration',
+    'accounting-apprenticeship-aat',
+    'hotel-management-apprenticeship',
+    'leisure-management-apprenticeship',
+    'economics-bsc',
+    'human-resource-management-ba',
+    'international-business-ba',
+    'supply-chain-management-ba',
+    'business-law-llb',
+    'disaster-management-bsc',
+    'local-government-management-ba',
+    'hotel-hospitality-management-ba',
+    'event-management-ba',
+    'tourism-management-ba',
+    'tlevel-digital-business-services',
+    'tlevel-finance',
+    'tlevel-accounting',
+    'tlevel-management-administration',
+    'tlevel-agriculture-land-management-production',
+    'tlevel-animal-care-management',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Analyse information and prepare clear reports',
+    'Communicate with clients, colleagues and stakeholders',
+    'Make decisions that support business goals',
+    'Organise work and manage deadlines for projects'
+    ],
+    whereToStudy: [
+    'Business or finance degree',
+    'Apprenticeship in business administration or accounting',
+    'Professional certificates such as AAT or CIMA',
+    'College courses in management, marketing or finance'
+    ],
+    progression: [
+    'Financial Apprentice / Junior (Entry (£18k-£30k))',
+    'Financial (Mid-level (£30k-£50k))',
+    'Senior Financial (Senior (£45k-£70k))',
+    'Lead Financial / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    11,
+    12,
+    14,
+    15
+    ]
+  },
+  {
+    id: 14,
+    category: 'Business & Finance',
+    title: 'Project Manager',
+    salary: '£30k - £70k',
+    description: 'Lead projects from start to finish, coordinate teams and deliver outcomes on time and budget.',
+    requirements: [
+    'Degree and PRINCE2',
+    'Organisation skills',
+    'Stakeholder management',
+    'GCSEs and experience'
+    ],
+    matchedSubjects: [
+    'project-management-bsc',
+    'business-management-ba',
+    'gcse-english',
+    'nvq-plumbing',
+    'gcse-maths'
+    ],
+    dayToDay: [
+    'Analyse information and prepare clear reports',
+    'Communicate with clients, colleagues and stakeholders',
+    'Make decisions that support business goals',
+    'Organise work and manage deadlines for projects'
+    ],
+    whereToStudy: [
+    'Business or finance degree',
+    'Apprenticeship in business administration or accounting',
+    'Professional certificates such as AAT or CIMA',
+    'College courses in management, marketing or finance'
+    ],
+    progression: [
+    'Manager Apprentice / Junior (Entry (£18k-£30k))',
+    'Manager (Mid-level (£30k-£50k))',
+    'Senior Manager (Senior (£45k-£70k))',
+    'Lead Manager / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    11,
+    12,
+    13,
+    15
+    ]
+  },
+  {
+    id: 15,
+    category: 'Business & Finance',
+    title: 'Marketing Manager',
+    salary: '£26k - £60k',
+    description: 'Create marketing campaigns, build brands and measure performance to grow business reach.',
+    requirements: [
+    'Degree and experience',
+    'Creative thinking',
+    'Digital marketing knowledge',
+    'GCSE English and Business'
+    ],
+    matchedSubjects: [
+    'gcse-business-studies',
+    'gcse-english',
+    'marketing-ba',
+    'gcse-maths'
+    ],
+    dayToDay: [
+    'Analyse information and prepare clear reports',
+    'Communicate with clients, colleagues and stakeholders',
+    'Make decisions that support business goals',
+    'Organise work and manage deadlines for projects'
+    ],
+    whereToStudy: [
+    'Business or finance degree',
+    'Apprenticeship in business administration or accounting',
+    'Professional certificates such as AAT or CIMA',
+    'College courses in management, marketing or finance'
+    ],
+    progression: [
+    'Manager Apprentice / Junior (Entry (£18k-£30k))',
+    'Manager (Mid-level (£30k-£50k))',
+    'Senior Manager (Senior (£45k-£70k))',
+    'Lead Manager / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    11,
+    12,
+    13,
+    14
+    ]
+  },
+  {
+    id: 16,
+    category: 'Business & Finance',
+    title: 'Human Resources Officer',
+    salary: '£22k - £45k',
+    description: 'Manage recruitment, training and employee support within organisations.',
+    requirements: [
+    'Degree or CIPD',
+    'People skills',
+    'HR knowledge',
+    'GCSE English'
+    ],
+    matchedSubjects: [
+    'gcse-english',
+    'business-management-ba',
+    'social-work-ba',
+    'gcse-maths'
+    ],
+    dayToDay: [
+    'Analyse information and prepare clear reports',
+    'Communicate with clients, colleagues and stakeholders',
+    'Make decisions that support business goals',
+    'Organise work and manage deadlines for projects'
+    ],
+    whereToStudy: [
+    'Business or finance degree',
+    'Apprenticeship in business administration or accounting',
+    'Professional certificates such as AAT or CIMA',
+    'College courses in management, marketing or finance'
+    ],
+    progression: [
+    'Officer Apprentice / Junior (Entry (£18k-£30k))',
+    'Officer (Mid-level (£30k-£50k))',
+    'Senior Officer (Senior (£45k-£70k))',
+    'Lead Officer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    11,
+    12,
+    13,
+    14
+    ]
+  },
+  {
+    id: 17,
+    category: 'Business & Finance',
+    title: 'Sales Manager',
+    salary: '£25k - £70k',
+    description: 'Lead sales teams, develop strategies and maintain customer relationships for business growth.',
+    requirements: [
+    'Experience in sales',
+    'Communication skills',
+    'Leadership',
+    'GCSEs and customer service'
+    ],
+    matchedSubjects: [
+    'customer-service-apprenticeship',
+    'business-management-ba',
+    'gcse-english',
+    'gcse-maths'
+    ],
+    dayToDay: [
+    'Analyse information and prepare clear reports',
+    'Communicate with clients, colleagues and stakeholders',
+    'Make decisions that support business goals',
+    'Organise work and manage deadlines for projects'
+    ],
+    whereToStudy: [
+    'Business or finance degree',
+    'Apprenticeship in business administration or accounting',
+    'Professional certificates such as AAT or CIMA',
+    'College courses in management, marketing or finance'
+    ],
+    progression: [
+    'Sales Apprentice / Junior (Entry (£18k-£30k))',
+    'Sales (Mid-level (£30k-£50k))',
+    'Senior Sales (Senior (£45k-£70k))',
+    'Lead Sales / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    11,
+    12,
+    13,
+    14
+    ]
+  },
+  {
+    id: 18,
+    category: 'Business & Finance',
+    title: 'Management Consultant',
+    salary: '£32k - £80k',
+    description: 'Advise companies on strategy, operations and performance improvements.',
+    requirements: [
+    'Top degree',
+    'Analytical ability',
+    'Problem solving',
+    'A-Levels and degree'
+    ],
+    matchedSubjects: [
+    'a-level-economics',
+    'business-management-ba',
+    'project-management-bsc',
+    'law-llb',
+    'international-law-llb',
+    'alevel-law',
+    'tlevel-legal-services',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Analyse information and prepare clear reports',
+    'Communicate with clients, colleagues and stakeholders',
+    'Make decisions that support business goals',
+    'Organise work and manage deadlines for projects'
+    ],
+    whereToStudy: [
+    'Business or finance degree',
+    'Apprenticeship in business administration or accounting',
+    'Professional certificates such as AAT or CIMA',
+    'College courses in management, marketing or finance'
+    ],
+    progression: [
+    'Consultant Apprentice / Junior (Entry (£18k-£30k))',
+    'Consultant (Mid-level (£30k-£50k))',
+    'Senior Consultant (Senior (£45k-£70k))',
+    'Lead Consultant / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    11,
+    12,
+    13,
+    14
+    ]
+  },
+  {
+    id: 19,
+    category: 'Business & Finance',
+    title: 'Investment Banker',
+    salary: '£35k - £100k+',
+    description: 'Work on deals, markets and finance strategies for corporate clients and investors.',
+    requirements: [
+    'Degree and internships',
+    'Financial modelling',
+    'Strong maths',
+    'A-Level Maths and Economics'
+    ],
+    matchedSubjects: [
+    'a-level-economics',
+    'a-level-mathematics',
+    'finance-bsc',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Analyse information and prepare clear reports',
+    'Communicate with clients, colleagues and stakeholders',
+    'Make decisions that support business goals',
+    'Organise work and manage deadlines for projects'
+    ],
+    whereToStudy: [
+    'Business or finance degree',
+    'Apprenticeship in business administration or accounting',
+    'Professional certificates such as AAT or CIMA',
+    'College courses in management, marketing or finance'
+    ],
+    progression: [
+    'Investment Banker Apprentice / Junior (Entry (£18k-£30k))',
+    'Investment Banker (Mid-level (£30k-£50k))',
+    'Senior Investment Banker (Senior (£45k-£70k))',
+    'Lead Investment Banker / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    11,
+    12,
+    13,
+    14
+    ]
+  },
+  {
+    id: 20,
+    category: 'Business & Finance',
+    title: 'Insurance Underwriter',
+    salary: '£22k - £50k',
+    description: 'Assess risk, price policies and make decisions on insurance cover for clients.',
+    requirements: [
+    'Degree or apprenticeship',
+    'Risk assessment skills',
+    'Attention to detail',
+    'GCSEs'
+    ],
+    matchedSubjects: [
+    'gcse-maths',
+    'gcse-business-studies',
+    'btec-business',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Analyse information and prepare clear reports',
+    'Communicate with clients, colleagues and stakeholders',
+    'Make decisions that support business goals',
+    'Organise work and manage deadlines for projects'
+    ],
+    whereToStudy: [
+    'Business or finance degree',
+    'Apprenticeship in business administration or accounting',
+    'Professional certificates such as AAT or CIMA',
+    'College courses in management, marketing or finance'
+    ],
+    progression: [
+    'Insurance Underwriter Apprentice / Junior (Entry (£18k-£30k))',
+    'Insurance Underwriter (Mid-level (£30k-£50k))',
+    'Senior Insurance Underwriter (Senior (£45k-£70k))',
+    'Lead Insurance Underwriter / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    11,
+    12,
+    13,
+    14
+    ]
+  },
+  {
+    id: 21,
+    category: 'Healthcare & Medicine',
+    title: 'Doctor/GP',
+    salary: '£35k - £100k+',
+    description: 'Diagnose illnesses and provide treatment across general practice and healthcare settings.',
+    requirements: [
+    'Medical degree',
+    'Clinical experience',
+    'A-Level Biology and Chemistry',
+    'Strong communication skills'
+    ],
+    matchedSubjects: [
+    'alevel-biology',
+    'alevel-chemistry',
+    'medicine-mbbs',
+    'gcse-biology',
+    'gcse-chemistry',
+    'nvq-health-social-care',
+    'healthcare-assistant-apprenticeship',
+    'dental-nursing-apprenticeship',
+    'computer-science-bsc',
+    'nursing-children-bsc',
+    'radiography-therapeutic-bsc',
+    'dietetics-bsc',
+    'biomedical-science-bsc',
+    'biochemistry-bsc',
+    'microbiology-bsc',
+    'forensic-science-bsc',
+    'environmental-science-bsc',
+    'marine-biology-bsc',
+    'chemistry-bsc',
+    'biology-bsc',
+    'materials-science-bsc',
+    'nutrition-food-science-bsc',
+    'alevel-environmental-science',
+    'btec-applied-science',
+    'btec-forensic-science',
+    'tlevel-health',
+    'tlevel-healthcare-science',
+    'tlevel-science',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Care for patients and support their health needs',
+    'Record observations and update care plans',
+    'Work closely with healthcare teams and specialists',
+    'Deliver treatment and advice in clinical settings'
+    ],
+    whereToStudy: [
+    'Clinical degree with placements or professional training',
+    'Specialist health science or therapy course',
+    'Accredited clinical practice and on-the-job learning',
+    'Continuous professional development in healthcare'
+    ],
+    progression: [
+    'DoctorGP Apprentice / Junior (Entry (£18k-£30k))',
+    'DoctorGP (Mid-level (£30k-£50k))',
+    'Senior DoctorGP (Senior (£45k-£70k))',
+    'Lead DoctorGP / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    22,
+    23,
+    24,
+    25
+    ]
+  },
+  {
+    id: 22,
+    category: 'Healthcare & Medicine',
+    title: 'Nurse',
+    salary: '£25k - £45k',
+    description: 'Provide patient care, support treatment plans and work in hospitals or community settings.',
+    requirements: [
+    'Nursing degree',
+    'Clinical skills',
+    'Compassion and resilience',
+    'GCSE Science and Health & Social Care'
+    ],
+    matchedSubjects: [
+    'gcse-science-combined',
+    'btec-health-social-care',
+    'nursing-adult-bsc',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Care for patients and support their health needs',
+    'Record observations and update care plans',
+    'Work closely with healthcare teams and specialists',
+    'Deliver treatment and advice in clinical settings'
+    ],
+    whereToStudy: [
+    'Clinical degree with placements or professional training',
+    'Specialist health science or therapy course',
+    'Accredited clinical practice and on-the-job learning',
+    'Continuous professional development in healthcare'
+    ],
+    progression: [
+    'Nurse Apprentice / Junior (Entry (£18k-£30k))',
+    'Nurse (Mid-level (£30k-£50k))',
+    'Senior Nurse (Senior (£45k-£70k))',
+    'Lead Nurse / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    21,
+    23,
+    24,
+    25
+    ]
+  },
+  {
+    id: 23,
+    category: 'Healthcare & Medicine',
+    title: 'Paramedic',
+    salary: '£25k - £40k',
+    description: 'Respond to emergencies, provide lifesaving care and transport patients to hospital.',
+    requirements: [
+    'Paramedic science degree',
+    'First aid skills',
+    'Resilience',
+    'GCSE Science'
+    ],
+    matchedSubjects: [
+    'gcse-science-combined',
+    'paramedic-science-bsc',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Care for patients and support their health needs',
+    'Record observations and update care plans',
+    'Work closely with healthcare teams and specialists',
+    'Deliver treatment and advice in clinical settings'
+    ],
+    whereToStudy: [
+    'Clinical degree with placements or professional training',
+    'Specialist health science or therapy course',
+    'Accredited clinical practice and on-the-job learning',
+    'Continuous professional development in healthcare'
+    ],
+    progression: [
+    'Paramedic Apprentice / Junior (Entry (£18k-£30k))',
+    'Paramedic (Mid-level (£30k-£50k))',
+    'Senior Paramedic (Senior (£45k-£70k))',
+    'Lead Paramedic / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    21,
+    22,
+    24,
+    25
+    ]
+  },
+  {
+    id: 24,
+    category: 'Healthcare & Medicine',
+    title: 'Pharmacist',
+    salary: '£35k - £55k',
+    description: 'Supply medication, support safe prescriptions and advise patients on pharmacy care.',
+    requirements: [
+    'Pharmacy degree',
+    'Chemistry knowledge',
+    'Attention to detail',
+    'A-Level Chemistry and Biology'
+    ],
+    matchedSubjects: [
+    'alevel-chemistry',
+    'alevel-biology',
+    'pharmacy-mpharm',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Care for patients and support their health needs',
+    'Record observations and update care plans',
+    'Work closely with healthcare teams and specialists',
+    'Deliver treatment and advice in clinical settings'
+    ],
+    whereToStudy: [
+    'Clinical degree with placements or professional training',
+    'Specialist health science or therapy course',
+    'Accredited clinical practice and on-the-job learning',
+    'Continuous professional development in healthcare'
+    ],
+    progression: [
+    'Pharmacist Apprentice / Junior (Entry (£18k-£30k))',
+    'Pharmacist (Mid-level (£30k-£50k))',
+    'Senior Pharmacist (Senior (£45k-£70k))',
+    'Lead Pharmacist / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    21,
+    22,
+    23,
+    25
+    ]
+  },
+  {
+    id: 25,
+    category: 'Healthcare & Medicine',
+    title: 'Physiotherapist',
+    salary: '£25k - £45k',
+    description: 'Help patients recover movement and manage injuries through therapy and exercise programmes.',
+    requirements: [
+    'Physiotherapy degree',
+    'Anatomy knowledge',
+    'Communication skills',
+    'A-Level Biology'
+    ],
+    matchedSubjects: [
+    'alevel-biology',
+    'sports-science-bsc',
+    'physiotherapy-bsc',
+    'gcse-pe',
+    'btec-sport',
+    'sports-coaching-apprenticeship',
+    'sports-therapy-bsc',
+    'exercise-physiology-bsc',
+    'coaching-sports-development-bsc',
+    'alevel-physical-education',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Care for patients and support their health needs',
+    'Record observations and update care plans',
+    'Work closely with healthcare teams and specialists',
+    'Deliver treatment and advice in clinical settings'
+    ],
+    whereToStudy: [
+    'Clinical degree with placements or professional training',
+    'Specialist health science or therapy course',
+    'Accredited clinical practice and on-the-job learning',
+    'Continuous professional development in healthcare'
+    ],
+    progression: [
+    'Physiotherapist Apprentice / Junior (Entry (£18k-£30k))',
+    'Physiotherapist (Mid-level (£30k-£50k))',
+    'Senior Physiotherapist (Senior (£45k-£70k))',
+    'Lead Physiotherapist / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    21,
+    22,
+    23,
+    24
+    ]
+  },
+  {
+    id: 26,
+    category: 'Healthcare & Medicine',
+    title: 'Occupational Therapist',
+    salary: '£25k - £45k',
+    description: 'Support people to regain daily living skills and independence after illness or injury.',
+    requirements: [
+    'Occupational therapy degree',
+    'Empathy and practical skills',
+    'Rehabilitation knowledge',
+    'GCSE Science'
+    ],
+    matchedSubjects: [
+    'gcse-science-combined',
+    'occupational-therapy-bsc',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Care for patients and support their health needs',
+    'Record observations and update care plans',
+    'Work closely with healthcare teams and specialists',
+    'Deliver treatment and advice in clinical settings'
+    ],
+    whereToStudy: [
+    'Clinical degree with placements or professional training',
+    'Specialist health science or therapy course',
+    'Accredited clinical practice and on-the-job learning',
+    'Continuous professional development in healthcare'
+    ],
+    progression: [
+    'Occupational Therapist Apprentice / Junior (Entry (£18k-£30k))',
+    'Occupational Therapist (Mid-level (£30k-£50k))',
+    'Senior Occupational Therapist (Senior (£45k-£70k))',
+    'Lead Occupational Therapist / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    21,
+    22,
+    23,
+    24
+    ]
+  },
+  {
+    id: 27,
+    category: 'Healthcare & Medicine',
+    title: 'Dentist',
+    salary: '£35k - £100k+',
+    description: 'Examine teeth, treat oral health problems and provide dental care to patients.',
+    requirements: [
+    'Dentistry degree',
+    'Manual dexterity',
+    'A-Level Chemistry and Biology',
+    'Strong attention to detail'
+    ],
+    matchedSubjects: [
+    'alevel-chemistry',
+    'alevel-biology',
+    'dentistry-bds',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Examine patients and diagnose oral health issues',
+    'Carry out treatments and dental procedures',
+    'Advise patients on care and prevention',
+    'Work with dental nurses and support staff'
+    ],
+    whereToStudy: [
+    'Dentistry degree with clinical placements',
+    'Hospital-based dental foundation training',
+    'Specialist dental practice experience',
+    'Ongoing professional development'
+    ],
+    progression: [
+    'Dental Foundation Dentist (£35k-£45k)',
+    'Associate Dentist (£45k-£60k)',
+    'Senior Dentist (£60k-£80k)',
+    'Practice Principal (£80k+)'
+    ],
+    similarCareers: [
+    21,
+    22,
+    24,
+    28
+    ]
+  },
+  {
+    id: 28,
+    category: 'Healthcare & Medicine',
+    title: 'Psychologist',
+    salary: '£27k - £50k',
+    description: 'Study behaviour and mental health, then support people through assessment and therapy.',
+    requirements: [
+    'Psychology degree and doctorate',
+    'Research skills',
+    'Empathy',
+    'A-Level Psychology'
+    ],
+    matchedSubjects: [
+    'alevel-psychology',
+    'psychology-bsc',
+    'clinical-psychology-doctorate',
+    'nursing-mental-health-bsc',
+    'mental-health-nursing-bsc',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Care for patients and support their health needs',
+    'Record observations and update care plans',
+    'Work closely with healthcare teams and specialists',
+    'Deliver treatment and advice in clinical settings'
+    ],
+    whereToStudy: [
+    'Clinical degree with placements or professional training',
+    'Specialist health science or therapy course',
+    'Accredited clinical practice and on-the-job learning',
+    'Continuous professional development in healthcare'
+    ],
+    progression: [
+    'Psychologist Apprentice / Junior (Entry (£18k-£30k))',
+    'Psychologist (Mid-level (£30k-£50k))',
+    'Senior Psychologist (Senior (£45k-£70k))',
+    'Lead Psychologist / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    21,
+    22,
+    23,
+    24
+    ]
+  },
+  {
+    id: 29,
+    category: 'Healthcare & Medicine',
+    title: 'Radiographer',
+    salary: '£25k - £45k',
+    description: 'Use imaging technology to support diagnosis and treatment of patients in hospitals.',
+    requirements: [
+    'Radiography degree',
+    'Technical skills',
+    'Attention to detail',
+    'GCSE Science'
+    ],
+    matchedSubjects: [
+    'gcse-science-combined',
+    'radiography-diagnostic-bsc',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Care for patients and support their health needs',
+    'Record observations and update care plans',
+    'Work closely with healthcare teams and specialists',
+    'Deliver treatment and advice in clinical settings'
+    ],
+    whereToStudy: [
+    'Clinical degree with placements or professional training',
+    'Specialist health science or therapy course',
+    'Accredited clinical practice and on-the-job learning',
+    'Continuous professional development in healthcare'
+    ],
+    progression: [
+    'Radiographer Apprentice / Junior (Entry (£18k-£30k))',
+    'Radiographer (Mid-level (£30k-£50k))',
+    'Senior Radiographer (Senior (£45k-£70k))',
+    'Lead Radiographer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    21,
+    22,
+    23,
+    24
+    ]
+  },
+  {
+    id: 30,
+    category: 'Healthcare & Medicine',
+    title: 'Midwife',
+    salary: '£25k - £45k',
+    description: 'Care for mothers and babies during pregnancy, birth and postnatal recovery.',
+    requirements: [
+    'Midwifery degree',
+    'Compassion and clinical skills',
+    'Teamwork',
+    'GCSE Science and Health & Social Care'
+    ],
+    matchedSubjects: [
+    'gcse-science-combined',
+    'midwifery-bsc',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Care for patients and support their health needs',
+    'Record observations and update care plans',
+    'Work closely with healthcare teams and specialists',
+    'Deliver treatment and advice in clinical settings'
+    ],
+    whereToStudy: [
+    'Clinical degree with placements or professional training',
+    'Specialist health science or therapy course',
+    'Accredited clinical practice and on-the-job learning',
+    'Continuous professional development in healthcare'
+    ],
+    progression: [
+    'Midwife Apprentice / Junior (Entry (£18k-£30k))',
+    'Midwife (Mid-level (£30k-£50k))',
+    'Senior Midwife (Senior (£45k-£70k))',
+    'Lead Midwife / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    21,
+    22,
+    23,
+    24
+    ]
+  },
+  {
+    id: 31,
+    category: 'Engineering & Manufacturing',
+    title: 'Civil Engineer',
+    salary: '£26k - £60k',
+    description: 'Design and oversee construction projects for roads, bridges and buildings.',
+    requirements: [
+    'Engineering degree',
+    'Strong maths and physics',
+    'Project planning',
+    'A-Level Maths and Physics'
+    ],
+    matchedSubjects: [
+    'a-level-mathematics',
+    'a-level-physics',
+    'civil-engineering-beng',
+    'gcse-physics',
+    'nvq-electrical-installation',
+    'btec-construction',
+    'btec-engineering',
+    'mechanical-engineering-apprenticeship',
+    'electrical-engineering-apprenticeship',
+    'aerospace-manufacturing-apprenticeship',
+    'astrophysics-bsc',
+    'physics-bsc',
+    'automotive-engineering-beng',
+    'petroleum-engineering-beng',
+    'nuclear-engineering-beng',
+    'renewable-energy-engineering-beng',
+    'railway-engineering-beng',
+    'mechatronics-beng',
+    'robotics-beng',
+    'alevel-physics',
+    'tlevel-construction-building-services-engineering',
+    'tlevel-construction-on-site-construction',
+    'tlevel-engineering-manufacturing-maintenance-installation-repair',
+    'vocational-construction-labourer',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Design infrastructure and construction projects',
+    'Inspect site plans and monitor progress',
+    'Coordinate with contractors and stakeholders',
+    'Ensure projects meet safety and quality standards'
+    ],
+    whereToStudy: [
+    'Civil engineering degree',
+    'Engineering apprenticeship or HND',
+    'College construction and project management courses',
+    'Professional development in surveying and design'
+    ],
+    progression: [
+    'Graduate Civil Engineer (£26k-£36k)',
+    'Civil Engineer (£36k-£50k)',
+    'Senior Civil Engineer (£50k-£65k)',
+    'Project Manager (£65k+)'
+    ],
+    similarCareers: [
+    32,
+    33,
+    34,
+    35
+    ]
+  },
+  {
+    id: 32,
+    category: 'Engineering & Manufacturing',
+    title: 'Mechanical Engineer',
+    salary: '£26k - £55k',
+    description: 'Create mechanical systems and products for industry, transport and manufacturing.',
+    requirements: [
+    'Engineering degree',
+    'Problem solving',
+    'Technical drawing',
+    'A-Level Maths and Physics'
+    ],
+    matchedSubjects: [
+    'a-level-mathematics',
+    'a-level-physics',
+    'mechanical-engineering-beng',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Design plans, inspect drawings and review technical details',
+    'Coordinate with project teams and clients on requirements',
+    'Monitor progress and solve practical problems on site',
+    'Ensure work follows standards, safety and quality controls'
+    ],
+    whereToStudy: [
+    'Engineering degree or HND',
+    'Technical college or apprenticeships in engineering',
+    'Industry training and professional development',
+    'Design technology and manufacturing courses'
+    ],
+    progression: [
+    'Engineer Apprentice / Junior (Entry (£18k-£30k))',
+    'Engineer (Mid-level (£30k-£50k))',
+    'Senior Engineer (Senior (£45k-£70k))',
+    'Lead Engineer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    31,
+    33,
+    34,
+    35
+    ]
+  },
+  {
+    id: 33,
+    category: 'Engineering & Manufacturing',
+    title: 'Electrical Engineer',
+    salary: '£26k - £55k',
+    description: 'Develop electrical systems and equipment for power, automation and infrastructure.',
+    requirements: [
+    'Engineering degree',
+    'Circuit knowledge',
+    'Analytical thinking',
+    'A-Level Maths and Physics'
+    ],
+    matchedSubjects: [
+    'a-level-mathematics',
+    'a-level-physics',
+    'electrical-engineering-beng',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Design plans, inspect drawings and review technical details',
+    'Coordinate with project teams and clients on requirements',
+    'Monitor progress and solve practical problems on site',
+    'Ensure work follows standards, safety and quality controls'
+    ],
+    whereToStudy: [
+    'Engineering degree or HND',
+    'Technical college or apprenticeships in engineering',
+    'Industry training and professional development',
+    'Design technology and manufacturing courses'
+    ],
+    progression: [
+    'Engineer Apprentice / Junior (Entry (£18k-£30k))',
+    'Engineer (Mid-level (£30k-£50k))',
+    'Senior Engineer (Senior (£45k-£70k))',
+    'Lead Engineer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    31,
+    32,
+    34,
+    35
+    ]
+  },
+  {
+    id: 34,
+    category: 'Engineering & Manufacturing',
+    title: 'Aerospace Engineer',
+    salary: '£28k - £60k',
+    description: 'Design aircraft, spacecraft and propulsion systems for aviation and space industries.',
+    requirements: [
+    'Aerospace degree',
+    'Maths and physics skills',
+    'Attention to detail',
+    'A-Level Maths and Physics'
+    ],
+    matchedSubjects: [
+    'a-level-mathematics',
+    'a-level-physics',
+    'aerospace-engineering-beng',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Design aircraft and spacecraft components',
+    'Calculate loads, performance and materials',
+    'Review technical drawings and prototypes',
+    'Work with teams to solve engineering challenges'
+    ],
+    whereToStudy: [
+    'Aerospace engineering degree',
+    'Engineering apprenticeship or HND',
+    'Technical college manufacturing course',
+    'Industry placements with aerospace firms'
+    ],
+    progression: [
+    'Graduate Aerospace Engineer (£28k-£40k)',
+    'Aerospace Engineer (£40k-£55k)',
+    'Senior Aerospace Engineer (£55k-£70k)',
+    'Lead Aerospace Engineer (£70k+)'
+    ],
+    similarCareers: [
+    31,
+    32,
+    33,
+    35
+    ]
+  },
+  {
+    id: 35,
+    category: 'Engineering & Manufacturing',
+    title: 'Chemical Engineer',
+    salary: '£28k - £60k',
+    description: 'Develop processes for chemicals, energy and materials in industrial settings.',
+    requirements: [
+    'Chemical engineering degree',
+    'Chemistry knowledge',
+    'Analytical skills',
+    'A-Level Chemistry and Maths'
+    ],
+    matchedSubjects: [
+    'a-level-chemistry',
+    'a-level-mathematics',
+    'chemical-engineering-beng',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Design chemical processes and industrial systems',
+    'Carry out experiments and analyse results',
+    'Improve efficiency and safety in production',
+    'Work with technical teams on process development'
+    ],
+    whereToStudy: [
+    'Chemical engineering degree',
+    'Engineering apprenticeship or HND',
+    'Industry placements in manufacturing or energy',
+    'Professional development in process safety'
+    ],
+    progression: [
+    'Graduate Chemical Engineer (£28k-£38k)',
+    'Chemical Engineer (£38k-£50k)',
+    'Senior Chemical Engineer (£50k-£65k)',
+    'Principal Engineer (£65k+)'
+    ],
+    similarCareers: [
+    31,
+    32,
+    33,
+    34
+    ]
+  },
+  {
+    id: 36,
+    category: 'Engineering & Manufacturing',
+    title: 'Architect',
+    salary: '£28k - £60k',
+    description: 'Design buildings and spaces with creativity, structure and sustainability in mind.',
+    requirements: [
+    'Architecture degree',
+    'Design portfolio',
+    'Maths and art skills',
+    'A-Level Art and Maths'
+    ],
+    matchedSubjects: [
+    'a-level-art-design',
+    'a-level-mathematics',
+    'architecture-ba',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Design buildings, spaces and structural plans',
+    'Produce drawings, models and client presentations',
+    'Coordinate with engineers and construction teams',
+    'Ensure design meets safety, planning and budget needs'
+    ],
+    whereToStudy: [
+    'Architecture degree with professional accreditation',
+    'RIBA-validated architectural course',
+    'Design studio placements or internships',
+    'Professional development in planning and sustainability'
+    ],
+    progression: [
+    'Architectural Assistant (£28k-£35k)',
+    'Architect (£35k-£50k)',
+    'Senior Architect (£50k-£70k)',
+    'Design Director (£70k+)'
+    ],
+    similarCareers: [
+    31,
+    34,
+    35,
+    37
+    ]
+  },
+  {
+    id: 37,
+    category: 'Engineering & Manufacturing',
+    title: 'Quantity Surveyor',
+    salary: '£25k - £55k',
+    description: 'Manage costs and contracts for construction projects from planning through delivery.',
+    requirements: [
+    'Degree or RICS qualification',
+    'Maths literacy',
+    'Attention to detail',
+    'GCSE Maths and A-Levels'
+    ],
+    matchedSubjects: [
+    'gcse-maths',
+    'a-level-mathematics',
+    'civil-engineering-beng',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Design plans, inspect drawings and review technical details',
+    'Coordinate with project teams and clients on requirements',
+    'Monitor progress and solve practical problems on site',
+    'Ensure work follows standards, safety and quality controls'
+    ],
+    whereToStudy: [
+    'Engineering degree or HND',
+    'Technical college or apprenticeships in engineering',
+    'Industry training and professional development',
+    'Design technology and manufacturing courses'
+    ],
+    progression: [
+    'Surveyor Apprentice / Junior (Entry (£18k-£30k))',
+    'Surveyor (Mid-level (£30k-£50k))',
+    'Senior Surveyor (Senior (£45k-£70k))',
+    'Lead Surveyor / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    31,
+    32,
+    33,
+    34
+    ]
+  },
+  {
+    id: 38,
+    category: 'Engineering & Manufacturing',
+    title: 'CAD Technician',
+    salary: '£20k - £35k',
+    description: 'Produce technical drawings and models for engineering and manufacturing using CAD software.',
+    requirements: [
+    'College course in CAD',
+    'Design skills',
+    'Attention to detail',
+    'GCSE Maths and Design'
+    ],
+    matchedSubjects: [
+    'gcse-design-technology',
+    'tlevel-engineering-manufacturing-design-development',
+    'vocation',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Produce CAD drawings and technical models',
+    'Update designs based on engineering input',
+    'Check measurements and specifications for accuracy',
+    'Share drawings with teams and support production'
+    ],
+    whereToStudy: [
+    'CAD technician or design technology course',
+    'Engineering college or apprenticeship',
+    'Specialist CAD software training',
+    'Work-based technical design placements'
+    ],
+    progression: [
+    'Junior CAD Technician (£20k-£28k)',
+    'CAD Technician (£28k-£35k)',
+    'Senior CAD Technician (£35k-£45k)',
+    'CAD Team Lead (£45k+)'
+    ],
+    similarCareers: [
+    31,
+    32,
+    33,
+    37
+    ]
+  },
+  {
+    id: 39,
+    category: 'Creative & Media',
+    title: 'Graphic Designer',
+    salary: '£20k - £45k',
+    description: 'Create visual designs for print and digital media using typography, colour and layout.',
+    requirements: [
+    'Portfolio and degree',
+    'Creative software skills',
+    'Attention to detail',
+    'GCSE Art and Design'
+    ],
+    matchedSubjects: [
+    'gcse-art-design',
+    'alevel-art-design',
+    'graphic-design-ba',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Create and refine visual or written content',
+    'Work with teams to meet campaign and project goals',
+    'Use software tools to design, edit and present work',
+    'Gather feedback and improve creative deliverables'
+    ],
+    whereToStudy: [
+    'Creative arts or media degree with practical projects',
+    'Portfolio-based design, film or writing course',
+    'Workshops and short courses for creative skills',
+    'Industry placements or internships in media work'
+    ],
+    progression: [
+    'Designer Apprentice / Junior (Entry (£18k-£30k))',
+    'Designer (Mid-level (£30k-£50k))',
+    'Senior Designer (Senior (£45k-£70k))',
+    'Lead Designer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    40,
+    41,
+    42,
+    43
+    ],
+    supportTags: [
+    'Flexible hours'
+    ]
+  },
+  {
+    id: 40,
+    category: 'Creative & Media',
+    title: 'Video Editor',
+    salary: '£22k - £45k',
+    description: 'Cut and assemble video content to tell stories for film, TV and online channels.',
+    requirements: [
+    'Editing portfolio',
+    'Software proficiency',
+    'Storytelling skills',
+    'GCSE Media'
+    ],
+    matchedSubjects: [
+    'gcse-media-studies',
+    'btec-media',
+    'film-production-ba',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Create and refine visual or written content',
+    'Work with teams to meet campaign and project goals',
+    'Use software tools to design, edit and present work',
+    'Gather feedback and improve creative deliverables'
+    ],
+    whereToStudy: [
+    'Creative arts or media degree with practical projects',
+    'Portfolio-based design, film or writing course',
+    'Workshops and short courses for creative skills',
+    'Industry placements or internships in media work'
+    ],
+    progression: [
+    'Video Editor Apprentice / Junior (Entry (£18k-£30k))',
+    'Video Editor (Mid-level (£30k-£50k))',
+    'Senior Video Editor (Senior (£45k-£70k))',
+    'Lead Video Editor / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    39,
+    41,
+    42,
+    43
+    ]
+  },
+  {
+    id: 41,
+    category: 'Creative & Media',
+    title: 'Photographer',
+    salary: 'Variable',
+    description: 'Capture images for editorial, commercial and creative projects with technical and artistic skill.',
+    requirements: [
+    'Portfolio',
+    'Camera and lighting skills',
+    'Creativity',
+    'GCSE Art'
+    ],
+    matchedSubjects: [
+    'gcse-art-design',
+    'photography-apprenticeship',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Create and refine visual or written content',
+    'Work with teams to meet campaign and project goals',
+    'Use software tools to design, edit and present work',
+    'Gather feedback and improve creative deliverables'
+    ],
+    whereToStudy: [
+    'Creative arts or media degree with practical projects',
+    'Portfolio-based design, film or writing course',
+    'Workshops and short courses for creative skills',
+    'Industry placements or internships in media work'
+    ],
+    progression: [
+    'Photographer Apprentice / Junior (Entry (£18k-£30k))',
+    'Photographer (Mid-level (£30k-£50k))',
+    'Senior Photographer (Senior (£45k-£70k))',
+    'Lead Photographer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    39,
+    40,
+    42,
+    43
+    ]
+  },
+  {
+    id: 42,
+    category: 'Creative & Media',
+    title: 'Animator',
+    salary: '£22k - £45k',
+    description: 'Produce animation and motion graphics for games, film and multimedia projects.',
+    requirements: [
+    'Animation portfolio',
+    'Software skills',
+    'Creative storytelling',
+    'GCSE Art and Computer Science'
+    ],
+    matchedSubjects: [
+    'gcse-art-design',
+    'gcse-computer-science',
+    'animation-ba',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Create storyboards, character motion and animation',
+    'Build scenes using animation tools and software',
+    'Refine timing and visual effects for projects',
+    'Collaborate with designers, directors and teams'
+    ],
+    whereToStudy: [
+    'Animation or digital media degree',
+    'Portfolio-based creative workshops',
+    'Film and animation school programmes',
+    'Industry internships or apprenticeships'
+    ],
+    progression: [
+    'Junior Animator (£20k-£30k)',
+    'Animator (£30k-£40k)',
+    'Senior Animator (£40k-£55k)',
+    'Lead Animator (£55k+)'
+    ],
+    similarCareers: [
+    39,
+    40,
+    41,
+    45
+    ]
+  },
+  {
+    id: 43,
+    category: 'Creative & Media',
+    title: 'Writer/Copywriter',
+    salary: '£20k - £45k',
+    description: 'Write engaging content for marketing, websites and brands across digital and print channels.',
+    requirements: [
+    'Writing portfolio',
+    'Strong English skills',
+    'Creativity',
+    'GCSE English'
+    ],
+    matchedSubjects: [
+    'gcse-english',
+    'english-literature-ba',
+    'creative-writing-ba',
+    'english-language-ba',
+    'alevel-english-lit',
+    'alevel-english-language',
+    'functional-skills-english',
+    'functional-skills-english-entry-1',
+    'functional-skills-english-entry-2',
+    'functional-skills-english-level-1',
+    'functional-skills-english-level-2',
+    'gcse-english-refugee',
+    'foundation-pre-sessional-english',
+    'gcse-maths'
+    ],
+    dayToDay: [
+    'Create and refine visual or written content',
+    'Work with teams to meet campaign and project goals',
+    'Use software tools to design, edit and present work',
+    'Gather feedback and improve creative deliverables'
+    ],
+    whereToStudy: [
+    'Creative arts or media degree with practical projects',
+    'Portfolio-based design, film or writing course',
+    'Workshops and short courses for creative skills',
+    'Industry placements or internships in media work'
+    ],
+    progression: [
+    'WriterCopywriter Apprentice / Junior (Entry (£18k-£30k))',
+    'WriterCopywriter (Mid-level (£30k-£50k))',
+    'Senior WriterCopywriter (Senior (£45k-£70k))',
+    'Lead WriterCopywriter / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    39,
+    40,
+    41,
+    42
+    ]
+  },
+  {
+    id: 44,
+    category: 'Creative & Media',
+    title: 'Social Media Manager',
+    salary: '£22k - £45k',
+    description: 'Plan social campaigns, manage content and grow audiences across digital channels.',
+    requirements: [
+    'Experience',
+    'Digital marketing knowledge',
+    'Communication skills',
+    'GCSE English and Media'
+    ],
+    matchedSubjects: [
+    'gcse-media-studies',
+    'marketing-ba',
+    'btec-media',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Create and refine visual or written content',
+    'Work with teams to meet campaign and project goals',
+    'Use software tools to design, edit and present work',
+    'Gather feedback and improve creative deliverables'
+    ],
+    whereToStudy: [
+    'Creative arts or media degree with practical projects',
+    'Portfolio-based design, film or writing course',
+    'Workshops and short courses for creative skills',
+    'Industry placements or internships in media work'
+    ],
+    progression: [
+    'Manager Apprentice / Junior (Entry (£18k-£30k))',
+    'Manager (Mid-level (£30k-£50k))',
+    'Senior Manager (Senior (£45k-£70k))',
+    'Lead Manager / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    39,
+    40,
+    41,
+    42
+    ]
+  },
+  {
+    id: 45,
+    category: 'Creative & Media',
+    title: 'Film/TV Producer',
+    salary: '£25k - £60k',
+    description: 'Manage production teams, budgets and schedules to bring film or television projects to life.',
+    requirements: [
+    'Industry experience',
+    'Project coordination',
+    'Networking skills',
+    'GCSE Media'
+    ],
+    matchedSubjects: [
+    'gcse-media-studies',
+    'film-production-ba',
+    'music-production-ba',
+    'gcse-music',
+    'gcse-drama',
+    'btec-performing-arts',
+    'btec-music',
+    'btec-art-design',
+    'artificial-intelligence-bsc',
+    'operating-department-practice-bsc',
+    'interior-design-ba',
+    'product-design-ba',
+    'fashion-design-ba',
+    'photography-ba',
+    'theatre-performance-ba',
+    'dance-ba',
+    'game-design-ba',
+    'culinary-arts-ba',
+    'alevel-photography',
+    'alevel-music-technology',
+    'alevel-drama-theatre',
+    'alevel-film-studies',
+    'alevel-graphic-communication',
+    'tlevel-construction-design-surveying-planning',
+    'tlevel-craft-design',
+    'tlevel-media-broadcast-production',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Create and refine visual or written content',
+    'Work with teams to meet campaign and project goals',
+    'Use software tools to design, edit and present work',
+    'Gather feedback and improve creative deliverables'
+    ],
+    whereToStudy: [
+    'Creative arts or media degree with practical projects',
+    'Portfolio-based design, film or writing course',
+    'Workshops and short courses for creative skills',
+    'Industry placements or internships in media work'
+    ],
+    progression: [
+    'Producer Apprentice / Junior (Entry (£18k-£30k))',
+    'Producer (Mid-level (£30k-£50k))',
+    'Senior Producer (Senior (£45k-£70k))',
+    'Lead Producer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    39,
+    40,
+    41,
+    42
+    ]
+  },
+  {
+    id: 46,
+    category: 'Education & Training',
+    title: 'Primary School Teacher',
+    salary: '£28k - £45k',
+    description: 'Teach young children key skills, literacy and numeracy in primary school settings.',
+    requirements: [
+    'Degree and PGCE',
+    'Classroom management',
+    'Lesson planning',
+    'GCSE English and Maths'
+    ],
+    matchedSubjects: [
+    'gcse-english',
+    'gcse-maths',
+    'primary-education-ba',
+    'personal-training'
+    ],
+    dayToDay: [
+    'Prepare learning activities and teaching materials',
+    'Support learners through lessons and one-to-one help',
+    'Assess progress and give helpful feedback',
+    'Coordinate with colleagues and support staff'
+    ],
+    whereToStudy: [
+    'Education degree with qualified teacher status',
+    'School-based training and classroom experience',
+    'Professional development in teaching and learning',
+    'Apprenticeship or teaching assistant pathway'
+    ],
+    progression: [
+    'Teacher Apprentice / Junior (Entry (£18k-£30k))',
+    'Teacher (Mid-level (£30k-£50k))',
+    'Senior Teacher (Senior (£45k-£70k))',
+    'Lead Teacher / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    47,
+    48,
+    49,
+    1
+    ]
+  },
+  {
+    id: 47,
+    category: 'Education & Training',
+    title: 'Secondary School Teacher',
+    salary: '£28k - £45k',
+    description: 'Teach subject lessons to teenagers and support learning in secondary school classrooms.',
+    requirements: [
+    'Degree in subject and PGCE',
+    'Subject knowledge',
+    'Classroom skills',
+    'A-Level in subject'
+    ],
+    matchedSubjects: [
+    'a-level-history',
+    'secondary-education-ba',
+    'education-studies-ba',
+    'gcse-history',
+    'gcse-geography',
+    'gcse-religious-studies',
+    'gcse-spanish',
+    'gcse-french',
+    'gcse-german',
+    'gcse-mandarin',
+    'nvq-early-years-educator',
+    'special-educational-needs-ba',
+    'early-childhood-education-ba',
+    'tesol-tefl-ba',
+    'sociology-ba',
+    'politics-ba',
+    'anthropology-ba',
+    'archaeology-ba',
+    'history-ba',
+    'philosophy-ba',
+    'classical-studies-ba',
+    'art-history-ba',
+    'linguistics-ba',
+    'modern-languages-ba',
+    'translation-interpreting-ba',
+    'alevel-history',
+    'alevel-geography',
+    'alevel-politics',
+    'alevel-sociology',
+    'alevel-modern-languages',
+    'alevel-philosophy',
+    'alevel-religious-studies',
+    'alevel-classical-civilisation',
+    'tlevel-education-childcare',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Prepare learning activities and teaching materials',
+    'Support learners through lessons and one-to-one help',
+    'Assess progress and give helpful feedback',
+    'Coordinate with colleagues and support staff'
+    ],
+    whereToStudy: [
+    'Education degree with qualified teacher status',
+    'School-based training and classroom experience',
+    'Professional development in teaching and learning',
+    'Apprenticeship or teaching assistant pathway'
+    ],
+    progression: [
+    'Teacher Apprentice / Junior (Entry (£18k-£30k))',
+    'Teacher (Mid-level (£30k-£50k))',
+    'Senior Teacher (Senior (£45k-£70k))',
+    'Lead Teacher / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    46,
+    48,
+    49,
+    1
+    ]
+  },
+  {
+    id: 48,
+    category: 'Education & Training',
+    title: 'Teaching Assistant',
+    salary: '£18k - £25k',
+    description: 'Support teachers and help pupils learn through classroom assistance and one-to-one support.',
+    requirements: [
+    'GCSEs',
+    'Level 2/3 qualification',
+    'Patience',
+    'GCSE English and Maths'
+    ],
+    matchedSubjects: [
+    'gcse-english',
+    'gcse-maths',
+    'education-studies-ba'
+    ],
+    dayToDay: [
+    'Prepare learning activities and teaching materials',
+    'Support learners through lessons and one-to-one help',
+    'Assess progress and give helpful feedback',
+    'Coordinate with colleagues and support staff'
+    ],
+    whereToStudy: [
+    'Education degree with qualified teacher status',
+    'School-based training and classroom experience',
+    'Professional development in teaching and learning',
+    'Apprenticeship or teaching assistant pathway'
+    ],
+    progression: [
+    'Assistant Apprentice / Junior (Entry (£18k-£30k))',
+    'Assistant (Mid-level (£30k-£50k))',
+    'Senior Assistant (Senior (£45k-£70k))',
+    'Lead Assistant / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    46,
+    47,
+    49,
+    1
+    ],
+    supportTags: [
+    'Flexible hours'
+    ]
+  },
+  {
+    id: 49,
+    category: 'Education & Training',
+    title: 'University Lecturer',
+    salary: '£35k - £65k',
+    description: 'Teach and research at university level while shaping academic programmes and supporting students.',
+    requirements: [
+    'PhD and research experience',
+    'Teaching ability',
+    'Academic writing',
+    'Degree plus postgraduate study'
+    ],
+    matchedSubjects: [
+    'university-engineering',
+    'education-studies-ba',
+    'psychology-bsc',
+    'entrepreneurship-ba',
+    'criminology-ba',
+    'criminal-justice-ba',
+    'speech-language-therapy-bsc',
+    'psychotherapy-bsc',
+    'mathematics-bsc',
+    'geology-bsc',
+    'meteorology-bsc',
+    'urban-planning-ba',
+    'journalism-ba',
+    'youth-work-ba',
+    'international-relations-ba',
+    'development-studies-ba',
+    'gender-studies-ba',
+    'medieval-studies-ba',
+    'policing-criminal-investigation-bsc',
+    'fire-rescue-bsc',
+    'emergency-planning-bsc',
+    'public-administration-ba',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Prepare learning activities and teaching materials',
+    'Support learners through lessons and one-to-one help',
+    'Assess progress and give helpful feedback',
+    'Coordinate with colleagues and support staff'
+    ],
+    whereToStudy: [
+    'Education degree with qualified teacher status',
+    'School-based training and classroom experience',
+    'Professional development in teaching and learning',
+    'Apprenticeship or teaching assistant pathway'
+    ],
+    progression: [
+    'Lecturer Apprentice / Junior (Entry (£18k-£30k))',
+    'Lecturer (Mid-level (£30k-£50k))',
+    'Senior Lecturer (Senior (£45k-£70k))',
+    'Lead Lecturer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    46,
+    47,
+    48,
+    1
+    ]
+  },
+  {
+    id: 50,
+    category: 'Education & Training',
+    title: 'Career Advisor',
+    salary: '£22k - £35k',
+    description: 'Guide students and adults through career planning, job searches and training decisions.',
+    requirements: [
+    'Degree or QCF Level 6',
+    'Counselling skills',
+    'Knowledge of pathways',
+    'GCSE English'
+    ],
+    matchedSubjects: [
+    'gcse-english',
+    'counselling-ba',
+    'business-management-ba',
+    'esol-level-1',
+    'esol-level-2',
+    'ielts-preparation',
+    'conversation-pronunciation',
+    'functional-skills-ict',
+    'vocational-warehouse-logistics',
+    'vocational-driving',
+    'foundation-access-he-diploma',
+    'foundation-international-year',
+    'foundation-study-skills',
+    'gcse-maths'
+    ],
+    dayToDay: [
+    'Guide people through career and education decisions',
+    'Research training and job pathways for clients',
+    'Prepare development plans and interview prep',
+    'Meet individuals and support their next steps'
+    ],
+    whereToStudy: [
+    'Career guidance or education degree',
+    'Counselling and advice qualifications',
+    'Apprenticeship in welfare or career services',
+    'Professional training in employability support'
+    ],
+    progression: [
+    'Career Advisor (£22k-£30k)',
+    'Senior Career Advisor (£30k-£40k)',
+    'Careers Manager (£40k-£50k)',
+    'Head of Careers (£50k+)'
+    ],
+    similarCareers: [
+    11,
+    16,
+    49,
+    48
+    ]
+  },
+  {
+    id: 51,
+    category: 'Technology & Digital',
+    title: 'Software Developer',
+    salary: '£25k-£70k',
+    description: 'Build applications and systems using code.',
+    requirements: [
+    'Degree or Bootcamp',
+    'GCSE Maths',
+    'GCSE Computer Science'
+    ],
+    matchedSubjects: [
+    'gcse-maths',
+    'gcse-computer-science',
+    'alevel-compsci',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Developer Apprentice / Junior (Entry (£18k-£30k))',
+    'Developer (Mid-level (£30k-£50k))',
+    'Senior Developer (Senior (£45k-£70k))',
+    'Lead Developer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 52,
+    category: 'Technology & Digital',
+    title: 'Data Analyst',
+    salary: '£28k-£55k',
+    description: 'Analyse data to find insights and support decisions.',
+    requirements: [
+    'Degree or Bootcamp',
+    'GCSE Maths',
+    'A-Level Maths'
+    ],
+    matchedSubjects: [
+    'gcse-maths',
+    'alevel-mathematics',
+    'alevel-economics',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Collect and analyse data from multiple sources',
+    'Build reports and dashboards for teams',
+    'Interpret trends and share insights',
+    'Work with stakeholders to improve decisions'
+    ],
+    whereToStudy: [
+    'Data analysis or statistics degree',
+    'Excel, SQL and analytics course',
+    'Bootcamp in data and reporting tools',
+    'Apprenticeship in data analytics'
+    ],
+    progression: [
+    'Junior Data Analyst (£28k-£35k)',
+    'Data Analyst (£35k-£50k)',
+    'Senior Data Analyst (£50k-£65k)',
+    'Analytics Lead (£65k+)'
+    ],
+    similarCareers: [
+    2,
+    8,
+    52,
+    63
+    ]
+  },
+  {
+    id: 53,
+    category: 'Technology & Digital',
+    title: 'Cyber Security Analyst',
+    salary: '£30k-£65k',
+    description: 'Protect systems and networks from threats.',
+    requirements: [
+    'Degree or Certs',
+    'GCSE Computer Science',
+    'A-Level Computer Science'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'alevel-compsci',
+    'btec-computing',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Monitor security alerts and investigate incidents',
+    'Test systems for vulnerabilities and patch issues',
+    'Analyse logs and report on risk',
+    'Work with teams to improve security controls'
+    ],
+    whereToStudy: [
+    'Cyber security degree',
+    'Security certification such as CompTIA or CISSP',
+    'Technical cyber security training',
+    'Security apprenticeship or industry experience'
+    ],
+    progression: [
+    'Junior Cyber Security Analyst (£30k-£40k)',
+    'Cyber Security Analyst (£40k-£55k)',
+    'Senior Cyber Security Analyst (£55k-£70k)',
+    'Security Consultant (£70k+)'
+    ],
+    similarCareers: [
+    3,
+    8,
+    63,
+    66
+    ]
+  },
+  {
+    id: 54,
+    category: 'Technology & Digital',
+    title: 'UX/UI Designer',
+    salary: '£25k-£60k',
+    description: 'Design user-friendly digital experiences.',
+    requirements: [
+    'Portfolio + Degree',
+    'GCSE Art',
+    'GCSE Computer Science'
+    ],
+    matchedSubjects: [
+    'gcse-art-design',
+    'gcse-computer-science',
+    'alevel-media',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Create and refine visual or written content',
+    'Work with teams to meet campaign and project goals',
+    'Use software tools to design, edit and present work',
+    'Gather feedback and improve creative deliverables'
+    ],
+    whereToStudy: [
+    'Creative arts or media degree with practical projects',
+    'Portfolio-based design, film or writing course',
+    'Workshops and short courses for creative skills',
+    'Industry placements or internships in media work'
+    ],
+    progression: [
+    'Designer Apprentice / Junior (Entry (£18k-£30k))',
+    'Designer (Mid-level (£30k-£50k))',
+    'Senior Designer (Senior (£45k-£70k))',
+    'Lead Designer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 55,
+    category: 'Technology & Digital',
+    title: 'IT Support Technician',
+    salary: '£20k-£40k',
+    description: 'Fix technical issues and support users.',
+    requirements: [
+    'CompTIA A+',
+    'GCSE Computer Science',
+    'BTEC IT'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'btec-it',
+    'tlevel-digital-support-services',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Work on it support technician tasks throughout the day',
+    'Collaborate with colleagues and share ideas',
+    'Review work, solve problems and improve outcomes',
+    'Learn new techniques and stay up to date with trends'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Technician Apprentice / Junior (Entry (£18k-£30k))',
+    'Technician (Mid-level (£30k-£50k))',
+    'Senior Technician (Senior (£45k-£70k))',
+    'Lead Technician / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 56,
+    category: 'Technology & Digital',
+    title: 'Network Engineer',
+    salary: '£26k-£55k',
+    description: 'Build and maintain computer networks.',
+    requirements: [
+    'CCNA or Degree',
+    'GCSE Computer Science',
+    'BTEC Computing'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'btec-computing',
+    'tlevel-digital-support-services',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Work on network engineer tasks throughout the day',
+    'Collaborate with colleagues and share ideas',
+    'Review work, solve problems and improve outcomes',
+    'Learn new techniques and stay up to date with trends'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Engineer Apprentice / Junior (Entry (£18k-£30k))',
+    'Engineer (Mid-level (£30k-£50k))',
+    'Senior Engineer (Senior (£45k-£70k))',
+    'Lead Engineer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 57,
+    category: 'Technology & Digital',
+    title: 'Cloud Architect',
+    salary: '£50k-£90k',
+    description: 'Design cloud infrastructure for organisations.',
+    requirements: [
+    'AWS/Azure Certs + Experience',
+    'Degree in Computer Science',
+    'BTEC Computing'
+    ],
+    matchedSubjects: [
+    'alevel-compsci',
+    'btec-computing',
+    'university-engineering',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Design cloud systems and infrastructure',
+    'Guide cloud deployments and migrations',
+    'Set architecture standards for scalability',
+    'Review performance and optimise costs'
+    ],
+    whereToStudy: [
+    'Cloud computing degree or IT degree',
+    'AWS/Azure certification training',
+    'Cloud architecture bootcamps',
+    'Apprenticeship in cloud or infrastructure support'
+    ],
+    progression: [
+    'Junior Cloud Architect (£45k-£55k)',
+    'Cloud Architect (£55k-£70k)',
+    'Senior Cloud Architect (£70k-£85k)',
+    'Principal Cloud Architect (£85k+)'
+    ],
+    similarCareers: [
+    7,
+    8,
+    66,
+    57
+    ]
+  },
+  {
+    id: 58,
+    category: 'Technology & Digital',
+    title: 'AI/Machine Learning Engineer',
+    salary: '£35k-£80k',
+    description: 'Build intelligent systems and algorithms.',
+    requirements: [
+    'Degree + Python',
+    'A-Level Maths',
+    'A-Level Computer Science'
+    ],
+    matchedSubjects: [
+    'alevel-mathematics',
+    'alevel-compsci',
+    'gcse-computer-science',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Build and train machine learning models',
+    'Clean and prepare large datasets',
+    'Test model accuracy and performance',
+    'Deploy AI solutions into production',
+    'Research new algorithms and techniques'
+    ],
+    whereToStudy: [
+    'University degree in computer science or AI',
+    'Masters in machine learning or data science',
+    'Online specialisation (Coursera, DeepLearning.AI)',
+    'AI apprenticeship programmes'
+    ],
+    progression: [
+    'Junior ML Engineer (£35k-£45k)',
+    'ML Engineer (£45k-£60k)',
+    'Senior ML Engineer (£60k-£80k)',
+    'Principal AI Scientist (£80k+)'
+    ],
+    similarCareers: [
+    3,
+    2,
+    7,
+    9
+    ]
+  },
+  {
+    id: 59,
+    category: 'Technology & Digital',
+    title: 'Web Developer',
+    salary: '£22k-£50k',
+    description: 'Create websites and web applications.',
+    requirements: [
+    'Portfolio + Bootcamp',
+    'GCSE Computer Science',
+    'BTEC Computing'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'btec-computing',
+    'tlevel-digital-production-design-development',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Developer Apprentice / Junior (Entry (£18k-£30k))',
+    'Developer (Mid-level (£30k-£50k))',
+    'Senior Developer (Senior (£45k-£70k))',
+    'Lead Developer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 60,
+    category: 'Technology & Digital',
+    title: 'Game Developer',
+    salary: '£24k-£60k',
+    description: 'Design and build video games.',
+    requirements: [
+    'Degree + Portfolio',
+    'GCSE Computer Science',
+    'GCSE Art'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'gcse-art-design',
+    'alevel-compsci',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Developer Apprentice / Junior (Entry (£18k-£30k))',
+    'Developer (Mid-level (£30k-£50k))',
+    'Senior Developer (Senior (£45k-£70k))',
+    'Lead Developer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 61,
+    category: 'Technology & Digital',
+    title: 'DevOps Engineer',
+    salary: '£35k-£75k',
+    description: 'Bridge development and operations teams.',
+    requirements: [
+    'Linux + Cloud + Scripting',
+    'Degree or Experience',
+    'BTEC Computing'
+    ],
+    matchedSubjects: [
+    'btec-computing',
+    'alevel-compsci',
+    'gcse-computer-science',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Engineer Apprentice / Junior (Entry (£18k-£30k))',
+    'Engineer (Mid-level (£30k-£50k))',
+    'Senior Engineer (Senior (£45k-£70k))',
+    'Lead Engineer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 62,
+    category: 'Technology & Digital',
+    title: 'Database Administrator',
+    salary: '£28k-£55k',
+    description: 'Manage and optimise data storage systems.',
+    requirements: [
+    'SQL + Certs',
+    'GCSE Computer Science',
+    'BTEC IT'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'btec-it',
+    'alevel-mathematics',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Manage and optimise database systems',
+    'Monitor performance and run backups',
+    'Support developers with data access',
+    'Resolve database issues and maintain security'
+    ],
+    whereToStudy: [
+    'IT or database management degree',
+    'SQL and database administration course',
+    'Certification in database platforms',
+    'Apprenticeship in IT infrastructure'
+    ],
+    progression: [
+    'Junior DBA (£28k-£35k)',
+    'Database Administrator (£35k-£50k)',
+    'Senior DBA (£50k-£65k)',
+    'Lead DBA (£65k+)'
+    ],
+    similarCareers: [
+    1,
+    9,
+    61,
+    62
+    ]
+  },
+  {
+    id: 63,
+    category: 'Technology & Digital',
+    title: 'Blockchain Developer',
+    salary: '£35k-£75k',
+    description: 'Build decentralised applications and smart contracts.',
+    requirements: [
+    'Degree or Self-Taught',
+    'A-Level Computer Science',
+    'Degree Computer Science'
+    ],
+    matchedSubjects: [
+    'alevel-compsci',
+    'gcse-computer-science',
+    'university-engineering',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Build and test smart contracts and blockchain apps',
+    'Secure distributed ledger systems and protocols',
+    'Debug crypto transactions and blockchain logic',
+    'Research new decentralised technologies and tools'
+    ],
+    whereToStudy: [
+    'Computer science or software engineering degree',
+    'Blockchain development bootcamp',
+    'Online blockchain and crypto courses',
+    'Developer apprenticeship in distributed systems'
+    ],
+    progression: [
+    'Junior Blockchain Developer (£35k-£45k)',
+    'Blockchain Developer (£45k-£60k)',
+    'Senior Blockchain Developer (£60k-£75k)',
+    'Blockchain Architect (£75k+)'
+    ],
+    similarCareers: [
+    8,
+    3,
+    63,
+    66
+    ]
+  },
+  {
+    id: 64,
+    category: 'Technology & Digital',
+    title: 'Ethical Hacker',
+    salary: '£30k-£65k',
+    description: 'Test systems for security vulnerabilities.',
+    requirements: [
+    'Certs + Experience',
+    'GCSE Computer Science',
+    'BTEC Computing'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'btec-computing',
+    'tlevel-digital-support-services',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Investigate data, systems and security events',
+    'Prepare reports and recommend improvements',
+    'Work with stakeholders to solve technical problems',
+    'Test systems, monitor performance and manage risk'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Ethical Hacker Apprentice / Junior (Entry (£18k-£30k))',
+    'Ethical Hacker (Mid-level (£30k-£50k))',
+    'Senior Ethical Hacker (Senior (£45k-£70k))',
+    'Lead Ethical Hacker / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 65,
+    category: 'Technology & Digital',
+    title: 'Digital Forensics Investigator',
+    salary: '£28k-£55k',
+    description: 'Recover and investigate digital evidence.',
+    requirements: [
+    'Degree + Certs',
+    'A-Level Computer Science',
+    'Degree Cyber Security'
+    ],
+    matchedSubjects: [
+    'alevel-compsci',
+    'gcse-computer-science',
+    'tlevel-digital-support-services',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Investigate data, systems and security events',
+    'Prepare reports and recommend improvements',
+    'Work with stakeholders to solve technical problems',
+    'Test systems, monitor performance and manage risk'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Digital Forensics Investigator Apprentice / Junior (Entry (£18k-£30k))',
+    'Digital Forensics Investigator (Mid-level (£30k-£50k))',
+    'Senior Digital Forensics Investigator (Senior (£45k-£70k))',
+    'Lead Digital Forensics Investigator / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 66,
+    category: 'Technology & Digital',
+    title: 'Cloud Security Engineer',
+    salary: '£40k-£80k',
+    description: 'Secure cloud environments and data.',
+    requirements: [
+    'Cloud Certs + Security',
+    'Degree or Experience',
+    'BTEC Computing'
+    ],
+    matchedSubjects: [
+    'btec-computing',
+    'alevel-compsci',
+    'gcse-computer-science',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Secure cloud platforms and monitor threats',
+    'Configure protections and access controls',
+    'Investigate incidents and patch vulnerabilities',
+    'Support secure deployments and governance'
+    ],
+    whereToStudy: [
+    'Cyber security or computing degree',
+    'Cloud security certification',
+    'Specialist security training',
+    'Security apprenticeship or industry experience'
+    ],
+    progression: [
+    'Junior Cloud Security Engineer (£40k-£50k)',
+    'Cloud Security Engineer (£50k-£65k)',
+    'Senior Cloud Security Engineer (£65k-£80k)',
+    'Lead Security Engineer (£80k+)'
+    ],
+    similarCareers: [
+    3,
+    7,
+    8,
+    66
+    ]
+  },
+  {
+    id: 67,
+    category: 'Technology & Digital',
+    title: 'Site Reliability Engineer',
+    salary: '£40k-£80k',
+    description: 'Ensure systems run reliably at scale.',
+    requirements: [
+    'Coding + Systems',
+    'Degree Computer Science',
+    'BTEC Computing'
+    ],
+    matchedSubjects: [
+    'alevel-compsci',
+    'btec-computing',
+    'gcse-computer-science',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing or IT',
+    'Coding bootcamp or specialist training course',
+    'Professional certification such as CompTIA or AWS',
+    'Apprenticeship in digital or software development'
+    ],
+    progression: [
+    'Engineer Apprentice / Junior (Entry (£18k-£30k))',
+    'Engineer (Mid-level (£30k-£50k))',
+    'Senior Engineer (Senior (£45k-£70k))',
+    'Lead Engineer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 68,
+    category: 'Technology & Digital',
+    title: 'Mobile App Developer',
+    salary: '£25k-£60k',
+    description: 'Build apps for iOS and Android.',
+    requirements: [
+    'Degree or Bootcamp',
+    'GCSE Computer Science',
+    'BTEC Computing'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'btec-computing',
+    'tlevel-digital-production-design-development',
+    'bricklaying-apprenticeship',
+    'hr-apprenticeship',
+    'chef-apprenticeship',
+    'police-apprenticeship',
+    'firefighter-apprenticeship',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing or IT',
+    'Coding bootcamp or specialist training course',
+    'Professional certification such as CompTIA or AWS',
+    'Apprenticeship in digital or software development'
+    ],
+    progression: [
+    'Developer Apprentice / Junior (Entry (£18k-£30k))',
+    'Developer (Mid-level (£30k-£50k))',
+    'Senior Developer (Senior (£45k-£70k))',
+    'Lead Developer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 69,
+    category: 'Technology & Digital',
+    title: 'Systems Analyst',
+    salary: '£28k-£55k',
+    description: 'Analyse business needs and design tech solutions.',
+    requirements: [
+    'Degree or Experience',
+    'GCSE Computer Science',
+    'BTEC IT'
+    ],
+    matchedSubjects: [
+    'gcse-computer-science',
+    'btec-it',
+    'gcse-business-studies',
+    'gcse-maths',
+    'gcse-english',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Work on systems analyst tasks throughout the day',
+    'Collaborate with colleagues and share ideas',
+    'Review work, solve problems and improve outcomes',
+    'Learn new techniques and stay up to date with trends'
+    ],
+    whereToStudy: [
+    'University degree in computing or IT',
+    'Coding bootcamp or specialist training course',
+    'Professional certification such as CompTIA or AWS',
+    'Apprenticeship in digital or software development'
+    ],
+    progression: [
+    'Analyst Apprentice / Junior (Entry (£18k-£30k))',
+    'Analyst (Mid-level (£30k-£50k))',
+    'Senior Analyst (Senior (£45k-£70k))',
+    'Lead Analyst / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 70,
+    category: 'Technology & Digital',
+    title: 'Technical Writer',
+    salary: '£22k-£45k',
+    description: 'Create documentation for technical products.',
+    requirements: [
+    'Writing + Tech Skills',
+    'GCSE English',
+    'GCSE Computer Science'
+    ],
+    matchedSubjects: [
+    'gcse-english',
+    'gcse-computer-science',
+    'btec-it',
+    'gcse-maths',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Write, test and improve software or technical solutions',
+    'Fix issues and update systems with user feedback',
+    'Collaborate with colleagues, designers and managers',
+    'Research new tools, languages and best practices'
+    ],
+    whereToStudy: [
+    'University degree in computing, data or cyber security',
+    'Bootcamp or vocational course in digital skills',
+    'Professional certification in cloud, security or development',
+    'Apprenticeship in IT, computing or digital services'
+    ],
+    progression: [
+    'Writer Apprentice / Junior (Entry (£18k-£30k))',
+    'Writer (Mid-level (£30k-£50k))',
+    'Senior Writer (Senior (£45k-£70k))',
+    'Lead Writer / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    1,
+    2,
+    3,
+    4
+    ]
+  },
+  {
+    id: 71,
+    category: 'Business & Finance',
+    title: 'Data Entry Clerk',
+    salary: '£18k - £28k',
+    description: 'Enter and organise information in systems with a focus on accuracy and structure.',
+    requirements: [
+    'GCSE English',
+    'GCSE Maths',
+    'Attention to detail',
+    'Keyboard skills'
+    ],
+    matchedSubjects: [
+    'gcse-english',
+    'gcse-maths',
+    'btec-business',
+    'nvq-carpentry',
+    'esol-entry-1',
+    'esol-entry-2',
+    'esol-entry-3'
+    ],
+    dayToDay: [
+    'Enter information accurately into systems',
+    'Check records for errors and consistency',
+    'Organise files and maintain data quality',
+    'Support administrative and office tasks'
+    ],
+    whereToStudy: [
+    'Business administration or office skills course',
+    'Data entry training and IT basics',
+    'Apprenticeship in administration',
+    'Clerical skills and typing development'
+    ],
+    progression: [
+    'Junior Data Entry Clerk (£18k-£22k)',
+    'Data Entry Clerk (£22k-£28k)',
+    'Senior Data Entry Clerk (£28k-£35k)',
+    'Office Administrator (£35k+)'
+    ],
+    similarCareers: [
+    12,
+    71,
+    74,
+    75
+    ],
+    supportTags: [
+    'Accessible'
+    ]
+  },
+  {
+    id: 72,
+    category: 'Business & Finance',
+    title: 'Virtual Assistant',
+    salary: '£18k - £30k',
+    description: 'Work remotely supporting business tasks, scheduling and communications.',
+    requirements: [
+    'Organisation skills',
+    'Good written English',
+    'IT confidence',
+    'Customer service awareness'
+    ],
+    matchedSubjects: [
+    'gcse-english',
+    'gcse-maths',
+    'btec-business',
+    'virtual-reality-development-bsc'
+    ],
+    dayToDay: [
+    'Analyse information and prepare clear reports',
+    'Communicate with clients, colleagues and stakeholders',
+    'Make decisions that support business goals',
+    'Organise work and manage deadlines for projects'
+    ],
+    whereToStudy: [
+    'Education degree with qualified teacher status',
+    'School-based training and classroom experience',
+    'Professional development in teaching and learning',
+    'Apprenticeship or teaching assistant pathway'
+    ],
+    progression: [
+    'Assistant Apprentice / Junior (Entry (£18k-£30k))',
+    'Assistant (Mid-level (£30k-£50k))',
+    'Senior Assistant (Senior (£45k-£70k))',
+    'Lead Assistant / Specialist (Lead / Specialist (£60k+))'
+    ],
+    similarCareers: [
+    11,
+    12,
+    13,
+    14
+    ],
+    supportTags: [
+    'Work from home'
+    ]
+  },
+  {
+    id: 73,
+    category: 'Healthcare & Medicine',
+    title: 'Care Assistant',
+    salary: '£18k - £25k',
+    description: 'Provide personal care and support to people in healthcare settings.',
+    requirements: [
+    'Compassion',
+    'Communication skills',
+    'GCSE English',
+    'Health and social care understanding'
+    ],
+    matchedSubjects: [
+    'btec-health-social-care',
+    'gcse-english',
+    'gcse-maths',
+    'gcse-science-combined'
+    ],
+    dayToDay: [
+    'Support daily living and personal care tasks',
+    'Help patients with meals, mobility and hygiene',
+    'Observe wellbeing and report changes to staff',
+    'Offer companionship and emotional support'
+    ],
+    whereToStudy: [
+    'Health and social care course',
+    'Care apprenticeship programme',
+    'Workplace training in healthcare settings',
+    'Adult learning or GCSE care qualifications'
+    ],
+    progression: [
+    'Care Assistant (£18k-£22k)',
+    'Senior Care Assistant (£22k-£28k)',
+    'Team Leader (£28k-£35k)',
+    'Care Coordinator (£35k+)'
+    ],
+    similarCareers: [
+    21,
+    22,
+    24,
+    26
+    ],
+    supportTags: [
+    'Disability Confident employer'
+    ]
+  },
+  {
+    id: 74,
+    category: 'Business & Finance',
+    title: 'Bookkeeper',
+    salary: '£20k - £35k',
+    description: 'Manage financial records, invoices and accounts for businesses.',
+    requirements: [
+    'Numeracy',
+    'Attention to detail',
+    'GCSE Maths',
+    'Business basics'
+    ],
+    matchedSubjects: [
+    'gcse-maths',
+    'btec-business',
+    'accounting-bsc',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Record financial transactions and process invoices',
+    'Reconcile bank statements and account ledgers',
+    'Prepare basic financial reports for businesses',
+    'Support payroll, VAT and compliance processes'
+    ],
+    whereToStudy: [
+    'Bookkeeping and accounting course',
+    'Business administration apprenticeship',
+    'Professional AAT or bookkeeping training',
+    'College finance and business pathways'
+    ],
+    progression: [
+    'Junior Bookkeeper (£18k-£25k)',
+    'Bookkeeper (£25k-£35k)',
+    'Senior Bookkeeper (£35k-£45k)',
+    'Finance Administrator (£45k+)'
+    ],
+    similarCareers: [
+    12,
+    71,
+    74,
+    75
+    ],
+    supportTags: [
+    'Flexible hours'
+    ]
+  },
+  {
+    id: 75,
+    category: 'Business & Finance',
+    title: 'Customer Service Advisor',
+    salary: '£18k - £28k',
+    description: 'Support customers through enquiries and service requests, with remote options available.',
+    requirements: [
+    'Communication skills',
+    'Customer focus',
+    'GCSE English',
+    'Problem solving'
+    ],
+    matchedSubjects: [
+    'customer-service-apprenticeship',
+    'gcse-english',
+    'gcse-business-studies',
+    'btec-public-services',
+    'gcse-maths'
+    ],
+    dayToDay: [
+    'Answer customer enquiries and resolve issues',
+    'Record interactions and update case notes',
+    'Work with teams to improve customer service',
+    'Provide friendly support across channels'
+    ],
+    whereToStudy: [
+    'Customer service apprenticeship',
+    'Business administration course',
+    'Communication and service training',
+    'Retail or office skills development'
+    ],
+    progression: [
+    'Customer Service Advisor (£18k-£25k)',
+    'Senior Customer Service Advisor (£25k-£32k)',
+    'Team Leader (£32k-£40k)',
+    'Customer Service Manager (£40k+)'
+    ],
+    similarCareers: [
+    71,
+    75,
+    16,
+    48
+    ],
+    supportTags: [
+    'Remote friendly'
+    ]
+  },
+  {
+    id: 76,
+    category: 'Creative & Media',
+    title: 'Content Writer',
+    salary: '£20k - £40k',
+    description: 'Write articles, social copy and website content for online audiences.',
+    requirements: [
+    'Strong writing',
+    'GCSE English',
+    'Creativity',
+    'Digital skills'
+    ],
+    matchedSubjects: [
+    'gcse-english',
+    'gcse-media-studies',
+    'creative-writing-ba',
+    'gcse-maths'
+    ],
+    dayToDay: [
+    'Write articles, blogs and social content',
+    'Edit and proofread copy for publication',
+    'Research topics and meet content briefs',
+    'Work with marketing teams to shape messaging'
+    ],
+    whereToStudy: [
+    'Writing, journalism or media degree',
+    'Creative writing course or diploma',
+    'Content marketing or copywriting training',
+    'Online writing and editing programmes'
+    ],
+    progression: [
+    'Junior Writer (£20k-£28k)',
+    'Content Writer (£28k-£38k)',
+    'Senior Writer (£38k-£50k)',
+    'Content Lead (£50k+)'
+    ],
+    similarCareers: [
+    43,
+    44,
+    48,
+    75
+    ],
+    supportTags: [
+    'Work from home'
+    ]
+  },
+  {
+    id: 77,
+    category: 'Service & Hospitality',
+    title: 'Hospitality Worker',
+    salary: '£18k - £40k',
+    description: 'Support hospitality, catering and guest service roles across hotels, events and food service.',
+    requirements: [
+    'Relevant vocational training',
+    'Practical skills',
+    'Good communication',
+    'Customer service or team working'
+    ],
+    matchedSubjects: [
+    'gcse-food-technology',
+    'nvq-catering-professional-cookery',
+    'btec-hospitality',
+    'chef-apprenticeship',
+    'hotel-management-apprenticeship',
+    'vocational-hospitality-catering',
+    'hotel-hospitality-management-ba',
+    'event-management-ba',
+    'tourism-management-ba',
+    'culinary-arts-ba',
+    'nutrition-food-science-bsc',
+    'btec-travel-tourism',
+    'tlevel-catering',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Support everyday tasks and customer needs',
+    'Work with colleagues to complete practical work',
+    'Use skills to solve problems and support services',
+    'Keep records and follow workplace procedures'
+    ],
+    whereToStudy: [
+    'Vocational or apprenticeship programme',
+    'Technical college or training course',
+    'Work-based learning and placements'
+    ],
+    progression: [
+    'Hospitality Worker Apprentice (£18k-£24k)',
+    'Hospitality Worker (£24k-£32k)',
+    'Senior Hospitality Worker (£32k-£40k)'
+    ],
+    similarCareers: [
+    1,
+    5,
+    11
+    ]
+  },
+  {
+    id: 79,
+    category: 'Service & Hospitality',
+    title: 'Salon Worker',
+    salary: '£18k - £40k',
+    description: 'Work in salons and beauty settings providing hair, beauty and grooming services.',
+    requirements: [
+    'Relevant vocational training',
+    'Practical skills',
+    'Good communication',
+    'Customer service or team working'
+    ],
+    matchedSubjects: [
+    'nvq-hairdressing',
+    'nvq-beauty-therapy',
+    'barbering-apprenticeship',
+    'tlevel-hairdressing-barbering-beauty-therapy',
+    'vocational-hairdressing',
+    'vocational-beauty-therapy',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Support everyday tasks and customer needs',
+    'Work with colleagues to complete practical work',
+    'Use skills to solve problems and support services',
+    'Keep records and follow workplace procedures'
+    ],
+    whereToStudy: [
+    'Vocational or apprenticeship programme',
+    'Technical college or training course',
+    'Work-based learning and placements'
+    ],
+    progression: [
+    'Salon Worker Apprentice (£18k-£24k)',
+    'Salon Worker (£24k-£32k)',
+    'Senior Salon Worker (£32k-£40k)'
+    ],
+    similarCareers: [
+    1,
+    5,
+    11
+    ]
+  },
+  {
+    id: 82,
+    category: 'Agriculture & Animal Care',
+    title: 'Animal Care Worker',
+    salary: '£18k - £40k',
+    description: 'Care for animals, support farming and manage practical animal welfare tasks.',
+    requirements: [
+    'Relevant vocational training',
+    'Practical skills',
+    'Good communication',
+    'Customer service or team working'
+    ],
+    matchedSubjects: [
+    'nvq-land-based-studies',
+    'horticulture-apprenticeship',
+    'agriculture-apprenticeship',
+    'animal-care-apprenticeship',
+    'veterinary-medicine-bvetmed',
+    'vocational-care-worker',
+    'gcse-maths',
+    'gcse-english'
+    ],
+    dayToDay: [
+    'Support everyday tasks and customer needs',
+    'Work with colleagues to complete practical work',
+    'Use skills to solve problems and support services',
+    'Keep records and follow workplace procedures'
+    ],
+    whereToStudy: [
+    'Vocational or apprenticeship programme',
+    'Technical college or training course',
+    'Work-based learning and placements'
+    ],
+    progression: [
+    'Animal Care Worker Apprentice (£18k-£24k)',
+    'Animal Care Worker (£24k-£32k)',
+    'Senior Animal Care Worker (£32k-£40k)'
+    ],
+    similarCareers: [
+    1,
+    5,
+    11
+    ]
+  }
+]
+// Normalize subject ids to match `subjects.json` ids and fix common typos
+const demoCareers = rawDemoCareers.map((career) => ({
+  ...career,
+  // Default structured fields for the career detail page
+  dayToDay: career.dayToDay || [
+    `Work on ${career.title.toLowerCase()} tasks and deliverables`,
+    'Collaborate with colleagues and stakeholders',
+    'Problem-solve and improve existing processes',
+    'Learn and adapt to new tools and practices',
+  ],
+  whereToStudy: career.whereToStudy || [
+    'Local college courses',
+    'Short bootcamps and online courses',
+    'Apprenticeships or university programmes',
+  ],
+  progression: career.progression || [
+    `Junior ${career.title} (entry)`,
+    `Mid-level ${career.title}`,
+    `Senior ${career.title}`,
+    `Lead ${career.title} / Management`,
+  ],
+  similarCareers: career.similarCareers || [],
+  matchedSubjects: (career.matchedSubjects || []).map((id) => {
+    if (!id || typeof id !== 'string') return id
+    return id
+      .replace(/a-level-/g, 'alevel-')
+      .replace(/a-level/g, 'alevel')
+      .replace(/\bvocation\b/g, 'btec-computing')
+      .replace(/\bvocational\b/g, 'btec-computing')
+      .replace(/\btechnology\b/g, 'information-technology-bsc')
+      .replace(/university-data-science/g, 'data-science-bsc')
+  }),
+}))
+
+export default demoCareers

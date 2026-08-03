@@ -1,0 +1,157 @@
+import { BookOpen, GraduationCap, Layers, Award } from 'lucide-react'
+import { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { usePathStore } from '../store/usePathStore'
+import BackButton from '../components/BackButton'
+
+const levelCards = [
+  { key: 'gcse', label: 'GCSE', description: 'Build strong foundations with core school qualifications.', category: 'GCSE', icon: BookOpen },
+  { key: 'a-level', label: 'A-Levels & BTECs', description: 'Focus on advanced academic A-Levels or practical BTEC qualifications for university and career progression.', category: 'A-Level', icon: GraduationCap },
+  { key: 'tlevel', label: 'T-Levels', description: 'Technical qualifications combining classroom learning with industry placements. Equivalent to 3 A-Levels.', category: 'T-Level', icon: GraduationCap },
+  { key: 'vocational', label: 'Vocational', description: 'Gain practical skills for apprenticeships and work-based learning.', category: 'Vocational', icon: Layers },
+  { key: 'university', label: 'University', description: 'Prepare for higher education and degree-level study.', category: 'University', icon: Award },
+]
+
+export default function SubjectSelectionPage() {
+  const navigate = useNavigate()
+  const selectedRole = usePathStore((state) => state.selectedRole)
+  const selectedLevel = usePathStore((state) => state.selectedLevel)
+  const setSelectedLevel = usePathStore((state) => state.setSelectedLevel)
+
+  // Redirect apprentice/graduate roles immediately without rendering
+  useEffect(() => {
+    if (selectedRole === 'apprentice') {
+      console.log('[SubjectSelectionPage] redirecting apprentice to /subjects/vocational')
+      navigate('/subjects/vocational', { replace: true })
+      return
+    }
+    if (selectedRole === 'graduate') {
+      console.log('[SubjectSelectionPage] redirecting graduate to /subjects/university')
+      navigate('/subjects/university', { replace: true })
+    }
+  }, [selectedRole, navigate])
+
+  // If apprentice/graduate, don't render (will redirect)
+  if (selectedRole === 'apprentice' || selectedRole === 'graduate') {
+    return null
+  }
+
+  const roleCardMap: Record<string, string[]> = {
+    student: ['gcse', 'a-level', 'tlevel'],
+    apprentice: [],
+    graduate: [],
+    'career-changer': ['gcse', 'a-level', 'tlevel', 'vocational', 'university'],
+    'mature-learner': ['tlevel', 'vocational', 'university'],
+    'armed-forces-leaver': ['tlevel', 'vocational', 'university'],
+    'refugee-asylum-seeker': ['university'],
+    'disabled-learner': ['gcse', 'a-level', 'tlevel', 'vocational', 'university'],
+  }
+
+  const visibleCardKeys = selectedRole ? roleCardMap[selectedRole] ?? ['gcse', 'a-level', 'tlevel'] : ['gcse', 'a-level', 'tlevel']
+  const visibleCards = levelCards.filter((card) => visibleCardKeys.includes(card.key))
+  const topCards = visibleCards.filter((card) => card.key !== 'university')
+  const universityCard = visibleCards.find((card) => card.key === 'university')
+
+  const location = useLocation()
+  const skipLevelRedirect = (location.state as { skipLevelRedirect?: boolean })?.skipLevelRedirect
+
+  useEffect(() => {
+    if (location.pathname !== '/subjects') return
+    if (skipLevelRedirect) {
+      console.log('[SubjectSelectionPage] skip level redirect for selectedRole', selectedRole)
+      return
+    }
+
+    if (!selectedRole) return
+
+    if (selectedRole === 'apprentice') {
+      navigate('/subjects/vocational', { replace: true })
+      return
+    }
+
+    if (selectedRole === 'graduate') {
+      navigate('/subjects/university', { replace: true })
+      return
+    }
+
+    if (selectedRole === 'refugee-asylum-seeker') {
+      navigate('/subjects/refugee-asylum-seeker', { replace: true })
+      return
+    }
+
+    if (selectedRole === 'disabled-learner') {
+      const supportNeeds = usePathStore.getState().supportNeeds
+      if (!supportNeeds.length) {
+        navigate('/subjects/disabled-learner', { replace: true })
+        return
+      }
+    }
+  }, [location.pathname, navigate, selectedRole, skipLevelRedirect])
+
+  const roleSubheadline = selectedRole === 'student'
+    ? 'Pick GCSE, A-Level & BTEC or T-Level options based on your current study plans.'
+    : selectedRole === 'career-changer'
+    ? 'Explore any qualification level that fits your background and career goals. You can choose from foundation through to advanced qualifications.'
+    : ['mature-learner', 'armed-forces-leaver'].includes(selectedRole ?? '')
+    ? 'Explore retraining options through T-Levels and university qualifications.'
+    : selectedRole === 'disabled-learner'
+    ? 'Choose the qualification level that works best with your access support and future goals.'
+    : selectedRole === 'refugee-asylum-seeker'
+    ? 'Choose university subjects that fit your accessibility or support pathway.'
+    : 'Pick the qualification type that best fits your studies and goals.'
+
+  return (
+    <div className="space-y-6 pt-8 px-6 pb-8 sm:px-8">
+      <div className="space-y-4">
+        <BackButton to="/role" />
+        <div>
+          <h2 className="text-3xl font-bold text-slate-950">Choose your qualification level</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">{roleSubheadline}</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-4">
+        {topCards.map((level) => {
+          const Icon = level.icon
+          const selected = selectedLevel === level.key
+
+          return (
+            <button key={level.key} type="button" onClick={() => { setSelectedLevel(level.key); navigate(`/subjects/${level.key}`) }} className={`group rounded-[28px] border p-5 text-left transition duration-150 min-h-[220px] flex flex-col justify-between ${selected ? 'border-primary bg-primary/10 shadow-soft' : 'border-slate-200 bg-white hover:border-primary/50 hover:shadow-sm'}`}>
+              <div>
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-primary-soft text-primary"><Icon className="h-6 w-6" /></div>
+                </div>
+                <div className="mt-5 space-y-3">
+                  <h3 className="text-xl font-semibold text-slate-950">{level.label}</h3>
+                  <p className="text-sm leading-6 text-slate-600">{level.description}</p>
+                </div>
+              </div>
+            </button>
+          )
+        })}
+      </div>
+
+      {universityCard ? (
+        <div className="grid gap-4 md:grid-cols-2 md:gap-4">
+          <button type="button" onClick={() => { setSelectedLevel(universityCard.key); navigate(`/subjects/${universityCard.key}`) }} className={`group col-span-1 md:col-span-2 rounded-[28px] border p-5 text-left shadow-soft transition duration-150 min-h-[220px] flex flex-col justify-between ${selectedLevel === universityCard.key ? 'border-primary bg-primary/10' : 'border-slate-200 bg-white hover:border-primary/50 hover:shadow-sm'}`}>
+            <div>
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-primary-soft text-primary">
+                  {(() => {
+                    const UniversityIcon = universityCard.icon
+                    return <UniversityIcon className="h-6 w-6" />
+                  })()}
+                </div>
+              </div>
+              <div className="mt-5 space-y-3">
+                <h3 className="text-xl font-semibold text-slate-950">{universityCard.label}</h3>
+                <p className="text-sm leading-6 text-slate-600">{universityCard.description}</p>
+              </div>
+            </div>
+          </button>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+

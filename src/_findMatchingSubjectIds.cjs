@@ -1,0 +1,198 @@
+const fs = require('fs')
+const path = require('path')
+const subjects = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'subjects.json'), 'utf8'))
+const requested = [
+  'T-Level Digital Production, Design & Development',
+  'T-Level Digital Business Services',
+  'T-Level Digital Support Services',
+  'T-Level Construction: Design, Surveying & Planning',
+  'T-Level Construction: Building Services Engineering',
+  'T-Level Construction: On-Site Construction',
+  'T-Level Education & Childcare',
+  'T-Level Health',
+  'T-Level Healthcare Science',
+  'T-Level Science',
+  'T-Level Engineering & Manufacturing: Design & Development',
+  'T-Level Engineering & Manufacturing: Maintenance, Installation & Repair',
+  'T-Level Engineering & Manufacturing: Processing & Control',
+  'T-Level Finance',
+  'T-Level Accounting',
+  'T-Level Management & Administration',
+  'T-Level Legal Services',
+  'T-Level Agriculture, Land Management & Production',
+  'T-Level Animal Care & Management',
+  'T-Level Hairdressing, Barbering & Beauty Therapy',
+  'T-Level Craft & Design',
+  'T-Level Media, Broadcast & Production',
+  'T-Level Catering',
+  'NVQ Plumbing',
+  'NVQ Electrical Installation',
+  'NVQ Carpentry',
+  'BTEC Construction',
+  'NVQ Health & Social Care',
+  'NVQ Early Years Educator',
+  'BTEC Health & Social Care',
+  'Healthcare Assistant Apprenticeship',
+  'Dental Nursing Apprenticeship',
+  'Cyber Security Apprenticeship',
+  'Software Development Apprenticeship',
+  'Network Engineer Apprenticeship',
+  'NVQ Business Administration',
+  'Customer Service Apprenticeship',
+  'HR Apprenticeship',
+  'Accounting Apprenticeship (AAT)',
+  'NVQ Vehicle Maintenance',
+  'Mechanical Engineering Apprenticeship',
+  'Electrical Engineering Apprenticeship',
+  'Aerospace Manufacturing Apprenticeship',
+  'NVQ Catering & Professional Cookery',
+  'Chef Apprenticeship',
+  'NVQ Hairdressing',
+  'NVQ Beauty Therapy',
+  'BTEC Performing Arts',
+  'BTEC Media',
+  'BTEC Music',
+  'BTEC Art & Design',
+  'Photography Apprenticeship',
+  'NVQ Land-Based Studies',
+  'Horticulture Apprenticeship',
+  'Agriculture Apprenticeship',
+  'Animal Care Apprenticeship',
+  'Police Apprenticeship',
+  'Firefighter Apprenticeship',
+  'Military Apprenticeship',
+  'Computer Science',
+  'Software Engineering',
+  'Cyber Security',
+  'Data Science',
+  'Artificial Intelligence',
+  'Information Technology',
+  'Business Management',
+  'Marketing',
+  'Finance',
+  'Accounting',
+  'Economics',
+  'Human Resource Management',
+  'International Business',
+  'Law (LLB)',
+  'Criminology',
+  'Medicine (MBBS)',
+  'Nursing (all branches)',
+  'Midwifery',
+  'Pharmacy',
+  'Physiotherapy',
+  'Occupational Therapy',
+  'Dentistry',
+  'Psychology',
+  'Biomedical Science',
+  'Biochemistry',
+  'Microbiology',
+  'Forensic Science',
+  'Environmental Science',
+  'Marine Biology',
+  'Astrophysics',
+  'Mathematics',
+  'Physics',
+  'Chemistry',
+  'Biology',
+  'Geology',
+  'Meteorology',
+  'Civil Engineering',
+  'Mechanical Engineering',
+  'Electrical Engineering',
+  'Aerospace Engineering',
+  'Chemical Engineering',
+  'Architecture',
+  'Interior Design',
+  'Product Design',
+  'Animation',
+  'Film Production',
+  'Music Production',
+  'Creative Writing',
+  'Journalism',
+  'English Literature',
+  'History',
+  'Philosophy',
+  'Politics',
+  'Sociology',
+  'Anthropology',
+  'Archaeology',
+  'Education Studies',
+  'Primary Education',
+  'Secondary Education',
+  'Special Educational Needs',
+  'Social Work',
+  'Youth Work',
+  'Policing & Criminal Investigation',
+  'Fire & Rescue',
+  'Paramedic Science',
+  'Public Health',
+  'Sports Science',
+  'Sports Therapy',
+  'Exercise Physiology',
+  'Coaching & Sports Development',
+  'Geography',
+  'Geology',
+  'Agriculture',
+  'Animal Science',
+  'Zoology',
+  'Veterinary Medicine',
+  'Fashion Design',
+  'Textile Design',
+  'Photography',
+  'Fine Art',
+  'Theatre & Performance',
+  'Dance',
+  'Event Management',
+  'Hotel & Hospitality Management',
+  'Tourism Management',
+  'Culinary Arts',
+  'Nutrition & Food Science',
+  'Occupational Health & Safety',
+  'Quantity Surveying',
+  'Building Surveying',
+  'Town Planning',
+  'Transport Planning',
+  'Estate Management',
+  'Real Estate',
+  'Actuarial Science',
+  'Banking & Finance',
+  'Taxation',
+  'Audit & Assurance',
+  'Supply Chain Management',
+  'Operations Management',
+  'Quality Management',
+]
+
+const norm = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+const subjectsByNorm = subjects.reduce((map, subject) => {
+  const normLabel = norm(subject.label)
+  map[normLabel] = subject
+  return map
+}, {})
+
+function findUnique(label) {
+  const target = norm(label)
+  if (subjectsByNorm[target]) return [subjectsByNorm[target]]
+  const tokens = new Set(target.split(' '))
+  const matches = subjects
+    .map((subject) => ({ subject, score: [...new Set(norm(subject.label).split(' '))].filter((w) => tokens.has(w)).length }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10)
+  return matches.map((item) => ({ id: item.subject.id, label: item.subject.label, category: item.subject.category, score: item.score }))
+}
+
+for (const label of requested) {
+  const found = findUnique(label)
+  if (found.length === 0) {
+    console.log(`${label} -> NO MATCH`) 
+  } else if (found.length === 1 && found[0].label.toLowerCase() === label.toLowerCase()) {
+    console.log(`${label} -> ${found[0].id} | ${found[0].label}`)
+  } else {
+    console.log(`${label} -> possible matches:`)
+    for (const item of found) {
+      console.log('   ', item.id, '|', item.label, '|', item.category, '|', item.score)
+    }
+  }
+}

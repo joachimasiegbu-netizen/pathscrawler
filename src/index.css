@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.cdnfonts.com/css/open-dyslexic');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #E0E7FF;
+  color: #0f172a;
+  font-size: 16px;
+}
+
+html, body, #root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.14), transparent 36%),
+    linear-gradient(180deg, #eff6ff 0%, #e0e7ff 100%);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 4px;
+}
+
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, html * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html.high-contrast {
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
+html.high-contrast body {
+  background: #fff !important;
+}
+
+html.high-contrast .bg-white,
+html.high-contrast .bg-slate-50,
+html.high-contrast .bg-primary-soft {
+  background-color: #fff !important;
+}
+
+html.high-contrast .text-slate-600,
+html.high-contrast .text-slate-500,
+html.high-contrast .text-slate-700 {
+  color: #000 !important;
+}
+
+html.high-contrast .border-slate-200,
+html.high-contrast .border-slate-300,
+html.high-contrast .border-slate-400,
+html.high-contrast .border-slate-500 {
+  border-color: #000 !important;
+}
+
+html.high-contrast .bg-primary,
+html.high-contrast .bg-primary-soft {
+  background-color: #1d4ed8 !important;
+  color: #fff !important;
+}
+
+html.high-contrast .text-primary,
+html.high-contrast .text-primary-dark {
+  color: #1d4ed8 !important;
+}
+
+html.larger-text {
+  font-size: 1.25rem;
+}
+
+html.larger-text h1,
+html.larger-text h2,
+html.larger-text h3,
+html.larger-text h4,
+html.larger-text h5,
+html.larger-text h6,
+html.larger-text p,
+html.larger-text span,
+html.larger-text label,
+html.larger-text button,
+html.larger-text input,
+html.larger-text select,
+html.larger-text textarea {
+  line-height: 1.6;
+}
+
+html.dyslexia-font,
+html.dyslexia-font body,
+html.dyslexia-font button,
+html.dyslexia-font input,
+html.dyslexia-font select,
+html.dyslexia-font textarea {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', Arial, sans-serif !important;
+  letter-spacing: 0.02em;
+  line-height: 1.75;
+}
+
+html.dark-mode {
+  color-scheme: dark;
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+html.dark-mode body {
+  background: radial-gradient(circle at top, rgba(56, 189, 248, 0.14), transparent 36%),
+    linear-gradient(180deg, #111827 0%, #0f172a 100%);
+}
+
+html.dark-mode .bg-white,
+html.dark-mode .bg-slate-50,
+html.dark-mode .bg-slate-100,
+html.dark-mode .bg-slate-200,
+html.dark-mode .bg-primary-soft {
+  background-color: #111827 !important;
+}
+
+html.dark-mode .bg-primary-soft\/70 {
+  background-color: rgba(30, 41, 59, 0.7) !important;
+}
+
+html.dark-mode .bg-white\/10,
+html.dark-mode .bg-white\/15,
+html.dark-mode .bg-white\/20,
+html.dark-mode .bg-white\/30 {
+  background-color: rgba(248, 250, 252, 0.1) !important;
+}
+
+html.dark-mode .text-slate-900,
+html.dark-mode .text-slate-800,
+html.dark-mode .text-slate-700,
+html.dark-mode .text-white {
+  color: #f8fafc !important;
+}
+
+html.dark-mode .text-slate-600,
+html.dark-mode .text-slate-500 {
+  color: #cbd5e1 !important;
+}
+
+html.dark-mode .text-slate-400,
+html.dark-mode input::placeholder,
+html.dark-mode select::placeholder,
+html.dark-mode textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+html.dark-mode .border-slate-200,
+html.dark-mode .border-slate-300,
+html.dark-mode .border-slate-400,
+html.dark-mode .border-slate-500,
+html.dark-mode .border-slate-100 {
+  border-color: #334155 !important;
+}
+
+html.dark-mode .bg-primary {
+  background-color: #3b82f6 !important;
+}
+
+html.dark-mode .bg-primary-dark,
+html.dark-mode .hover\:bg-primary-dark:hover {
+  background-color: #60a5fa !important;
+}
+
+html.dark-mode .text-primary,
+html.dark-mode .text-primary-dark {
+  color: #f8fafc !important;
+}
+
+html.dark-mode,
+html.dark-mode body,
+html.dark-mode body * {
+  color: #f8fafc !important;
+}
+
+html.dark-mode input,
+html.dark-mode select,
+html.dark-mode textarea {
+  background-color: #334155 !important;
+  color: #f8fafc !important;
+  border-color: #475569 !important;
+}
+
+html.dark-mode .bg-\[\#E0E7FF\] {
+  background-color: #0f172a !important;
+}
+
+html.dark-mode .bg-primary-soft {
+  background-color: #1e293b !important;
+}
+
+html.dark-mode button:focus-visible,
+html.dark-mode a:focus-visible {
+  outline-color: #bfdbfe;
+}
+
+html.dark-mode .bg-gradient-to-br {
+  background-image: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+}

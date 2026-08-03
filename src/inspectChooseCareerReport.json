@@ -1,0 +1,2720 @@
+{
+  "missingCount": 236,
+  "report": [
+    {
+      "id": "gcse-biology",
+      "label": "GCSE Biology",
+      "category": "GCSE",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "gcse-chemistry",
+      "label": "GCSE Chemistry",
+      "category": "GCSE",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "gcse-physics",
+      "label": "GCSE Physics",
+      "category": "GCSE",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "gcse-history",
+      "label": "GCSE History",
+      "category": "GCSE",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "gcse-geography",
+      "label": "GCSE Geography",
+      "category": "GCSE",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "gcse-religious-studies",
+      "label": "GCSE Religious Studies",
+      "category": "GCSE",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "gcse-spanish",
+      "label": "GCSE Spanish",
+      "category": "GCSE",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "gcse-french",
+      "label": "GCSE French",
+      "category": "GCSE",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "gcse-german",
+      "label": "GCSE German",
+      "category": "GCSE",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "gcse-mandarin",
+      "label": "GCSE Mandarin",
+      "category": "GCSE",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "gcse-music",
+      "label": "GCSE Music",
+      "category": "GCSE",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "gcse-drama",
+      "label": "GCSE Drama",
+      "category": "GCSE",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "gcse-economics",
+      "label": "GCSE Economics",
+      "category": "GCSE",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "gcse-food-technology",
+      "label": "GCSE Food Technology",
+      "category": "GCSE",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "gcse-pe",
+      "label": "GCSE Physical Education",
+      "category": "GCSE",
+      "career": "Physiotherapist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "sports-science-bsc",
+        "physiotherapy-bsc"
+      ]
+    },
+    {
+      "id": "nvq-plumbing",
+      "label": "NVQ Plumbing (Level 2/3)",
+      "category": "Vocational",
+      "career": "Project Manager",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "project-management-bsc",
+        "business-management-ba",
+        "gcse-english"
+      ]
+    },
+    {
+      "id": "nvq-electrical-installation",
+      "label": "NVQ Electrical Installation (Level 2/3)",
+      "category": "Vocational",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "nvq-carpentry",
+      "label": "NVQ Carpentry (Level 2/3)",
+      "category": "Vocational",
+      "career": "Data Entry Clerk",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "btec-construction",
+      "label": "BTEC Construction (Level 3)",
+      "category": "Vocational",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "bricklaying-apprenticeship",
+      "label": "Bricklaying Apprenticeship",
+      "category": "Vocational",
+      "career": "Mobile App Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "nvq-health-social-care",
+      "label": "NVQ Health & Social Care (Level 2/3)",
+      "category": "Vocational",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "nvq-early-years-educator",
+      "label": "NVQ Early Years Educator (Level 3)",
+      "category": "Vocational",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "healthcare-assistant-apprenticeship",
+      "label": "Healthcare Assistant Apprenticeship",
+      "category": "Vocational",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "dental-nursing-apprenticeship",
+      "label": "Dental Nursing Apprenticeship",
+      "category": "Vocational",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "cyber-security-apprenticeship",
+      "label": "Cyber Security Apprenticeship",
+      "category": "Vocational",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "software-development-apprenticeship",
+      "label": "Software Development Apprenticeship",
+      "category": "Vocational",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "network-engineer-apprenticeship",
+      "label": "Network Engineer Apprenticeship",
+      "category": "Vocational",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "nvq-business-administration",
+      "label": "NVQ Business Administration (Level 2/3)",
+      "category": "Vocational",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "hr-apprenticeship",
+      "label": "HR Apprenticeship",
+      "category": "Vocational",
+      "career": "Mobile App Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "accounting-apprenticeship-aat",
+      "label": "Accounting Apprenticeship (AAT)",
+      "category": "Vocational",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "btec-engineering",
+      "label": "BTEC Engineering (Level 3)",
+      "category": "Vocational",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "nvq-vehicle-maintenance",
+      "label": "NVQ Vehicle Maintenance (Level 2/3)",
+      "category": "Vocational",
+      "career": "AI/Machine Learning Engineer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "mechanical-engineering-apprenticeship",
+      "label": "Mechanical Engineering Apprenticeship",
+      "category": "Vocational",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "electrical-engineering-apprenticeship",
+      "label": "Electrical Engineering Apprenticeship",
+      "category": "Vocational",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "aerospace-manufacturing-apprenticeship",
+      "label": "Aerospace Manufacturing Apprenticeship",
+      "category": "Vocational",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "nvq-catering-professional-cookery",
+      "label": "NVQ Catering & Professional Cookery (Level 2/3)",
+      "category": "Vocational",
+      "career": "Hospitality Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "gcse-food-technology",
+        "nvq-catering-professional-cookery",
+        "btec-hospitality",
+        "chef-apprenticeship",
+        "hotel-management-apprenticeship",
+        "vocational-hospitality-catering",
+        "hotel-hospitality-management-ba",
+        "event-management-ba",
+        "tourism-management-ba",
+        "culinary-arts-ba",
+        "nutrition-food-science-bsc"
+      ]
+    },
+    {
+      "id": "btec-hospitality",
+      "label": "BTEC Hospitality (Level 3)",
+      "category": "Vocational",
+      "career": "Hospitality Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "gcse-food-technology",
+        "nvq-catering-professional-cookery",
+        "btec-hospitality",
+        "chef-apprenticeship",
+        "hotel-management-apprenticeship",
+        "vocational-hospitality-catering",
+        "hotel-hospitality-management-ba",
+        "event-management-ba",
+        "tourism-management-ba",
+        "culinary-arts-ba",
+        "nutrition-food-science-bsc"
+      ]
+    },
+    {
+      "id": "chef-apprenticeship",
+      "label": "Chef Apprenticeship",
+      "category": "Vocational",
+      "career": "Mobile App Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "hotel-management-apprenticeship",
+      "label": "Hotel Management Apprenticeship",
+      "category": "Vocational",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "nvq-hairdressing",
+      "label": "NVQ Hairdressing (Level 2/3)",
+      "category": "Vocational",
+      "career": "AI/Machine Learning Engineer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "nvq-beauty-therapy",
+      "label": "NVQ Beauty Therapy (Level 2/3)",
+      "category": "Vocational",
+      "career": "Salon Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "nvq-hairdressing",
+        "nvq-beauty-therapy",
+        "barbering-apprenticeship",
+        "tlevel-hairdressing-barbering-beauty-therapy"
+      ]
+    },
+    {
+      "id": "barbering-apprenticeship",
+      "label": "Barbering Apprenticeship",
+      "category": "Vocational",
+      "career": "Salon Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "nvq-hairdressing",
+        "nvq-beauty-therapy",
+        "barbering-apprenticeship",
+        "tlevel-hairdressing-barbering-beauty-therapy"
+      ]
+    },
+    {
+      "id": "btec-sport",
+      "label": "BTEC Sport (Level 3)",
+      "category": "Vocational",
+      "career": "Physiotherapist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "sports-science-bsc",
+        "physiotherapy-bsc"
+      ]
+    },
+    {
+      "id": "personal-training",
+      "label": "Personal Training (Level 3)",
+      "category": "Vocational",
+      "career": "Primary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "sports-coaching-apprenticeship",
+      "label": "Sports Coaching Apprenticeship",
+      "category": "Vocational",
+      "career": "Physiotherapist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "sports-science-bsc",
+        "physiotherapy-bsc"
+      ]
+    },
+    {
+      "id": "leisure-management-apprenticeship",
+      "label": "Leisure Management Apprenticeship",
+      "category": "Vocational",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "btec-performing-arts",
+      "label": "BTEC Performing Arts (Level 3)",
+      "category": "Vocational",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "btec-music",
+      "label": "BTEC Music (Level 3)",
+      "category": "Vocational",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "btec-art-design",
+      "label": "BTEC Art & Design (Level 3)",
+      "category": "Vocational",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "nvq-land-based-studies",
+      "label": "NVQ Land-Based Studies (Level 2/3)",
+      "category": "Vocational",
+      "career": "Animal Care Worker",
+      "careerCategory": "Agriculture & Animal Care",
+      "matchedSubjectsBefore": [
+        "nvq-land-based-studies",
+        "horticulture-apprenticeship",
+        "agriculture-apprenticeship",
+        "animal-care-apprenticeship",
+        "veterinary-medicine-bvetmed"
+      ]
+    },
+    {
+      "id": "horticulture-apprenticeship",
+      "label": "Horticulture Apprenticeship",
+      "category": "Vocational",
+      "career": "Animal Care Worker",
+      "careerCategory": "Agriculture & Animal Care",
+      "matchedSubjectsBefore": [
+        "nvq-land-based-studies",
+        "horticulture-apprenticeship",
+        "agriculture-apprenticeship",
+        "animal-care-apprenticeship",
+        "veterinary-medicine-bvetmed"
+      ]
+    },
+    {
+      "id": "agriculture-apprenticeship",
+      "label": "Agriculture Apprenticeship",
+      "category": "Vocational",
+      "career": "Animal Care Worker",
+      "careerCategory": "Agriculture & Animal Care",
+      "matchedSubjectsBefore": [
+        "nvq-land-based-studies",
+        "horticulture-apprenticeship",
+        "agriculture-apprenticeship",
+        "animal-care-apprenticeship",
+        "veterinary-medicine-bvetmed"
+      ]
+    },
+    {
+      "id": "animal-care-apprenticeship",
+      "label": "Animal Care Apprenticeship",
+      "category": "Vocational",
+      "career": "Animal Care Worker",
+      "careerCategory": "Agriculture & Animal Care",
+      "matchedSubjectsBefore": [
+        "nvq-land-based-studies",
+        "horticulture-apprenticeship",
+        "agriculture-apprenticeship",
+        "animal-care-apprenticeship",
+        "veterinary-medicine-bvetmed"
+      ]
+    },
+    {
+      "id": "btec-public-services",
+      "label": "BTEC Public Services (Level 3)",
+      "category": "Vocational",
+      "career": "Customer Service Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "police-apprenticeship",
+      "label": "Police Apprenticeship",
+      "category": "Vocational",
+      "career": "Mobile App Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "firefighter-apprenticeship",
+      "label": "Firefighter Apprenticeship",
+      "category": "Vocational",
+      "career": "Mobile App Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "military-apprenticeship",
+      "label": "Military Apprenticeship",
+      "category": "Vocational",
+      "career": "IT Support Technician",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "computer-science-bsc",
+      "label": "Computer Science (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "software-engineering-bsc",
+      "label": "Software Engineering (BSc)",
+      "category": "University",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "cyber-security-bsc",
+      "label": "Cyber Security (BSc)",
+      "category": "University",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "artificial-intelligence-bsc",
+      "label": "Artificial Intelligence (BSc)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "computer-forensics-bsc",
+      "label": "Computer Forensics (BSc)",
+      "category": "University",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "web-development-bsc",
+      "label": "Web Development (BSc)",
+      "category": "University",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "game-development-bsc",
+      "label": "Game Development (BSc)",
+      "category": "University",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "network-engineering-bsc",
+      "label": "Network Engineering (BSc)",
+      "category": "University",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "economics-bsc",
+      "label": "Economics (BSc)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "human-resource-management-ba",
+      "label": "Human Resource Management (BA)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "international-business-ba",
+      "label": "International Business (BA)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "entrepreneurship-ba",
+      "label": "Entrepreneurship (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "supply-chain-management-ba",
+      "label": "Supply Chain Management (BA)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "law-llb",
+      "label": "Law (LLB)",
+      "category": "University",
+      "career": "Management Consultant",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "a-level-economics",
+        "business-management-ba",
+        "project-management-bsc"
+      ]
+    },
+    {
+      "id": "criminology-ba",
+      "label": "Criminology (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "criminal-justice-ba",
+      "label": "Criminal Justice (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "international-law-llb",
+      "label": "International Law (LLB)",
+      "category": "University",
+      "career": "Management Consultant",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "a-level-economics",
+        "business-management-ba",
+        "project-management-bsc"
+      ]
+    },
+    {
+      "id": "business-law-llb",
+      "label": "Business Law (LLB)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "nursing-mental-health-bsc",
+      "label": "Nursing (Mental Health) (BSc)",
+      "category": "University",
+      "career": "Psychologist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-psychology",
+        "psychology-bsc",
+        "clinical-psychology-doctorate"
+      ]
+    },
+    {
+      "id": "nursing-children-bsc",
+      "label": "Nursing (Children) (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "radiography-therapeutic-bsc",
+      "label": "Radiography (Therapeutic) (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "speech-language-therapy-bsc",
+      "label": "Speech & Language Therapy (BSc)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "operating-department-practice-bsc",
+      "label": "Operating Department Practice (BSc)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "dietetics-bsc",
+      "label": "Dietetics (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "veterinary-medicine-bvetmed",
+      "label": "Veterinary Medicine (BVetMed)",
+      "category": "University",
+      "career": "Animal Care Worker",
+      "careerCategory": "Agriculture & Animal Care",
+      "matchedSubjectsBefore": [
+        "nvq-land-based-studies",
+        "horticulture-apprenticeship",
+        "agriculture-apprenticeship",
+        "animal-care-apprenticeship",
+        "veterinary-medicine-bvetmed"
+      ]
+    },
+    {
+      "id": "psychotherapy-bsc",
+      "label": "Psychotherapy (BSc)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "mental-health-nursing-bsc",
+      "label": "Mental Health Nursing (BSc)",
+      "category": "University",
+      "career": "Psychologist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-psychology",
+        "psychology-bsc",
+        "clinical-psychology-doctorate"
+      ]
+    },
+    {
+      "id": "biomedical-science-bsc",
+      "label": "Biomedical Science (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "biochemistry-bsc",
+      "label": "Biochemistry (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "microbiology-bsc",
+      "label": "Microbiology (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "forensic-science-bsc",
+      "label": "Forensic Science (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "environmental-science-bsc",
+      "label": "Environmental Science (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "marine-biology-bsc",
+      "label": "Marine Biology (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "astrophysics-bsc",
+      "label": "Astrophysics (BSc)",
+      "category": "University",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "mathematics-bsc",
+      "label": "Mathematics (BSc)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "physics-bsc",
+      "label": "Physics (BSc)",
+      "category": "University",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "chemistry-bsc",
+      "label": "Chemistry (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "biology-bsc",
+      "label": "Biology (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "geology-bsc",
+      "label": "Geology (BSc)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "meteorology-bsc",
+      "label": "Meteorology (BSc)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "materials-science-bsc",
+      "label": "Materials Science (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "nanotechnology-bsc",
+      "label": "Nanotechnology (BSc)",
+      "category": "University",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "automotive-engineering-beng",
+      "label": "Automotive Engineering (BEng)",
+      "category": "University",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "petroleum-engineering-beng",
+      "label": "Petroleum Engineering (BEng)",
+      "category": "University",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "nuclear-engineering-beng",
+      "label": "Nuclear Engineering (BEng)",
+      "category": "University",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "renewable-energy-engineering-beng",
+      "label": "Renewable Energy Engineering (BEng)",
+      "category": "University",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "railway-engineering-beng",
+      "label": "Railway Engineering (BEng)",
+      "category": "University",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "mechatronics-beng",
+      "label": "Mechatronics (BEng)",
+      "category": "University",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "robotics-beng",
+      "label": "Robotics (BEng)",
+      "category": "University",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "interior-design-ba",
+      "label": "Interior Design (BA)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "product-design-ba",
+      "label": "Product Design (BA)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "fashion-design-ba",
+      "label": "Fashion Design (BA)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "urban-planning-ba",
+      "label": "Urban Planning (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "landscape-architecture-ba",
+      "label": "Landscape Architecture (BA)",
+      "category": "University",
+      "career": "IT Support Technician",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "journalism-ba",
+      "label": "Journalism (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "photography-ba",
+      "label": "Photography (BA)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "theatre-performance-ba",
+      "label": "Theatre & Performance (BA)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "dance-ba",
+      "label": "Dance (BA)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "game-design-ba",
+      "label": "Game Design (BA)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "virtual-reality-development-bsc",
+      "label": "Virtual Reality Development (BSc)",
+      "category": "University",
+      "career": "Virtual Assistant",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "augmented-reality-development-bsc",
+      "label": "Augmented Reality Development (BSc)",
+      "category": "University",
+      "career": "IT Support Technician",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "special-educational-needs-ba",
+      "label": "Special Educational Needs (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "early-childhood-education-ba",
+      "label": "Early Childhood Education (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "tesol-tefl-ba",
+      "label": "TESOL / TEFL (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "sociology-ba",
+      "label": "Sociology (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "youth-work-ba",
+      "label": "Youth Work (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "politics-ba",
+      "label": "Politics (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "international-relations-ba",
+      "label": "International Relations (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "anthropology-ba",
+      "label": "Anthropology (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "archaeology-ba",
+      "label": "Archaeology (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "development-studies-ba",
+      "label": "Development Studies (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "gender-studies-ba",
+      "label": "Gender Studies (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "disability-studies-ba",
+      "label": "Disability Studies (BA)",
+      "category": "University",
+      "career": "IT Support Technician",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "history-ba",
+      "label": "History (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "philosophy-ba",
+      "label": "Philosophy (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "classical-studies-ba",
+      "label": "Classical Studies (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "medieval-studies-ba",
+      "label": "Medieval Studies (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "art-history-ba",
+      "label": "Art History (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "linguistics-ba",
+      "label": "Linguistics (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "comparative-literature-ba",
+      "label": "Comparative Literature (BA)",
+      "category": "University",
+      "career": "IT Support Technician",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "modern-languages-ba",
+      "label": "Modern Languages (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "translation-interpreting-ba",
+      "label": "Translation & Interpreting (BA)",
+      "category": "University",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "english-language-ba",
+      "label": "English Language (BA)",
+      "category": "University",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "policing-criminal-investigation-bsc",
+      "label": "Policing & Criminal Investigation (BSc)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "fire-rescue-bsc",
+      "label": "Fire & Rescue (BSc)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "emergency-planning-bsc",
+      "label": "Emergency Planning (BSc)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "disaster-management-bsc",
+      "label": "Disaster Management (BSc)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "public-administration-ba",
+      "label": "Public Administration (BA)",
+      "category": "University",
+      "career": "University Lecturer",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "local-government-management-ba",
+      "label": "Local Government Management (BA)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "hotel-hospitality-management-ba",
+      "label": "Hotel & Hospitality Management (BA)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "event-management-ba",
+      "label": "Event Management (BA)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "tourism-management-ba",
+      "label": "Tourism Management (BA)",
+      "category": "University",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "culinary-arts-ba",
+      "label": "Culinary Arts (BA)",
+      "category": "University",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "nutrition-food-science-bsc",
+      "label": "Nutrition & Food Science (BSc)",
+      "category": "University",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "sports-therapy-bsc",
+      "label": "Sports Therapy (BSc)",
+      "category": "University",
+      "career": "Physiotherapist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "sports-science-bsc",
+        "physiotherapy-bsc"
+      ]
+    },
+    {
+      "id": "exercise-physiology-bsc",
+      "label": "Exercise Physiology (BSc)",
+      "category": "University",
+      "career": "Physiotherapist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "sports-science-bsc",
+        "physiotherapy-bsc"
+      ]
+    },
+    {
+      "id": "coaching-sports-development-bsc",
+      "label": "Coaching & Sports Development (BSc)",
+      "category": "University",
+      "career": "Physiotherapist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "sports-science-bsc",
+        "physiotherapy-bsc"
+      ]
+    },
+    {
+      "id": "alevel-physics",
+      "label": "A-Level Physics",
+      "category": "A-Level",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "alevel-law",
+      "label": "A-Level Law",
+      "category": "A-Level",
+      "career": "Management Consultant",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "a-level-economics",
+        "business-management-ba",
+        "project-management-bsc"
+      ]
+    },
+    {
+      "id": "alevel-english-lit",
+      "label": "A-Level English Literature",
+      "category": "A-Level",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "alevel-english-language",
+      "label": "A-Level English Language",
+      "category": "A-Level",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "alevel-history",
+      "label": "A-Level History",
+      "category": "A-Level",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "alevel-geography",
+      "label": "A-Level Geography",
+      "category": "A-Level",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "alevel-politics",
+      "label": "A-Level Politics",
+      "category": "A-Level",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "alevel-sociology",
+      "label": "A-Level Sociology",
+      "category": "A-Level",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "alevel-photography",
+      "label": "A-Level Photography",
+      "category": "A-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "alevel-music-technology",
+      "label": "A-Level Music Technology",
+      "category": "A-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "alevel-drama-theatre",
+      "label": "A-Level Drama & Theatre",
+      "category": "A-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "alevel-physical-education",
+      "label": "A-Level Physical Education",
+      "category": "A-Level",
+      "career": "Physiotherapist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "sports-science-bsc",
+        "physiotherapy-bsc"
+      ]
+    },
+    {
+      "id": "alevel-modern-languages",
+      "label": "A-Level Modern Languages",
+      "category": "A-Level",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "alevel-philosophy",
+      "label": "A-Level Philosophy",
+      "category": "A-Level",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "alevel-religious-studies",
+      "label": "A-Level Religious Studies",
+      "category": "A-Level",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "alevel-classical-civilisation",
+      "label": "A-Level Classical Civilisation",
+      "category": "A-Level",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "alevel-environmental-science",
+      "label": "A-Level Environmental Science",
+      "category": "A-Level",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "alevel-film-studies",
+      "label": "A-Level Film Studies",
+      "category": "A-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "alevel-graphic-communication",
+      "label": "A-Level Graphic Communication",
+      "category": "A-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "btec-applied-science",
+      "label": "BTEC Applied Science (Level 3)",
+      "category": "A-Level",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "btec-engineering",
+      "label": "BTEC Engineering (Level 3)",
+      "category": "A-Level",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "btec-performing-arts",
+      "label": "BTEC Performing Arts (Level 3)",
+      "category": "A-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "btec-sport",
+      "label": "BTEC Sport (Level 3)",
+      "category": "A-Level",
+      "career": "Physiotherapist",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "sports-science-bsc",
+        "physiotherapy-bsc"
+      ]
+    },
+    {
+      "id": "btec-art-design",
+      "label": "BTEC Art & Design (Level 3)",
+      "category": "A-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "btec-construction",
+      "label": "BTEC Construction (Level 3)",
+      "category": "A-Level",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "btec-hospitality",
+      "label": "BTEC Hospitality (Level 3)",
+      "category": "A-Level",
+      "career": "Hospitality Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "gcse-food-technology",
+        "nvq-catering-professional-cookery",
+        "btec-hospitality",
+        "chef-apprenticeship",
+        "hotel-management-apprenticeship",
+        "vocational-hospitality-catering",
+        "hotel-hospitality-management-ba",
+        "event-management-ba",
+        "tourism-management-ba",
+        "culinary-arts-ba",
+        "nutrition-food-science-bsc"
+      ]
+    },
+    {
+      "id": "btec-public-services",
+      "label": "BTEC Public Services (Level 3)",
+      "category": "A-Level",
+      "career": "Customer Service Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "btec-travel-tourism",
+      "label": "BTEC Travel & Tourism (Level 3)",
+      "category": "A-Level",
+      "career": "Hospitality Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "gcse-food-technology",
+        "nvq-catering-professional-cookery",
+        "btec-hospitality",
+        "chef-apprenticeship",
+        "hotel-management-apprenticeship",
+        "vocational-hospitality-catering",
+        "hotel-hospitality-management-ba",
+        "event-management-ba",
+        "tourism-management-ba",
+        "culinary-arts-ba",
+        "nutrition-food-science-bsc"
+      ]
+    },
+    {
+      "id": "btec-forensic-science",
+      "label": "BTEC Forensic Science (Level 3)",
+      "category": "A-Level",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "tlevel-digital-business-services",
+      "label": "T-Level Digital Business Services",
+      "category": "T-Level",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "tlevel-construction-design-surveying-planning",
+      "label": "T-Level Construction: Design, Surveying & Planning",
+      "category": "T-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "tlevel-construction-building-services-engineering",
+      "label": "T-Level Construction: Building Services Engineering",
+      "category": "T-Level",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "tlevel-construction-on-site-construction",
+      "label": "T-Level Construction: On-Site Construction",
+      "category": "T-Level",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "tlevel-education-childcare",
+      "label": "T-Level Education & Childcare",
+      "category": "T-Level",
+      "career": "Secondary School Teacher",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "a-level-history",
+        "secondary-education-ba",
+        "education-studies-ba"
+      ]
+    },
+    {
+      "id": "tlevel-health",
+      "label": "T-Level Health",
+      "category": "T-Level",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "tlevel-healthcare-science",
+      "label": "T-Level Healthcare Science",
+      "category": "T-Level",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "tlevel-science",
+      "label": "T-Level Science",
+      "category": "T-Level",
+      "career": "Doctor/GP",
+      "careerCategory": "Healthcare & Medicine",
+      "matchedSubjectsBefore": [
+        "alevel-biology",
+        "alevel-chemistry",
+        "medicine-mbbs"
+      ]
+    },
+    {
+      "id": "tlevel-engineering-manufacturing-maintenance-installation-repair",
+      "label": "T-Level Engineering & Manufacturing: Maintenance, Installation & Repair",
+      "category": "T-Level",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "tlevel-finance",
+      "label": "T-Level Finance",
+      "category": "T-Level",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "tlevel-accounting",
+      "label": "T-Level Accounting",
+      "category": "T-Level",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "tlevel-management-administration",
+      "label": "T-Level Management & Administration",
+      "category": "T-Level",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "tlevel-legal-services",
+      "label": "T-Level Legal Services",
+      "category": "T-Level",
+      "career": "Management Consultant",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "a-level-economics",
+        "business-management-ba",
+        "project-management-bsc"
+      ]
+    },
+    {
+      "id": "tlevel-agriculture-land-management-production",
+      "label": "T-Level Agriculture, Land Management & Production",
+      "category": "T-Level",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "tlevel-animal-care-management",
+      "label": "T-Level Animal Care & Management",
+      "category": "T-Level",
+      "career": "Financial Advisor",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": [
+        "gcse-maths",
+        "finance-bsc",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "tlevel-hairdressing-barbering-beauty-therapy",
+      "label": "T-Level Hairdressing, Barbering & Beauty Therapy",
+      "category": "T-Level",
+      "career": "Salon Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "nvq-hairdressing",
+        "nvq-beauty-therapy",
+        "barbering-apprenticeship",
+        "tlevel-hairdressing-barbering-beauty-therapy"
+      ]
+    },
+    {
+      "id": "tlevel-craft-design",
+      "label": "T-Level Craft & Design",
+      "category": "T-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "tlevel-media-broadcast-production",
+      "label": "T-Level Media, Broadcast & Production",
+      "category": "T-Level",
+      "career": "Film/TV Producer",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-media-studies",
+        "film-production-ba",
+        "music-production-ba"
+      ]
+    },
+    {
+      "id": "tlevel-catering",
+      "label": "T-Level Catering",
+      "category": "T-Level",
+      "career": "Hospitality Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "gcse-food-technology",
+        "nvq-catering-professional-cookery",
+        "btec-hospitality",
+        "chef-apprenticeship",
+        "hotel-management-apprenticeship",
+        "vocational-hospitality-catering",
+        "hotel-hospitality-management-ba",
+        "event-management-ba",
+        "tourism-management-ba",
+        "culinary-arts-ba",
+        "nutrition-food-science-bsc"
+      ]
+    },
+    {
+      "id": "esol-entry-1",
+      "label": "ESOL Entry Level 1",
+      "category": "Refugee ESOL",
+      "career": "Data Entry Clerk",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "esol-entry-2",
+      "label": "ESOL Entry Level 2",
+      "category": "Refugee ESOL",
+      "career": "Data Entry Clerk",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "esol-entry-3",
+      "label": "ESOL Entry Level 3",
+      "category": "Refugee ESOL",
+      "career": "Data Entry Clerk",
+      "careerCategory": "Business & Finance",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "esol-level-1",
+      "label": "ESOL Level 1",
+      "category": "Refugee ESOL",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "esol-level-2",
+      "label": "ESOL Level 2",
+      "category": "Refugee ESOL",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "ielts-preparation",
+      "label": "IELTS Preparation",
+      "category": "Refugee ESOL",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "functional-skills-english",
+      "label": "Functional Skills English",
+      "category": "Refugee ESOL",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "academic-writing",
+      "label": "Academic Writing",
+      "category": "Refugee ESOL",
+      "career": "IT Support Technician",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "conversation-pronunciation",
+      "label": "Conversation & Pronunciation",
+      "category": "Refugee ESOL",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "functional-skills-maths-entry-1",
+      "label": "Functional Skills Maths Entry 1",
+      "category": "Refugee GCSE",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "functional-skills-maths-entry-2",
+      "label": "Functional Skills Maths Entry 2",
+      "category": "Refugee GCSE",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "functional-skills-maths-level-1",
+      "label": "Functional Skills Maths Level 1",
+      "category": "Refugee GCSE",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "functional-skills-maths-level-2",
+      "label": "Functional Skills Maths Level 2",
+      "category": "Refugee GCSE",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "functional-skills-english-entry-1",
+      "label": "Functional Skills English Entry 1",
+      "category": "Refugee GCSE",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "functional-skills-english-entry-2",
+      "label": "Functional Skills English Entry 2",
+      "category": "Refugee GCSE",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "functional-skills-english-level-1",
+      "label": "Functional Skills English Level 1",
+      "category": "Refugee GCSE",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "functional-skills-english-level-2",
+      "label": "Functional Skills English Level 2",
+      "category": "Refugee GCSE",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "functional-skills-ict",
+      "label": "Functional Skills ICT",
+      "category": "Refugee GCSE",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "gcse-maths-refugee",
+      "label": "GCSE Maths",
+      "category": "Refugee GCSE",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "gcse-english-refugee",
+      "label": "GCSE English",
+      "category": "Refugee GCSE",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "vocational-hospitality-catering",
+      "label": "Hospitality & Catering",
+      "category": "Refugee Vocational",
+      "career": "Hospitality Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "gcse-food-technology",
+        "nvq-catering-professional-cookery",
+        "btec-hospitality",
+        "chef-apprenticeship",
+        "hotel-management-apprenticeship",
+        "vocational-hospitality-catering",
+        "hotel-hospitality-management-ba",
+        "event-management-ba",
+        "tourism-management-ba",
+        "culinary-arts-ba",
+        "nutrition-food-science-bsc"
+      ]
+    },
+    {
+      "id": "vocational-cleaning-facilities",
+      "label": "Cleaning & Facilities Services",
+      "category": "Refugee Vocational",
+      "career": "IT Support Technician",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "vocational-warehouse-logistics",
+      "label": "Warehouse & Logistics",
+      "category": "Refugee Vocational",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "vocational-construction-labourer",
+      "label": "Construction Labourer",
+      "category": "Refugee Vocational",
+      "career": "Civil Engineer",
+      "careerCategory": "Engineering & Manufacturing",
+      "matchedSubjectsBefore": [
+        "a-level-mathematics",
+        "a-level-physics",
+        "civil-engineering-beng"
+      ]
+    },
+    {
+      "id": "vocational-care-worker",
+      "label": "Care Worker",
+      "category": "Refugee Vocational",
+      "career": "Animal Care Worker",
+      "careerCategory": "Agriculture & Animal Care",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "vocational-retail",
+      "label": "Retail",
+      "category": "Refugee Vocational",
+      "career": "AI/Machine Learning Engineer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": []
+    },
+    {
+      "id": "vocational-security-guard",
+      "label": "Security Guard",
+      "category": "Refugee Vocational",
+      "career": "Software Developer",
+      "careerCategory": "Technology & Digital",
+      "matchedSubjectsBefore": [
+        "alevel-compsci",
+        "gcse-computer-science",
+        "btec-it"
+      ]
+    },
+    {
+      "id": "vocational-driving",
+      "label": "Driving (HGV, delivery)",
+      "category": "Refugee Vocational",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "vocational-hairdressing",
+      "label": "Hairdressing",
+      "category": "Refugee Vocational",
+      "career": "Salon Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "nvq-hairdressing",
+        "nvq-beauty-therapy",
+        "barbering-apprenticeship",
+        "tlevel-hairdressing-barbering-beauty-therapy"
+      ]
+    },
+    {
+      "id": "vocational-beauty-therapy",
+      "label": "Beauty Therapy",
+      "category": "Refugee Vocational",
+      "career": "Salon Worker",
+      "careerCategory": "Service & Hospitality",
+      "matchedSubjectsBefore": [
+        "nvq-hairdressing",
+        "nvq-beauty-therapy",
+        "barbering-apprenticeship",
+        "tlevel-hairdressing-barbering-beauty-therapy"
+      ]
+    },
+    {
+      "id": "foundation-access-he-diploma",
+      "label": "Access to HE Diploma",
+      "category": "Refugee Foundation",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "foundation-international-year",
+      "label": "International Foundation Year",
+      "category": "Refugee Foundation",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    },
+    {
+      "id": "foundation-pre-sessional-english",
+      "label": "Pre-Sessional English",
+      "category": "Refugee Foundation",
+      "career": "Writer/Copywriter",
+      "careerCategory": "Creative & Media",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "english-literature-ba",
+        "creative-writing-ba"
+      ]
+    },
+    {
+      "id": "foundation-study-skills",
+      "label": "Study Skills",
+      "category": "Refugee Foundation",
+      "career": "Career Advisor",
+      "careerCategory": "Education & Training",
+      "matchedSubjectsBefore": [
+        "gcse-english",
+        "counselling-ba",
+        "business-management-ba"
+      ]
+    }
+  ]
+}
