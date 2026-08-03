@@ -1,4 +1,5 @@
 import demoCareers from '../data/demoCareers'
+import type { Career } from '../data/demoCareers'
 import subjectsData from '../data/subjects.json'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
@@ -6,6 +7,12 @@ import Card from '../components/Card'
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
+
+interface MatchedCareer extends Career {
+  matchedSubjectIds: string[]
+  supportMatchCount: number
+  relevance: number
+}
 
 const categories = [
   'All',
@@ -59,21 +66,21 @@ export default function ResultPage() {
     return supportNeeds.flatMap((need) => supportNeedTagMap[need] || [])
   }, [isDisabledLearner, supportNeeds])
 
-  const filteredCareers = useMemo(() => {
+  const filteredCareers = useMemo<Career[]>(() => {
     return activeCategory === 'All'
-      ? (demoCareers as any[])
-      : (demoCareers as any[]).filter((career: any) => career.category === activeCategory)
+      ? demoCareers
+      : demoCareers.filter((career) => career.category === activeCategory)
   }, [activeCategory])
 
-  const matches = useMemo(() => {
-    return (filteredCareers as any[])
-      .filter((career: any) => {
+  const matches = useMemo<MatchedCareer[]>(() => {
+    return filteredCareers
+      .filter((career) => {
         if (!isDisabledLearner || supportTags.length === 0) {
           return true
         }
 
         const tags = career.supportTags || []
-        const matchesNeed = tags.some((tag: string) => supportTags.includes(tag))
+        const matchesNeed = tags.some((tag) => supportTags.includes(tag))
         if (!matchesNeed) {
           return false
         }
@@ -84,12 +91,12 @@ export default function ResultPage() {
 
         return true
       })
-      .map((career: any) => {
-        const matchedSubjectIds = (career.matchedSubjects || []).filter((subjectId: any) =>
+      .map((career): MatchedCareer => {
+        const matchedSubjectIds = (career.matchedSubjects || []).filter((subjectId) =>
           selectedSubjects.includes(subjectId),
         )
         const matchedTagCount = isDisabledLearner && supportTags.length > 0
-          ? (career.supportTags || []).filter((tag: string) => supportTags.includes(tag)).length
+          ? (career.supportTags || []).filter((tag) => supportTags.includes(tag)).length
           : 0
 
         return {
@@ -99,10 +106,10 @@ export default function ResultPage() {
           relevance: matchedSubjectIds.length + matchedTagCount,
         }
       })
-      .filter((career: any) => career.relevance > 0)
-      .sort((a: any, b: any) => {
+      .filter((career) => career.relevance > 0)
+      .sort((a, b) => {
         if (b.relevance === a.relevance) {
-          return (b.supportMatchCount || 0) - (a.supportMatchCount || 0)
+          return b.supportMatchCount - a.supportMatchCount
         }
         return b.relevance - a.relevance
       })
@@ -162,7 +169,7 @@ export default function ResultPage() {
 
       <div className="bg-white px-8 py-8 rounded-none shadow-soft">
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {visibleCareers.map((career: any) => (
+          {visibleCareers.map((career) => (
             <Card key={career.id} title={career.title} description={career.description} badge={career.salary}>
               <div className="mt-4 space-y-3 text-sm text-slate-600">
                 {career.supportTags?.length ? (
@@ -178,7 +185,7 @@ export default function ResultPage() {
                 <div>
                   <p className="font-semibold text-slate-900">Matched because you selected:</p>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    {career.matchedSubjectIds.map((subjectId: any) => (
+                    {career.matchedSubjectIds.map((subjectId) => (
                       <span key={subjectId} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
                         {subjectMap[subjectId] || subjectId}
                       </span>
@@ -188,7 +195,7 @@ export default function ResultPage() {
                 <div>
                   <p className="font-semibold text-slate-900">Requirements</p>
                   <ul className="mt-2 space-y-1 list-disc pl-5">
-                    {career.requirements.map((req: any) => (
+                    {career.requirements.map((req) => (
                       <li key={req}>{req}</li>
                     ))}
                   </ul>
