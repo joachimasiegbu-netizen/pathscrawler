@@ -136,7 +136,7 @@ export default function RoleSelectionPage() {
 
   return (
       <div className="relative min-h-screen space-y-6 pt-12 bg-[#E0E7FF] dark:bg-transparent">
-        <div className="mx-4 rounded-3xl bg-white border border-slate-200 px-8 py-8 shadow-soft dark:bg-slate-800 dark:border-slate-700 md:mx-6 lg:mx-8">
+        <div className="rounded-xl bg-white border border-slate-200 px-8 py-8 shadow-soft dark:bg-slate-800 dark:border-slate-700">
           <div className="flex items-center justify-between gap-4">
             <BackButton to="/" />
             <button
@@ -170,7 +170,7 @@ export default function RoleSelectionPage() {
             </div>
 
             <div className={`${openCategories[category.id] ? 'block' : 'hidden'} md:block`}>
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {category.roles.map((role) => {
                   const Icon = role.icon
                   return (
