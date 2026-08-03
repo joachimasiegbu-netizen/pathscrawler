@@ -57,9 +57,6 @@ const rawDemoCareers = [
       3,
       4,
       5,
-    ],
-    supportTags: [
-      'Remote friendly',
     ]
   },
   {
@@ -425,9 +422,6 @@ const rawDemoCareers = [
       2,
       3,
       4,
-    ],
-    supportTags: [
-      'Remote friendly',
     ]
   },
   {
@@ -836,10 +830,10 @@ const rawDemoCareers = [
       'Lead Consultant / Specialist (Lead / Specialist (£60k+))',
     ],
     similarCareers: [
+      92,
       11,
       12,
       13,
-      14,
     ]
   },
   {
@@ -987,10 +981,10 @@ const rawDemoCareers = [
       'Lead DoctorGP / Specialist (Lead / Specialist (£60k+))',
     ],
     similarCareers: [
+      91,
       22,
       23,
       24,
-      25,
     ]
   },
   {
@@ -1172,10 +1166,10 @@ const rawDemoCareers = [
       'Lead Physiotherapist / Specialist (Lead / Specialist (£60k+))',
     ],
     similarCareers: [
+      88,
       21,
       22,
       23,
-      24,
     ]
   },
   {
@@ -1457,10 +1451,10 @@ const rawDemoCareers = [
       'Project Manager (£65k+)',
     ],
     similarCareers: [
+      89,
       32,
       33,
       34,
-      35,
     ]
   },
   {
@@ -1821,9 +1815,6 @@ const rawDemoCareers = [
       41,
       42,
       43,
-    ],
-    supportTags: [
-      'Flexible hours',
     ]
   },
   {
@@ -2277,9 +2268,6 @@ const rawDemoCareers = [
       47,
       49,
       1,
-    ],
-    supportTags: [
-      'Flexible hours',
     ]
   },
   {
@@ -2386,10 +2374,10 @@ const rawDemoCareers = [
       'Head of Careers (£50k+)',
     ],
     similarCareers: [
+      90,
       11,
       16,
       49,
-      48,
     ]
   },
   {
@@ -2870,9 +2858,6 @@ const rawDemoCareers = [
       12,
       74,
       75,
-    ],
-    supportTags: [
-      'Accessible',
     ]
   },
   {
@@ -2915,9 +2900,6 @@ const rawDemoCareers = [
       12,
       13,
       14,
-    ],
-    supportTags: [
-      'Work from home',
     ]
   },
   {
@@ -2961,9 +2943,6 @@ const rawDemoCareers = [
       22,
       24,
       26,
-    ],
-    supportTags: [
-      'Disability Confident employer',
     ]
   },
   {
@@ -3006,9 +2985,6 @@ const rawDemoCareers = [
       12,
       71,
       75,
-    ],
-    supportTags: [
-      'Flexible hours',
     ]
   },
   {
@@ -3052,9 +3028,6 @@ const rawDemoCareers = [
       71,
       16,
       48,
-    ],
-    supportTags: [
-      'Remote friendly',
     ]
   },
   {
@@ -3098,9 +3071,6 @@ const rawDemoCareers = [
       44,
       48,
       75,
-    ],
-    supportTags: [
-      'Work from home',
     ]
   },
   {
@@ -3150,6 +3120,7 @@ const rawDemoCareers = [
       'Senior Hospitality Worker (£32k-£40k)',
     ],
     similarCareers: [
+      86,
       1,
       5,
       11,
@@ -3238,8 +3209,464 @@ const rawDemoCareers = [
       'Senior Animal Care Worker (£32k-£40k)',
     ],
     similarCareers: [
+      83,
       1,
       5,
+      11,
+    ]
+  },
+  {
+    id: 83,
+    category: 'Agriculture & Animal Care',
+    title: 'Farmer / Agricultural Worker',
+    salary: '£18k - £45k',
+    description: 'Manage land, crops and livestock to produce food and maintain agricultural land.',
+    requirements: [
+      'Relevant vocational or land-based qualification',
+      'Practical outdoor skills',
+      'Understanding of livestock or crop management',
+      'Physical fitness and problem-solving',
+    ],
+    matchedSubjects: [
+      'agriculture-apprenticeship',
+      'nvq-land-based-studies',
+      'gcse-biology',
+      'gcse-geography',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Plan and carry out seasonal farming or land management tasks',
+      'Care for crops, livestock or agricultural equipment',
+      'Monitor weather, soil and environmental conditions',
+      'Keep records and follow safety and environmental regulations',
+    ],
+    whereToStudy: [
+      'Agricultural college or land-based studies course',
+      'Apprenticeship on a working farm',
+      'Countryside or agricultural NVQ',
+      'On-the-job training and mentorship',
+    ],
+    progression: [
+      'Farm Worker / Apprentice (£18k-£24k)',
+      'Farm Worker (£24k-£32k)',
+      'Farm Manager (£32k-£40k)',
+      'Estate / Senior Farm Manager (£40k-£45k)',
+    ],
+    similarCareers: [
+      84,
+      85,
+      82,
+    ]
+  },
+  {
+    id: 84,
+    category: 'Agriculture & Animal Care',
+    title: 'Horticulturist',
+    salary: '£18k - £38k',
+    description: 'Grow and care for plants, gardens and green spaces for public, private or commercial use.',
+    requirements: [
+      'Horticulture or land-based qualification',
+      'Plant and soil knowledge',
+      'Practical gardening skills',
+      'Attention to detail and physical stamina',
+    ],
+    matchedSubjects: [
+      'horticulture-apprenticeship',
+      'nvq-land-based-studies',
+      'gcse-biology',
+      'gcse-art-design',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Plant, prune and maintain gardens, parks or nurseries',
+      'Diagnose plant health issues and pests',
+      'Design or advise on planting schemes',
+      'Operate horticultural tools and equipment safely',
+    ],
+    whereToStudy: [
+      'Horticulture apprenticeship or college course',
+      'RHS or land-based qualifications',
+      'Nursery or garden centre placements',
+      'On-the-job training with experienced horticulturists',
+    ],
+    progression: [
+      'Horticulture Apprentice (£18k-£22k)',
+      'Gardener / Horticulturist (£22k-£28k)',
+      'Senior Horticulturist (£28k-£34k)',
+      'Head Gardener / Grounds Manager (£34k-£38k)',
+    ],
+    similarCareers: [
+      83,
+      85,
+      82,
+    ]
+  },
+  {
+    id: 85,
+    category: 'Agriculture & Animal Care',
+    title: 'Veterinary Nurse',
+    salary: '£20k - £35k',
+    description: 'Support veterinary surgeons with animal care, treatment and welfare in clinical settings.',
+    requirements: [
+      'Veterinary nursing qualification or degree',
+      'Animal handling experience',
+      'Compassion and attention to detail',
+      'Ability to work in clinical environments',
+    ],
+    matchedSubjects: [
+      'veterinary-medicine-bvetmed',
+      'animal-care-apprenticeship',
+      'gcse-biology',
+      'gcse-chemistry',
+      'gcse-science-combined',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Assist vets with examinations, treatments and surgery',
+      'Monitor and care for animals recovering from treatment',
+      'Support pet owners with advice and aftercare',
+      'Maintain clinical records and equipment',
+    ],
+    whereToStudy: [
+      'Veterinary nursing degree or diploma',
+      'Clinical placements in veterinary practices',
+      'Animal care apprenticeship pathway',
+      'Continuous professional development in veterinary care',
+    ],
+    progression: [
+      'Trainee Veterinary Nurse (£18k-£22k)',
+      'Veterinary Nurse (£22k-£28k)',
+      'Senior Veterinary Nurse (£28k-£32k)',
+      'Head Veterinary Nurse / Practice Manager (£32k-£35k)',
+    ],
+    similarCareers: [
+      83,
+      84,
+      82,
+    ]
+  },
+  {
+    id: 86,
+    category: 'Service & Hospitality',
+    title: 'Chef',
+    salary: '£18k - £45k',
+    description: 'Prepare and cook food to a high standard in restaurants, hotels or catering settings.',
+    requirements: [
+      'Culinary training or apprenticeship',
+      'Food hygiene and safety knowledge',
+      'Creativity and attention to detail',
+      'Ability to work under pressure',
+    ],
+    matchedSubjects: [
+      'chef-apprenticeship',
+      'nvq-catering-professional-cookery',
+      'culinary-arts-ba',
+      'gcse-food-technology',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Prepare, cook and present dishes to a high standard',
+      'Manage kitchen stock, hygiene and safety',
+      'Work as part of a fast-paced kitchen team',
+      'Develop menus and refine recipes',
+    ],
+    whereToStudy: [
+      'Catering college or culinary arts course',
+      'Chef apprenticeship in a professional kitchen',
+      'NVQ in Professional Cookery',
+      'Work experience and staged placements in restaurants',
+    ],
+    progression: [
+      'Commis Chef (£18k-£22k)',
+      'Chef de Partie (£22k-£28k)',
+      'Sous Chef (£28k-£36k)',
+      'Head Chef (£36k-£45k)',
+    ],
+    similarCareers: [
+      77,
+      87,
+    ]
+  },
+  {
+    id: 87,
+    category: 'Service & Hospitality',
+    title: 'Event Manager',
+    salary: '£22k - £45k',
+    description: 'Plan and deliver events, from corporate conferences to weddings and festivals.',
+    requirements: [
+      'Event management qualification or degree',
+      'Organisation and project management skills',
+      'Strong communication and negotiation',
+      'Ability to manage budgets and suppliers',
+    ],
+    matchedSubjects: [
+      'event-management-ba',
+      'tourism-management-ba',
+      'hotel-hospitality-management-ba',
+      'btec-travel-tourism',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Plan event logistics, timelines and budgets',
+      'Liaise with venues, suppliers and clients',
+      'Coordinate staff and manage events on the day',
+      'Evaluate events and manage post-event feedback',
+    ],
+    whereToStudy: [
+      'Event management or hospitality degree',
+      'College courses in tourism or hospitality',
+      'Work placements with event agencies or venues',
+      'Professional certification in event management',
+    ],
+    progression: [
+      'Event Assistant (£20k-£24k)',
+      'Event Coordinator (£24k-£30k)',
+      'Event Manager (£30k-£38k)',
+      'Senior / Head of Events (£38k-£45k)',
+    ],
+    similarCareers: [
+      77,
+      86,
+    ]
+  },
+  {
+    id: 88,
+    category: 'Sport & Leisure',
+    title: 'Sports Coach / Personal Trainer',
+    salary: '£18k - £40k',
+    description: 'Coach individuals or teams to improve fitness, sporting performance and healthy habits.',
+    requirements: [
+      'Sports coaching or personal training qualification',
+      'Strong communication and motivational skills',
+      'Knowledge of fitness, health and safety',
+      'First aid certification',
+    ],
+    matchedSubjects: [
+      'personal-training',
+      'sports-coaching-apprenticeship',
+      'btec-sport',
+      'leisure-management-apprenticeship',
+      'alevel-physical-education',
+      'gcse-pe',
+      'exercise-physiology-bsc',
+      'coaching-sports-development-bsc',
+      'sports-therapy-bsc',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Plan and deliver coaching or training sessions',
+      'Assess fitness levels and set goals with clients',
+      'Motivate individuals or teams to improve performance',
+      'Track progress and adapt training programmes',
+    ],
+    whereToStudy: [
+      'Sports coaching or personal training qualification',
+      'Sports science or coaching degree',
+      'Apprenticeship with a leisure centre or sports club',
+      'Ongoing CPD and specialist coaching certifications',
+    ],
+    progression: [
+      'Trainee Coach / Assistant (£18k-£22k)',
+      'Sports Coach / Personal Trainer (£22k-£28k)',
+      'Senior Coach (£28k-£34k)',
+      'Head Coach / Performance Director (£34k-£40k)',
+    ],
+    similarCareers: [
+      25,
+    ]
+  },
+  {
+    id: 89,
+    category: 'Construction & Trades',
+    title: 'Construction Trades Worker',
+    salary: '£20k - £42k',
+    description: 'Build, install and maintain structures using skilled trade techniques such as plumbing, electrics or carpentry.',
+    requirements: [
+      'Relevant NVQ or trade apprenticeship',
+      'Practical, hands-on skills',
+      'Understanding of health and safety on site',
+      'Physical fitness and attention to detail',
+    ],
+    matchedSubjects: [
+      'nvq-plumbing',
+      'nvq-electrical-installation',
+      'nvq-carpentry',
+      'btec-construction',
+      'bricklaying-apprenticeship',
+      'gcse-maths',
+      'gcse-design-technology',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Install, repair or build structures and systems on site',
+      'Read plans and technical drawings',
+      'Follow safety regulations and site procedures',
+      'Work with tools, materials and other tradespeople',
+    ],
+    whereToStudy: [
+      'Trade apprenticeship (plumbing, electrical, carpentry, bricklaying)',
+      'NVQ or college course in construction trades',
+      'On-site training with a qualified tradesperson',
+      'Professional trade certification (e.g. Gas Safe, NICEIC)',
+    ],
+    progression: [
+      'Trade Apprentice (£18k-£24k)',
+      'Qualified Tradesperson (£24k-£32k)',
+      'Senior Tradesperson / Supervisor (£32k-£38k)',
+      'Self-employed / Contracts Manager (£38k-£42k)',
+    ],
+    similarCareers: [
+      31,
+      38,
+    ]
+  },
+  {
+    id: 90,
+    category: 'Public Services',
+    title: 'Police & Public Services Officer',
+    salary: '£20k - £45k',
+    description: 'Protect and support the public through policing, fire and rescue or wider public service roles.',
+    requirements: [
+      'Public services qualification or relevant apprenticeship',
+      'Physical fitness and resilience',
+      'Strong communication and teamwork',
+      'Commitment to public safety and community support',
+    ],
+    matchedSubjects: [
+      'btec-public-services',
+      'police-apprenticeship',
+      'firefighter-apprenticeship',
+      'military-apprenticeship',
+      'vocational-security-guard',
+      'policing-criminal-investigation-bsc',
+      'fire-rescue-bsc',
+      'emergency-planning-bsc',
+      'disaster-management-bsc',
+      'public-administration-ba',
+      'local-government-management-ba',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Respond to incidents and support public safety',
+      'Patrol, investigate or manage emergency situations',
+      'Work closely with communities and other agencies',
+      'Complete reports and follow legal procedures',
+    ],
+    whereToStudy: [
+      'Public services college course or degree',
+      'Police, fire or armed forces apprenticeship',
+      'Uniformed services training programme',
+      'Ongoing professional development and specialist training',
+    ],
+    progression: [
+      'Trainee / Cadet (£20k-£24k)',
+      'Officer (£24k-£32k)',
+      'Senior Officer / Sergeant (£32k-£40k)',
+      'Inspector / Senior Management (£40k-£45k)',
+    ],
+    similarCareers: [
+      50,
+    ]
+  },
+  {
+    id: 91,
+    category: 'Science & Research',
+    title: 'Science Researcher',
+    salary: '£24k - £55k',
+    description: 'Investigate scientific questions through research, experiments and data analysis across specialist fields.',
+    requirements: [
+      'Science degree in a relevant specialism',
+      'Strong analytical and research skills',
+      'Attention to detail and scientific method',
+      'Report writing and data analysis',
+    ],
+    matchedSubjects: [
+      'biochemistry-bsc',
+      'microbiology-bsc',
+      'forensic-science-bsc',
+      'environmental-science-bsc',
+      'marine-biology-bsc',
+      'astrophysics-bsc',
+      'geology-bsc',
+      'meteorology-bsc',
+      'materials-science-bsc',
+      'gcse-biology',
+      'gcse-chemistry',
+      'gcse-physics',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Design and carry out experiments or field research',
+      'Analyse data and interpret scientific results',
+      'Write reports and share findings with peers',
+      'Keep up to date with developments in the field',
+    ],
+    whereToStudy: [
+      'Science degree (BSc) in a specialist field',
+      'Postgraduate research (MSc/PhD) for advanced roles',
+      'Laboratory or fieldwork placements',
+      'Research assistant or lab technician experience',
+    ],
+    progression: [
+      'Research Assistant (£24k-£30k)',
+      'Research Scientist (£30k-£40k)',
+      'Senior Researcher (£40k-£50k)',
+      'Principal Scientist / Research Lead (£50k-£55k)',
+    ],
+    similarCareers: [
+      49,
+      21,
+    ]
+  },
+  {
+    id: 92,
+    category: 'Business & Finance',
+    title: 'Legal Advisor',
+    salary: '£26k - £70k',
+    description: 'Provide legal advice and support to individuals, businesses or organisations on rights and regulations.',
+    requirements: [
+      'Law degree (LLB) or legal qualification',
+      'Strong analytical and communication skills',
+      'Attention to detail and integrity',
+      'Professional legal training (e.g. SQE)',
+    ],
+    matchedSubjects: [
+      'law-llb',
+      'alevel-law',
+      'business-law-llb',
+      'international-law-llb',
+      'tlevel-legal-services',
+      'gcse-english',
+      'gcse-maths',
+    ],
+    dayToDay: [
+      'Research legal issues and prepare advice or documents',
+      'Support clients or colleagues with legal queries',
+      'Review contracts, regulations and compliance matters',
+      'Represent or support cases as required',
+    ],
+    whereToStudy: [
+      'Law degree (LLB) or conversion course',
+      'Legal apprenticeship or paralegal pathway',
+      'Professional qualification (e.g. SQE, Bar training)',
+      'Training contract or legal work placement',
+    ],
+    progression: [
+      'Paralegal / Trainee (£22k-£30k)',
+      'Legal Advisor (£30k-£42k)',
+      'Senior Legal Advisor / Associate (£42k-£58k)',
+      'Solicitor / Legal Counsel (£58k-£70k)',
+    ],
+    similarCareers: [
+      18,
       11,
     ]
   }

@@ -22,6 +22,12 @@ const categories = [
   'Engineering & Manufacturing',
   'Creative & Media',
   'Education & Training',
+  'Service & Hospitality',
+  'Agriculture & Animal Care',
+  'Sport & Leisure',
+  'Construction & Trades',
+  'Public Services',
+  'Science & Research',
 ]
 
 const supportNeedTagMap: Record<string, string[]> = {
