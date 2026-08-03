@@ -36,6 +36,8 @@ export default function RefugeeSubjectPage() {
   const selectedRole = usePathStore((state) => state.selectedRole)
   const setSelectedRole = usePathStore((state) => state.setSelectedRole)
   const setSelectedLevel = usePathStore((state) => state.setSelectedLevel)
+  const selectedSubjects = usePathStore((state) => state.selectedSubjects)
+  const toggleSubject = usePathStore((state) => state.toggleSubject)
   const [query, setQuery] = useState('')
   const [showLevel, setShowLevel] = useState(false)
 
@@ -64,6 +66,8 @@ export default function RefugeeSubjectPage() {
     if (!normalized) return levelSubjects
     return levelSubjects.filter((subject) => subject.label.toLowerCase().includes(normalized) || subject.description.toLowerCase().includes(normalized))
   }, [levelSubjects, query])
+
+  const selectedCount = selectedSubjects.filter((subjectId) => levelSubjects.some((subject) => subject.id === subjectId)).length
 
   if (!info) {
     return null
@@ -98,20 +102,25 @@ export default function RefugeeSubjectPage() {
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {filteredSubjects.length > 0 ? (
-                filteredSubjects.map((subject) => (
-                  <button
-                    key={subject.id}
-                    type="button"
-                    className="h-full rounded-lg border p-4 text-left transition duration-150 border-slate-200 bg-white hover:border-primary/50"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <h3 className="text-base font-semibold text-slate-950">{subject.label}</h3>
-                        <p className="mt-2 text-sm leading-6 text-slate-500">{subject.description}</p>
+                filteredSubjects.map((subject) => {
+                  const active = selectedSubjects.includes(subject.id)
+                  return (
+                    <button
+                      key={subject.id}
+                      type="button"
+                      onClick={() => toggleSubject(subject.id)}
+                      className={`h-full rounded-lg border p-4 text-left transition duration-150 ${active ? 'border-primary bg-primary/10' : 'border-slate-200 bg-white hover:border-primary/50'}`}
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <h3 className="text-base font-semibold text-slate-950">{subject.label}</h3>
+                          <p className="mt-2 text-sm leading-6 text-slate-500">{subject.description}</p>
+                        </div>
+                        <span className={`inline-flex h-10 min-w-[40px] items-center justify-center rounded-full text-lg font-semibold ${active ? 'bg-primary text-white' : 'bg-slate-100 text-slate-500'}`}>{active ? '✓' : '+'}</span>
                       </div>
-                    </div>
-                  </button>
-                ))
+                    </button>
+                  )
+                })
               ) : (
                 <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-slate-500">No subjects found for this pathway.</div>
               )}
@@ -121,7 +130,7 @@ export default function RefugeeSubjectPage() {
 
         <div className="border-t px-8 py-4">
           <div className="flex justify-end">
-            <Button onClick={() => navigate('/results')} disabled={filteredSubjects.length === 0} className="w-full sm:w-auto">
+            <Button onClick={() => navigate('/results')} disabled={selectedCount === 0} className="w-full sm:w-auto">
               Continue
             </Button>
           </div>
