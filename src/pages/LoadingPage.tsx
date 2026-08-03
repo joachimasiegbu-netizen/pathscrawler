@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { Compass } from 'lucide-react'
 import { usePathStore } from '../store/usePathStore'
 import WaveBackground from '../components/WaveBackground'
 
@@ -31,6 +32,15 @@ export default function LoadingPage() {
         >
           Start journey
         </motion.button>
+
+        <button
+          type="button"
+          onClick={() => navigate('/backtrack')}
+          className="inline-flex items-center gap-2 text-sm font-semibold text-white/80 transition hover:text-white"
+        >
+          <Compass className="h-4 w-4" />
+          How do I get there?
+        </button>
       </div>
     </div>
   )

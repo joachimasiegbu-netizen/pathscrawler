@@ -1,3 +1,13 @@
+export interface BacktrackPathway {
+  type: 'vocational' | 'university'
+  name: string
+  duration: string
+  cost: string
+  entryRequirements: string
+  subjects: string[]
+  description: string
+}
+
 export interface Career {
   id: number
   category: string
@@ -11,6 +21,7 @@ export interface Career {
   progression: string[]
   similarCareers: number[]
   matchedSubjects: string[]
+  backtrackPathways: BacktrackPathway[]
 }
 
 declare const demoCareers: Career[]

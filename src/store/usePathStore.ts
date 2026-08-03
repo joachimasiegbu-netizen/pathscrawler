@@ -42,6 +42,7 @@ interface PathState {
   assessmentCompleted: boolean
   matchedRoles: string[]
   recommendedRole: string | null
+  highlightedCareerId: number | null
   setCurrentPath: (path: 'education' | 'career') => void
   setSelectedRole: (role: string) => void
   setSelectedSubjects: (subjectIds: string[]) => void
@@ -62,6 +63,7 @@ interface PathState {
   setAssessmentCompleted: (completed: boolean) => void
   setMatchedRoles: (roles: string[]) => void
   setRecommendedRole: (role: string | null) => void
+  setHighlightedCareerId: (careerId: number | null) => void
   reset: () => void
 }
 
@@ -87,8 +89,9 @@ export const usePathStore = create<PathState>()(
       assessmentCompleted: false,
       matchedRoles: [],
       recommendedRole: null,
+      highlightedCareerId: null,
       setCurrentPath: (path) => set({ currentPath: path }),
-      setSelectedRole: (role) => set((state) => ({ selectedRole: role, selectedSubjects: [], selectedLevel: null, supportNeeds: role === 'disabled-learner' ? state.supportNeeds : [] })),
+      setSelectedRole: (role) => set((state) => ({ selectedRole: role, selectedSubjects: [], selectedLevel: null, supportNeeds: role === 'disabled-learner' ? state.supportNeeds : [], highlightedCareerId: null })),
       setSelectedSubjects: (subjectIds) => set({ selectedSubjects: subjectIds }),
       setSelectedLevel: (level) => set({ selectedLevel: level }),
       setEsolLevel: (level) => set({ esolLevel: level }),
@@ -106,6 +109,7 @@ export const usePathStore = create<PathState>()(
       setAssessmentCompleted: (completed) => set({ assessmentCompleted: completed }),
       setMatchedRoles: (matchedRoles) => set({ matchedRoles }),
       setRecommendedRole: (recommendedRole: string | null) => set({ recommendedRole }),
+      setHighlightedCareerId: (highlightedCareerId) => set({ highlightedCareerId }),
       reset: () =>
         set({
           currentPath: null,
@@ -127,6 +131,7 @@ export const usePathStore = create<PathState>()(
           assessmentCompleted: false,
           matchedRoles: [],
           recommendedRole: null,
+          highlightedCareerId: null,
         }),
     }),
     {
@@ -143,6 +148,7 @@ export const usePathStore = create<PathState>()(
         assessmentCompleted: state.assessmentCompleted,
         matchedRoles: state.matchedRoles,
         recommendedRole: state.recommendedRole,
+        highlightedCareerId: state.highlightedCareerId,
       }),
     },
   ),

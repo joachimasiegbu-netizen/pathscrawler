@@ -18,6 +18,12 @@ import ESOLSubjectPage from './pages/ESOLSubjectPage'
 import QualificationRecognitionPage from './pages/QualificationRecognitionPage'
 import DisabledWelcomePage from './pages/DisabledWelcomePage'
 import DisabledSupportNeedsPage from './pages/DisabledSupportNeedsPage'
+import BacktrackWelcomePage from './pages/BacktrackWelcomePage'
+import BacktrackCategoriesPage from './pages/BacktrackCategoriesPage'
+import BacktrackCareersListPage from './pages/BacktrackCareersListPage'
+import BacktrackPathwayOverviewPage from './pages/BacktrackPathwayOverviewPage'
+import BacktrackPathwayOptionsPage from './pages/BacktrackPathwayOptionsPage'
+import BacktrackSubjectSelectionPage from './pages/BacktrackSubjectSelectionPage'
 import MobileContainer from './components/MobileContainer'
 
 function App() {
@@ -58,6 +64,12 @@ function App() {
             <Route path="/refugee/recognition" element={<PageTransition reduceMotion={reduceMotion}><QualificationRecognitionPage /></PageTransition>} />
             <Route path="/results" element={<PageTransition reduceMotion={reduceMotion}><ResultPage /></PageTransition>} />
             <Route path="/career/:id" element={<PageTransition reduceMotion={reduceMotion}><CareerDetailPage /></PageTransition>} />
+            <Route path="/backtrack" element={<PageTransition reduceMotion={reduceMotion}><BacktrackWelcomePage /></PageTransition>} />
+            <Route path="/backtrack/categories" element={<PageTransition reduceMotion={reduceMotion}><BacktrackCategoriesPage /></PageTransition>} />
+            <Route path="/backtrack/careers/:category" element={<PageTransition reduceMotion={reduceMotion}><BacktrackCareersListPage /></PageTransition>} />
+            <Route path="/backtrack/pathway/:careerId" element={<PageTransition reduceMotion={reduceMotion}><BacktrackPathwayOverviewPage /></PageTransition>} />
+            <Route path="/backtrack/options/:careerId" element={<PageTransition reduceMotion={reduceMotion}><BacktrackPathwayOptionsPage /></PageTransition>} />
+            <Route path="/backtrack/subjects/:careerId/:pathway" element={<PageTransition reduceMotion={reduceMotion}><BacktrackSubjectSelectionPage /></PageTransition>} />
           </Routes>
         </AnimatePresence>
       </MobileContainer>

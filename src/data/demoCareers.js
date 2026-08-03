@@ -57,6 +57,40 @@ const rawDemoCareers = [
       3,
       4,
       5,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'cyber-security-apprenticeship',
+          'software-development-apprenticeship',
+          'network-engineer-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Software Developer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-compsci',
+          'btec-it',
+          'software-engineering-bsc',
+          'cyber-security-bsc',
+          'computer-forensics-bsc',
+          'web-development-bsc',
+          'game-development-bsc',
+          'network-engineering-bsc',
+          'nanotechnology-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Software Developer.',
+      },
     ]
   },
   {
@@ -99,6 +133,20 @@ const rawDemoCareers = [
     similarCareers: [
       8,
       63,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-mathematics',
+          'alevel-economics',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Data Analyst.',
+      },
     ]
   },
   {
@@ -144,6 +192,31 @@ const rawDemoCareers = [
       8,
       63,
       66,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-digital-support-services',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Cyber Security Analyst.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-compsci',
+          'btec-computing',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Cyber Security Analyst.',
+      },
     ]
   },
   {
@@ -189,6 +262,19 @@ const rawDemoCareers = [
       2,
       3,
       5,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-media',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a UX/UI Designer.',
+      },
     ]
   },
   {
@@ -235,6 +321,31 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-digital-support-services',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a IT Support Technician.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-it',
+          'augmented-reality-development-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a IT Support Technician.',
+      },
     ]
   },
   {
@@ -281,6 +392,31 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-engineering-manufacturing-processing-control',
+          'tlevel-digital-support-services',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Network Engineer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-computing',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Network Engineer.',
+      },
     ]
   },
   {
@@ -326,6 +462,23 @@ const rawDemoCareers = [
     similarCareers: [
       8,
       66,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'university-engineering',
+          'alevel-mathematics',
+          'information-technology-bsc',
+          'alevel-compsci',
+          'btec-computing',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Cloud Architect.',
+      },
     ]
   },
   {
@@ -375,6 +528,33 @@ const rawDemoCareers = [
       2,
       7,
       9,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-digital-production-design-development',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a AI/Machine Learning Engineer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-mathematics',
+          'data-science-bsc',
+          'alevel-compsci',
+          'artificial-intelligence-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a AI/Machine Learning Engineer.',
+      },
     ]
   },
   {
@@ -422,6 +602,32 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-digital-production-design-development',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Web Developer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-compsci',
+          'btec-it',
+          'btec-computing',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Web Developer.',
+      },
     ]
   },
   {
@@ -469,6 +675,21 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-art-design',
+          'alevel-compsci',
+          'virtual-reality-development-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Game Developer.',
+      },
     ]
   },
   {
@@ -513,6 +734,19 @@ const rawDemoCareers = [
       13,
       14,
       18,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-business-studies',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Business Analyst.',
+      },
     ]
   },
   {
@@ -532,6 +766,7 @@ const rawDemoCareers = [
       'gcse-maths',
       'accounting-bsc',
       'gcse-english',
+      'accounting-apprenticeship-aat',
     ],
     dayToDay: [
       'Prepare financial records and reconcile accounts',
@@ -556,6 +791,30 @@ const rawDemoCareers = [
       13,
       74,
       71,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'accounting-apprenticeship-aat',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Accountant.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'accounting-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Accountant.',
+      },
     ]
   },
   {
@@ -576,7 +835,6 @@ const rawDemoCareers = [
       'business-management-ba',
       'gcse-economics',
       'nvq-business-administration',
-      'accounting-apprenticeship-aat',
       'hotel-management-apprenticeship',
       'leisure-management-apprenticeship',
       'economics-bsc',
@@ -617,6 +875,46 @@ const rawDemoCareers = [
       12,
       14,
       15,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'nvq-business-administration',
+          'hotel-management-apprenticeship',
+          'leisure-management-apprenticeship',
+          'tlevel-digital-business-services',
+          'tlevel-finance',
+          'tlevel-accounting',
+          'tlevel-management-administration',
+          'tlevel-agriculture-land-management-production',
+          'tlevel-animal-care-management',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Financial Advisor.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'finance-bsc',
+          'business-management-ba',
+          'economics-bsc',
+          'human-resource-management-ba',
+          'international-business-ba',
+          'supply-chain-management-ba',
+          'hotel-hospitality-management-ba',
+          'event-management-ba',
+          'tourism-management-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Financial Advisor.',
+      },
     ]
   },
   {
@@ -660,6 +958,20 @@ const rawDemoCareers = [
       12,
       13,
       15,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'project-management-bsc',
+          'business-management-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Project Manager.',
+      },
     ]
   },
   {
@@ -703,6 +1015,19 @@ const rawDemoCareers = [
       12,
       13,
       14,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'marketing-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Marketing Manager.',
+      },
     ]
   },
   {
@@ -747,6 +1072,31 @@ const rawDemoCareers = [
       12,
       13,
       14,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'hr-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Human Resources Officer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'business-management-ba',
+          'social-work-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Human Resources Officer.',
+      },
     ]
   },
   {
@@ -790,6 +1140,30 @@ const rawDemoCareers = [
       12,
       13,
       14,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'customer-service-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Sales Manager.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'business-management-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Sales Manager.',
+      },
     ]
   },
   {
@@ -834,6 +1208,20 @@ const rawDemoCareers = [
       11,
       12,
       13,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'business-management-ba',
+          'project-management-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Management Consultant.',
+      },
     ]
   },
   {
@@ -878,6 +1266,19 @@ const rawDemoCareers = [
       12,
       13,
       14,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'finance-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Investment Banker.',
+      },
     ]
   },
   {
@@ -921,6 +1322,19 @@ const rawDemoCareers = [
       12,
       13,
       14,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-business',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Insurance Underwriter.',
+      },
     ]
   },
   {
@@ -985,6 +1399,48 @@ const rawDemoCareers = [
       22,
       23,
       24,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'nvq-health-social-care',
+          'healthcare-assistant-apprenticeship',
+          'dental-nursing-apprenticeship',
+          'tlevel-health',
+          'tlevel-healthcare-science',
+          'tlevel-science',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Doctor/GP.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-biology',
+          'alevel-chemistry',
+          'medicine-mbbs',
+          'computer-science-bsc',
+          'nursing-children-bsc',
+          'radiography-therapeutic-bsc',
+          'dietetics-bsc',
+          'biomedical-science-bsc',
+          'chemistry-bsc',
+          'biology-bsc',
+          'nutrition-food-science-bsc',
+          'alevel-environmental-science',
+          'btec-applied-science',
+          'btec-forensic-science',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Doctor/GP.',
+      },
     ]
   },
   {
@@ -1030,6 +1486,21 @@ const rawDemoCareers = [
       23,
       24,
       25,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-health-social-care',
+          'nursing-adult-bsc',
+          'operating-department-practice-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Nurse.',
+      },
     ]
   },
   {
@@ -1073,6 +1544,19 @@ const rawDemoCareers = [
       22,
       24,
       25,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'paramedic-science-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Paramedic.',
+      },
     ]
   },
   {
@@ -1118,6 +1602,21 @@ const rawDemoCareers = [
       22,
       23,
       25,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-chemistry',
+          'alevel-biology',
+          'pharmacy-mpharm',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Pharmacist.',
+      },
     ]
   },
   {
@@ -1170,6 +1669,37 @@ const rawDemoCareers = [
       21,
       22,
       23,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'sports-coaching-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Physiotherapist.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-biology',
+          'sports-science-bsc',
+          'physiotherapy-bsc',
+          'btec-sport',
+          'sports-therapy-bsc',
+          'exercise-physiology-bsc',
+          'coaching-sports-development-bsc',
+          'alevel-physical-education',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Physiotherapist.',
+      },
     ]
   },
   {
@@ -1214,6 +1744,20 @@ const rawDemoCareers = [
       22,
       23,
       24,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'occupational-therapy-bsc',
+          'disability-studies-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Occupational Therapist.',
+      },
     ]
   },
   {
@@ -1259,6 +1803,21 @@ const rawDemoCareers = [
       22,
       24,
       28,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-chemistry',
+          'alevel-biology',
+          'dentistry-bds',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Dentist.',
+      },
     ]
   },
   {
@@ -1306,6 +1865,23 @@ const rawDemoCareers = [
       22,
       23,
       24,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-psychology',
+          'psychology-bsc',
+          'clinical-psychology-doctorate',
+          'nursing-mental-health-bsc',
+          'mental-health-nursing-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Psychologist.',
+      },
     ]
   },
   {
@@ -1349,6 +1925,19 @@ const rawDemoCareers = [
       22,
       23,
       24,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'radiography-diagnostic-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Radiographer.',
+      },
     ]
   },
   {
@@ -1392,6 +1981,19 @@ const rawDemoCareers = [
       22,
       23,
       24,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'midwifery-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Midwife.',
+      },
     ]
   },
   {
@@ -1413,8 +2015,6 @@ const rawDemoCareers = [
       'gcse-physics',
       'btec-engineering',
       'mechanical-engineering-apprenticeship',
-      'electrical-engineering-apprenticeship',
-      'aerospace-manufacturing-apprenticeship',
       'physics-bsc',
       'automotive-engineering-beng',
       'petroleum-engineering-beng',
@@ -1455,6 +2055,44 @@ const rawDemoCareers = [
       32,
       33,
       34,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'mechanical-engineering-apprenticeship',
+          'tlevel-construction-building-services-engineering',
+          'tlevel-construction-on-site-construction',
+          'tlevel-engineering-manufacturing-maintenance-installation-repair',
+          'vocational-construction-labourer',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Civil Engineer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'civil-engineering-beng',
+          'btec-engineering',
+          'physics-bsc',
+          'automotive-engineering-beng',
+          'petroleum-engineering-beng',
+          'nuclear-engineering-beng',
+          'renewable-energy-engineering-beng',
+          'railway-engineering-beng',
+          'mechatronics-beng',
+          'robotics-beng',
+          'alevel-physics',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Civil Engineer.',
+      },
     ]
   },
   {
@@ -1501,6 +2139,30 @@ const rawDemoCareers = [
       33,
       34,
       35,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'nvq-vehicle-maintenance',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Mechanical Engineer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'mechanical-engineering-beng',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Mechanical Engineer.',
+      },
     ]
   },
   {
@@ -1522,6 +2184,7 @@ const rawDemoCareers = [
       'gcse-maths',
       'gcse-english',
       'gcse-science-combined',
+      'electrical-engineering-apprenticeship',
     ],
     dayToDay: [
       'Design plans, inspect drawings and review technical details',
@@ -1546,6 +2209,30 @@ const rawDemoCareers = [
       32,
       34,
       35,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'electrical-engineering-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Electrical Engineer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'electrical-engineering-beng',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Electrical Engineer.',
+      },
     ]
   },
   {
@@ -1567,6 +2254,7 @@ const rawDemoCareers = [
       'gcse-maths',
       'gcse-english',
       'gcse-science-combined',
+      'aerospace-manufacturing-apprenticeship',
     ],
     dayToDay: [
       'Design aircraft and spacecraft components',
@@ -1591,6 +2279,30 @@ const rawDemoCareers = [
       32,
       33,
       35,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'aerospace-manufacturing-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Aerospace Engineer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'aerospace-engineering-beng',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Aerospace Engineer.',
+      },
     ]
   },
   {
@@ -1636,6 +2348,19 @@ const rawDemoCareers = [
       32,
       33,
       34,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'chemical-engineering-beng',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Chemical Engineer.',
+      },
     ]
   },
   {
@@ -1682,6 +2407,20 @@ const rawDemoCareers = [
       34,
       35,
       37,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'architecture-ba',
+          'landscape-architecture-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Architect.',
+      },
     ]
   },
   {
@@ -1726,6 +2465,19 @@ const rawDemoCareers = [
       32,
       33,
       34,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'civil-engineering-beng',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Quantity Surveyor.',
+      },
     ]
   },
   {
@@ -1771,6 +2523,30 @@ const rawDemoCareers = [
       32,
       33,
       37,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-engineering-manufacturing-design-development',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a CAD Technician.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-engineering',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a CAD Technician.',
+      },
     ]
   },
   {
@@ -1815,6 +2591,20 @@ const rawDemoCareers = [
       41,
       42,
       43,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-art-design',
+          'graphic-design-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Graphic Designer.',
+      },
     ]
   },
   {
@@ -1859,6 +2649,20 @@ const rawDemoCareers = [
       41,
       42,
       43,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-media',
+          'film-production-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Video Editor.',
+      },
     ]
   },
   {
@@ -1902,6 +2706,19 @@ const rawDemoCareers = [
       40,
       42,
       43,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'photography-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Photographer.',
+      },
     ]
   },
   {
@@ -1946,6 +2763,19 @@ const rawDemoCareers = [
       40,
       41,
       45,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'animation-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Animator.',
+      },
     ]
   },
   {
@@ -2001,6 +2831,24 @@ const rawDemoCareers = [
       40,
       41,
       42,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'english-literature-ba',
+          'creative-writing-ba',
+          'english-language-ba',
+          'alevel-english-lit',
+          'alevel-english-language',
+          'comparative-literature-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Writer/Copywriter.',
+      },
     ]
   },
   {
@@ -2045,6 +2893,20 @@ const rawDemoCareers = [
       40,
       41,
       42,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'marketing-ba',
+          'btec-media',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Social Media Manager.',
+      },
     ]
   },
   {
@@ -2109,6 +2971,48 @@ const rawDemoCareers = [
       40,
       41,
       42,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'btec-music',
+          'tlevel-construction-design-surveying-planning',
+          'tlevel-craft-design',
+          'tlevel-media-broadcast-production',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Film/TV Producer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'film-production-ba',
+          'music-production-ba',
+          'btec-performing-arts',
+          'btec-art-design',
+          'interior-design-ba',
+          'product-design-ba',
+          'fashion-design-ba',
+          'photography-ba',
+          'theatre-performance-ba',
+          'dance-ba',
+          'game-design-ba',
+          'alevel-photography',
+          'alevel-music-technology',
+          'alevel-drama-theatre',
+          'alevel-film-studies',
+          'alevel-graphic-communication',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Film/TV Producer.',
+      },
     ]
   },
   {
@@ -2151,6 +3055,19 @@ const rawDemoCareers = [
       48,
       49,
       1,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'primary-education-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Primary School Teacher.',
+      },
     ]
   },
   {
@@ -2226,6 +3143,54 @@ const rawDemoCareers = [
       48,
       49,
       1,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'nvq-early-years-educator',
+          'tlevel-education-childcare',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Secondary School Teacher.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'secondary-education-ba',
+          'education-studies-ba',
+          'special-educational-needs-ba',
+          'early-childhood-education-ba',
+          'tesol-tefl-ba',
+          'sociology-ba',
+          'politics-ba',
+          'anthropology-ba',
+          'archaeology-ba',
+          'history-ba',
+          'philosophy-ba',
+          'classical-studies-ba',
+          'art-history-ba',
+          'linguistics-ba',
+          'modern-languages-ba',
+          'translation-interpreting-ba',
+          'alevel-history',
+          'alevel-geography',
+          'alevel-politics',
+          'alevel-sociology',
+          'alevel-modern-languages',
+          'alevel-philosophy',
+          'alevel-religious-studies',
+          'alevel-classical-civilisation',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Secondary School Teacher.',
+      },
     ]
   },
   {
@@ -2268,6 +3233,19 @@ const rawDemoCareers = [
       47,
       49,
       1,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'education-studies-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Teaching Assistant.',
+      },
     ]
   },
   {
@@ -2325,6 +3303,34 @@ const rawDemoCareers = [
       47,
       48,
       1,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'university-engineering',
+          'education-studies-ba',
+          'psychology-bsc',
+          'entrepreneurship-ba',
+          'criminology-ba',
+          'criminal-justice-ba',
+          'speech-language-therapy-bsc',
+          'psychotherapy-bsc',
+          'mathematics-bsc',
+          'urban-planning-ba',
+          'journalism-ba',
+          'youth-work-ba',
+          'international-relations-ba',
+          'development-studies-ba',
+          'gender-studies-ba',
+          'medieval-studies-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a University Lecturer.',
+      },
     ]
   },
   {
@@ -2378,6 +3384,32 @@ const rawDemoCareers = [
       11,
       16,
       49,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'vocational-warehouse-logistics',
+          'vocational-driving',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Career Advisor.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'counselling-ba',
+          'business-management-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Career Advisor.',
+      },
     ]
   },
   {
@@ -2422,6 +3454,20 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-computing',
+          'alevel-compsci',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a DevOps Engineer.',
+      },
     ]
   },
   {
@@ -2465,6 +3511,20 @@ const rawDemoCareers = [
       1,
       9,
       61,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-it',
+          'alevel-mathematics',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Database Administrator.',
+      },
     ]
   },
   {
@@ -2508,6 +3568,20 @@ const rawDemoCareers = [
       8,
       3,
       66,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-compsci',
+          'university-engineering',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Blockchain Developer.',
+      },
     ]
   },
   {
@@ -2552,6 +3626,30 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-digital-support-services',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Ethical Hacker.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-computing',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Ethical Hacker.',
+      },
     ]
   },
   {
@@ -2596,6 +3694,30 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-digital-support-services',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Digital Forensics Investigator.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-compsci',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Digital Forensics Investigator.',
+      },
     ]
   },
   {
@@ -2639,6 +3761,20 @@ const rawDemoCareers = [
       3,
       7,
       8,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-computing',
+          'alevel-compsci',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Cloud Security Engineer.',
+      },
     ]
   },
   {
@@ -2683,6 +3819,20 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'alevel-compsci',
+          'btec-computing',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Site Reliability Engineer.',
+      },
     ]
   },
   {
@@ -2727,6 +3877,30 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-digital-production-design-development',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Mobile App Developer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-computing',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Mobile App Developer.',
+      },
     ]
   },
   {
@@ -2771,6 +3945,19 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-it',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Systems Analyst.',
+      },
     ]
   },
   {
@@ -2814,6 +4001,19 @@ const rawDemoCareers = [
       2,
       3,
       4,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-it',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Technical Writer.',
+      },
     ]
   },
   {
@@ -2858,6 +4058,19 @@ const rawDemoCareers = [
       12,
       74,
       75,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-business',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Data Entry Clerk.',
+      },
     ]
   },
   {
@@ -2900,6 +4113,19 @@ const rawDemoCareers = [
       12,
       13,
       14,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-business',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Virtual Assistant.',
+      },
     ]
   },
   {
@@ -2943,6 +4169,19 @@ const rawDemoCareers = [
       22,
       24,
       26,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-health-social-care',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Care Assistant.',
+      },
     ]
   },
   {
@@ -2985,6 +4224,20 @@ const rawDemoCareers = [
       12,
       71,
       75,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-business',
+          'accounting-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Bookkeeper.',
+      },
     ]
   },
   {
@@ -3028,6 +4281,20 @@ const rawDemoCareers = [
       71,
       16,
       48,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'customer-service-apprenticeship',
+          'vocational-retail',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Customer Service Advisor.',
+      },
     ]
   },
   {
@@ -3071,6 +4338,19 @@ const rawDemoCareers = [
       44,
       48,
       75,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'creative-writing-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Content Writer.',
+      },
     ]
   },
   {
@@ -3124,6 +4404,41 @@ const rawDemoCareers = [
       1,
       5,
       11,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'nvq-catering-professional-cookery',
+          'chef-apprenticeship',
+          'hotel-management-apprenticeship',
+          'vocational-hospitality-catering',
+          'tlevel-catering',
+          'vocational-cleaning-facilities',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Hospitality Worker.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-hospitality',
+          'hotel-hospitality-management-ba',
+          'event-management-ba',
+          'tourism-management-ba',
+          'culinary-arts-ba',
+          'nutrition-food-science-bsc',
+          'btec-travel-tourism',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Hospitality Worker.',
+      },
     ]
   },
   {
@@ -3168,6 +4483,24 @@ const rawDemoCareers = [
       1,
       5,
       11,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'nvq-hairdressing',
+          'nvq-beauty-therapy',
+          'barbering-apprenticeship',
+          'tlevel-hairdressing-barbering-beauty-therapy',
+          'vocational-hairdressing',
+          'vocational-beauty-therapy',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Salon Worker.',
+      },
     ]
   },
   {
@@ -3213,6 +4546,34 @@ const rawDemoCareers = [
       1,
       5,
       11,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'nvq-land-based-studies',
+          'horticulture-apprenticeship',
+          'agriculture-apprenticeship',
+          'animal-care-apprenticeship',
+          'vocational-care-worker',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Animal Care Worker.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'veterinary-medicine-bvetmed',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Animal Care Worker.',
+      },
     ]
   },
   {
@@ -3257,6 +4618,20 @@ const rawDemoCareers = [
       84,
       85,
       82,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'agriculture-apprenticeship',
+          'nvq-land-based-studies',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Farmer / Agricultural Worker.',
+      },
     ]
   },
   {
@@ -3301,6 +4676,20 @@ const rawDemoCareers = [
       83,
       85,
       82,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'horticulture-apprenticeship',
+          'nvq-land-based-studies',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Horticulturist.',
+      },
     ]
   },
   {
@@ -3346,6 +4735,30 @@ const rawDemoCareers = [
       83,
       84,
       82,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'animal-care-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Veterinary Nurse.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'veterinary-medicine-bvetmed',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Veterinary Nurse.',
+      },
     ]
   },
   {
@@ -3389,6 +4802,31 @@ const rawDemoCareers = [
     similarCareers: [
       77,
       87,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'chef-apprenticeship',
+          'nvq-catering-professional-cookery',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Chef.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'culinary-arts-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Chef.',
+      },
     ]
   },
   {
@@ -3432,6 +4870,22 @@ const rawDemoCareers = [
     similarCareers: [
       77,
       86,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'event-management-ba',
+          'tourism-management-ba',
+          'hotel-hospitality-management-ba',
+          'btec-travel-tourism',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Event Manager.',
+      },
     ]
   },
   {
@@ -3479,6 +4933,36 @@ const rawDemoCareers = [
     ],
     similarCareers: [
       25,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'personal-training',
+          'sports-coaching-apprenticeship',
+          'leisure-management-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Sports Coach / Personal Trainer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-sport',
+          'alevel-physical-education',
+          'exercise-physiology-bsc',
+          'coaching-sports-development-bsc',
+          'sports-therapy-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Sports Coach / Personal Trainer.',
+      },
     ]
   },
   {
@@ -3524,6 +5008,33 @@ const rawDemoCareers = [
     similarCareers: [
       31,
       38,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'nvq-plumbing',
+          'nvq-electrical-installation',
+          'nvq-carpentry',
+          'bricklaying-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Construction Trades Worker.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-construction',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Construction Trades Worker.',
+      },
     ]
   },
   {
@@ -3573,6 +5084,39 @@ const rawDemoCareers = [
     ],
     similarCareers: [
       50,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'police-apprenticeship',
+          'firefighter-apprenticeship',
+          'military-apprenticeship',
+          'vocational-security-guard',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Police & Public Services Officer.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'btec-public-services',
+          'policing-criminal-investigation-bsc',
+          'fire-rescue-bsc',
+          'emergency-planning-bsc',
+          'disaster-management-bsc',
+          'public-administration-ba',
+          'local-government-management-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Police & Public Services Officer.',
+      },
     ]
   },
   {
@@ -3624,6 +5168,27 @@ const rawDemoCareers = [
     similarCareers: [
       49,
       21,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'biochemistry-bsc',
+          'microbiology-bsc',
+          'forensic-science-bsc',
+          'environmental-science-bsc',
+          'marine-biology-bsc',
+          'astrophysics-bsc',
+          'geology-bsc',
+          'meteorology-bsc',
+          'materials-science-bsc',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Science Researcher.',
+      },
     ]
   },
   {
@@ -3668,6 +5233,33 @@ const rawDemoCareers = [
     similarCareers: [
       18,
       11,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'tlevel-legal-services',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Legal Advisor.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'law-llb',
+          'alevel-law',
+          'business-law-llb',
+          'international-law-llb',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Legal Advisor.',
+      },
     ]
   }
 ]

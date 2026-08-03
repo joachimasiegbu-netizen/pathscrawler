@@ -1,5 +1,6 @@
 ﻿import { useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Compass } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import Card from '../components/Card'
@@ -154,6 +155,14 @@ export default function CareerDetailPage() {
           <Button onClick={() => navigate('/results')} className="w-full sm:w-auto">
             Back to results
           </Button>
+          <button
+            type="button"
+            onClick={() => navigate('/backtrack')}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-center text-sm font-semibold text-slate-700 transition hover:bg-slate-100 sm:w-auto"
+          >
+            <Compass className="h-4 w-4" />
+            How do I get there?
+          </button>
           <a
             href="https://www.gov.uk/access-to-work"
             target="_blank"
