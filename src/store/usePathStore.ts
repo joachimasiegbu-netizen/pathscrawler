@@ -111,7 +111,7 @@ export const usePathStore = create<PathState>()(
       setRecommendedRole: (recommendedRole: string | null) => set({ recommendedRole }),
       setHighlightedCareerId: (highlightedCareerId) => set({ highlightedCareerId }),
       reset: () =>
-        set({
+        set((state) => ({
           currentPath: null,
           selectedRole: null,
           selectedLevel: null,
@@ -119,20 +119,14 @@ export const usePathStore = create<PathState>()(
           ukQualifications: null,
           previousQualifications: null,
           supportNeeds: [],
-          accessibilitySettings: {
-            reduceMotion: true,
-            highContrast: false,
-            largerText: false,
-            dyslexiaFont: false,
-            darkMode: false,
-          },
+          accessibilitySettings: state.accessibilitySettings,
           selectedSubjects: [],
           progress: 0,
           assessmentCompleted: false,
           matchedRoles: [],
           recommendedRole: null,
           highlightedCareerId: null,
-        }),
+        })),
     }),
     {
       name: 'pathscrawler-storage',

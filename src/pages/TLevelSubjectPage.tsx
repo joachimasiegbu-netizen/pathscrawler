@@ -77,7 +77,7 @@ export default function TLevelSubjectPage() {
               </label>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {filteredSubjects.length > 0 ? (
                 filteredSubjects.map((subject) => {
                   const active = selectedSubjects.includes(subject.id)

@@ -214,20 +214,16 @@ export default function RoleSelectionPage() {
 
       {showAccessibility ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-4 py-6 sm:px-6">
-          <div className="relative w-full max-w-2xl rounded-[32px] bg-slate-900 border border-slate-700 p-6 shadow-2xl ring-1 ring-slate-700">
+          <div className="relative w-full max-w-2xl">
             <button
               type="button"
               onClick={() => setShowAccessibility(false)}
-              className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-slate-200 transition hover:bg-slate-700"
+              className="absolute right-5 top-5 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-slate-200 transition hover:bg-slate-700"
               aria-label="Close accessibility settings"
             >
               <X className="h-5 w-5" />
             </button>
-            <h3 className="text-xl font-semibold text-slate-50">Adjust my experience</h3>
-            <p className="mt-2 text-sm text-slate-400">Choose the settings that make this tool easier to use for you.</p>
-            <div className="mt-6">
-              <AccessibilitySettingsPanel />
-            </div>
+            <AccessibilitySettingsPanel />
           </div>
         </div>
       ) : null}

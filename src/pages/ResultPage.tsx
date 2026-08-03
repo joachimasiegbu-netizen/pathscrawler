@@ -133,7 +133,7 @@ export default function ResultPage() {
 
   return (
     <div className="space-y-6 pt-12">
-      <div className="bg-white px-8 py-8 rounded-none shadow-soft">
+      <div className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
         <div className="mb-6">
           <BackButton to="/subjects" />
         </div>
@@ -152,7 +152,7 @@ export default function ResultPage() {
         </button>
       </div>
 
-      <div className="bg-white px-8 py-8 rounded-none shadow-soft">
+      <div className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
         <div className="flex flex-wrap gap-2">
           {categories.map((category) => (
             <button
@@ -187,7 +187,7 @@ export default function ResultPage() {
         ) : null}
       </div>
 
-      <div className="bg-white px-8 py-8 rounded-none shadow-soft">
+      <div className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {visibleCareers.map((career) => {
             const isHighlighted = career.id === highlightedCareerId

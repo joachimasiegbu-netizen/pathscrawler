@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
+import { Home } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
 import LoadingPage from './pages/LoadingPage'
 import QuickAssessmentPage from './pages/QuickAssessmentPage'
@@ -28,9 +29,12 @@ import MobileContainer from './components/MobileContainer'
 
 function App() {
   const location = useLocation()
+  const navigate = useNavigate()
   const { accessibilitySettings } = usePathStore()
+  const reset = usePathStore((state) => state.reset)
   const reduceMotion = accessibilitySettings.reduceMotion
   const appClassName = `min-h-screen ${accessibilitySettings.darkMode ? 'bg-slate-900 text-slate-100' : 'bg-[#E0E7FF] text-slate-900'}`
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const html = document.documentElement
@@ -46,7 +50,22 @@ function App() {
 
   return (
     <div className={appClassName}>
-      <MobileContainer>
+      <MobileContainer fullBleed={isHome}>
+        {!isHome ? (
+          <div className="sticky top-0 z-40 flex justify-end px-4 pt-3 sm:px-6">
+            <button
+              type="button"
+              onClick={() => {
+                reset()
+                navigate('/')
+              }}
+              aria-label="Restart from home"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-lg ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-primary-light dark:ring-slate-700"
+            >
+              <Home className="h-5 w-5" />
+            </button>
+          </div>
+        ) : null}
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<PageTransition reduceMotion={reduceMotion}><LoadingPage /></PageTransition>} />
