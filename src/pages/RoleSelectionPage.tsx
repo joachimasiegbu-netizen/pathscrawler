@@ -198,7 +198,7 @@ export default function RoleSelectionPage() {
         ))}
       </div>
 
-      <div className="mx-4 rounded-3xl bg-white border border-slate-200 p-6 text-slate-950 shadow-soft dark:mx-6 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 md:mx-6 lg:mx-8">
+      <div className="rounded-xl bg-white border border-slate-200 p-6 text-slate-950 shadow-soft dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h3 className="text-base font-semibold text-slate-950 dark:text-slate-50">Not sure? Take a quick assessment</h3>
