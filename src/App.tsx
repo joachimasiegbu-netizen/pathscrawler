@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { Home } from 'lucide-react'
+import { Compass, Home } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
 import LoadingPage from './pages/LoadingPage'
 import QuickAssessmentPage from './pages/QuickAssessmentPage'
@@ -52,7 +52,19 @@ function App() {
     <div className={appClassName}>
       <MobileContainer fullBleed={isHome}>
         {!isHome ? (
-          <div className="sticky top-0 z-40 flex justify-end px-4 pt-3 sm:px-6">
+          <div className="sticky top-0 z-40 flex items-center justify-between px-4 pt-3 sm:px-6">
+            {location.pathname === '/role' ? (
+              <button
+                type="button"
+                onClick={() => navigate('/backtrack')}
+                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-soft/40 px-4 py-2 text-sm font-semibold text-primary-dark shadow-sm transition hover:bg-primary-soft/70 dark:border-primary/50 dark:bg-primary/10 dark:text-primary-light dark:hover:bg-primary/20"
+              >
+                <Compass className="h-4 w-4" />
+                How do I get there?
+              </button>
+            ) : (
+              <span />
+            )}
             <button
               type="button"
               onClick={() => {
