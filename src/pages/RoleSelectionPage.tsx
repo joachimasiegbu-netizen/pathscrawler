@@ -16,6 +16,7 @@ import {
   Flag,
   Lightbulb,
   Settings2,
+  Compass,
   X,
 } from 'lucide-react'
 
@@ -153,6 +154,14 @@ export default function RoleSelectionPage() {
           <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-200">
             Choose a role that fits your current journey and we’ll tailor the next subjects and pathways for you.
           </p>
+          <button
+            type="button"
+            onClick={() => navigate('/backtrack')}
+            className="mt-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-soft/40 px-4 py-2 text-sm font-semibold text-primary-dark transition hover:bg-primary-soft/70 dark:border-primary/50 dark:bg-primary/10 dark:text-primary-light dark:hover:bg-primary/20"
+          >
+            <Compass className="h-4 w-4" />
+            How do I get there?
+          </button>
         </div>
 
       <div className="space-y-6">
