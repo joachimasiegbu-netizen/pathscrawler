@@ -1765,7 +1765,7 @@ const rawDemoCareers = [
     matchedSubjects: [
     'gcse-design-technology',
     'tlevel-engineering-manufacturing-design-development',
-    'vocation',
+    'btec-engineering',
     'gcse-maths',
     'gcse-english',
     'gcse-science-combined'
@@ -3746,9 +3746,6 @@ const demoCareers = rawDemoCareers.map((career) => ({
     return id
       .replace(/a-level-/g, 'alevel-')
       .replace(/a-level/g, 'alevel')
-      .replace(/\bvocation\b/g, 'btec-computing')
-      .replace(/\bvocational\b/g, 'btec-computing')
-      .replace(/\btechnology\b/g, 'information-technology-bsc')
       .replace(/university-data-science/g, 'data-science-bsc')
   }),
 }))
