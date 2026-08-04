@@ -52,7 +52,7 @@ function App() {
     <div className={appClassName}>
       <MobileContainer fullBleed={isHome}>
         {!isHome ? (
-          <div className="sticky top-0 z-40 flex items-center justify-between px-4 pt-3 sm:px-6">
+          <div className="sticky top-0 z-40 flex items-center justify-end gap-3 px-4 pt-3 sm:px-6">
             {location.pathname === '/role' ? (
               <button
                 type="button"
@@ -62,9 +62,7 @@ function App() {
                 <Compass className="h-4 w-4" />
                 How do I get there?
               </button>
-            ) : (
-              <span />
-            )}
+            ) : null}
             <button
               type="button"
               onClick={() => {
