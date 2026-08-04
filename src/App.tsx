@@ -8,6 +8,7 @@ import { useAuthStore } from './store/useAuthStore'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import SharedPathwayPage from './pages/SharedPathwayPage'
+import MyPathwaysPage from './pages/MyPathwaysPage'
 import LoadingPage from './pages/LoadingPage'
 import QuickAssessmentPage from './pages/QuickAssessmentPage'
 import RoleSelectionPage from './pages/RoleSelectionPage'
@@ -156,7 +157,8 @@ function App() {
             <Route path="/backtrack/subjects/:careerId/:pathway" element={<PageTransition reduceMotion={reduceMotion}><BacktrackSubjectSelectionPage /></PageTransition>} />
             <Route path="/login" element={<PageTransition reduceMotion={reduceMotion}><LoginPage /></PageTransition>} />
             <Route path="/signup" element={<PageTransition reduceMotion={reduceMotion}><SignupPage /></PageTransition>} />
-            <Route path="/pathway/:encoded" element={<PageTransition reduceMotion={reduceMotion}><SharedPathwayPage /></PageTransition>} />
+            <Route path="/pathway/:id" element={<PageTransition reduceMotion={reduceMotion}><SharedPathwayPage /></PageTransition>} />
+            <Route path="/my-pathways" element={<PageTransition reduceMotion={reduceMotion}><MyPathwaysPage /></PageTransition>} />
           </Routes>
         </AnimatePresence>
       </MobileContainer>

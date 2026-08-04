@@ -4,11 +4,11 @@ import subjectsData from '../data/subjects.json'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import Card from '../components/Card'
-import { Check, Compass, Link2, Star } from 'lucide-react'
+import { Check, Compass, FolderClock, Link2, Star } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
-import { encodePathway } from '../utils/pathwaySharing'
+import { savePathway } from '../utils/pathwayStorage'
 
 interface MatchedCareer extends Career {
   matchedSubjectIds: string[]
@@ -64,6 +64,7 @@ export default function ResultPage() {
   const [disabilityConfidentOnly, setDisabilityConfidentOnly] = useState(false)
   const [shareUrl, setShareUrl] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const [justSaved, setJustSaved] = useState(false)
 
   const isDisabledLearner = selectedRole === 'disabled-learner'
 
@@ -135,14 +136,17 @@ export default function ResultPage() {
   const canShowMore = finalCareers.length > visibleCount
 
   const handleSavePathway = () => {
-    const encoded = encodePathway({
-      selectedRole,
-      selectedLevel,
-      selectedSubjects,
+    const saved = savePathway({
+      role: selectedRole,
+      subjects: selectedSubjects,
+      level: selectedLevel,
+      careers: finalCareers.map((career) => career.id),
       highlightedCareerId,
     })
-    setShareUrl(`${window.location.origin}/pathway/${encoded}`)
+    setShareUrl(`${window.location.origin}/pathway/${saved.id}`)
     setCopied(false)
+    setJustSaved(true)
+    setTimeout(() => setJustSaved(false), 2500)
   }
 
   const handleCopyLink = async () => {
@@ -184,13 +188,29 @@ export default function ResultPage() {
             <Link2 className="h-4 w-4" />
             Save my pathway
           </button>
+          <button
+            type="button"
+            onClick={() => navigate('/my-pathways')}
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-700"
+          >
+            <FolderClock className="h-4 w-4" />
+            My saved pathways
+          </button>
         </div>
+
+        {justSaved ? (
+          <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-green-600 dark:text-green-400">
+            <Check className="h-4 w-4" />
+            Pathway saved!
+          </p>
+        ) : null}
 
         {shareUrl ? (
           <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900">
             <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">Your pathway link is ready</p>
             <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
-              Anyone who opens this link sees your exact selections - no account needed.
+              Saved in this browser only - this link opens instantly here, but won't work on a different device or
+              browser since nothing is stored on a server.
             </p>
             <div className="mt-3 flex flex-col gap-2 sm:flex-row">
               <input
