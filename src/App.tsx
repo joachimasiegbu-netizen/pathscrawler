@@ -2,8 +2,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { Compass, Home } from 'lucide-react'
+import { Compass, Home, LogIn } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
+import { useAuthStore } from './store/useAuthStore'
+import LoginPage from './pages/LoginPage'
+import SignupPage from './pages/SignupPage'
+import SharedPathwayPage from './pages/SharedPathwayPage'
 import LoadingPage from './pages/LoadingPage'
 import QuickAssessmentPage from './pages/QuickAssessmentPage'
 import RoleSelectionPage from './pages/RoleSelectionPage'
@@ -32,6 +36,8 @@ function App() {
   const navigate = useNavigate()
   const { accessibilitySettings } = usePathStore()
   const reset = usePathStore((state) => state.reset)
+  const currentUser = useAuthStore((state) => state.currentUser)
+  const signOut = useAuthStore((state) => state.signOut)
   const reduceMotion = accessibilitySettings.reduceMotion
   const appClassName = `min-h-screen ${accessibilitySettings.darkMode ? 'bg-slate-900 text-slate-100' : 'bg-[#E0E7FF] text-slate-900'}`
   const isHome = location.pathname === '/'
@@ -63,6 +69,26 @@ function App() {
                 How do I get there?
               </button>
             ) : null}
+            {currentUser ? (
+              <button
+                type="button"
+                onClick={signOut}
+                title={`Signed in as ${currentUser.email} - click to sign out`}
+                aria-label={`Signed in as ${currentUser.email}. Click to sign out.`}
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white shadow-lg ring-1 ring-primary-dark/30 transition hover:bg-primary-dark"
+              >
+                {currentUser.email.charAt(0).toUpperCase()}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => navigate('/login')}
+                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary shadow-lg ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-primary-light dark:ring-slate-700"
+              >
+                <LogIn className="h-4 w-4" />
+                Sign in
+              </button>
+            )}
             <button
               type="button"
               onClick={() => {
@@ -99,6 +125,9 @@ function App() {
             <Route path="/backtrack/pathway/:careerId" element={<PageTransition reduceMotion={reduceMotion}><BacktrackPathwayOverviewPage /></PageTransition>} />
             <Route path="/backtrack/options/:careerId" element={<PageTransition reduceMotion={reduceMotion}><BacktrackPathwayOptionsPage /></PageTransition>} />
             <Route path="/backtrack/subjects/:careerId/:pathway" element={<PageTransition reduceMotion={reduceMotion}><BacktrackSubjectSelectionPage /></PageTransition>} />
+            <Route path="/login" element={<PageTransition reduceMotion={reduceMotion}><LoginPage /></PageTransition>} />
+            <Route path="/signup" element={<PageTransition reduceMotion={reduceMotion}><SignupPage /></PageTransition>} />
+            <Route path="/pathway/:encoded" element={<PageTransition reduceMotion={reduceMotion}><SharedPathwayPage /></PageTransition>} />
           </Routes>
         </AnimatePresence>
       </MobileContainer>

@@ -2,6 +2,13 @@ import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
 
+// Even a mathematically smooth CSS gradient can render with visible banding
+// (fake contour rings) because browsers only have 256 shades per channel to
+// spread across the color range. A faint noise layer breaks up those bands
+// without being visible as texture itself - standard fix for gradient banding.
+const noiseSvg = `<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>`
+const noiseDataUri = `data:image/svg+xml,${encodeURIComponent(noiseSvg)}`
+
 export default function LoadingPage() {
   const navigate = useNavigate()
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
@@ -10,8 +17,8 @@ export default function LoadingPage() {
     <div
       className="relative min-h-screen flex flex-col items-center justify-center gap-6 px-8 py-8"
       style={{
-        background:
-          'radial-gradient(circle at center, #FFFFFF 0%, #D6E3FB 12%, #8FB8F5 30%, #5088EA 50%, #2C5FD6 70%, #142866 100%)',
+        backgroundImage: `url("${noiseDataUri}"), radial-gradient(circle at center, #FFFFFF 0%, #D6E3FB 12%, #8FB8F5 30%, #5088EA 50%, #2C5FD6 70%, #142866 100%)`,
+        backgroundBlendMode: 'overlay',
       }}
     >
       <div className="relative flex flex-col items-center justify-center gap-6 text-center">

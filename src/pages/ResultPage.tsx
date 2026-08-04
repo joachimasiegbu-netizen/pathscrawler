@@ -4,10 +4,11 @@ import subjectsData from '../data/subjects.json'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import Card from '../components/Card'
-import { Compass, Star } from 'lucide-react'
+import { Check, Compass, Link2, Star } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
+import { encodePathway } from '../utils/pathwaySharing'
 
 interface MatchedCareer extends Career {
   matchedSubjectIds: string[]
@@ -61,6 +62,8 @@ export default function ResultPage() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [visibleCount, setVisibleCount] = useState(8)
   const [disabilityConfidentOnly, setDisabilityConfidentOnly] = useState(false)
+  const [shareUrl, setShareUrl] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   const isDisabledLearner = selectedRole === 'disabled-learner'
 
@@ -131,6 +134,28 @@ export default function ResultPage() {
   const visibleCareers = finalCareers.slice(0, visibleCount)
   const canShowMore = finalCareers.length > visibleCount
 
+  const handleSavePathway = () => {
+    const encoded = encodePathway({
+      selectedRole,
+      selectedLevel,
+      selectedSubjects,
+      highlightedCareerId,
+    })
+    setShareUrl(`${window.location.origin}/pathway/${encoded}`)
+    setCopied(false)
+  }
+
+  const handleCopyLink = async () => {
+    if (!shareUrl) return
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // clipboard API unavailable - the link is still visible to select/copy manually
+    }
+  }
+
   return (
     <div className="space-y-6 pt-12">
       <div className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
@@ -142,14 +167,50 @@ export default function ResultPage() {
         </div>
         <h2 className="text-3xl font-bold text-slate-950">Careers and skills that fit your selections.</h2>
         <p className="mt-2 text-sm leading-6 text-slate-600">Explore matching career areas and take the next step with confidence.</p>
-        <button
-          type="button"
-          onClick={() => navigate('/backtrack')}
-          className="mt-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-soft/40 px-4 py-2 text-sm font-semibold text-primary-dark transition hover:bg-primary-soft/70"
-        >
-          <Compass className="h-4 w-4" />
-          How do I get there?
-        </button>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => navigate('/backtrack')}
+            className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-soft/40 px-4 py-2 text-sm font-semibold text-primary-dark transition hover:bg-primary-soft/70"
+          >
+            <Compass className="h-4 w-4" />
+            How do I get there?
+          </button>
+          <button
+            type="button"
+            onClick={handleSavePathway}
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-700"
+          >
+            <Link2 className="h-4 w-4" />
+            Save my pathway
+          </button>
+        </div>
+
+        {shareUrl ? (
+          <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900">
+            <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">Your pathway link is ready</p>
+            <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
+              Anyone who opens this link sees your exact selections - no account needed.
+            </p>
+            <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+              <input
+                type="text"
+                readOnly
+                value={shareUrl}
+                onFocus={(event) => event.target.select()}
+                className="w-full min-w-0 flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
+              />
+              <button
+                type="button"
+                onClick={handleCopyLink}
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark"
+              >
+                {copied ? <Check className="h-4 w-4" /> : <Link2 className="h-4 w-4" />}
+                {copied ? 'Copied!' : 'Copy link'}
+              </button>
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <div className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
