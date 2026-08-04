@@ -11,7 +11,7 @@ export default function LoadingPage() {
       className="relative min-h-screen flex flex-col items-center justify-center gap-6 px-8 py-8"
       style={{
         background:
-          'radial-gradient(circle at center, #FFFFFF 0%, #FFFFFF 10%, #E0E7FF 16%, #E0E7FF 24%, #93C5FD 30%, #93C5FD 40%, #60A5FA 46%, #60A5FA 58%, #2563EB 64%, #2563EB 80%, #1E3A8A 88%, #1E3A8A 100%)',
+          'radial-gradient(circle at center, #FFFFFF 0%, #D6E3FB 12%, #8FB8F5 30%, #5088EA 50%, #2C5FD6 70%, #142866 100%)',
       }}
     >
       <div className="relative flex flex-col items-center justify-center gap-6 text-center">
