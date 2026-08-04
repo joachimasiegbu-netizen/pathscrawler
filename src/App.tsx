@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { Compass, Home, LogIn } from 'lucide-react'
+import { Compass, Home, LogIn, LogOut } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import LoginPage from './pages/LoginPage'
@@ -41,6 +41,11 @@ function App() {
   const reduceMotion = accessibilitySettings.reduceMotion
   const appClassName = `min-h-screen ${accessibilitySettings.darkMode ? 'bg-slate-900 text-slate-100' : 'bg-[#E0E7FF] text-slate-900'}`
   const isHome = location.pathname === '/'
+  const [showAccountMenu, setShowAccountMenu] = useState(false)
+
+  useEffect(() => {
+    setShowAccountMenu(false)
+  }, [location.pathname])
 
   useEffect(() => {
     const html = document.documentElement
@@ -70,15 +75,39 @@ function App() {
               </button>
             ) : null}
             {currentUser ? (
-              <button
-                type="button"
-                onClick={signOut}
-                title={`Signed in as ${currentUser.email} - click to sign out`}
-                aria-label={`Signed in as ${currentUser.email}. Click to sign out.`}
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white shadow-lg ring-1 ring-primary-dark/30 transition hover:bg-primary-dark"
-              >
-                {currentUser.email.charAt(0).toUpperCase()}
-              </button>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setShowAccountMenu((value) => !value)}
+                  title={`Signed in as ${currentUser.email}`}
+                  aria-label={`Account menu for ${currentUser.email}`}
+                  aria-expanded={showAccountMenu}
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white shadow-lg ring-1 ring-primary-dark/30 transition hover:bg-primary-dark"
+                >
+                  {currentUser.email.charAt(0).toUpperCase()}
+                </button>
+                {showAccountMenu ? (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setShowAccountMenu(false)} />
+                    <div className="absolute right-0 top-14 z-50 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg dark:border-slate-700 dark:bg-slate-800">
+                      <p className="truncate px-3 py-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
+                        {currentUser.email}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          signOut()
+                          setShowAccountMenu(false)
+                        }}
+                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-red-600 transition hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/40"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        Sign out
+                      </button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
             ) : (
               <button
                 type="button"
