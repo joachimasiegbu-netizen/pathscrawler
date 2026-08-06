@@ -78,7 +78,7 @@ export const usePathStore = create<PathState>()(
       previousQualifications: null,
       supportNeeds: [],
       accessibilitySettings: {
-        reduceMotion: true,
+        reduceMotion: false,
         highContrast: false,
         largerText: false,
         dyslexiaFont: false,

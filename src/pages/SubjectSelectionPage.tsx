@@ -3,6 +3,9 @@ import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
 import BackButton from '../components/BackButton'
+import PageHeader from '../components/PageHeader'
+import RevealSection from '../components/RevealSection'
+import StaggerGrid from '../components/StaggerGrid'
 
 const levelCards = [
   { key: 'gcse', label: 'GCSE', description: 'Build strong foundations with core school qualifications.', category: 'GCSE', icon: BookOpen },
@@ -101,42 +104,56 @@ export default function SubjectSelectionPage() {
     : 'Pick the qualification type that best fits your studies and goals.'
 
   return (
-    <div className="space-y-6 pt-8 px-6 pb-8 sm:px-8">
+    <div className="space-y-8 pt-8 px-6 pb-8 sm:px-8">
       <div className="space-y-4">
         <BackButton to="/role" />
-        <div>
-          <h2 className="text-3xl font-bold text-slate-950">Choose your qualification level</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">{roleSubheadline}</p>
-        </div>
+        <PageHeader title="Choose your qualification level" subtitle={roleSubheadline} />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-4">
+      <StaggerGrid className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-4">
         {topCards.map((level) => {
           const Icon = level.icon
           const selected = selectedLevel === level.key
 
           return (
-            <button key={level.key} type="button" onClick={() => { setSelectedLevel(level.key); navigate(`/subjects/${level.key}`) }} className={`group rounded-[28px] border p-5 text-left transition duration-150 min-h-[220px] flex flex-col justify-between ${selected ? 'border-primary bg-primary/10 shadow-soft' : 'border-slate-200 bg-white hover:border-primary/50 hover:shadow-sm'}`}>
+            <button
+              key={level.key}
+              type="button"
+              onClick={() => { setSelectedLevel(level.key); navigate(`/subjects/${level.key}`) }}
+              className={`group h-full w-full rounded-2xl border p-5 text-left transition-all duration-200 min-h-[220px] flex flex-col justify-between ${
+                selected
+                  ? 'border-primary bg-primary/10 shadow-sm'
+                  : 'border-gray-200 bg-white hover:-translate-y-0.5 hover:scale-[1.02] hover:border-primary/50 hover:shadow-md dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700'
+              }`}
+            >
               <div>
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-primary-soft text-primary"><Icon className="h-6 w-6" /></div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-soft text-primary"><Icon className="h-6 w-6" /></div>
                 </div>
                 <div className="mt-5 space-y-3">
-                  <h3 className="text-xl font-semibold text-slate-950">{level.label}</h3>
-                  <p className="text-sm leading-6 text-slate-600">{level.description}</p>
+                  <h3 className="text-xl font-semibold text-slate-950 dark:text-slate-50">{level.label}</h3>
+                  <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">{level.description}</p>
                 </div>
               </div>
             </button>
           )
         })}
-      </div>
+      </StaggerGrid>
 
       {universityCard ? (
-        <div className="grid gap-4 md:grid-cols-2 md:gap-4">
-          <button type="button" onClick={() => { setSelectedLevel(universityCard.key); navigate(`/subjects/${universityCard.key}`) }} className={`group col-span-1 md:col-span-2 rounded-[28px] border p-5 text-left shadow-soft transition duration-150 min-h-[220px] flex flex-col justify-between ${selectedLevel === universityCard.key ? 'border-primary bg-primary/10' : 'border-slate-200 bg-white hover:border-primary/50 hover:shadow-sm'}`}>
+        <RevealSection className="grid gap-4 md:grid-cols-2 md:gap-4">
+          <button
+            type="button"
+            onClick={() => { setSelectedLevel(universityCard.key); navigate(`/subjects/${universityCard.key}`) }}
+            className={`group col-span-1 md:col-span-2 rounded-2xl border p-5 text-left shadow-sm transition-all duration-200 min-h-[220px] flex flex-col justify-between ${
+              selectedLevel === universityCard.key
+                ? 'border-primary bg-primary/10'
+                : 'border-gray-200 bg-white hover:-translate-y-0.5 hover:scale-[1.01] hover:border-primary/50 hover:shadow-md dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700'
+            }`}
+          >
             <div>
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-primary-soft text-primary">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-soft text-primary">
                   {(() => {
                     const UniversityIcon = universityCard.icon
                     return <UniversityIcon className="h-6 w-6" />
@@ -144,12 +161,12 @@ export default function SubjectSelectionPage() {
                 </div>
               </div>
               <div className="mt-5 space-y-3">
-                <h3 className="text-xl font-semibold text-slate-950">{universityCard.label}</h3>
-                <p className="text-sm leading-6 text-slate-600">{universityCard.description}</p>
+                <h3 className="text-xl font-semibold text-slate-950 dark:text-slate-50">{universityCard.label}</h3>
+                <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">{universityCard.description}</p>
               </div>
             </div>
           </button>
-        </div>
+        </RevealSection>
       ) : null}
     </div>
   )

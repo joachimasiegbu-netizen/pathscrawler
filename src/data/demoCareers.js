@@ -3,6 +3,14 @@ const rawDemoCareers = [
     id: 1,
     category: 'Technology & Digital',
     title: 'Software Developer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£25k - £70k',
     description: 'Build applications, solve technical problems and write clean code across web and mobile platforms.',
     requirements: [
@@ -41,10 +49,9 @@ const rawDemoCareers = [
       'Research new tools, languages and best practices',
     ],
     whereToStudy: [
-      'University degree in computing, data or cyber security',
-      'Bootcamp or vocational course in digital skills',
-      'Professional certification in cloud, security or development',
-      'Apprenticeship in IT, computing or digital services',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=software+developer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=software+developer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=software+developer', description: 'Business & tech skills' },
     ],
     progression: [
       'Developer Apprentice / Junior (Entry (£18k-£30k))',
@@ -97,6 +104,14 @@ const rawDemoCareers = [
     id: 2,
     category: 'Technology & Digital',
     title: 'Data Analyst',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£28k - £55k',
     description: 'Use data to uncover insights, build reports and support decisions with analytics tools.',
     requirements: [
@@ -119,10 +134,9 @@ const rawDemoCareers = [
       'Work with stakeholders to improve decisions',
     ],
     whereToStudy: [
-      'Data analysis or statistics degree',
-      'Excel, SQL and analytics course',
-      'Bootcamp in data and reporting tools',
-      'Apprenticeship in data analytics',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=data+analyst', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=data+analyst', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=data+analyst', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior Data Analyst (£28k-£35k)',
@@ -153,6 +167,14 @@ const rawDemoCareers = [
     id: 3,
     category: 'Technology & Digital',
     title: 'Cyber Security Analyst',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£30k - £65k',
     description: 'Protect systems from attacks, monitor networks and respond to security incidents.',
     requirements: [
@@ -177,10 +199,9 @@ const rawDemoCareers = [
       'Work with teams to improve security controls',
     ],
     whereToStudy: [
-      'Cyber security degree',
-      'Security certification such as CompTIA or CISSP',
-      'Technical cyber security training',
-      'Security apprenticeship or industry experience',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=cyber+security+analyst', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=cyber+security+analyst', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=cyber+security+analyst', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior Cyber Security Analyst (£30k-£40k)',
@@ -223,6 +244,14 @@ const rawDemoCareers = [
     id: 4,
     category: 'Technology & Digital',
     title: 'UX/UI Designer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£25k - £60k',
     description: 'Design user experiences and interfaces that are intuitive, accessible and visually engaging.',
     requirements: [
@@ -246,10 +275,9 @@ const rawDemoCareers = [
       'Gather feedback and improve creative deliverables',
     ],
     whereToStudy: [
-      'Creative arts or media degree with practical projects',
-      'Portfolio-based design, film or writing course',
-      'Workshops and short courses for creative skills',
-      'Industry placements or internships in media work',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=ux+ui+designer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=ux+ui+designer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=ux+ui+designer', description: 'Business & tech skills' },
     ],
     progression: [
       'Designer Apprentice / Junior (Entry (£18k-£30k))',
@@ -281,6 +309,14 @@ const rawDemoCareers = [
     id: 5,
     category: 'Technology & Digital',
     title: 'IT Support Technician',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£20k - £40k',
     description: 'Provide technical support, fix hardware and help users solve computing problems in business settings.',
     requirements: [
@@ -305,10 +341,9 @@ const rawDemoCareers = [
       'Learn new techniques and stay up to date with trends',
     ],
     whereToStudy: [
-      'University degree in computing, data or cyber security',
-      'Bootcamp or vocational course in digital skills',
-      'Professional certification in cloud, security or development',
-      'Apprenticeship in IT, computing or digital services',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=it+support+technician', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=it+support+technician', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=it+support+technician', description: 'Business & tech skills' },
     ],
     progression: [
       'Technician Apprentice / Junior (Entry (£18k-£30k))',
@@ -352,6 +387,14 @@ const rawDemoCareers = [
     id: 6,
     category: 'Technology & Digital',
     title: 'Network Engineer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£26k - £55k',
     description: 'Design, install and maintain networks while ensuring reliable connectivity and system performance.',
     requirements: [
@@ -376,10 +419,9 @@ const rawDemoCareers = [
       'Learn new techniques and stay up to date with trends',
     ],
     whereToStudy: [
-      'University degree in computing, data or cyber security',
-      'Bootcamp or vocational course in digital skills',
-      'Professional certification in cloud, security or development',
-      'Apprenticeship in IT, computing or digital services',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=network+engineer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=network+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=network+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Engineer Apprentice / Junior (Entry (£18k-£30k))',
@@ -423,6 +465,14 @@ const rawDemoCareers = [
     id: 7,
     category: 'Technology & Digital',
     title: 'Cloud Architect',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£50k - £90k',
     description: 'Design cloud infrastructure, optimize deployments and manage services on AWS, Azure or Google Cloud.',
     requirements: [
@@ -448,10 +498,9 @@ const rawDemoCareers = [
       'Review performance and optimise costs',
     ],
     whereToStudy: [
-      'Cloud computing degree or IT degree',
-      'AWS/Azure certification training',
-      'Cloud architecture bootcamps',
-      'Apprenticeship in cloud or infrastructure support',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=cloud+architect', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=cloud+architect', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=cloud+architect', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior Cloud Architect (£45k-£55k)',
@@ -485,6 +534,14 @@ const rawDemoCareers = [
     id: 8,
     category: 'Technology & Digital',
     title: 'AI/Machine Learning Engineer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£35k - £80k',
     description: 'Build intelligent models and systems that learn from data and automate decision-making.',
     requirements: [
@@ -512,10 +569,9 @@ const rawDemoCareers = [
       'Research new algorithms and techniques',
     ],
     whereToStudy: [
-      'University degree in computer science or AI',
-      'Masters in machine learning or data science',
-      'Online specialisation (Coursera, DeepLearning.AI)',
-      'AI apprenticeship programmes',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=ai+machine+learning+engineer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=ai+machine+learning+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=ai+machine+learning+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior ML Engineer (£35k-£45k)',
@@ -561,6 +617,14 @@ const rawDemoCareers = [
     id: 9,
     category: 'Technology & Digital',
     title: 'Web Developer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£22k - £50k',
     description: 'Create responsive websites and web applications using modern front-end and back-end technologies.',
     requirements: [
@@ -586,10 +650,9 @@ const rawDemoCareers = [
       'Research new tools, languages and best practices',
     ],
     whereToStudy: [
-      'University degree in computing, data or cyber security',
-      'Bootcamp or vocational course in digital skills',
-      'Professional certification in cloud, security or development',
-      'Apprenticeship in IT, computing or digital services',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=web+developer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=web+developer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=web+developer', description: 'Business & tech skills' },
     ],
     progression: [
       'Developer Apprentice / Junior (Entry (£18k-£30k))',
@@ -634,6 +697,14 @@ const rawDemoCareers = [
     id: 10,
     category: 'Technology & Digital',
     title: 'Game Developer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£24k - £60k',
     description: 'Develop interactive games, write gameplay code and build immersive experiences for players.',
     requirements: [
@@ -659,10 +730,9 @@ const rawDemoCareers = [
       'Research new tools, languages and best practices',
     ],
     whereToStudy: [
-      'University degree in computing, data or cyber security',
-      'Bootcamp or vocational course in digital skills',
-      'Professional certification in cloud, security or development',
-      'Apprenticeship in IT, computing or digital services',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=game+developer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=game+developer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=game+developer', description: 'Business & tech skills' },
     ],
     progression: [
       'Developer Apprentice / Junior (Entry (£18k-£30k))',
@@ -696,6 +766,14 @@ const rawDemoCareers = [
     id: 11,
     category: 'Business & Finance',
     title: 'Business Analyst',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£30k - £60k',
     description: 'Translate business needs into technical solutions and support strategy with clear insight.',
     requirements: [
@@ -718,10 +796,9 @@ const rawDemoCareers = [
       'Support project planning and decision-making',
     ],
     whereToStudy: [
-      'Business analysis or management degree',
-      'Professional analysis diploma or certificate',
-      'College business and finance courses',
-      'Apprenticeship in business or project support',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=business+analyst', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=business+analyst', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=business+analyst', description: 'Creative & practical classes' },
     ],
     progression: [
       'Junior Business Analyst (£28k-£35k)',
@@ -753,6 +830,14 @@ const rawDemoCareers = [
     id: 12,
     category: 'Business & Finance',
     title: 'Accountant',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£25k - £60k',
     description: 'Prepare financial records, manage accounts and support compliance for businesses and clients.',
     requirements: [
@@ -775,10 +860,9 @@ const rawDemoCareers = [
       'Communicate with clients and stakeholders',
     ],
     whereToStudy: [
-      'Accounting degree or finance degree',
-      'Apprenticeship or AAT/CIMA training',
-      'Professional bookkeeping courses',
-      'College finance and business programmes',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=accountant', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=accountant', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=accountant', description: 'Creative & practical classes' },
     ],
     progression: [
       'Trainee Accountant (£25k-£35k)',
@@ -821,6 +905,14 @@ const rawDemoCareers = [
     id: 13,
     category: 'Business & Finance',
     title: 'Financial Advisor',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£24k - £70k',
     description: 'Advise clients on savings, pensions and investments while helping them meet long-term goals.',
     requirements: [
@@ -859,10 +951,9 @@ const rawDemoCareers = [
       'Organise work and manage deadlines for projects',
     ],
     whereToStudy: [
-      'Business or finance degree',
-      'Apprenticeship in business administration or accounting',
-      'Professional certificates such as AAT or CIMA',
-      'College courses in management, marketing or finance',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=financial+advisor', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=financial+advisor', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=financial+advisor', description: 'Creative & practical classes' },
     ],
     progression: [
       'Financial Apprentice / Junior (Entry (£18k-£30k))',
@@ -921,6 +1012,14 @@ const rawDemoCareers = [
     id: 14,
     category: 'Business & Finance',
     title: 'Project Manager',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£30k - £70k',
     description: 'Lead projects from start to finish, coordinate teams and deliver outcomes on time and budget.',
     requirements: [
@@ -942,10 +1041,9 @@ const rawDemoCareers = [
       'Organise work and manage deadlines for projects',
     ],
     whereToStudy: [
-      'Business or finance degree',
-      'Apprenticeship in business administration or accounting',
-      'Professional certificates such as AAT or CIMA',
-      'College courses in management, marketing or finance',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=project+manager', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=project+manager', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=project+manager', description: 'Creative & practical classes' },
     ],
     progression: [
       'Manager Apprentice / Junior (Entry (£18k-£30k))',
@@ -978,6 +1076,14 @@ const rawDemoCareers = [
     id: 15,
     category: 'Business & Finance',
     title: 'Marketing Manager',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£26k - £60k',
     description: 'Create marketing campaigns, build brands and measure performance to grow business reach.',
     requirements: [
@@ -999,10 +1105,9 @@ const rawDemoCareers = [
       'Organise work and manage deadlines for projects',
     ],
     whereToStudy: [
-      'Business or finance degree',
-      'Apprenticeship in business administration or accounting',
-      'Professional certificates such as AAT or CIMA',
-      'College courses in management, marketing or finance',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=marketing+manager', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=marketing+manager', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=marketing+manager', description: 'Creative & practical classes' },
     ],
     progression: [
       'Manager Apprentice / Junior (Entry (£18k-£30k))',
@@ -1034,6 +1139,14 @@ const rawDemoCareers = [
     id: 16,
     category: 'Business & Finance',
     title: 'Human Resources Officer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£22k - £45k',
     description: 'Manage recruitment, training and employee support within organisations.',
     requirements: [
@@ -1056,10 +1169,9 @@ const rawDemoCareers = [
       'Organise work and manage deadlines for projects',
     ],
     whereToStudy: [
-      'Business or finance degree',
-      'Apprenticeship in business administration or accounting',
-      'Professional certificates such as AAT or CIMA',
-      'College courses in management, marketing or finance',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=human+resources+officer', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=human+resources+officer', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=human+resources+officer', description: 'Creative & practical classes' },
     ],
     progression: [
       'Officer Apprentice / Junior (Entry (£18k-£30k))',
@@ -1103,6 +1215,14 @@ const rawDemoCareers = [
     id: 17,
     category: 'Business & Finance',
     title: 'Sales Manager',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£25k - £70k',
     description: 'Lead sales teams, develop strategies and maintain customer relationships for business growth.',
     requirements: [
@@ -1124,10 +1244,9 @@ const rawDemoCareers = [
       'Organise work and manage deadlines for projects',
     ],
     whereToStudy: [
-      'Business or finance degree',
-      'Apprenticeship in business administration or accounting',
-      'Professional certificates such as AAT or CIMA',
-      'College courses in management, marketing or finance',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=sales+manager', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=sales+manager', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=sales+manager', description: 'Creative & practical classes' },
     ],
     progression: [
       'Sales Apprentice / Junior (Entry (£18k-£30k))',
@@ -1170,6 +1289,14 @@ const rawDemoCareers = [
     id: 18,
     category: 'Business & Finance',
     title: 'Management Consultant',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£32k - £80k',
     description: 'Advise companies on strategy, operations and performance improvements.',
     requirements: [
@@ -1192,10 +1319,9 @@ const rawDemoCareers = [
       'Organise work and manage deadlines for projects',
     ],
     whereToStudy: [
-      'Business or finance degree',
-      'Apprenticeship in business administration or accounting',
-      'Professional certificates such as AAT or CIMA',
-      'College courses in management, marketing or finance',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=management+consultant', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=management+consultant', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=management+consultant', description: 'Creative & practical classes' },
     ],
     progression: [
       'Consultant Apprentice / Junior (Entry (£18k-£30k))',
@@ -1228,6 +1354,14 @@ const rawDemoCareers = [
     id: 19,
     category: 'Business & Finance',
     title: 'Investment Banker',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£35k - £100k+',
     description: 'Work on deals, markets and finance strategies for corporate clients and investors.',
     requirements: [
@@ -1250,10 +1384,9 @@ const rawDemoCareers = [
       'Organise work and manage deadlines for projects',
     ],
     whereToStudy: [
-      'Business or finance degree',
-      'Apprenticeship in business administration or accounting',
-      'Professional certificates such as AAT or CIMA',
-      'College courses in management, marketing or finance',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=investment+banker', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=investment+banker', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=investment+banker', description: 'Creative & practical classes' },
     ],
     progression: [
       'Investment Banker Apprentice / Junior (Entry (£18k-£30k))',
@@ -1285,6 +1418,14 @@ const rawDemoCareers = [
     id: 20,
     category: 'Business & Finance',
     title: 'Insurance Underwriter',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£22k - £50k',
     description: 'Assess risk, price policies and make decisions on insurance cover for clients.',
     requirements: [
@@ -1306,10 +1447,9 @@ const rawDemoCareers = [
       'Organise work and manage deadlines for projects',
     ],
     whereToStudy: [
-      'Business or finance degree',
-      'Apprenticeship in business administration or accounting',
-      'Professional certificates such as AAT or CIMA',
-      'College courses in management, marketing or finance',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=insurance+underwriter', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=insurance+underwriter', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=insurance+underwriter', description: 'Business & tech skills' },
     ],
     progression: [
       'Insurance Underwriter Apprentice / Junior (Entry (£18k-£30k))',
@@ -1341,6 +1481,12 @@ const rawDemoCareers = [
     id: 21,
     category: 'Healthcare & Medicine',
     title: 'Doctor/GP',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£35k - £100k+',
     description: 'Diagnose illnesses and provide treatment across general practice and healthcare settings.',
     requirements: [
@@ -1383,10 +1529,8 @@ const rawDemoCareers = [
       'Deliver treatment and advice in clinical settings',
     ],
     whereToStudy: [
-      'Clinical degree with placements or professional training',
-      'Specialist health science or therapy course',
-      'Accredited clinical practice and on-the-job learning',
-      'Continuous professional development in healthcare',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=doctor+gp', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=doctor+gp', description: 'Business & tech skills' },
     ],
     progression: [
       'DoctorGP Apprentice / Junior (Entry (£18k-£30k))',
@@ -1447,6 +1591,12 @@ const rawDemoCareers = [
     id: 22,
     category: 'Healthcare & Medicine',
     title: 'Nurse',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£25k - £45k',
     description: 'Provide patient care, support treatment plans and work in hospitals or community settings.',
     requirements: [
@@ -1470,10 +1620,8 @@ const rawDemoCareers = [
       'Deliver treatment and advice in clinical settings',
     ],
     whereToStudy: [
-      'Clinical degree with placements or professional training',
-      'Specialist health science or therapy course',
-      'Accredited clinical practice and on-the-job learning',
-      'Continuous professional development in healthcare',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=nurse', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=nurse', description: 'Business & tech skills' },
     ],
     progression: [
       'Nurse Apprentice / Junior (Entry (£18k-£30k))',
@@ -1507,6 +1655,12 @@ const rawDemoCareers = [
     id: 23,
     category: 'Healthcare & Medicine',
     title: 'Paramedic',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£25k - £40k',
     description: 'Respond to emergencies, provide lifesaving care and transport patients to hospital.',
     requirements: [
@@ -1528,10 +1682,8 @@ const rawDemoCareers = [
       'Deliver treatment and advice in clinical settings',
     ],
     whereToStudy: [
-      'Clinical degree with placements or professional training',
-      'Specialist health science or therapy course',
-      'Accredited clinical practice and on-the-job learning',
-      'Continuous professional development in healthcare',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=paramedic', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=paramedic', description: 'Business & tech skills' },
     ],
     progression: [
       'Paramedic Apprentice / Junior (Entry (£18k-£30k))',
@@ -1563,6 +1715,12 @@ const rawDemoCareers = [
     id: 24,
     category: 'Healthcare & Medicine',
     title: 'Pharmacist',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£35k - £55k',
     description: 'Supply medication, support safe prescriptions and advise patients on pharmacy care.',
     requirements: [
@@ -1586,10 +1744,8 @@ const rawDemoCareers = [
       'Deliver treatment and advice in clinical settings',
     ],
     whereToStudy: [
-      'Clinical degree with placements or professional training',
-      'Specialist health science or therapy course',
-      'Accredited clinical practice and on-the-job learning',
-      'Continuous professional development in healthcare',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=pharmacist', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=pharmacist', description: 'Business & tech skills' },
     ],
     progression: [
       'Pharmacist Apprentice / Junior (Entry (£18k-£30k))',
@@ -1623,6 +1779,12 @@ const rawDemoCareers = [
     id: 25,
     category: 'Healthcare & Medicine',
     title: 'Physiotherapist',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£25k - £45k',
     description: 'Help patients recover movement and manage injuries through therapy and exercise programmes.',
     requirements: [
@@ -1653,10 +1815,8 @@ const rawDemoCareers = [
       'Deliver treatment and advice in clinical settings',
     ],
     whereToStudy: [
-      'Clinical degree with placements or professional training',
-      'Specialist health science or therapy course',
-      'Accredited clinical practice and on-the-job learning',
-      'Continuous professional development in healthcare',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=physiotherapist', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=physiotherapist', description: 'Business & tech skills' },
     ],
     progression: [
       'Physiotherapist Apprentice / Junior (Entry (£18k-£30k))',
@@ -1706,6 +1866,12 @@ const rawDemoCareers = [
     id: 26,
     category: 'Healthcare & Medicine',
     title: 'Occupational Therapist',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£25k - £45k',
     description: 'Support people to regain daily living skills and independence after illness or injury.',
     requirements: [
@@ -1728,10 +1894,8 @@ const rawDemoCareers = [
       'Deliver treatment and advice in clinical settings',
     ],
     whereToStudy: [
-      'Clinical degree with placements or professional training',
-      'Specialist health science or therapy course',
-      'Accredited clinical practice and on-the-job learning',
-      'Continuous professional development in healthcare',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=occupational+therapist', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=occupational+therapist', description: 'Business & tech skills' },
     ],
     progression: [
       'Occupational Therapist Apprentice / Junior (Entry (£18k-£30k))',
@@ -1764,6 +1928,12 @@ const rawDemoCareers = [
     id: 27,
     category: 'Healthcare & Medicine',
     title: 'Dentist',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£35k - £100k+',
     description: 'Examine teeth, treat oral health problems and provide dental care to patients.',
     requirements: [
@@ -1787,10 +1957,8 @@ const rawDemoCareers = [
       'Work with dental nurses and support staff',
     ],
     whereToStudy: [
-      'Dentistry degree with clinical placements',
-      'Hospital-based dental foundation training',
-      'Specialist dental practice experience',
-      'Ongoing professional development',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=dentist', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=dentist', description: 'Business & tech skills' },
     ],
     progression: [
       'Dental Foundation Dentist (£35k-£45k)',
@@ -1824,6 +1992,12 @@ const rawDemoCareers = [
     id: 28,
     category: 'Healthcare & Medicine',
     title: 'Psychologist',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£27k - £50k',
     description: 'Study behaviour and mental health, then support people through assessment and therapy.',
     requirements: [
@@ -1849,10 +2023,8 @@ const rawDemoCareers = [
       'Deliver treatment and advice in clinical settings',
     ],
     whereToStudy: [
-      'Clinical degree with placements or professional training',
-      'Specialist health science or therapy course',
-      'Accredited clinical practice and on-the-job learning',
-      'Continuous professional development in healthcare',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=psychologist', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=psychologist', description: 'Business & tech skills' },
     ],
     progression: [
       'Psychologist Apprentice / Junior (Entry (£18k-£30k))',
@@ -1888,6 +2060,12 @@ const rawDemoCareers = [
     id: 29,
     category: 'Healthcare & Medicine',
     title: 'Radiographer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£25k - £45k',
     description: 'Use imaging technology to support diagnosis and treatment of patients in hospitals.',
     requirements: [
@@ -1909,10 +2087,8 @@ const rawDemoCareers = [
       'Deliver treatment and advice in clinical settings',
     ],
     whereToStudy: [
-      'Clinical degree with placements or professional training',
-      'Specialist health science or therapy course',
-      'Accredited clinical practice and on-the-job learning',
-      'Continuous professional development in healthcare',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=radiographer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=radiographer', description: 'Business & tech skills' },
     ],
     progression: [
       'Radiographer Apprentice / Junior (Entry (£18k-£30k))',
@@ -1944,6 +2120,12 @@ const rawDemoCareers = [
     id: 30,
     category: 'Healthcare & Medicine',
     title: 'Midwife',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£25k - £45k',
     description: 'Care for mothers and babies during pregnancy, birth and postnatal recovery.',
     requirements: [
@@ -1965,10 +2147,8 @@ const rawDemoCareers = [
       'Deliver treatment and advice in clinical settings',
     ],
     whereToStudy: [
-      'Clinical degree with placements or professional training',
-      'Specialist health science or therapy course',
-      'Accredited clinical practice and on-the-job learning',
-      'Continuous professional development in healthcare',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=midwife', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=midwife', description: 'Business & tech skills' },
     ],
     progression: [
       'Midwife Apprentice / Junior (Entry (£18k-£30k))',
@@ -2000,6 +2180,12 @@ const rawDemoCareers = [
     id: 31,
     category: 'Engineering & Manufacturing',
     title: 'Civil Engineer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£26k - £60k',
     description: 'Design and oversee construction projects for roads, bridges and buildings.',
     requirements: [
@@ -2039,10 +2225,8 @@ const rawDemoCareers = [
       'Ensure projects meet safety and quality standards',
     ],
     whereToStudy: [
-      'Civil engineering degree',
-      'Engineering apprenticeship or HND',
-      'College construction and project management courses',
-      'Professional development in surveying and design',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=civil+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=civil+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Graduate Civil Engineer (£26k-£36k)',
@@ -2099,6 +2283,12 @@ const rawDemoCareers = [
     id: 32,
     category: 'Engineering & Manufacturing',
     title: 'Mechanical Engineer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£26k - £55k',
     description: 'Create mechanical systems and products for industry, transport and manufacturing.',
     requirements: [
@@ -2123,10 +2313,8 @@ const rawDemoCareers = [
       'Ensure work follows standards, safety and quality controls',
     ],
     whereToStudy: [
-      'Engineering degree or HND',
-      'Technical college or apprenticeships in engineering',
-      'Industry training and professional development',
-      'Design technology and manufacturing courses',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=mechanical+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=mechanical+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Engineer Apprentice / Junior (Entry (£18k-£30k))',
@@ -2169,6 +2357,12 @@ const rawDemoCareers = [
     id: 33,
     category: 'Engineering & Manufacturing',
     title: 'Electrical Engineer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£26k - £55k',
     description: 'Develop electrical systems and equipment for power, automation and infrastructure.',
     requirements: [
@@ -2193,10 +2387,8 @@ const rawDemoCareers = [
       'Ensure work follows standards, safety and quality controls',
     ],
     whereToStudy: [
-      'Engineering degree or HND',
-      'Technical college or apprenticeships in engineering',
-      'Industry training and professional development',
-      'Design technology and manufacturing courses',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=electrical+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=electrical+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Engineer Apprentice / Junior (Entry (£18k-£30k))',
@@ -2239,6 +2431,12 @@ const rawDemoCareers = [
     id: 34,
     category: 'Engineering & Manufacturing',
     title: 'Aerospace Engineer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£28k - £60k',
     description: 'Design aircraft, spacecraft and propulsion systems for aviation and space industries.',
     requirements: [
@@ -2263,10 +2461,8 @@ const rawDemoCareers = [
       'Work with teams to solve engineering challenges',
     ],
     whereToStudy: [
-      'Aerospace engineering degree',
-      'Engineering apprenticeship or HND',
-      'Technical college manufacturing course',
-      'Industry placements with aerospace firms',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=aerospace+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=aerospace+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Graduate Aerospace Engineer (£28k-£40k)',
@@ -2309,6 +2505,12 @@ const rawDemoCareers = [
     id: 35,
     category: 'Engineering & Manufacturing',
     title: 'Chemical Engineer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£28k - £60k',
     description: 'Develop processes for chemicals, energy and materials in industrial settings.',
     requirements: [
@@ -2332,10 +2534,8 @@ const rawDemoCareers = [
       'Work with technical teams on process development',
     ],
     whereToStudy: [
-      'Chemical engineering degree',
-      'Engineering apprenticeship or HND',
-      'Industry placements in manufacturing or energy',
-      'Professional development in process safety',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=chemical+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=chemical+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Graduate Chemical Engineer (£28k-£38k)',
@@ -2367,6 +2567,12 @@ const rawDemoCareers = [
     id: 36,
     category: 'Engineering & Manufacturing',
     title: 'Architect',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£28k - £60k',
     description: 'Design buildings and spaces with creativity, structure and sustainability in mind.',
     requirements: [
@@ -2391,10 +2597,8 @@ const rawDemoCareers = [
       'Ensure design meets safety, planning and budget needs',
     ],
     whereToStudy: [
-      'Architecture degree with professional accreditation',
-      'RIBA-validated architectural course',
-      'Design studio placements or internships',
-      'Professional development in planning and sustainability',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=architect', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=architect', description: 'Business & tech skills' },
     ],
     progression: [
       'Architectural Assistant (£28k-£35k)',
@@ -2427,6 +2631,12 @@ const rawDemoCareers = [
     id: 37,
     category: 'Engineering & Manufacturing',
     title: 'Quantity Surveyor',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£25k - £55k',
     description: 'Manage costs and contracts for construction projects from planning through delivery.',
     requirements: [
@@ -2449,10 +2659,8 @@ const rawDemoCareers = [
       'Ensure work follows standards, safety and quality controls',
     ],
     whereToStudy: [
-      'Engineering degree or HND',
-      'Technical college or apprenticeships in engineering',
-      'Industry training and professional development',
-      'Design technology and manufacturing courses',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=quantity+surveyor', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=quantity+surveyor', description: 'Business & tech skills' },
     ],
     progression: [
       'Surveyor Apprentice / Junior (Entry (£18k-£30k))',
@@ -2484,6 +2692,12 @@ const rawDemoCareers = [
     id: 38,
     category: 'Engineering & Manufacturing',
     title: 'CAD Technician',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£20k - £35k',
     description: 'Produce technical drawings and models for engineering and manufacturing using CAD software.',
     requirements: [
@@ -2507,10 +2721,8 @@ const rawDemoCareers = [
       'Share drawings with teams and support production',
     ],
     whereToStudy: [
-      'CAD technician or design technology course',
-      'Engineering college or apprenticeship',
-      'Specialist CAD software training',
-      'Work-based technical design placements',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=cad+technician', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=cad+technician', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior CAD Technician (£20k-£28k)',
@@ -2553,6 +2765,14 @@ const rawDemoCareers = [
     id: 39,
     category: 'Creative & Media',
     title: 'Graphic Designer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£20k - £45k',
     description: 'Create visual designs for print and digital media using typography, colour and layout.',
     requirements: [
@@ -2575,10 +2795,9 @@ const rawDemoCareers = [
       'Gather feedback and improve creative deliverables',
     ],
     whereToStudy: [
-      'Creative arts or media degree with practical projects',
-      'Portfolio-based design, film or writing course',
-      'Workshops and short courses for creative skills',
-      'Industry placements or internships in media work',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=graphic+designer', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=graphic+designer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=graphic+designer', description: 'Business & tech skills' },
     ],
     progression: [
       'Designer Apprentice / Junior (Entry (£18k-£30k))',
@@ -2611,6 +2830,14 @@ const rawDemoCareers = [
     id: 40,
     category: 'Creative & Media',
     title: 'Video Editor',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£22k - £45k',
     description: 'Cut and assemble video content to tell stories for film, TV and online channels.',
     requirements: [
@@ -2633,10 +2860,9 @@ const rawDemoCareers = [
       'Gather feedback and improve creative deliverables',
     ],
     whereToStudy: [
-      'Creative arts or media degree with practical projects',
-      'Portfolio-based design, film or writing course',
-      'Workshops and short courses for creative skills',
-      'Industry placements or internships in media work',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=video+editor', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=video+editor', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=video+editor', description: 'Business & tech skills' },
     ],
     progression: [
       'Video Editor Apprentice / Junior (Entry (£18k-£30k))',
@@ -2669,6 +2895,14 @@ const rawDemoCareers = [
     id: 41,
     category: 'Creative & Media',
     title: 'Photographer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: 'Variable',
     description: 'Capture images for editorial, commercial and creative projects with technical and artistic skill.',
     requirements: [
@@ -2690,10 +2924,9 @@ const rawDemoCareers = [
       'Gather feedback and improve creative deliverables',
     ],
     whereToStudy: [
-      'Creative arts or media degree with practical projects',
-      'Portfolio-based design, film or writing course',
-      'Workshops and short courses for creative skills',
-      'Industry placements or internships in media work',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=photographer', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=photographer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=photographer', description: 'Business & tech skills' },
     ],
     progression: [
       'Photographer Apprentice / Junior (Entry (£18k-£30k))',
@@ -2725,6 +2958,14 @@ const rawDemoCareers = [
     id: 42,
     category: 'Creative & Media',
     title: 'Animator',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£22k - £45k',
     description: 'Produce animation and motion graphics for games, film and multimedia projects.',
     requirements: [
@@ -2747,10 +2988,9 @@ const rawDemoCareers = [
       'Collaborate with designers, directors and teams',
     ],
     whereToStudy: [
-      'Animation or digital media degree',
-      'Portfolio-based creative workshops',
-      'Film and animation school programmes',
-      'Industry internships or apprenticeships',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=animator', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=animator', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=animator', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior Animator (£20k-£30k)',
@@ -2782,6 +3022,14 @@ const rawDemoCareers = [
     id: 43,
     category: 'Creative & Media',
     title: 'Writer/Copywriter',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£20k - £45k',
     description: 'Write engaging content for marketing, websites and brands across digital and print channels.',
     requirements: [
@@ -2815,10 +3063,9 @@ const rawDemoCareers = [
       'Gather feedback and improve creative deliverables',
     ],
     whereToStudy: [
-      'Creative arts or media degree with practical projects',
-      'Portfolio-based design, film or writing course',
-      'Workshops and short courses for creative skills',
-      'Industry placements or internships in media work',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=writer+copywriter', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=writer+copywriter', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=writer+copywriter', description: 'Business & tech skills' },
     ],
     progression: [
       'WriterCopywriter Apprentice / Junior (Entry (£18k-£30k))',
@@ -2855,6 +3102,14 @@ const rawDemoCareers = [
     id: 44,
     category: 'Creative & Media',
     title: 'Social Media Manager',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£22k - £45k',
     description: 'Plan social campaigns, manage content and grow audiences across digital channels.',
     requirements: [
@@ -2877,10 +3132,9 @@ const rawDemoCareers = [
       'Gather feedback and improve creative deliverables',
     ],
     whereToStudy: [
-      'Creative arts or media degree with practical projects',
-      'Portfolio-based design, film or writing course',
-      'Workshops and short courses for creative skills',
-      'Industry placements or internships in media work',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=social+media+manager', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=social+media+manager', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=social+media+manager', description: 'Business & tech skills' },
     ],
     progression: [
       'Manager Apprentice / Junior (Entry (£18k-£30k))',
@@ -2913,6 +3167,14 @@ const rawDemoCareers = [
     id: 45,
     category: 'Creative & Media',
     title: 'Film/TV Producer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£25k - £60k',
     description: 'Manage production teams, budgets and schedules to bring film or television projects to life.',
     requirements: [
@@ -2955,10 +3217,9 @@ const rawDemoCareers = [
       'Gather feedback and improve creative deliverables',
     ],
     whereToStudy: [
-      'Creative arts or media degree with practical projects',
-      'Portfolio-based design, film or writing course',
-      'Workshops and short courses for creative skills',
-      'Industry placements or internships in media work',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=film+tv+producer', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=film+tv+producer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=film+tv+producer', description: 'Business & tech skills' },
     ],
     progression: [
       'Producer Apprentice / Junior (Entry (£18k-£30k))',
@@ -3019,6 +3280,14 @@ const rawDemoCareers = [
     id: 46,
     category: 'Education & Training',
     title: 'Primary School Teacher',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£28k - £45k',
     description: 'Teach young children key skills, literacy and numeracy in primary school settings.',
     requirements: [
@@ -3039,10 +3308,8 @@ const rawDemoCareers = [
       'Coordinate with colleagues and support staff',
     ],
     whereToStudy: [
-      'Education degree with qualified teacher status',
-      'School-based training and classroom experience',
-      'Professional development in teaching and learning',
-      'Apprenticeship or teaching assistant pathway',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=primary+school+teacher', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=primary+school+teacher', description: 'Affordable professional courses' },
     ],
     progression: [
       'Teacher Apprentice / Junior (Entry (£18k-£30k))',
@@ -3074,6 +3341,14 @@ const rawDemoCareers = [
     id: 47,
     category: 'Education & Training',
     title: 'Secondary School Teacher',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£28k - £45k',
     description: 'Teach subject lessons to teenagers and support learning in secondary school classrooms.',
     requirements: [
@@ -3127,10 +3402,8 @@ const rawDemoCareers = [
       'Coordinate with colleagues and support staff',
     ],
     whereToStudy: [
-      'Education degree with qualified teacher status',
-      'School-based training and classroom experience',
-      'Professional development in teaching and learning',
-      'Apprenticeship or teaching assistant pathway',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=secondary+school+teacher', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=secondary+school+teacher', description: 'Affordable professional courses' },
     ],
     progression: [
       'Teacher Apprentice / Junior (Entry (£18k-£30k))',
@@ -3197,6 +3470,14 @@ const rawDemoCareers = [
     id: 48,
     category: 'Education & Training',
     title: 'Teaching Assistant',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£18k - £25k',
     description: 'Support teachers and help pupils learn through classroom assistance and one-to-one support.',
     requirements: [
@@ -3217,10 +3498,8 @@ const rawDemoCareers = [
       'Coordinate with colleagues and support staff',
     ],
     whereToStudy: [
-      'Education degree with qualified teacher status',
-      'School-based training and classroom experience',
-      'Professional development in teaching and learning',
-      'Apprenticeship or teaching assistant pathway',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=teaching+assistant', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=teaching+assistant', description: 'Affordable professional courses' },
     ],
     progression: [
       'Assistant Apprentice / Junior (Entry (£18k-£30k))',
@@ -3252,6 +3531,14 @@ const rawDemoCareers = [
     id: 49,
     category: 'Education & Training',
     title: 'University Lecturer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£35k - £65k',
     description: 'Teach and research at university level while shaping academic programmes and supporting students.',
     requirements: [
@@ -3287,10 +3574,8 @@ const rawDemoCareers = [
       'Coordinate with colleagues and support staff',
     ],
     whereToStudy: [
-      'Education degree with qualified teacher status',
-      'School-based training and classroom experience',
-      'Professional development in teaching and learning',
-      'Apprenticeship or teaching assistant pathway',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=university+lecturer', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=university+lecturer', description: 'Affordable professional courses' },
     ],
     progression: [
       'Lecturer Apprentice / Junior (Entry (£18k-£30k))',
@@ -3337,6 +3622,14 @@ const rawDemoCareers = [
     id: 50,
     category: 'Education & Training',
     title: 'Career Advisor',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£22k - £35k',
     description: 'Guide students and adults through career planning, job searches and training decisions.',
     requirements: [
@@ -3368,10 +3661,8 @@ const rawDemoCareers = [
       'Meet individuals and support their next steps',
     ],
     whereToStudy: [
-      'Career guidance or education degree',
-      'Counselling and advice qualifications',
-      'Apprenticeship in welfare or career services',
-      'Professional training in employability support',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=career+advisor', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=career+advisor', description: 'Affordable professional courses' },
     ],
     progression: [
       'Career Advisor (£22k-£30k)',
@@ -3416,7 +3707,15 @@ const rawDemoCareers = [
     id: 61,
     category: 'Technology & Digital',
     title: 'DevOps Engineer',
-    salary: '£35k-£75k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£35k - £75k',
     description: 'Bridge development and operations teams.',
     requirements: [
       'Linux + Cloud + Scripting',
@@ -3438,10 +3737,9 @@ const rawDemoCareers = [
       'Research new tools, languages and best practices',
     ],
     whereToStudy: [
-      'University degree in computing, data or cyber security',
-      'Bootcamp or vocational course in digital skills',
-      'Professional certification in cloud, security or development',
-      'Apprenticeship in IT, computing or digital services',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=devops+engineer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=devops+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=devops+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Engineer Apprentice / Junior (Entry (£18k-£30k))',
@@ -3474,7 +3772,15 @@ const rawDemoCareers = [
     id: 62,
     category: 'Technology & Digital',
     title: 'Database Administrator',
-    salary: '£28k-£55k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£28k - £55k',
     description: 'Manage and optimise data storage systems.',
     requirements: [
       'SQL + Certs',
@@ -3496,10 +3802,9 @@ const rawDemoCareers = [
       'Resolve database issues and maintain security',
     ],
     whereToStudy: [
-      'IT or database management degree',
-      'SQL and database administration course',
-      'Certification in database platforms',
-      'Apprenticeship in IT infrastructure',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=database+administrator', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=database+administrator', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=database+administrator', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior DBA (£28k-£35k)',
@@ -3531,7 +3836,15 @@ const rawDemoCareers = [
     id: 63,
     category: 'Technology & Digital',
     title: 'Blockchain Developer',
-    salary: '£35k-£75k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£35k - £75k',
     description: 'Build decentralised applications and smart contracts.',
     requirements: [
       'Degree or Self-Taught',
@@ -3553,10 +3866,9 @@ const rawDemoCareers = [
       'Research new decentralised technologies and tools',
     ],
     whereToStudy: [
-      'Computer science or software engineering degree',
-      'Blockchain development bootcamp',
-      'Online blockchain and crypto courses',
-      'Developer apprenticeship in distributed systems',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=blockchain+developer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=blockchain+developer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=blockchain+developer', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior Blockchain Developer (£35k-£45k)',
@@ -3588,7 +3900,15 @@ const rawDemoCareers = [
     id: 64,
     category: 'Technology & Digital',
     title: 'Ethical Hacker',
-    salary: '£30k-£65k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£30k - £65k',
     description: 'Test systems for security vulnerabilities.',
     requirements: [
       'Certs + Experience',
@@ -3610,10 +3930,9 @@ const rawDemoCareers = [
       'Test systems, monitor performance and manage risk',
     ],
     whereToStudy: [
-      'University degree in computing, data or cyber security',
-      'Bootcamp or vocational course in digital skills',
-      'Professional certification in cloud, security or development',
-      'Apprenticeship in IT, computing or digital services',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=ethical+hacker', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=ethical+hacker', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=ethical+hacker', description: 'Business & tech skills' },
     ],
     progression: [
       'Ethical Hacker Apprentice / Junior (Entry (£18k-£30k))',
@@ -3656,7 +3975,15 @@ const rawDemoCareers = [
     id: 65,
     category: 'Technology & Digital',
     title: 'Digital Forensics Investigator',
-    salary: '£28k-£55k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£28k - £55k',
     description: 'Recover and investigate digital evidence.',
     requirements: [
       'Degree + Certs',
@@ -3678,10 +4005,9 @@ const rawDemoCareers = [
       'Test systems, monitor performance and manage risk',
     ],
     whereToStudy: [
-      'University degree in computing, data or cyber security',
-      'Bootcamp or vocational course in digital skills',
-      'Professional certification in cloud, security or development',
-      'Apprenticeship in IT, computing or digital services',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=digital+forensics+investigator', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=digital+forensics+investigator', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=digital+forensics+investigator', description: 'Business & tech skills' },
     ],
     progression: [
       'Digital Forensics Investigator Apprentice / Junior (Entry (£18k-£30k))',
@@ -3724,7 +4050,15 @@ const rawDemoCareers = [
     id: 66,
     category: 'Technology & Digital',
     title: 'Cloud Security Engineer',
-    salary: '£40k-£80k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£40k - £80k',
     description: 'Secure cloud environments and data.',
     requirements: [
       'Cloud Certs + Security',
@@ -3746,10 +4080,9 @@ const rawDemoCareers = [
       'Support secure deployments and governance',
     ],
     whereToStudy: [
-      'Cyber security or computing degree',
-      'Cloud security certification',
-      'Specialist security training',
-      'Security apprenticeship or industry experience',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=cloud+security+engineer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=cloud+security+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=cloud+security+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior Cloud Security Engineer (£40k-£50k)',
@@ -3781,7 +4114,15 @@ const rawDemoCareers = [
     id: 67,
     category: 'Technology & Digital',
     title: 'Site Reliability Engineer',
-    salary: '£40k-£80k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£40k - £80k',
     description: 'Ensure systems run reliably at scale.',
     requirements: [
       'Coding + Systems',
@@ -3803,10 +4144,9 @@ const rawDemoCareers = [
       'Research new tools, languages and best practices',
     ],
     whereToStudy: [
-      'University degree in computing or IT',
-      'Coding bootcamp or specialist training course',
-      'Professional certification such as CompTIA or AWS',
-      'Apprenticeship in digital or software development',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=site+reliability+engineer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=site+reliability+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=site+reliability+engineer', description: 'Business & tech skills' },
     ],
     progression: [
       'Engineer Apprentice / Junior (Entry (£18k-£30k))',
@@ -3839,7 +4179,15 @@ const rawDemoCareers = [
     id: 68,
     category: 'Technology & Digital',
     title: 'Mobile App Developer',
-    salary: '£25k-£60k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£25k - £60k',
     description: 'Build apps for iOS and Android.',
     requirements: [
       'Degree or Bootcamp',
@@ -3861,10 +4209,9 @@ const rawDemoCareers = [
       'Research new tools, languages and best practices',
     ],
     whereToStudy: [
-      'University degree in computing or IT',
-      'Coding bootcamp or specialist training course',
-      'Professional certification such as CompTIA or AWS',
-      'Apprenticeship in digital or software development',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=mobile+app+developer', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=mobile+app+developer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=mobile+app+developer', description: 'Business & tech skills' },
     ],
     progression: [
       'Developer Apprentice / Junior (Entry (£18k-£30k))',
@@ -3907,7 +4254,15 @@ const rawDemoCareers = [
     id: 69,
     category: 'Technology & Digital',
     title: 'Systems Analyst',
-    salary: '£28k-£55k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£28k - £55k',
     description: 'Analyse business needs and design tech solutions.',
     requirements: [
       'Degree or Experience',
@@ -3929,10 +4284,9 @@ const rawDemoCareers = [
       'Learn new techniques and stay up to date with trends',
     ],
     whereToStudy: [
-      'University degree in computing or IT',
-      'Coding bootcamp or specialist training course',
-      'Professional certification such as CompTIA or AWS',
-      'Apprenticeship in digital or software development',
+      { name: 'Codecademy', url: 'https://www.codecademy.com/search?query=systems+analyst', description: 'Interactive coding courses' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=systems+analyst', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=systems+analyst', description: 'Business & tech skills' },
     ],
     progression: [
       'Analyst Apprentice / Junior (Entry (£18k-£30k))',
@@ -3964,7 +4318,15 @@ const rawDemoCareers = [
     id: 70,
     category: 'Technology & Digital',
     title: 'Technical Writer',
-    salary: '£22k-£45k',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    salary: '£22k - £45k',
     description: 'Create documentation for technical products.',
     requirements: [
       'Writing + Tech Skills',
@@ -3985,10 +4347,9 @@ const rawDemoCareers = [
       'Research new tools, languages and best practices',
     ],
     whereToStudy: [
-      'University degree in computing, data or cyber security',
-      'Bootcamp or vocational course in digital skills',
-      'Professional certification in cloud, security or development',
-      'Apprenticeship in IT, computing or digital services',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=technical+writer', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=technical+writer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=technical+writer', description: 'Business & tech skills' },
     ],
     progression: [
       'Writer Apprentice / Junior (Entry (£18k-£30k))',
@@ -4020,6 +4381,14 @@ const rawDemoCareers = [
     id: 71,
     category: 'Business & Finance',
     title: 'Data Entry Clerk',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£18k - £28k',
     description: 'Enter and organise information in systems with a focus on accuracy and structure.',
     requirements: [
@@ -4043,10 +4412,9 @@ const rawDemoCareers = [
       'Support administrative and office tasks',
     ],
     whereToStudy: [
-      'Business administration or office skills course',
-      'Data entry training and IT basics',
-      'Apprenticeship in administration',
-      'Clerical skills and typing development',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=data+entry+clerk', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=data+entry+clerk', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=data+entry+clerk', description: 'Creative & practical classes' },
     ],
     progression: [
       'Junior Data Entry Clerk (£18k-£22k)',
@@ -4077,6 +4445,14 @@ const rawDemoCareers = [
     id: 72,
     category: 'Business & Finance',
     title: 'Virtual Assistant',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£18k - £30k',
     description: 'Work remotely supporting business tasks, scheduling and communications.',
     requirements: [
@@ -4097,10 +4473,9 @@ const rawDemoCareers = [
       'Organise work and manage deadlines for projects',
     ],
     whereToStudy: [
-      'Education degree with qualified teacher status',
-      'School-based training and classroom experience',
-      'Professional development in teaching and learning',
-      'Apprenticeship or teaching assistant pathway',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=virtual+assistant', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=virtual+assistant', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=virtual+assistant', description: 'Creative & practical classes' },
     ],
     progression: [
       'Assistant Apprentice / Junior (Entry (£18k-£30k))',
@@ -4132,6 +4507,12 @@ const rawDemoCareers = [
     id: 73,
     category: 'Healthcare & Medicine',
     title: 'Care Assistant',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£18k - £25k',
     description: 'Provide personal care and support to people in healthcare settings.',
     requirements: [
@@ -4153,10 +4534,8 @@ const rawDemoCareers = [
       'Offer companionship and emotional support',
     ],
     whereToStudy: [
-      'Health and social care course',
-      'Care apprenticeship programme',
-      'Workplace training in healthcare settings',
-      'Adult learning or GCSE care qualifications',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=care+assistant', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=care+assistant', description: 'Business & tech skills' },
     ],
     progression: [
       'Care Assistant (£18k-£22k)',
@@ -4188,6 +4567,14 @@ const rawDemoCareers = [
     id: 74,
     category: 'Business & Finance',
     title: 'Bookkeeper',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£20k - £35k',
     description: 'Manage financial records, invoices and accounts for businesses.',
     requirements: [
@@ -4209,10 +4596,9 @@ const rawDemoCareers = [
       'Support payroll, VAT and compliance processes',
     ],
     whereToStudy: [
-      'Bookkeeping and accounting course',
-      'Business administration apprenticeship',
-      'Professional AAT or bookkeeping training',
-      'College finance and business pathways',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=bookkeeper', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=bookkeeper', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=bookkeeper', description: 'Creative & practical classes' },
     ],
     progression: [
       'Junior Bookkeeper (£18k-£25k)',
@@ -4244,6 +4630,14 @@ const rawDemoCareers = [
     id: 75,
     category: 'Business & Finance',
     title: 'Customer Service Advisor',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£18k - £28k',
     description: 'Support customers through enquiries and service requests, with remote options available.',
     requirements: [
@@ -4266,10 +4660,9 @@ const rawDemoCareers = [
       'Provide friendly support across channels',
     ],
     whereToStudy: [
-      'Customer service apprenticeship',
-      'Business administration course',
-      'Communication and service training',
-      'Retail or office skills development',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=customer+service+advisor', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=customer+service+advisor', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=customer+service+advisor', description: 'Creative & practical classes' },
     ],
     progression: [
       'Customer Service Advisor (£18k-£25k)',
@@ -4301,6 +4694,14 @@ const rawDemoCareers = [
     id: 76,
     category: 'Creative & Media',
     title: 'Content Writer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£20k - £40k',
     description: 'Write articles, social copy and website content for online audiences.',
     requirements: [
@@ -4322,10 +4723,9 @@ const rawDemoCareers = [
       'Work with marketing teams to shape messaging',
     ],
     whereToStudy: [
-      'Writing, journalism or media degree',
-      'Creative writing course or diploma',
-      'Content marketing or copywriting training',
-      'Online writing and editing programmes',
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=content+writer', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=content+writer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=content+writer', description: 'Business & tech skills' },
     ],
     progression: [
       'Junior Writer (£20k-£28k)',
@@ -4357,6 +4757,12 @@ const rawDemoCareers = [
     id: 77,
     category: 'Service & Hospitality',
     title: 'Hospitality Worker',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£18k - £40k',
     description: 'Support hospitality, catering and guest service roles across hotels, events and food service.',
     requirements: [
@@ -4390,9 +4796,8 @@ const rawDemoCareers = [
       'Keep records and follow workplace procedures',
     ],
     whereToStudy: [
-      'Vocational or apprenticeship programme',
-      'Technical college or training course',
-      'Work-based learning and placements',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=hospitality+worker', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=hospitality+worker', description: 'Business & tech skills' },
     ],
     progression: [
       'Hospitality Worker Apprentice (£18k-£24k)',
@@ -4445,6 +4850,12 @@ const rawDemoCareers = [
     id: 79,
     category: 'Service & Hospitality',
     title: 'Salon Worker',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£18k - £40k',
     description: 'Work in salons and beauty settings providing hair, beauty and grooming services.',
     requirements: [
@@ -4470,9 +4881,8 @@ const rawDemoCareers = [
       'Keep records and follow workplace procedures',
     ],
     whereToStudy: [
-      'Vocational or apprenticeship programme',
-      'Technical college or training course',
-      'Work-based learning and placements',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=salon+worker', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=salon+worker', description: 'Business & tech skills' },
     ],
     progression: [
       'Salon Worker Apprentice (£18k-£24k)',
@@ -4507,6 +4917,12 @@ const rawDemoCareers = [
     id: 82,
     category: 'Agriculture & Animal Care',
     title: 'Animal Care Worker',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£18k - £40k',
     description: 'Care for animals, support farming and manage practical animal welfare tasks.',
     requirements: [
@@ -4532,9 +4948,8 @@ const rawDemoCareers = [
       'Keep records and follow workplace procedures',
     ],
     whereToStudy: [
-      'Vocational or apprenticeship programme',
-      'Technical college or training course',
-      'Work-based learning and placements',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=animal+care+worker', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=animal+care+worker', description: 'Business & tech skills' },
     ],
     progression: [
       'Animal Care Worker Apprentice (£18k-£24k)',
@@ -4580,6 +4995,12 @@ const rawDemoCareers = [
     id: 83,
     category: 'Agriculture & Animal Care',
     title: 'Farmer / Agricultural Worker',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£18k - £45k',
     description: 'Manage land, crops and livestock to produce food and maintain agricultural land.',
     requirements: [
@@ -4603,10 +5024,8 @@ const rawDemoCareers = [
       'Keep records and follow safety and environmental regulations',
     ],
     whereToStudy: [
-      'Agricultural college or land-based studies course',
-      'Apprenticeship on a working farm',
-      'Countryside or agricultural NVQ',
-      'On-the-job training and mentorship',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=farmer+agricultural+worker', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=farmer+agricultural+worker', description: 'Business & tech skills' },
     ],
     progression: [
       'Farm Worker / Apprentice (£18k-£24k)',
@@ -4638,6 +5057,12 @@ const rawDemoCareers = [
     id: 84,
     category: 'Agriculture & Animal Care',
     title: 'Horticulturist',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£18k - £38k',
     description: 'Grow and care for plants, gardens and green spaces for public, private or commercial use.',
     requirements: [
@@ -4661,10 +5086,8 @@ const rawDemoCareers = [
       'Operate horticultural tools and equipment safely',
     ],
     whereToStudy: [
-      'Horticulture apprenticeship or college course',
-      'RHS or land-based qualifications',
-      'Nursery or garden centre placements',
-      'On-the-job training with experienced horticulturists',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=horticulturist', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=horticulturist', description: 'Business & tech skills' },
     ],
     progression: [
       'Horticulture Apprentice (£18k-£22k)',
@@ -4696,6 +5119,12 @@ const rawDemoCareers = [
     id: 85,
     category: 'Agriculture & Animal Care',
     title: 'Veterinary Nurse',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£20k - £35k',
     description: 'Support veterinary surgeons with animal care, treatment and welfare in clinical settings.',
     requirements: [
@@ -4720,10 +5149,8 @@ const rawDemoCareers = [
       'Maintain clinical records and equipment',
     ],
     whereToStudy: [
-      'Veterinary nursing degree or diploma',
-      'Clinical placements in veterinary practices',
-      'Animal care apprenticeship pathway',
-      'Continuous professional development in veterinary care',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=veterinary+nurse', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=veterinary+nurse', description: 'Business & tech skills' },
     ],
     progression: [
       'Trainee Veterinary Nurse (£18k-£22k)',
@@ -4765,6 +5192,12 @@ const rawDemoCareers = [
     id: 86,
     category: 'Service & Hospitality',
     title: 'Chef',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£18k - £45k',
     description: 'Prepare and cook food to a high standard in restaurants, hotels or catering settings.',
     requirements: [
@@ -4788,10 +5221,8 @@ const rawDemoCareers = [
       'Develop menus and refine recipes',
     ],
     whereToStudy: [
-      'Catering college or culinary arts course',
-      'Chef apprenticeship in a professional kitchen',
-      'NVQ in Professional Cookery',
-      'Work experience and staged placements in restaurants',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=chef', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=chef', description: 'Business & tech skills' },
     ],
     progression: [
       'Commis Chef (£18k-£22k)',
@@ -4833,6 +5264,12 @@ const rawDemoCareers = [
     id: 87,
     category: 'Service & Hospitality',
     title: 'Event Manager',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£22k - £45k',
     description: 'Plan and deliver events, from corporate conferences to weddings and festivals.',
     requirements: [
@@ -4856,10 +5293,8 @@ const rawDemoCareers = [
       'Evaluate events and manage post-event feedback',
     ],
     whereToStudy: [
-      'Event management or hospitality degree',
-      'College courses in tourism or hospitality',
-      'Work placements with event agencies or venues',
-      'Professional certification in event management',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=event+manager', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=event+manager', description: 'Business & tech skills' },
     ],
     progression: [
       'Event Assistant (£20k-£24k)',
@@ -4892,6 +5327,12 @@ const rawDemoCareers = [
     id: 88,
     category: 'Sport & Leisure',
     title: 'Sports Coach / Personal Trainer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£18k - £40k',
     description: 'Coach individuals or teams to improve fitness, sporting performance and healthy habits.',
     requirements: [
@@ -4920,10 +5361,8 @@ const rawDemoCareers = [
       'Track progress and adapt training programmes',
     ],
     whereToStudy: [
-      'Sports coaching or personal training qualification',
-      'Sports science or coaching degree',
-      'Apprenticeship with a leisure centre or sports club',
-      'Ongoing CPD and specialist coaching certifications',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=sports+coach+personal+trainer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=sports+coach+personal+trainer', description: 'Business & tech skills' },
     ],
     progression: [
       'Trainee Coach / Assistant (£18k-£22k)',
@@ -4969,6 +5408,12 @@ const rawDemoCareers = [
     id: 89,
     category: 'Construction & Trades',
     title: 'Construction Trades Worker',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
     salary: '£20k - £42k',
     description: 'Build, install and maintain structures using skilled trade techniques such as plumbing, electrics or carpentry.',
     requirements: [
@@ -4994,10 +5439,8 @@ const rawDemoCareers = [
       'Work with tools, materials and other tradespeople',
     ],
     whereToStudy: [
-      'Trade apprenticeship (plumbing, electrical, carpentry, bricklaying)',
-      'NVQ or college course in construction trades',
-      'On-site training with a qualified tradesperson',
-      'Professional trade certification (e.g. Gas Safe, NICEIC)',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=construction+trades+worker', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=construction+trades+worker', description: 'Business & tech skills' },
     ],
     progression: [
       'Trade Apprentice (£18k-£24k)',
@@ -5041,6 +5484,14 @@ const rawDemoCareers = [
     id: 90,
     category: 'Public Services',
     title: 'Police & Public Services Officer',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£20k - £45k',
     description: 'Protect and support the public through policing, fire and rescue or wider public service roles.',
     requirements: [
@@ -5071,10 +5522,8 @@ const rawDemoCareers = [
       'Complete reports and follow legal procedures',
     ],
     whereToStudy: [
-      'Public services college course or degree',
-      'Police, fire or armed forces apprenticeship',
-      'Uniformed services training programme',
-      'Ongoing professional development and specialist training',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=police+and+public+services+officer', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=police+and+public+services+officer', description: 'Affordable professional courses' },
     ],
     progression: [
       'Trainee / Cadet (£20k-£24k)',
@@ -5123,6 +5572,14 @@ const rawDemoCareers = [
     id: 91,
     category: 'Science & Research',
     title: 'Science Researcher',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£24k - £55k',
     description: 'Investigate scientific questions through research, experiments and data analysis across specialist fields.',
     requirements: [
@@ -5154,10 +5611,8 @@ const rawDemoCareers = [
       'Keep up to date with developments in the field',
     ],
     whereToStudy: [
-      'Science degree (BSc) in a specialist field',
-      'Postgraduate research (MSc/PhD) for advanced roles',
-      'Laboratory or fieldwork placements',
-      'Research assistant or lab technician experience',
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=science+researcher', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=science+researcher', description: 'Business & tech skills' },
     ],
     progression: [
       'Research Assistant (£24k-£30k)',
@@ -5195,6 +5650,14 @@ const rawDemoCareers = [
     id: 92,
     category: 'Business & Finance',
     title: 'Legal Advisor',
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
     salary: '£26k - £70k',
     description: 'Provide legal advice and support to individuals, businesses or organisations on rights and regulations.',
     requirements: [
@@ -5219,10 +5682,9 @@ const rawDemoCareers = [
       'Represent or support cases as required',
     ],
     whereToStudy: [
-      'Law degree (LLB) or conversion course',
-      'Legal apprenticeship or paralegal pathway',
-      'Professional qualification (e.g. SQE, Bar training)',
-      'Training contract or legal work placement',
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=legal+advisor', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=legal+advisor', description: 'Affordable professional courses' },
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=legal+advisor', description: 'Creative & practical classes' },
     ],
     progression: [
       'Paralegal / Trainee (£22k-£30k)',
@@ -5261,6 +5723,257 @@ const rawDemoCareers = [
         description: 'Study full-time for a degree that leads into a career as a Legal Advisor.',
       },
     ]
+  },
+  {
+    id: 93,
+    category: 'Engineering & Manufacturing',
+    title: 'Renewable Energy Engineer',
+    salary: '£32k - £58k',
+    description: "Design, install and maintain renewable energy systems such as wind, solar and hydro to support the UK's transition to clean power.",
+    requirements: [
+      'Degree in engineering or renewable energy',
+      'Understanding of electrical or mechanical systems',
+      'Problem-solving skills',
+      'A-Level Maths and Physics',
+    ],
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
+    matchedSubjects: [
+      'renewable-energy-engineering-beng',
+      'university-engineering',
+      'btec-engineering',
+      'alevel-environmental-science',
+      'gcse-maths',
+      'gcse-english',
+      'gcse-science-combined',
+    ],
+    dayToDay: [
+      'Design and model renewable energy systems',
+      'Oversee installation of wind, solar or hydro infrastructure',
+      'Test and maintain equipment for efficiency and safety',
+      'Work with engineers and planners on green energy projects',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=renewable+energy+engineer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=renewable+energy+engineer', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Graduate Renewable Energy Engineer (£28k-£35k)',
+      'Renewable Energy Engineer (£35k-£48k)',
+      'Senior Renewable Energy Engineer (£48k-£58k)',
+      'Principal Engineer / Project Lead (£58k+)',
+    ],
+    similarCareers: [
+      33,
+      35,
+      31,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'renewable-energy-engineering-beng',
+          'university-engineering',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Renewable Energy Engineer.',
+      },
+    ]
+  },
+  {
+    id: 94,
+    category: 'Service & Hospitality',
+    title: 'Retail Manager',
+    salary: '£24k - £40k',
+    description: 'Run the day-to-day operations of a retail store, leading staff, managing stock and driving sales performance.',
+    requirements: [
+      'Experience in retail or customer service',
+      'Leadership and people management skills',
+      'Commercial awareness',
+      'GCSEs including Maths and English',
+    ],
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+    ],
+    matchedSubjects: [
+      'vocational-retail',
+      'btec-business',
+      'btec-hospitality',
+      'customer-service-apprenticeship',
+      'gcse-business-studies',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Lead and motivate a team of retail staff',
+      'Manage stock, merchandising and store presentation',
+      'Monitor sales performance against targets',
+      'Handle customer queries and resolve issues',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=retail+manager', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=retail+manager', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Assistant Manager (£20k-£26k)',
+      'Retail Manager (£26k-£34k)',
+      'Senior / Area Manager (£34k-£40k)',
+      'Regional Manager (£40k+)',
+    ],
+    similarCareers: [
+      87,
+      17,
+      77,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'vocational-retail',
+          'customer-service-apprenticeship',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Retail Manager.',
+      },
+    ]
+  },
+  {
+    id: 95,
+    category: 'Business & Finance',
+    title: 'Administrative Assistant',
+    salary: '£19k - £28k',
+    description: 'Provide day-to-day administrative support to a team or organisation, keeping schedules, records and communications running smoothly.',
+    requirements: [
+      'GCSEs including Maths and English',
+      'Strong organisation and IT skills',
+      'Good written and verbal communication',
+      'Attention to detail',
+    ],
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    matchedSubjects: [
+      'nvq-business-administration',
+      'btec-business',
+      'gcse-business-studies',
+      'gcse-maths',
+      'gcse-english',
+    ],
+    dayToDay: [
+      'Manage diaries, emails and correspondence',
+      'Organise meetings and take minutes',
+      'Maintain accurate records and files',
+      'Support colleagues with day-to-day office tasks',
+    ],
+    whereToStudy: [
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=administrative+assistant', description: 'Business & tech skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=administrative+assistant', description: 'Affordable professional courses' },
+    ],
+    progression: [
+      'Junior Administrator (£19k-£22k)',
+      'Administrative Assistant (£22k-£25k)',
+      'Senior Administrator / Office Manager (£25k-£28k)',
+      'Executive Assistant (£28k+)',
+    ],
+    similarCareers: [
+      72,
+      75,
+      16,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '2-4 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'nvq-business-administration',
+        ],
+        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming an Administrative Assistant.',
+      },
+    ]
+  },
+  {
+    id: 96,
+    category: 'Creative & Media',
+    title: 'Print Journalist',
+    salary: '£20k - £38k',
+    description: 'Research, write and edit news and feature stories for newspapers, magazines and online publications.',
+    requirements: [
+      'Degree in journalism, English or a related subject',
+      'Strong writing and research skills',
+      'Shorthand and media law knowledge (NCTJ)',
+      'GCSE English',
+    ],
+    supportTags: [
+      'Disability Confident employer',
+      'Access to Work eligible',
+      'Accessible',
+      'Flexible hours',
+      'Remote friendly',
+      'Work from home',
+    ],
+    matchedSubjects: [
+      'journalism-ba',
+      'gcse-media-studies',
+      'btec-media',
+      'gcse-english',
+      'gcse-maths',
+    ],
+    dayToDay: [
+      'Research and investigate news stories',
+      'Interview sources and gather information',
+      'Write and edit articles to deadline',
+      'Work with editors to shape coverage',
+    ],
+    whereToStudy: [
+      { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=journalism', description: 'Creative & practical classes' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=journalism', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=journalism', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Trainee Reporter (£20k-£24k)',
+      'Journalist (£24k-£30k)',
+      'Senior Journalist / Correspondent (£30k-£38k)',
+      'Editor (£38k+)',
+    ],
+    similarCareers: [
+      43,
+      76,
+      45,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'journalism-ba',
+        ],
+        description: 'Study full-time for a degree that leads into a career as a Print Journalist.',
+      },
+    ]
   }
 ]
 // Normalize subject ids to match `subjects.json` ids and fix common typos
@@ -5274,9 +5987,8 @@ const demoCareers = rawDemoCareers.map((career) => ({
     'Learn and adapt to new tools and practices',
   ],
   whereToStudy: career.whereToStudy || [
-    'Local college courses',
-    'Short bootcamps and online courses',
-    'Apprenticeships or university programmes',
+    { name: 'Udemy', url: `https://www.udemy.com/courses/search/?q=${encodeURIComponent(career.title)}`, description: 'Affordable professional courses' },
+    { name: 'LinkedIn Learning', url: `https://www.linkedin.com/learning/search?keywords=${encodeURIComponent(career.title)}`, description: 'Business & tech skills' },
   ],
   progression: career.progression || [
     `Junior ${career.title} (entry)`,

@@ -8,6 +8,12 @@ export interface BacktrackPathway {
   description: string
 }
 
+export interface CourseLink {
+  name: string
+  url: string
+  description: string
+}
+
 export interface Career {
   id: number
   category: string
@@ -17,7 +23,7 @@ export interface Career {
   requirements: string[]
   supportTags?: string[]
   dayToDay: string[]
-  whereToStudy: string[]
+  whereToStudy: CourseLink[]
   progression: string[]
   similarCareers: number[]
   matchedSubjects: string[]

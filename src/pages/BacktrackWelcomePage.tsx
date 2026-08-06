@@ -28,7 +28,7 @@ export default function BacktrackWelcomePage() {
           </div>
           <div>
             <p className="text-sm uppercase tracking-[0.28em] text-slate-100/80">Backtrack your path</p>
-            <h1 className="mt-2 text-3xl font-bold leading-tight">How do I get there?</h1>
+            <h1 className="mt-2 text-3xl font-bold leading-tight">I know my goal</h1>
           </div>
           <p className="text-sm leading-6 text-slate-100/90">
             Know your dream career? We'll show you the exact steps to get there.

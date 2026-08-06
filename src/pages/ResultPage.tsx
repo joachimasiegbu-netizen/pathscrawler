@@ -4,33 +4,22 @@ import subjectsData from '../data/subjects.json'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import Card from '../components/Card'
-import { Check, Compass, FolderClock, Link2, Star } from 'lucide-react'
+import PageHeader from '../components/PageHeader'
+import RevealSection from '../components/RevealSection'
+import StaggerGrid from '../components/StaggerGrid'
+import { Check, GitCompare, Link2, Star } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
+import { useCompareStore, MAX_COMPARE_CAREERS } from '../store/useCompareStore'
 import { savePathway } from '../utils/pathwayStorage'
+import ShareResultsPanel from '../components/ShareResultsPanel'
 
 interface MatchedCareer extends Career {
   matchedSubjectIds: string[]
   supportMatchCount: number
   relevance: number
 }
-
-const categories = [
-  'All',
-  'Technology & Digital',
-  'Business & Finance',
-  'Healthcare & Medicine',
-  'Engineering & Manufacturing',
-  'Creative & Media',
-  'Education & Training',
-  'Service & Hospitality',
-  'Agriculture & Animal Care',
-  'Sport & Leisure',
-  'Construction & Trades',
-  'Public Services',
-  'Science & Research',
-]
 
 const supportNeedTagMap: Record<string, string[]> = {
   'Flexible hours': ['Flexible hours'],
@@ -59,12 +48,12 @@ export default function ResultPage() {
   const selectedRole = usePathStore((state) => state.selectedRole)
   const supportNeeds = usePathStore((state) => state.supportNeeds)
   const highlightedCareerId = usePathStore((state) => state.highlightedCareerId)
-  const [activeCategory, setActiveCategory] = useState('All')
   const [visibleCount, setVisibleCount] = useState(8)
-  const [disabilityConfidentOnly, setDisabilityConfidentOnly] = useState(false)
   const [shareUrl, setShareUrl] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [justSaved, setJustSaved] = useState(false)
+  const compareIds = useCompareStore((state) => state.careerIds)
+  const toggleCompare = useCompareStore((state) => state.toggle)
 
   const isDisabledLearner = selectedRole === 'disabled-learner'
 
@@ -78,30 +67,15 @@ export default function ResultPage() {
     return supportNeeds.flatMap((need) => supportNeedTagMap[need] || [])
   }, [isDisabledLearner, supportNeeds])
 
-  const filteredCareers = useMemo<Career[]>(() => {
-    return activeCategory === 'All'
-      ? demoCareers
-      : demoCareers.filter((career) => career.category === activeCategory)
-  }, [activeCategory])
-
   const matches = useMemo<MatchedCareer[]>(() => {
-    return filteredCareers
+    return demoCareers
       .filter((career) => {
         if (!isDisabledLearner || supportTags.length === 0) {
           return true
         }
 
         const tags = career.supportTags || []
-        const matchesNeed = tags.some((tag) => supportTags.includes(tag))
-        if (!matchesNeed) {
-          return false
-        }
-
-        if (disabilityConfidentOnly) {
-          return tags.includes('Disability Confident employer')
-        }
-
-        return true
+        return tags.some((tag) => supportTags.includes(tag))
       })
       .map((career): MatchedCareer => {
         const matchedSubjectIds = (career.matchedSubjects || []).filter((subjectId) =>
@@ -129,7 +103,7 @@ export default function ResultPage() {
         }
         return b.relevance - a.relevance
       })
-  }, [filteredCareers, selectedSubjects, isDisabledLearner, supportTags, disabilityConfidentOnly, highlightedCareerId])
+  }, [selectedSubjects, isDisabledLearner, supportTags, highlightedCareerId])
 
   const finalCareers = matches
   const visibleCareers = finalCareers.slice(0, visibleCount)
@@ -161,25 +135,17 @@ export default function ResultPage() {
   }
 
   return (
-    <div className="space-y-6 pt-12">
-      <div className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
+    <div className="space-y-8 pt-12">
+      <RevealSection className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
         <div className="mb-6">
           <BackButton to="/subjects" />
         </div>
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary-soft/70 px-4 py-2 text-xs font-semibold text-primary-dark">
-          Pathway results
-        </div>
-        <h2 className="text-3xl font-bold text-slate-950">Careers and skills that fit your selections.</h2>
-        <p className="mt-2 text-sm leading-6 text-slate-600">Explore matching career areas and take the next step with confidence.</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => navigate('/backtrack')}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-soft/40 px-4 py-2 text-sm font-semibold text-primary-dark transition hover:bg-primary-soft/70"
-          >
-            <Compass className="h-4 w-4" />
-            How do I get there?
-          </button>
+        <PageHeader
+          eyebrow="Pathway results"
+          title="Careers and skills that fit your selections."
+          subtitle="Explore matching career areas and take the next step with confidence."
+        />
+        <div className="mt-6 flex flex-wrap gap-2">
           <button
             type="button"
             onClick={handleSavePathway}
@@ -190,11 +156,11 @@ export default function ResultPage() {
           </button>
           <button
             type="button"
-            onClick={() => navigate('/my-pathways')}
+            onClick={() => navigate('/compare')}
             className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-700"
           >
-            <FolderClock className="h-4 w-4" />
-            My saved pathways
+            <GitCompare className="h-4 w-4" />
+            Compare ({compareIds.length}/{MAX_COMPARE_CAREERS} selected)
           </button>
         </div>
 
@@ -231,50 +197,15 @@ export default function ResultPage() {
             </div>
           </div>
         ) : null}
-      </div>
+      </RevealSection>
 
-      <div className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
-        <div className="flex flex-wrap gap-2">
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => { setActiveCategory(category); setVisibleCount(8) }}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                activeCategory === category
-                  ? 'bg-primary text-white'
-                  : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-        {isDisabledLearner ? (
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => { setDisabilityConfidentOnly((value) => !value); setVisibleCount(8) }}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                disabilityConfidentOnly
-                  ? 'bg-primary text-white'
-                  : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              Disability Confident employer
-            </button>
-            <span className="text-sm text-slate-500">Filter your results for employers with dedicated disabled-friendly practice.</span>
-          </div>
-        ) : null}
-      </div>
-
-      <div className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <RevealSection className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
+        <StaggerGrid className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {visibleCareers.map((career) => {
             const isHighlighted = career.id === highlightedCareerId
             return (
               <div key={career.id} className={isHighlighted ? 'rounded-xl ring-2 ring-orange ring-offset-2' : ''}>
-                <Card title={career.title} description={career.description} badge={career.salary}>
+                <Card title={career.title} description={career.description} badge={career.salary} animateBadge={false}>
                   <div className="mt-4 space-y-3 text-sm text-slate-600">
                     {isHighlighted ? (
                       <div className="inline-flex items-center gap-1.5 rounded-full bg-orange/10 px-3 py-1 text-xs font-semibold text-orange">
@@ -282,10 +213,10 @@ export default function ResultPage() {
                         Your dream career
                       </div>
                     ) : null}
-                    {career.supportTags?.length ? (
+                    {isDisabledLearner && career.supportTags?.length ? (
                       <div className="flex flex-wrap gap-2">
                         {career.supportTags.map((tag: string) => (
-                          <span key={tag} className="rounded-full bg-primary-soft/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary-dark">
+                          <span key={tag} className="rounded-full bg-primary-soft/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary-dark dark:bg-primary/15 dark:text-primary-light">
                             {badgeLabelMap[tag] || tag}
                           </span>
                         ))}
@@ -293,44 +224,64 @@ export default function ResultPage() {
                     ) : null}
 
                     <div>
-                      <p className="font-semibold text-slate-900">Matched because you selected:</p>
+                      <p className="font-semibold text-slate-900 dark:text-slate-100">Matched because you selected:</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         {career.matchedSubjectIds.map((subjectId) => (
-                          <span key={subjectId} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                          <span key={subjectId} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-200">
                             {subjectMap[subjectId] || subjectId}
                           </span>
                         ))}
                       </div>
                     </div>
                     <div>
-                      <p className="font-semibold text-slate-900">Requirements</p>
-                      <ul className="mt-2 space-y-1 list-disc pl-5">
+                      <p className="font-semibold text-slate-900 dark:text-slate-100">Requirements</p>
+                      <ul className="mt-2 space-y-1 list-disc pl-5 dark:text-slate-300">
                         {career.requirements.map((req) => (
                           <li key={req}>{req}</li>
                         ))}
                       </ul>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => navigate(`/career/${career.id}`)}
-                      className="inline-flex w-full items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
-                    >
-                      Explore more
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => navigate(`/career/${career.id}`)}
+                        className="inline-flex flex-1 items-center justify-center rounded-2xl border border-gray-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-700"
+                      >
+                        Explore more
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => toggleCompare(career.id)}
+                        disabled={!compareIds.includes(career.id) && compareIds.length >= MAX_COMPARE_CAREERS}
+                        title={
+                          !compareIds.includes(career.id) && compareIds.length >= MAX_COMPARE_CAREERS
+                            ? `You can compare up to ${MAX_COMPARE_CAREERS} careers at once`
+                            : undefined
+                        }
+                        className={`inline-flex shrink-0 items-center justify-center gap-1.5 rounded-2xl border px-3 py-2 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 ${
+                          compareIds.includes(career.id)
+                            ? 'border-primary bg-primary-soft/70 text-primary-dark dark:border-primary/60 dark:bg-primary/15 dark:text-primary-light'
+                            : 'border-gray-200 bg-slate-50 text-slate-700 hover:-translate-y-0.5 hover:shadow-sm hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-700'
+                        }`}
+                      >
+                        <GitCompare className="h-4 w-4" />
+                        {compareIds.includes(career.id) ? 'Added' : 'Compare'}
+                      </button>
+                    </div>
                   </div>
                 </Card>
               </div>
             )
           })}
-        </div>
+        </StaggerGrid>
 
         {finalCareers.length === 0 ? (
-          <div className="rounded-[28px] border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-slate-700 mt-6">
+          <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-slate-700 mt-6 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
             <p className="font-semibold">No careers match your current support needs and subject choices.</p>
             {isDisabledLearner ? (
-              <p className="mt-2 text-sm">Try adjusting your support options or checking another category so we can find the best matches for you.</p>
+              <p className="mt-2 text-sm">Try adjusting your support options so we can find the best matches for you.</p>
             ) : (
-              <p className="mt-2 text-sm">Try selecting more subjects or changing your category to see more matches.</p>
+              <p className="mt-2 text-sm">Try selecting more subjects to see more matches.</p>
             )}
           </div>
         ) : null}
@@ -342,7 +293,11 @@ export default function ResultPage() {
             </Button>
           </div>
         ) : null}
-      </div>
+      </RevealSection>
+
+      <RevealSection>
+        <ShareResultsPanel careerTitle={finalCareers[0]?.title ?? null} />
+      </RevealSection>
 
       <Button
         variant="secondary"

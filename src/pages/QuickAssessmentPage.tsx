@@ -232,12 +232,6 @@ export default function QuickAssessmentPage() {
     }
   }
 
-  const handleBack = () => {
-    if (questionIndex > 0) {
-      setQuestionIndex((prev) => prev - 1)
-    }
-  }
-
   const handleSubmit = () => {
     const topRole = selectedRoleId ?? recommendedRoles[0]
     if (!topRole) {
@@ -263,18 +257,9 @@ export default function QuickAssessmentPage() {
         <div className="mb-6">
           <BackButton to="/role" />
         </div>
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary-dark">Quick assessment</p>
-            <h1 className="mt-3 text-2xl font-bold text-slate-950">Find your path in 60 seconds</h1>
-          </div>
-          <button
-            type="button"
-            onClick={() => navigate('/role')}
-            className="text-sm font-semibold text-primary transition hover:text-primary-dark"
-          >
-            Skip assessment
-          </button>
+        <div className="mb-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary-dark">Quick assessment</p>
+          <h1 className="mt-3 text-2xl font-bold text-slate-950">Find your path in 60 seconds</h1>
         </div>
 
         <div className="mb-6 rounded-full bg-slate-100 p-1">
@@ -326,19 +311,12 @@ export default function QuickAssessmentPage() {
                   })}
                 </div>
 
-                <div className="space-y-3">
+                <div className="flex justify-center">
                   <Button
                     onClick={handleSubmit}
-                    className="w-full transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+                    className="w-full justify-center transition-all duration-300 hover:scale-[1.02] cursor-pointer sm:w-auto sm:min-w-[220px]"
                   >
                     See my results
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={handleBack}
-                    className="w-full transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-                  >
-                    Back
                   </Button>
                 </div>
               </div>
@@ -376,19 +354,11 @@ export default function QuickAssessmentPage() {
                   })}
                 </div>
 
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <Button
-                    variant="secondary"
-                    onClick={handleBack}
-                    disabled={questionIndex === 0}
-                    className="w-full sm:w-auto transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-                  >
-                    Back
-                  </Button>
+                <div className="flex justify-center">
                   <Button
                     onClick={handleNext}
                     disabled={!canProceed}
-                    className="w-full sm:w-auto transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+                    className="w-full justify-center transition-all duration-300 hover:scale-[1.02] cursor-pointer sm:w-auto sm:min-w-[220px]"
                   >
                     Next
                   </Button>
