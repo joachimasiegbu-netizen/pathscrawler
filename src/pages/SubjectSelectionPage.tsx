@@ -1,4 +1,4 @@
-import { BookOpen, GraduationCap, Layers, Award } from 'lucide-react'
+import { BookOpen, GraduationCap, Layers, Award, Microscope, BadgeCheck } from 'lucide-react'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
@@ -12,7 +12,10 @@ const levelCards = [
   { key: 'a-level', label: 'A-Levels & BTECs', description: 'Focus on advanced academic A-Levels or practical BTEC qualifications for university and career progression.', category: 'A-Level', icon: GraduationCap },
   { key: 'tlevel', label: 'T-Levels', description: 'Technical qualifications combining classroom learning with industry placements. Equivalent to 3 A-Levels.', category: 'T-Level', icon: GraduationCap },
   { key: 'vocational', label: 'Vocational', description: 'Gain practical skills for apprenticeships and work-based learning.', category: 'Vocational', icon: Layers },
-  { key: 'university', label: 'University', description: 'Prepare for higher education and degree-level study.', category: 'University', icon: Award },
+  { key: 'university', label: 'Undergraduate', description: 'Prepare for higher education and degree-level study.', category: 'University', icon: Award },
+  { key: 'masters', label: "Master's Degree", description: 'Postgraduate study for a career pivot or specialisation (MSc, MA, MBA, MEng and more).', category: 'Masters', icon: GraduationCap },
+  { key: 'phd', label: 'PhD / Doctoral Research', description: 'Research degrees for academia and specialist research careers.', category: 'PhD', icon: Microscope },
+  { key: 'professional', label: 'Professional Qualifications', description: 'Industry certifications, conversion courses and professional diplomas (GDL, PGCE, CIM, ACCA, CFA and more).', category: 'Professional', icon: BadgeCheck },
 ]
 
 export default function SubjectSelectionPage() {
@@ -43,7 +46,7 @@ export default function SubjectSelectionPage() {
     student: ['gcse', 'a-level', 'tlevel'],
     apprentice: [],
     graduate: [],
-    'career-changer': ['gcse', 'a-level', 'tlevel', 'vocational', 'university'],
+    'career-changer': ['masters', 'phd', 'professional'],
     'mature-learner': ['tlevel', 'vocational', 'university'],
     'armed-forces-leaver': ['tlevel', 'vocational', 'university'],
     'refugee-asylum-seeker': ['university'],
@@ -54,6 +57,10 @@ export default function SubjectSelectionPage() {
   const visibleCards = levelCards.filter((card) => visibleCardKeys.includes(card.key))
   const topCards = visibleCards.filter((card) => card.key !== 'university')
   const universityCard = visibleCards.find((card) => card.key === 'university')
+  // Evenly space an exact trio (e.g. Career Changer's Master's/PhD/
+  // Professional cards) across 3 columns instead of leaving an orphan card
+  // on its own row in a 2-column grid.
+  const topGridCols = topCards.length === 3 ? 'sm:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2'
 
   const location = useLocation()
   const skipLevelRedirect = (location.state as { skipLevelRedirect?: boolean })?.skipLevelRedirect
@@ -94,7 +101,7 @@ export default function SubjectSelectionPage() {
   const roleSubheadline = selectedRole === 'student'
     ? 'Pick GCSE, A-Level & BTEC or T-Level options based on your current study plans.'
     : selectedRole === 'career-changer'
-    ? 'Explore any qualification level that fits your background and career goals. You can choose from foundation through to advanced qualifications.'
+    ? 'For experienced professionals looking to pivot or advance through further study.'
     : ['mature-learner', 'armed-forces-leaver'].includes(selectedRole ?? '')
     ? 'Explore retraining options through T-Levels and university qualifications.'
     : selectedRole === 'disabled-learner'
@@ -110,7 +117,7 @@ export default function SubjectSelectionPage() {
         <PageHeader title="Choose your qualification level" subtitle={roleSubheadline} />
       </div>
 
-      <StaggerGrid className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-4">
+      <StaggerGrid className={`grid grid-cols-1 gap-4 ${topGridCols} md:gap-4`}>
         {topCards.map((level) => {
           const Icon = level.icon
           const selected = selectedLevel === level.key

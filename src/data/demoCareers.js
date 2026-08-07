@@ -20,6 +20,8 @@ const rawDemoCareers = [
       'GCSE Maths and Computer Science',
     ],
     matchedSubjects: [
+      'msc-computer-science',
+      'computer-science-bsc',
       'alevel-compsci',
       'gcse-computer-science',
       'btec-it',
@@ -32,7 +34,6 @@ const rawDemoCareers = [
       'web-development-bsc',
       'game-development-bsc',
       'network-engineering-bsc',
-      'nanotechnology-bsc',
       'functional-skills-maths-entry-1',
       'functional-skills-maths-entry-2',
       'functional-skills-maths-level-1',
@@ -121,11 +122,13 @@ const rawDemoCareers = [
       'GCSE Maths and A-Level Maths',
     ],
     matchedSubjects: [
+      'msc-computer-science',
+      'msc-data-science',
+      'computer-science-bsc',
       'alevel-mathematics',
       'gcse-maths',
       'gcse-english',
       'gcse-science-combined',
-      'alevel-economics',
     ],
     dayToDay: [
       'Collect and analyse data from multiple sources',
@@ -184,6 +187,8 @@ const rawDemoCareers = [
       'GCSE Computer Science',
     ],
     matchedSubjects: [
+      'msc-cyber-security',
+      'computer-science-bsc',
       'gcse-computer-science',
       'alevel-compsci',
       'tlevel-digital-support-services',
@@ -326,6 +331,7 @@ const rawDemoCareers = [
       'GCSEs',
     ],
     matchedSubjects: [
+      'computer-science-bsc',
       'gcse-computer-science',
       'btec-it',
       'tlevel-digital-support-services',
@@ -405,7 +411,6 @@ const rawDemoCareers = [
     ],
     matchedSubjects: [
       'gcse-computer-science',
-      'tlevel-engineering-manufacturing-processing-control',
       'gcse-maths',
       'gcse-english',
       'gcse-science-combined',
@@ -482,7 +487,7 @@ const rawDemoCareers = [
       'Degree',
     ],
     matchedSubjects: [
-      'university-engineering',
+      'msc-computer-science',
       'alevel-mathematics',
       'information-technology-bsc',
       'gcse-maths',
@@ -551,6 +556,10 @@ const rawDemoCareers = [
       'A-Level Maths',
     ],
     matchedSubjects: [
+      'msc-computer-science',
+      'msc-data-science',
+      'phd-computer-science',
+      'computer-science-bsc',
       'alevel-mathematics',
       'data-science-bsc',
       'tlevel-digital-production-design-development',
@@ -634,6 +643,7 @@ const rawDemoCareers = [
       'GCSE Computer Science',
     ],
     matchedSubjects: [
+      'computer-science-bsc',
       'gcse-computer-science',
       'alevel-compsci',
       'btec-it',
@@ -783,6 +793,7 @@ const rawDemoCareers = [
       'GCSE English and Business',
     ],
     matchedSubjects: [
+      'mba',
       'gcse-business-studies',
       'alevel-business-studies',
       'gcse-english',
@@ -847,6 +858,8 @@ const rawDemoCareers = [
       'A-Level Maths',
     ],
     matchedSubjects: [
+      'msc-finance',
+      'acca-accounting',
       'a-level-mathematics',
       'gcse-maths',
       'accounting-bsc',
@@ -922,26 +935,21 @@ const rawDemoCareers = [
       'GCSE Maths',
     ],
     matchedSubjects: [
+      'msc-finance',
+      'cfa-finance',
+      'acca-accounting',
       'gcse-maths',
       'finance-bsc',
       'business-management-ba',
       'gcse-economics',
       'nvq-business-administration',
-      'hotel-management-apprenticeship',
-      'leisure-management-apprenticeship',
       'economics-bsc',
       'human-resource-management-ba',
       'international-business-ba',
       'supply-chain-management-ba',
-      'hotel-hospitality-management-ba',
-      'event-management-ba',
-      'tourism-management-ba',
-      'tlevel-digital-business-services',
       'tlevel-finance',
       'tlevel-accounting',
       'tlevel-management-administration',
-      'tlevel-agriculture-land-management-production',
-      'tlevel-animal-care-management',
       'gcse-english',
     ],
     dayToDay: [
@@ -1029,6 +1037,7 @@ const rawDemoCareers = [
       'GCSEs and experience',
     ],
     matchedSubjects: [
+      'mba',
       'project-management-bsc',
       'business-management-ba',
       'gcse-english',
@@ -1093,6 +1102,8 @@ const rawDemoCareers = [
       'GCSE English and Business',
     ],
     matchedSubjects: [
+      'mba',
+      'cim-marketing',
       'gcse-business-studies',
       'gcse-english',
       'marketing-ba',
@@ -1156,9 +1167,9 @@ const rawDemoCareers = [
       'GCSE English',
     ],
     matchedSubjects: [
+      'cipd-level-7-hr',
       'gcse-english',
       'business-management-ba',
-      'social-work-ba',
       'gcse-maths',
       'hr-apprenticeship',
     ],
@@ -1232,6 +1243,7 @@ const rawDemoCareers = [
       'GCSEs and customer service',
     ],
     matchedSubjects: [
+      'mba',
       'customer-service-apprenticeship',
       'business-management-ba',
       'gcse-english',
@@ -1306,6 +1318,9 @@ const rawDemoCareers = [
       'A-Levels and degree',
     ],
     matchedSubjects: [
+      'mba',
+      'ma-international-relations',
+      'phd-business-management',
       'a-level-economics',
       'business-management-ba',
       'project-management-bsc',
@@ -1371,6 +1386,8 @@ const rawDemoCareers = [
       'A-Level Maths and Economics',
     ],
     matchedSubjects: [
+      'msc-finance',
+      'cfa-finance',
       'a-level-economics',
       'a-level-mathematics',
       'finance-bsc',
@@ -1496,6 +1513,7 @@ const rawDemoCareers = [
       'Strong communication skills',
     ],
     matchedSubjects: [
+      'medicine-graduate-entry',
       'alevel-biology',
       'alevel-chemistry',
       'medicine-mbbs',
@@ -1504,7 +1522,6 @@ const rawDemoCareers = [
       'nvq-health-social-care',
       'healthcare-assistant-apprenticeship',
       'dental-nursing-apprenticeship',
-      'computer-science-bsc',
       'nursing-children-bsc',
       'radiography-therapeutic-bsc',
       'dietetics-bsc',
@@ -1514,7 +1531,6 @@ const rawDemoCareers = [
       'nutrition-food-science-bsc',
       'alevel-environmental-science',
       'btec-applied-science',
-      'btec-forensic-science',
       'tlevel-health',
       'tlevel-healthcare-science',
       'tlevel-science',
@@ -1606,6 +1622,7 @@ const rawDemoCareers = [
       'GCSE Science and Health & Social Care',
     ],
     matchedSubjects: [
+      'nursing-conversion',
       'gcse-science-combined',
       'btec-health-social-care',
       'nursing-adult-bsc',
@@ -1795,15 +1812,9 @@ const rawDemoCareers = [
     ],
     matchedSubjects: [
       'alevel-biology',
-      'sports-science-bsc',
       'physiotherapy-bsc',
-      'gcse-pe',
-      'btec-sport',
-      'sports-coaching-apprenticeship',
       'sports-therapy-bsc',
       'exercise-physiology-bsc',
-      'coaching-sports-development-bsc',
-      'alevel-physical-education',
       'gcse-maths',
       'gcse-english',
       'gcse-science-combined',
@@ -1885,7 +1896,6 @@ const rawDemoCareers = [
       'occupational-therapy-bsc',
       'gcse-maths',
       'gcse-english',
-      'disability-studies-ba',
     ],
     dayToDay: [
       'Care for patients and support their health needs',
@@ -2007,6 +2017,8 @@ const rawDemoCareers = [
       'A-Level Psychology',
     ],
     matchedSubjects: [
+      'msc-psychology-conversion',
+      'phd-psychology',
       'alevel-psychology',
       'psychology-bsc',
       'clinical-psychology-doctorate',
@@ -2195,6 +2207,7 @@ const rawDemoCareers = [
       'A-Level Maths and Physics',
     ],
     matchedSubjects: [
+      'msc-civil-engineering',
       'a-level-mathematics',
       'a-level-physics',
       'civil-engineering-beng',
@@ -2298,6 +2311,7 @@ const rawDemoCareers = [
       'A-Level Maths and Physics',
     ],
     matchedSubjects: [
+      'msc-mechanical-engineering',
       'a-level-mathematics',
       'a-level-physics',
       'mechanical-engineering-beng',
@@ -2372,6 +2386,7 @@ const rawDemoCareers = [
       'A-Level Maths and Physics',
     ],
     matchedSubjects: [
+      'msc-electrical-engineering',
       'a-level-mathematics',
       'a-level-physics',
       'electrical-engineering-beng',
@@ -2446,6 +2461,7 @@ const rawDemoCareers = [
       'A-Level Maths and Physics',
     ],
     matchedSubjects: [
+      'msc-aerospace-engineering',
       'a-level-mathematics',
       'a-level-physics',
       'aerospace-engineering-beng',
@@ -2520,6 +2536,7 @@ const rawDemoCareers = [
       'A-Level Chemistry and Maths',
     ],
     matchedSubjects: [
+      'msc-chemical-engineering',
       'a-level-chemistry',
       'a-level-mathematics',
       'chemical-engineering-beng',
@@ -3119,6 +3136,7 @@ const rawDemoCareers = [
       'GCSE English and Media',
     ],
     matchedSubjects: [
+      'cim-marketing',
       'gcse-media-studies',
       'marketing-ba',
       'btec-media',
@@ -3204,7 +3222,6 @@ const rawDemoCareers = [
       'alevel-drama-theatre',
       'alevel-film-studies',
       'alevel-graphic-communication',
-      'tlevel-construction-design-surveying-planning',
       'tlevel-craft-design',
       'tlevel-media-broadcast-production',
       'gcse-maths',
@@ -3297,6 +3314,8 @@ const rawDemoCareers = [
       'GCSE English and Maths',
     ],
     matchedSubjects: [
+      'ma-education',
+      'pgce-primary',
       'gcse-english',
       'gcse-maths',
       'primary-education-ba',
@@ -3358,6 +3377,8 @@ const rawDemoCareers = [
       'A-Level in subject',
     ],
     matchedSubjects: [
+      'ma-education',
+      'pgce-secondary',
       'a-level-history',
       'secondary-education-ba',
       'education-studies-ba',
@@ -3548,6 +3569,15 @@ const rawDemoCareers = [
       'Degree plus postgraduate study',
     ],
     matchedSubjects: [
+      'ma-education',
+      'phd-computer-science',
+      'phd-psychology',
+      'phd-education',
+      'phd-business-management',
+      'phd-biological-sciences',
+      'phd-physics',
+      'phd-social-sciences',
+      'phd-engineering',
       'university-engineering',
       'education-studies-ba',
       'psychology-bsc',
@@ -3854,7 +3884,6 @@ const rawDemoCareers = [
     matchedSubjects: [
       'alevel-compsci',
       'gcse-computer-science',
-      'university-engineering',
       'gcse-maths',
       'gcse-english',
       'gcse-science-combined',
@@ -3916,6 +3945,7 @@ const rawDemoCareers = [
       'BTEC Computing',
     ],
     matchedSubjects: [
+      'msc-cyber-security',
       'gcse-computer-science',
       'btec-computing',
       'tlevel-digital-support-services',
@@ -4066,6 +4096,7 @@ const rawDemoCareers = [
       'BTEC Computing',
     ],
     matchedSubjects: [
+      'msc-cyber-security',
       'btec-computing',
       'alevel-compsci',
       'gcse-computer-science',
@@ -4270,9 +4301,9 @@ const rawDemoCareers = [
       'BTEC IT',
     ],
     matchedSubjects: [
+      'computer-science-bsc',
       'gcse-computer-science',
       'btec-it',
-      'gcse-business-studies',
       'gcse-maths',
       'gcse-english',
       'gcse-science-combined',
@@ -4334,6 +4365,7 @@ const rawDemoCareers = [
       'GCSE Computer Science',
     ],
     matchedSubjects: [
+      'computer-science-bsc',
       'gcse-english',
       'gcse-computer-science',
       'btec-it',
@@ -4584,6 +4616,7 @@ const rawDemoCareers = [
       'Business basics',
     ],
     matchedSubjects: [
+      'acca-accounting',
       'gcse-maths',
       'btec-business',
       'accounting-bsc',
@@ -5589,6 +5622,14 @@ const rawDemoCareers = [
       'Report writing and data analysis',
     ],
     matchedSubjects: [
+      'msc-data-science',
+      'msc-public-health',
+      'phd-computer-science',
+      'phd-psychology',
+      'phd-engineering',
+      'phd-biological-sciences',
+      'phd-physics',
+      'phd-social-sciences',
       'biochemistry-bsc',
       'microbiology-bsc',
       'forensic-science-bsc',
@@ -5667,6 +5708,7 @@ const rawDemoCareers = [
       'Professional legal training (e.g. SQE)',
     ],
     matchedSubjects: [
+      'gdl-law-conversion',
       'law-llb',
       'alevel-law',
       'business-law-llb',
@@ -5743,6 +5785,7 @@ const rawDemoCareers = [
       'Flexible hours',
     ],
     matchedSubjects: [
+      'msc-renewable-energy-engineering',
       'renewable-energy-engineering-beng',
       'university-engineering',
       'btec-engineering',

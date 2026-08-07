@@ -1,10 +1,17 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { CheckSquare, Square } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import { usePathStore } from '../store/usePathStore'
 
+// `multiSelect` questions store an array of chosen option ids instead of a
+// single one. Each multi-select question also gets one option flagged
+// `isSkip: true` (e.g. "I'm not sure yet") - picking it is mutually
+// exclusive with every other option in that question (like a "None of the
+// above" checkbox), and it deliberately maps to no roles in scoringMap, so
+// picking it applies no preference filter at all.
 const questions = [
   {
     id: 'situation',
@@ -29,12 +36,15 @@ const questions = [
   },
   {
     id: 'work-style',
-    question: 'Do you prefer working with people, data, or things?',
+    question: 'What do you enjoy working with?',
+    subtitle: "Select all that apply, or skip if you're not sure.",
+    multiSelect: true,
     options: [
-      { id: 'people', label: 'People' },
-      { id: 'data', label: 'Data/Numbers' },
-      { id: 'hands-on', label: 'Hands-on/Things' },
-      { id: 'ideas', label: 'Ideas/Creativity' },
+      { id: 'people', label: 'People', description: 'Helping, teaching, caring for others' },
+      { id: 'data', label: 'Data', description: 'Numbers, analysis, problem-solving' },
+      { id: 'hands-on', label: 'Things', description: 'Building, creating, working with your hands' },
+      { id: 'ideas', label: 'Ideas', description: 'Designing, writing, inventing' },
+      { id: 'not-sure', label: "I'm not sure yet", description: 'Show me everything', isSkip: true },
     ],
   },
   {
@@ -60,9 +70,11 @@ const questions = [
   {
     id: 'barriers',
     question: "Any barriers you're facing?",
+    subtitle: 'Select all that apply.',
     optional: true,
+    multiSelect: true,
     options: [
-      { id: 'none', label: 'None' },
+      { id: 'none', label: 'None', isSkip: true },
       { id: 'childcare', label: 'Childcare' },
       { id: 'disability', label: 'Disability' },
       { id: 'financial', label: 'Financial' },
@@ -136,6 +148,7 @@ const scoringMap: Record<string, Record<string, RoleKey[]>> = {
     data: ['apprentice', 'graduate'],
     'hands-on': ['apprentice', 'career-changer'],
     ideas: ['career-changer'],
+    'not-sure': [],
   },
   priority: {
     'earn-quickly': ['apprentice', 'career-changer'],
@@ -158,20 +171,21 @@ const scoringMap: Record<string, Record<string, RoleKey[]>> = {
   },
 }
 
-function getSortedRoles(answers: Record<string, string | null>): RoleKey[] {
+// Multi-select questions contribute a score for every role mapped to every
+// option the user picked - i.e. picking both "Data" and "Things" broadens
+// the match rather than narrowing it to a single preference.
+function getSortedRoles(answers: Record<string, string[]>): RoleKey[] {
   const scores = Object.keys(roleProfiles).reduce(
     (acc, key) => ({ ...acc, [key as RoleKey]: 0 }),
     {} as Record<RoleKey, number>,
   )
 
-  Object.entries(answers).forEach(([questionId, answerId]) => {
-    if (!answerId) {
-      return
-    }
-
-    const mapped = scoringMap[questionId]?.[answerId] || []
-    mapped.forEach((roleId) => {
-      scores[roleId] = (scores[roleId] ?? 0) + 1
+  Object.entries(answers).forEach(([questionId, answerIds]) => {
+    answerIds.forEach((answerId) => {
+      const mapped = scoringMap[questionId]?.[answerId] || []
+      mapped.forEach((roleId) => {
+        scores[roleId] = (scores[roleId] ?? 0) + 1
+      })
     })
   })
 
@@ -189,13 +203,13 @@ export default function QuickAssessmentPage() {
   const setRecommendedRole = usePathStore((state) => state.setRecommendedRole)
   const setCurrentPath = usePathStore((state) => state.setCurrentPath)
 
-  const [answers, setAnswers] = useState<Record<string, string | null>>({
-    situation: null,
-    age: null,
-    'work-style': null,
-    priority: null,
-    'learning-style': null,
-    barriers: null,
+  const [answers, setAnswers] = useState<Record<string, string[]>>({
+    situation: [],
+    age: [],
+    'work-style': [],
+    priority: [],
+    'learning-style': [],
+    barriers: [],
   })
   const [questionIndex, setQuestionIndex] = useState(0)
   const [selectedRoleId, setSelectedRoleId] = useState<string | null>(null)
@@ -223,7 +237,31 @@ export default function QuickAssessmentPage() {
       }
 
   const handleOptionSelect = (optionId: string) => {
-    setAnswers((prev) => ({ ...prev, [currentQuestion.id]: optionId }))
+    const question = currentQuestion
+    const option = question.options.find((item) => item.id === optionId)
+
+    setAnswers((prev) => {
+      const current = prev[question.id] ?? []
+
+      if (!question.multiSelect) {
+        return { ...prev, [question.id]: [optionId] }
+      }
+
+      if (option && 'isSkip' in option && option.isSkip) {
+        // The skip option ("I'm not sure yet" / "None") is exclusive with
+        // every other option in this question - tap it again to deselect.
+        return { ...prev, [question.id]: current.includes(optionId) ? [] : [optionId] }
+      }
+
+      const withoutSkip = current.filter((id) => {
+        const opt = question.options.find((item) => item.id === id)
+        return !(opt && 'isSkip' in opt && opt.isSkip)
+      })
+      const next = withoutSkip.includes(optionId)
+        ? withoutSkip.filter((id) => id !== optionId)
+        : [...withoutSkip, optionId]
+      return { ...prev, [question.id]: next }
+    })
   }
 
   const handleNext = () => {
@@ -249,7 +287,7 @@ export default function QuickAssessmentPage() {
   const canProceed =
     isReview ||
     currentQuestion.optional ||
-    Boolean(currentQuestion.id && answers[currentQuestion.id])
+    (answers[currentQuestion.id]?.length ?? 0) > 0
 
   return (
     <div className="mx-auto w-full max-w-[430px] px-4 py-6 sm:px-0">
@@ -329,11 +367,15 @@ export default function QuickAssessmentPage() {
                     {currentQuestion.optional ? 'Optional question' : 'Question'}
                   </p>
                   <h2 className="text-xl font-semibold text-slate-950">{currentQuestion.question}</h2>
+                  {currentQuestion.subtitle ? (
+                    <p className="mt-1.5 text-sm leading-6 text-slate-500">{currentQuestion.subtitle}</p>
+                  ) : null}
                 </div>
 
                 <div className="grid gap-3">
                   {currentQuestion.options.map((option) => {
-                    const active = answers[currentQuestion.id] === option.id
+                    const active = (answers[currentQuestion.id] ?? []).includes(option.id)
+                    const isSkipOption = 'isSkip' in option && option.isSkip
                     return (
                       <button
                         key={option.id}
@@ -346,8 +388,28 @@ export default function QuickAssessmentPage() {
                         } cursor-pointer`}
                       >
                         <div className="flex items-center justify-between gap-4">
-                          <span className="text-sm font-semibold text-slate-900">{option.label}</span>
-                          {active ? <span className="text-sm font-semibold text-primary">✓</span> : null}
+                          <div className="flex items-center gap-3">
+                            {currentQuestion.multiSelect ? (
+                              active ? (
+                                <CheckSquare className="h-5 w-5 shrink-0 text-primary" />
+                              ) : (
+                                <Square className="h-5 w-5 shrink-0 text-slate-300" />
+                              )
+                            ) : null}
+                            <div>
+                              <span
+                                className={`text-sm font-semibold ${isSkipOption ? 'text-slate-500' : 'text-slate-900'}`}
+                              >
+                                {option.label}
+                              </span>
+                              {'description' in option && option.description ? (
+                                <p className="mt-0.5 text-xs leading-5 text-slate-500">{option.description}</p>
+                              ) : null}
+                            </div>
+                          </div>
+                          {!currentQuestion.multiSelect && active ? (
+                            <span className="text-sm font-semibold text-primary">✓</span>
+                          ) : null}
                         </div>
                       </button>
                     )

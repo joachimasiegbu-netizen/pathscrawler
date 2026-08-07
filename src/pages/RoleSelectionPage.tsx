@@ -29,7 +29,7 @@ const categories = [
     roles: [
       { id: 'student', label: 'Student', description: 'Planning school or college choices.', icon: BookOpen },
       { id: 'apprentice', label: 'Apprentice', description: 'Seeking vocational training or entry-level roles.', icon: ClipboardCheck },
-      { id: 'graduate', label: 'Graduate', description: 'Exploring university and early career pathways.', icon: ShieldCheck },
+      { id: 'graduate', label: 'Undergraduate', description: 'Exploring university and early career pathways.', icon: ShieldCheck },
     ],
   },
   {
@@ -219,7 +219,7 @@ export default function RoleSelectionPage() {
           <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-200">
             Start with your dream career and we'll show you how to get there.
           </p>
-          <Button variant="secondary" onClick={() => navigate('/backtrack')} className="mt-4 w-full justify-center py-3">
+          <Button variant="secondary" onClick={() => navigate('/backtrack/categories')} className="mt-4 w-full justify-center py-3">
             Find my pathway →
           </Button>
         </div>

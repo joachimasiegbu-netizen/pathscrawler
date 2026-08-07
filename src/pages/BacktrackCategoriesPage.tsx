@@ -40,7 +40,7 @@ export default function BacktrackCategoriesPage() {
   return (
     <div className="space-y-8 pt-8 px-6 pb-8 sm:px-8">
       <div className="space-y-4">
-        <BackButton to="/backtrack" />
+        <BackButton to="/role" />
         <PageHeader
           title="Choose a career area"
           subtitle="Pick the field your dream career belongs to and we'll show you what's inside."

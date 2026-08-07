@@ -26,7 +26,6 @@ import ESOLSubjectPage from './pages/ESOLSubjectPage'
 import QualificationRecognitionPage from './pages/QualificationRecognitionPage'
 import DisabledWelcomePage from './pages/DisabledWelcomePage'
 import DisabledSupportNeedsPage from './pages/DisabledSupportNeedsPage'
-import BacktrackWelcomePage from './pages/BacktrackWelcomePage'
 import BacktrackCategoriesPage from './pages/BacktrackCategoriesPage'
 import BacktrackCareersListPage from './pages/BacktrackCareersListPage'
 import BacktrackPathwayOverviewPage from './pages/BacktrackPathwayOverviewPage'
@@ -44,10 +43,7 @@ function App() {
   const compareCount = useCompareStore((state) => state.careerIds.length)
   const appClassName = `min-h-screen ${accessibilitySettings.darkMode ? 'bg-slate-900 text-slate-100' : 'bg-[#E0E7FF] text-slate-900'}`
   const isHome = location.pathname === '/'
-  // The backtrack welcome screen is a full-viewport CTA page like home -
-  // it needs to touch every edge (no boxed max-w-5xl container, no
-  // persistent top nav bar), so it opts into the same full-bleed treatment.
-  const isFullBleed = isHome || location.pathname === '/backtrack'
+  const isFullBleed = isHome
   const [showAccountMenu, setShowAccountMenu] = useState(false)
   const [showAccessibility, setShowAccessibility] = useState(false)
 
@@ -209,7 +205,6 @@ function App() {
           <Route path="/refugee/recognition" element={<QualificationRecognitionPage />} />
           <Route path="/results" element={<ResultPage />} />
           <Route path="/career/:id" element={<CareerDetailPage />} />
-          <Route path="/backtrack" element={<BacktrackWelcomePage />} />
           <Route path="/backtrack/categories" element={<BacktrackCategoriesPage />} />
           <Route path="/backtrack/careers/:category" element={<BacktrackCareersListPage />} />
           <Route path="/backtrack/pathway/:careerId" element={<BacktrackPathwayOverviewPage />} />
