@@ -220,3 +220,12 @@ html.dark-mode a:focus-visible {
 html.dark-mode .bg-gradient-to-br {
   background-image: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
 }
+
+/* Every `type="search"` input in the app supplies its own clear icon (or
+   none at all, like the plain filter inputs). Chrome/Edge/Safari draw a
+   native cancel-X on top once there's a value, which collides with those
+   custom icons - most visibly the header search's close button. Hide it. */
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}

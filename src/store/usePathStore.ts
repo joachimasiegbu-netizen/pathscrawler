@@ -43,6 +43,14 @@ interface PathState {
   matchedRoles: string[]
   recommendedRole: string | null
   highlightedCareerId: number | null
+  // Career Changer flow (Step 1-3 -> Results). currentJob indexes into
+  // currentJobSkills/careerSwitchMap in careerChangerData.js. qualityPreferences
+  // is keyed by question id (e.g. 'workLocation') with a per-question answer
+  // id as the value - it's captured for future matching refinement but
+  // doesn't gate or filter results yet.
+  currentQualification: string | null
+  currentJob: string | null
+  qualityPreferences: Record<string, string>
   setCurrentPath: (path: 'education' | 'career') => void
   setSelectedRole: (role: string) => void
   setSelectedSubjects: (subjectIds: string[]) => void
@@ -64,6 +72,10 @@ interface PathState {
   setMatchedRoles: (roles: string[]) => void
   setRecommendedRole: (role: string | null) => void
   setHighlightedCareerId: (careerId: number | null) => void
+  setCurrentQualification: (qualificationId: string | null) => void
+  setCurrentJob: (jobId: string | null) => void
+  setQualityPreferenceAnswer: (questionId: string, answerId: string) => void
+  resetCareerChangerFlow: () => void
   reset: () => void
 }
 
@@ -90,6 +102,9 @@ export const usePathStore = create<PathState>()(
       matchedRoles: [],
       recommendedRole: null,
       highlightedCareerId: null,
+      currentQualification: null,
+      currentJob: null,
+      qualityPreferences: {},
       setCurrentPath: (path) => set({ currentPath: path }),
       setSelectedRole: (role) => set((state) => ({ selectedRole: role, selectedSubjects: [], selectedLevel: null, supportNeeds: role === 'disabled-learner' ? state.supportNeeds : [], highlightedCareerId: null })),
       setSelectedSubjects: (subjectIds) => set({ selectedSubjects: subjectIds }),
@@ -110,6 +125,16 @@ export const usePathStore = create<PathState>()(
       setMatchedRoles: (matchedRoles) => set({ matchedRoles }),
       setRecommendedRole: (recommendedRole: string | null) => set({ recommendedRole }),
       setHighlightedCareerId: (highlightedCareerId) => set({ highlightedCareerId }),
+      setCurrentQualification: (currentQualification) => set({ currentQualification }),
+      setCurrentJob: (currentJob) => set({ currentJob }),
+      setQualityPreferenceAnswer: (questionId, answerId) =>
+        set((state) => ({ qualityPreferences: { ...state.qualityPreferences, [questionId]: answerId } })),
+      resetCareerChangerFlow: () =>
+        set({
+          currentQualification: null,
+          currentJob: null,
+          qualityPreferences: {},
+        }),
       reset: () =>
         set((state) => ({
           currentPath: null,
@@ -126,6 +151,9 @@ export const usePathStore = create<PathState>()(
           matchedRoles: [],
           recommendedRole: null,
           highlightedCareerId: null,
+          currentQualification: null,
+          currentJob: null,
+          qualityPreferences: {},
         })),
     }),
     {
@@ -143,6 +171,9 @@ export const usePathStore = create<PathState>()(
         matchedRoles: state.matchedRoles,
         recommendedRole: state.recommendedRole,
         highlightedCareerId: state.highlightedCareerId,
+        currentQualification: state.currentQualification,
+        currentJob: state.currentJob,
+        qualityPreferences: state.qualityPreferences,
       }),
     },
   ),

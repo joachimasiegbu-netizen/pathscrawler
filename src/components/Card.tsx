@@ -2,7 +2,7 @@ import { type ReactNode } from 'react'
 import CountUpStat from './CountUpStat'
 
 interface CardProps {
-  title: string
+  title: ReactNode
   description?: string
   badge?: string
   children?: ReactNode

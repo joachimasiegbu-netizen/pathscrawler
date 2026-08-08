@@ -5,6 +5,8 @@ import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useCompareStore } from './store/useCompareStore'
 import AccessibilitySettingsPanel from './components/AccessibilitySettingsPanel'
+import GlobalSearchBar from './components/GlobalSearchBar'
+import SearchResultsPage from './pages/SearchResultsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import SharedPathwayPage from './pages/SharedPathwayPage'
@@ -14,6 +16,10 @@ import JobMarketPage from './pages/JobMarketPage'
 import LoadingPage from './pages/LoadingPage'
 import QuickAssessmentPage from './pages/QuickAssessmentPage'
 import RoleSelectionPage from './pages/RoleSelectionPage'
+import CareerChangerQualificationPage from './pages/CareerChangerQualificationPage'
+import CareerChangerCurrentRolePage from './pages/CareerChangerCurrentRolePage'
+import CareerChangerPreferencesPage from './pages/CareerChangerPreferencesPage'
+import CareerChangerResultsPage from './pages/CareerChangerResultsPage'
 import SubjectSelectionPage from './pages/SubjectSelectionPage'
 import SubjectDetailPage from './pages/SubjectDetailPage'
 import RefugeeWelcomePage from './pages/RefugeeWelcomePage'
@@ -74,7 +80,7 @@ function App() {
     <div className={appClassName}>
       <MobileContainer fullBleed={isFullBleed}>
         {!isFullBleed ? (
-          <div className="flex items-center justify-between gap-3 px-4 pt-3 sm:px-6">
+          <div className="relative flex items-center justify-between gap-3 px-4 pt-3 sm:px-6">
             <button
               type="button"
               onClick={() => {
@@ -82,10 +88,12 @@ function App() {
                 navigate('/')
               }}
               aria-label="PathScrawler home"
-              className="text-lg font-bold tracking-tight text-primary transition hover:text-primary-dark dark:text-primary-light dark:hover:text-white"
+              className="shrink-0 text-lg font-bold tracking-tight text-primary transition hover:text-primary-dark dark:text-primary-light dark:hover:text-white"
             >
               PathScrawler
             </button>
+
+            <GlobalSearchBar />
 
             <div className="flex items-center gap-3">
             {compareCount > 0 ? (
@@ -193,6 +201,10 @@ function App() {
           <Route path="/" element={<LoadingPage />} />
           <Route path="/assessment" element={<QuickAssessmentPage />} />
           <Route path="/role" element={<RoleSelectionPage />} />
+          <Route path="/career-changer/qualification" element={<CareerChangerQualificationPage />} />
+          <Route path="/career-changer/current-role" element={<CareerChangerCurrentRolePage />} />
+          <Route path="/career-changer/preferences" element={<CareerChangerPreferencesPage />} />
+          <Route path="/career-changer/results" element={<CareerChangerResultsPage />} />
           <Route path="/subjects" element={<SubjectSelectionPage />} />
           <Route path="/subjects/refugee-asylum-seeker" element={<RefugeeWelcomePage />} />
           <Route path="/subjects/refugee-asylum-seeker/levels" element={<RefugeeSubjectLevelsPage />} />
@@ -205,6 +217,7 @@ function App() {
           <Route path="/refugee/recognition" element={<QualificationRecognitionPage />} />
           <Route path="/results" element={<ResultPage />} />
           <Route path="/career/:id" element={<CareerDetailPage />} />
+          <Route path="/search" element={<SearchResultsPage />} />
           <Route path="/backtrack/categories" element={<BacktrackCategoriesPage />} />
           <Route path="/backtrack/careers/:category" element={<BacktrackCareersListPage />} />
           <Route path="/backtrack/pathway/:careerId" element={<BacktrackPathwayOverviewPage />} />

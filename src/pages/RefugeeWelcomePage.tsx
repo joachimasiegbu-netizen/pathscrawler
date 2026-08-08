@@ -10,9 +10,9 @@ export default function RefugeeWelcomePage() {
       <div className="space-y-4 rounded-[28px] bg-white p-8 shadow-soft">
         <BackButton to="/role" />
         <div>
-          <h1 className="text-3xl font-bold text-slate-950">Refugee & Asylum Seeker Pathways</h1>
+          <h1 className="text-3xl font-bold text-slate-950">New to the UK?</h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-            We understand starting fresh in a new country can be challenging. This tool helps you explore education and career options available to you.
+            Explore pathways to build your career, improve your English, and get your qualifications recognised.
           </p>
         </div>
 

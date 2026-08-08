@@ -120,8 +120,8 @@ const roleProfiles: Record<RoleKey, { name: string; description: string }> = {
     description: 'Suitable for military veterans transitioning to civilian learning and careers.',
   },
   'refugee-asylum-seeker': {
-    name: 'Refugee/Asylum Seeker',
-    description: 'Designed for new arrivals seeking stable learning and career routes.',
+    name: 'Immigrant / Asylum Seeker',
+    description: 'Designed for people new to the UK seeking stable learning and career routes.',
   },
   'disabled-learner': {
     name: 'Disabled Learner',

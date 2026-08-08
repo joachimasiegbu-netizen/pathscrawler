@@ -47,7 +47,7 @@ const categories = [
     title: 'Supporters & access-focused',
     description: 'For new arrivals and learners with additional support needs.',
     roles: [
-      { id: 'refugee-asylum-seeker', label: 'Refugee/Asylum Seeker', description: 'New arrivals seeking stable study and work pathways.', icon: Globe2 },
+      { id: 'refugee-asylum-seeker', label: 'Immigrant / Asylum Seeker', description: 'New to the UK? Get support with English, qualifications, and finding your career path.', icon: Globe2 },
       { id: 'disabled-learner', label: 'Disabled Learner', description: 'Learners with accessibility needs or additional support requirements.', icon: Accessibility },
     ],
   },
@@ -121,6 +121,12 @@ export default function RoleSelectionPage() {
     if (id === 'disabled-learner') {
       console.log('[RoleSelectionPage] navigating disabled-learner to /subjects/disabled-learner')
       navigate('/subjects/disabled-learner', { replace: true })
+      return
+    }
+
+    if (id === 'career-changer') {
+      console.log('[RoleSelectionPage] navigating career-changer to /career-changer/qualification')
+      navigate('/career-changer/qualification', { replace: true })
       return
     }
 

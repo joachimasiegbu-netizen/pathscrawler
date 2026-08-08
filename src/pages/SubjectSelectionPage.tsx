@@ -89,6 +89,11 @@ export default function SubjectSelectionPage() {
       return
     }
 
+    if (selectedRole === 'career-changer') {
+      navigate('/career-changer/qualification', { replace: true })
+      return
+    }
+
     if (selectedRole === 'disabled-learner') {
       const supportNeeds = usePathStore.getState().supportNeeds
       if (!supportNeeds.length) {
