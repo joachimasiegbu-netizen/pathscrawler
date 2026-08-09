@@ -5,7 +5,6 @@ import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useCompareStore } from './store/useCompareStore'
 import AccessibilitySettingsPanel from './components/AccessibilitySettingsPanel'
-import GlobalSearchBar from './components/GlobalSearchBar'
 import SearchResultsPage from './pages/SearchResultsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
@@ -16,7 +15,6 @@ import JobMarketPage from './pages/JobMarketPage'
 import LoadingPage from './pages/LoadingPage'
 import QuickAssessmentPage from './pages/QuickAssessmentPage'
 import RoleSelectionPage from './pages/RoleSelectionPage'
-import CareerChangerQualificationPage from './pages/CareerChangerQualificationPage'
 import CareerChangerCurrentRolePage from './pages/CareerChangerCurrentRolePage'
 import CareerChangerPreferencesPage from './pages/CareerChangerPreferencesPage'
 import CareerChangerResultsPage from './pages/CareerChangerResultsPage'
@@ -80,7 +78,7 @@ function App() {
     <div className={appClassName}>
       <MobileContainer fullBleed={isFullBleed}>
         {!isFullBleed ? (
-          <div className="relative flex items-center justify-between gap-3 px-4 pt-3 sm:px-6">
+          <div className="flex items-center justify-between gap-3 px-4 pt-3 sm:px-6">
             <button
               type="button"
               onClick={() => {
@@ -88,12 +86,10 @@ function App() {
                 navigate('/')
               }}
               aria-label="PathScrawler home"
-              className="shrink-0 text-lg font-bold tracking-tight text-primary transition hover:text-primary-dark dark:text-primary-light dark:hover:text-white"
+              className="text-lg font-bold tracking-tight text-primary transition hover:text-primary-dark dark:text-primary-light dark:hover:text-white"
             >
               PathScrawler
             </button>
-
-            <GlobalSearchBar />
 
             <div className="flex items-center gap-3">
             {compareCount > 0 ? (
@@ -201,7 +197,6 @@ function App() {
           <Route path="/" element={<LoadingPage />} />
           <Route path="/assessment" element={<QuickAssessmentPage />} />
           <Route path="/role" element={<RoleSelectionPage />} />
-          <Route path="/career-changer/qualification" element={<CareerChangerQualificationPage />} />
           <Route path="/career-changer/current-role" element={<CareerChangerCurrentRolePage />} />
           <Route path="/career-changer/preferences" element={<CareerChangerPreferencesPage />} />
           <Route path="/career-changer/results" element={<CareerChangerResultsPage />} />

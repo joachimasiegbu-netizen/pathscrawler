@@ -125,8 +125,8 @@ export default function RoleSelectionPage() {
     }
 
     if (id === 'career-changer') {
-      console.log('[RoleSelectionPage] navigating career-changer to /career-changer/qualification')
-      navigate('/career-changer/qualification', { replace: true })
+      console.log('[RoleSelectionPage] navigating career-changer to /career-changer/current-role')
+      navigate('/career-changer/current-role', { replace: true })
       return
     }
 

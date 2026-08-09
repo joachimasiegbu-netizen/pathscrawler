@@ -90,7 +90,7 @@ export default function SubjectSelectionPage() {
     }
 
     if (selectedRole === 'career-changer') {
-      navigate('/career-changer/qualification', { replace: true })
+      navigate('/career-changer/current-role', { replace: true })
       return
     }
 

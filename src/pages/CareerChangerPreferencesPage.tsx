@@ -72,8 +72,9 @@ export default function CareerChangerPreferencesPage() {
 
   const [questionIndex, setQuestionIndex] = useState(0)
 
-  // Getting here without a current job means someone jumped straight to
-  // this URL - send them back to pick one first.
+  // currentJob is set either by the job-button grid or by SearchBar2 (see
+  // usePathStore.ts) - either way, getting here without it means someone
+  // jumped straight to this URL. Send them back to pick one first.
   useEffect(() => {
     if (!currentJob) {
       navigate('/career-changer/current-role', { replace: true })
