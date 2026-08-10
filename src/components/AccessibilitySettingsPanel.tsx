@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Moon, Sun } from 'lucide-react'
 import { usePathStore } from '../store/usePathStore'
 
 const options = [
@@ -44,13 +45,19 @@ export default function AccessibilitySettingsPanel() {
             key={key}
             type="button"
             onClick={() => updateSetting(key)}
+            aria-pressed={value}
             className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-left transition ${
               value
-                ? 'border-primary bg-primary/10 text-primary-dark dark:border-primary/80 dark:bg-primary/10 dark:text-primary-light'
+                ? 'border-accent bg-accent/5 text-primary-dark ring-2 ring-accent dark:bg-accent/10 dark:text-primary-light'
                 : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-slate-500'
             }`}
           >
-            <span className="text-sm font-semibold">{label}</span>
+            <span className="flex items-center gap-2 text-sm font-semibold">
+              {key === 'darkMode' ? (
+                value ? <Moon className="h-4 w-4 shrink-0" /> : <Sun className="h-4 w-4 shrink-0" />
+              ) : null}
+              {label}
+            </span>
             <span className="text-sm font-medium">{value ? 'On' : 'Off'}</span>
           </button>
         ))}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { FolderClock, GitCompare, LogIn, LogOut, Settings2, TrendingUp, X } from 'lucide-react'
+import { FolderClock, GitCompare, LogIn, LogOut, Moon, Settings2, Sun, TrendingUp, X } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useCompareStore } from './store/useCompareStore'
@@ -12,6 +12,10 @@ import SharedPathwayPage from './pages/SharedPathwayPage'
 import MyPathwaysPage from './pages/MyPathwaysPage'
 import ComparePage from './pages/ComparePage'
 import JobMarketPage from './pages/JobMarketPage'
+import JobMarketSpotlightPage from './pages/JobMarketSpotlightPage'
+import JobMarketStatisticsPage from './pages/JobMarketStatisticsPage'
+import JobMarketEasiestPage from './pages/JobMarketEasiestPage'
+import JobMarketHighestPayingPage from './pages/JobMarketHighestPayingPage'
 import LoadingPage from './pages/LoadingPage'
 import QuickAssessmentPage from './pages/QuickAssessmentPage'
 import RoleSelectionPage from './pages/RoleSelectionPage'
@@ -36,16 +40,20 @@ import BacktrackPathwayOverviewPage from './pages/BacktrackPathwayOverviewPage'
 import BacktrackPathwayOptionsPage from './pages/BacktrackPathwayOptionsPage'
 import BacktrackSubjectSelectionPage from './pages/BacktrackSubjectSelectionPage'
 import MobileContainer from './components/MobileContainer'
+import Logo from './components/Logo'
 
 function App() {
   const location = useLocation()
   const navigate = useNavigate()
   const { accessibilitySettings } = usePathStore()
+  const setAccessibilitySettings = usePathStore((state) => state.setAccessibilitySettings)
   const reset = usePathStore((state) => state.reset)
   const currentUser = useAuthStore((state) => state.currentUser)
   const signOut = useAuthStore((state) => state.signOut)
   const compareCount = useCompareStore((state) => state.careerIds.length)
-  const appClassName = `min-h-screen ${accessibilitySettings.darkMode ? 'bg-slate-900 text-slate-100' : 'bg-[#E0E7FF] text-slate-900'}`
+  const appClassName = `min-h-screen transition-colors duration-300 ${accessibilitySettings.darkMode ? 'bg-background-dark text-slate-100' : 'bg-background text-slate-900'}`
+  const toggleDarkMode = () =>
+    setAccessibilitySettings({ ...accessibilitySettings, darkMode: !accessibilitySettings.darkMode })
   const isHome = location.pathname === '/'
   const isFullBleed = isHome
   const [showAccountMenu, setShowAccountMenu] = useState(false)
@@ -86,12 +94,25 @@ function App() {
                 navigate('/')
               }}
               aria-label="PathScrawler home"
-              className="text-lg font-bold tracking-tight text-primary transition hover:text-primary-dark dark:text-primary-light dark:hover:text-white"
+              className="shrink-0 rounded-lg transition hover:opacity-80"
             >
-              PathScrawler
+              {/* Full lockup by default (desktop and tablet both keep the
+                  wordmark) - icon-only only kicks in below 380px, a true
+                  last resort for phones too narrow to fit "PathScrawler"
+                  next to the nav cluster on the right. Rendering both and
+                  toggling with CSS (rather than one Logo with a
+                  media-query-driven prop) means this collapse is scoped to
+                  the header specifically - the hero and auth-page logos
+                  always show the full wordmark regardless of viewport. */}
+              <span className="hidden max-[380px]:inline-flex">
+                <Logo showText={false} />
+              </span>
+              <span className="inline-flex max-[380px]:hidden">
+                <Logo />
+              </span>
             </button>
 
-            <div className="flex items-center gap-3">
+            <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             {compareCount > 0 ? (
               <button
                 type="button"
@@ -102,16 +123,19 @@ function App() {
                 Compare ({compareCount})
               </button>
             ) : null}
-            {location.pathname === '/job-market' ? null : (
-              <button
-                type="button"
-                onClick={() => navigate('/job-market')}
-                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-soft/40 px-4 py-2 text-sm font-semibold text-primary-dark shadow-sm transition hover:bg-primary-soft/70 dark:border-primary/50 dark:bg-primary/10 dark:text-primary-light dark:hover:bg-primary/20"
-              >
-                <TrendingUp className="h-4 w-4" />
-                Job Market
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => navigate('/job-market')}
+              aria-current={location.pathname.startsWith('/job-market') ? 'page' : undefined}
+              className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold shadow-sm transition ${
+                location.pathname.startsWith('/job-market')
+                  ? 'border-primary bg-primary text-white hover:bg-primary-dark'
+                  : 'border-primary/30 bg-primary-soft/40 text-primary-dark hover:bg-primary-soft/70 dark:border-primary/50 dark:bg-primary/10 dark:text-primary-light dark:hover:bg-primary/20'
+              }`}
+            >
+              <TrendingUp className="h-4 w-4" />
+              Job Market
+            </button>
             {currentUser ? (
               <div className="relative">
                 <button
@@ -169,6 +193,14 @@ function App() {
             )}
             <button
               type="button"
+              onClick={toggleDarkMode}
+              aria-label={accessibilitySettings.darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-primary-light dark:ring-slate-700 dark:hover:bg-slate-700"
+            >
+              {accessibilitySettings.darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
+            <button
+              type="button"
               onClick={() => setShowAccessibility(true)}
               aria-label="Open accessibility settings"
               className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-sky-200 dark:ring-slate-700 dark:hover:bg-slate-700"
@@ -224,6 +256,10 @@ function App() {
           <Route path="/my-pathways" element={<MyPathwaysPage />} />
           <Route path="/compare" element={<ComparePage />} />
           <Route path="/job-market" element={<JobMarketPage />} />
+          <Route path="/job-market/spotlight" element={<JobMarketSpotlightPage />} />
+          <Route path="/job-market/statistics" element={<JobMarketStatisticsPage />} />
+          <Route path="/job-market/easiest" element={<JobMarketEasiestPage />} />
+          <Route path="/job-market/highest-paying" element={<JobMarketHighestPayingPage />} />
         </Routes>
       </MobileContainer>
     </div>

@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
+import Logo from '../components/Logo'
 import { useAuthStore } from '../store/useAuthStore'
 
 export default function SignupPage() {
@@ -29,6 +30,9 @@ export default function SignupPage() {
   return (
     <div className="mx-auto w-full max-w-[430px] px-4 py-6 sm:px-0">
       <div className="space-y-6 rounded-xl bg-white p-6 pt-12 shadow-soft dark:bg-slate-800">
+        <div className="flex justify-center">
+          <Logo size="sm" />
+        </div>
         <BackButton to="/" />
 
         <div>

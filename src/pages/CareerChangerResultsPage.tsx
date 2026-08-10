@@ -1,15 +1,24 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowRight, Bookmark, BookmarkCheck } from 'lucide-react'
+import { ArrowRight, Bookmark, BookmarkCheck, Compass } from 'lucide-react'
 import { usePathStore } from '../store/usePathStore'
 import { useCareerBoardStore } from '../store/useCareerBoardStore'
 import { currentRoles, currentJobSkills } from '../data/careerChangerData'
 import demoCareers2 from '../data/demoCareers2'
 import type { Career2 } from '../data/demoCareers2'
 import BackButton from '../components/BackButton'
-import Button from '../components/Button'
+import EmptyState from '../components/EmptyState'
 import PageHeader from '../components/PageHeader'
+import SkeletonCard from '../components/SkeletonCard'
 import StaggerGrid from '../components/StaggerGrid'
+
+// How long the skeleton grid shows before the real (already-computed)
+// results reveal. The matching itself is synchronous/instant - this is
+// purely so the transition from "last quiz question" to "here are your N
+// matches" reads as "crunching the numbers" rather than a jarring instant
+// swap. Skipped entirely under reduce-motion.
+const RESULTS_SKELETON_MS = 500
+const SKELETON_CARD_COUNT = 6
 
 // The Step 2 preference quiz asks this many questions - Results shouldn't
 // be reachable until all of them are answered, same as it isn't reachable
@@ -106,8 +115,10 @@ export default function CareerChangerResultsPage() {
   const navigate = useNavigate()
   const currentJob = usePathStore((state) => state.currentJob)
   const qualityPreferences = usePathStore((state) => state.qualityPreferences)
+  const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
   const savedCareerIds = useCareerBoardStore((state) => state.careerIds)
   const toggleSavedCareer = useCareerBoardStore((state) => state.toggle)
+  const [isCalculating, setIsCalculating] = useState(true)
 
   // Enforce Step 1 -> Step 2 -> Results: jumping straight to this URL sends
   // you back to whichever step hasn't been completed yet.
@@ -120,6 +131,15 @@ export default function CareerChangerResultsPage() {
       navigate('/career-changer/preferences', { replace: true })
     }
   }, [currentJob, qualityPreferences, navigate])
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setIsCalculating(false)
+      return
+    }
+    const timer = setTimeout(() => setIsCalculating(false), RESULTS_SKELETON_MS)
+    return () => clearTimeout(timer)
+  }, [reduceMotion])
 
   // currentJob is either a currentRoles slug (job-button grid) or a
   // stringified demoCareers2 id (SearchBar2) - see usePathStore.ts. Try the
@@ -193,17 +213,22 @@ export default function CareerChangerResultsPage() {
         />
       </div>
 
-      {matchedAlternates.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center dark:border-slate-700 dark:bg-slate-800/50">
-          <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
-            We don't have tailored career matches for this yet. Try selecting a different job.
-          </p>
-          <Button onClick={() => navigate('/career-changer/current-role')} className="mt-4">
-            Choose a different job
-          </Button>
-        </div>
+      {isCalculating ? (
+        <StaggerGrid revealOnMount className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: SKELETON_CARD_COUNT }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </StaggerGrid>
+      ) : matchedAlternates.length === 0 ? (
+        <EmptyState
+          icon={Compass}
+          title="No careers match yet"
+          message="We don't have tailored career matches for this yet. Try adjusting your preferences or picking a different job."
+          actionLabel="Choose a different job"
+          onAction={() => navigate('/career-changer/current-role')}
+        />
       ) : (
-        <StaggerGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGrid revealOnMount className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {matchedAlternates.map(({ career, sharedSkills }) => {
             const saved = savedCareerIds.includes(career.id)
             return (

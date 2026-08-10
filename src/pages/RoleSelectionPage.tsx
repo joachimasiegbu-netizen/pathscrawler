@@ -142,7 +142,7 @@ export default function RoleSelectionPage() {
   }
 
   return (
-    <div className="relative min-h-screen space-y-8 pt-12 bg-[#E0E7FF] dark:bg-transparent">
+    <div className="relative min-h-screen space-y-8 pt-12 bg-background dark:bg-transparent">
       <div className="rounded-2xl border border-gray-200 bg-white px-8 py-8 shadow-sm dark:border-slate-700 dark:bg-slate-800">
         <div className="flex items-center justify-between gap-4">
           <BackButton to="/" />

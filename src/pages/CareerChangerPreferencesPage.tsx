@@ -114,7 +114,7 @@ export default function CareerChangerPreferencesPage() {
       />
 
       <div className="rounded-full bg-slate-100 p-1 dark:bg-slate-800">
-        <div className="h-2 rounded-full bg-primary transition-all" style={{ width: `${progressValue}%` }} />
+        <div className="h-2 rounded-full bg-gradient-to-r from-primary to-secondary transition-all" style={{ width: `${progressValue}%` }} />
       </div>
       <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
         <span>Question {questionIndex + 1} of {questions.length}</span>
@@ -136,7 +136,7 @@ export default function CareerChangerPreferencesPage() {
                     onClick={() => handleAnswer(option.id)}
                     className={`rounded-2xl border p-4 text-left transition-all duration-200 ${
                       active
-                        ? 'border-primary bg-primary/5 shadow-sm'
+                        ? 'border-accent bg-accent/5 shadow-sm ring-2 ring-accent'
                         : 'border-slate-200 bg-white hover:border-primary/50 hover:bg-primary/5 hover:shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700'
                     }`}
                   >

@@ -52,7 +52,7 @@ function DetailCard({ icon: Icon, title, children }: { icon: LucideIcon; title: 
   return (
     <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-8">
       <div className="flex items-center gap-2.5 border-b border-slate-100 pb-4 dark:border-slate-700">
-        <Icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+        <Icon className="h-5 w-5 text-primary dark:text-primary-light" />
         <h3 className="text-lg font-semibold text-slate-950 dark:text-slate-50 sm:text-xl">{title}</h3>
       </div>
       <div className="mt-4">{children}</div>
@@ -67,7 +67,7 @@ function CheckList({ items }: { items: string[] }) {
     <ul className="space-y-3">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-          <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-blue-500 dark:text-blue-400" />
+          <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-accent dark:text-accent" />
           <span>{item}</span>
         </li>
       ))}
@@ -90,7 +90,13 @@ export default function CareerDetailPage() {
   if (!career) {
     return (
       <div className="mx-auto w-full max-w-3xl space-y-6 px-4 py-6 sm:px-6">
-        <BackButton to="/results" />
+        {/* No hardcoded `to` - this page is reached from many places now
+            (Quick Assessment results, search, Career Changer results,
+            Job Market spotlight, Easiest Jobs, Backtrack, ...), so a fixed
+            target would send people somewhere they didn't come from. Plain
+            browser-history back (BackButton's default with no `to`) always
+            returns to whichever of those actually linked here. */}
+        <BackButton />
         <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-800">
           <h1 className="text-3xl font-bold text-slate-950 dark:text-slate-50">Career not found</h1>
           <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
@@ -105,7 +111,7 @@ export default function CareerDetailPage() {
 
   return (
     <div className="mx-auto w-full max-w-3xl space-y-8 px-4 py-6 sm:px-6">
-      <BackButton to="/results" />
+      <BackButton />
 
       <RevealSection className="space-y-2">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
@@ -195,7 +201,7 @@ export default function CareerDetailPage() {
               <ul className="mt-3 space-y-2">
                 {resourceLinks.map((link) => (
                   <li key={link.href} className="flex items-center gap-2">
-                    <CheckCircle2 size={14} className="shrink-0 text-blue-500 dark:text-blue-400" />
+                    <CheckCircle2 size={14} className="shrink-0 text-accent dark:text-accent" />
                     <a
                       href={link.href}
                       target="_blank"

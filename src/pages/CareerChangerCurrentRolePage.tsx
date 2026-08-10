@@ -44,7 +44,7 @@ export default function CareerChangerCurrentRolePage() {
               onClick={() => chooseRole(role.id)}
               className={`group h-full w-full rounded-2xl border p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-md ${
                 selected
-                  ? 'border-primary bg-primary/10'
+                  ? 'border-accent bg-accent/5 ring-2 ring-accent'
                   : 'border-gray-200 bg-white hover:border-primary/50 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700'
               }`}
             >

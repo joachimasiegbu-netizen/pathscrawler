@@ -1,9 +1,11 @@
 import { useMemo } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Search, SearchX } from 'lucide-react'
 import demoCareers from '../data/demoCareers'
 import subjectsData from '../data/subjects.json'
 import BackButton from '../components/BackButton'
 import Card from '../components/Card'
+import EmptyState from '../components/EmptyState'
 import HighlightMatch from '../components/HighlightMatch'
 import PageHeader from '../components/PageHeader'
 import StaggerGrid from '../components/StaggerGrid'
@@ -54,11 +56,15 @@ export default function SearchResultsPage() {
       </div>
 
       {matches.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center dark:border-slate-700 dark:bg-slate-800/50">
-          <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
-            {hasQuery ? `No careers found for "${query}". Try a different search term.` : 'Type a career name to search.'}
-          </p>
-        </div>
+        hasQuery ? (
+          <EmptyState
+            icon={SearchX}
+            title="No careers found"
+            message={`No careers matched "${query}". Try a different search term or check the spelling.`}
+          />
+        ) : (
+          <EmptyState icon={Search} title="Search for a career" message="Type a career name, category or skill to get started." />
+        )
       ) : (
         <StaggerGrid className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {matches.map((career) => (

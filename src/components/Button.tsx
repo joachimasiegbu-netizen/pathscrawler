@@ -9,7 +9,7 @@ interface ButtonProps extends ComponentPropsWithoutRef<typeof motion.button> {
 const variantStyles = {
   primary: 'bg-primary text-white shadow-soft hover:bg-primary-dark',
   secondary:
-    'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700',
+    'border border-primary bg-white text-primary hover:bg-primary/5 dark:border-primary-light dark:bg-slate-800 dark:text-primary-light dark:hover:bg-primary/10',
   ghost: 'bg-transparent text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800',
 }
 
@@ -25,7 +25,7 @@ export default function Button({ variant = 'primary', className = '', children, 
   return (
     <motion.button
       {...motionProps}
-      className={`inline-flex min-h-[44px] items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${variantStyles[variant]} ${className}`}
+      className={`inline-flex min-h-[44px] items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition ${variantStyles[variant]} ${className}`}
       {...props}
     >
       {children}

@@ -20,7 +20,7 @@ export default function PageStepHeader({ step, totalSteps, title, description, c
         <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">{description}</p>
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700">
-        <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${progress}%` }} />
+        <div className="h-full rounded-full bg-gradient-to-r from-primary to-secondary transition-all" style={{ width: `${progress}%` }} />
       </div>
       {children}
     </div>

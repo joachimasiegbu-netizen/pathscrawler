@@ -1,3 +1,5 @@
+import { type LucideIcon } from 'lucide-react'
+
 // Shared page-header treatment (eyebrow + bold headline + gradient underline
 // + muted subtitle) so every page reads with the same "premium" hierarchy
 // the Job Market page introduced, instead of each page hand-rolling its own
@@ -7,10 +9,12 @@ export default function PageHeader({
   eyebrow,
   title,
   subtitle,
+  icon: Icon,
 }: {
   eyebrow?: string
   title: string
   subtitle?: string
+  icon?: LucideIcon
 }) {
   return (
     <div>
@@ -19,7 +23,10 @@ export default function PageHeader({
           {eyebrow}
         </p>
       ) : null}
-      <h2 className={`text-3xl font-extrabold text-slate-950 dark:text-slate-50 sm:text-4xl ${eyebrow ? 'mt-2' : ''}`}>
+      <h2
+        className={`flex items-center gap-2.5 text-3xl font-extrabold text-slate-950 dark:text-slate-50 sm:text-4xl ${eyebrow ? 'mt-2' : ''}`}
+      >
+        {Icon ? <Icon className="h-7 w-7 shrink-0 text-primary dark:text-primary-light sm:h-8 sm:w-8" aria-hidden="true" /> : null}
         {title}
       </h2>
       <div className="mt-3 h-1.5 w-20 rounded-full bg-gradient-to-r from-primary to-accent" />

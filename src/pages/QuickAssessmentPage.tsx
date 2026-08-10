@@ -301,7 +301,7 @@ export default function QuickAssessmentPage() {
         </div>
 
         <div className="mb-6 rounded-full bg-slate-100 p-1">
-          <div className="h-2 rounded-full bg-primary transition-all" style={{ width: `${progressValue}%` }} />
+          <div className="h-2 rounded-full bg-gradient-to-r from-primary to-secondary transition-all" style={{ width: `${progressValue}%` }} />
         </div>
 
         <div className="mb-4 flex items-center justify-between text-sm text-slate-500">

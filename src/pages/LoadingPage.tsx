@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
+import Logo from '../components/Logo'
 
 // Even a mathematically smooth CSS gradient can render with visible banding
 // (fake contour rings) because browsers only have 256 shades per channel to
@@ -14,16 +15,19 @@ const noiseDataUri = `data:image/svg+xml,${encodeURIComponent(noiseSvg)}`
 // matching it here is what actually kills the "hard cut" glitch. A crossfade
 // between two mounted pages was tried and reverted (it re-introduced visible
 // ghosting), so this fades out self-contained within this one page instead:
-// content disappears, the vivid blue gradient dissolves into this exact
+// content disappears, the vivid indigo gradient dissolves into this exact
 // color, and only once that's finished do we navigate - so by the time
 // RoleSelectionPage mounts, the color is already sitting there waiting and
-// the actual page swap is invisible.
-const ROLE_SELECTION_BG = '#E0E7FF'
+// the actual page swap is invisible. Two variants because that target color
+// itself depends on dark mode (bg-background vs bg-background-dark).
+const ROLE_SELECTION_BG_LIGHT = '#F8FAFC'
+const ROLE_SELECTION_BG_DARK = '#0F172A'
 const EXIT_DURATION = 0.25
 
 export default function LoadingPage() {
   const navigate = useNavigate()
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
+  const darkMode = usePathStore((state) => state.accessibilitySettings.darkMode)
   const [isExiting, setIsExiting] = useState(false)
 
   const handleStartJourney = () => {
@@ -39,13 +43,13 @@ export default function LoadingPage() {
     <div
       className="relative min-h-screen flex flex-col items-center justify-center gap-6 overflow-hidden px-8 py-8"
       style={{
-        backgroundImage: `url("${noiseDataUri}"), radial-gradient(circle at center, #FFFFFF 0%, #D6E3FB 12%, #8FB8F5 30%, #5088EA 50%, #2C5FD6 70%, #142866 100%)`,
+        backgroundImage: `url("${noiseDataUri}"), radial-gradient(circle at center, #FFFFFF 0%, #E4E9F2 12%, #A7BDD9 30%, #5D82AC 50%, #2E4A70 70%, #0F1E30 100%)`,
         backgroundBlendMode: 'overlay',
       }}
     >
       <motion.div
         className="absolute inset-0 z-0"
-        style={{ backgroundColor: ROLE_SELECTION_BG }}
+        style={{ backgroundColor: darkMode ? ROLE_SELECTION_BG_DARK : ROLE_SELECTION_BG_LIGHT }}
         initial={{ opacity: 0 }}
         animate={{ opacity: isExiting ? 1 : 0 }}
         transition={{ duration: EXIT_DURATION }}
@@ -56,14 +60,15 @@ export default function LoadingPage() {
         animate={{ opacity: isExiting ? 0 : 1 }}
         transition={{ duration: EXIT_DURATION }}
       >
-        <div className="space-y-4">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary shadow-lg">
-            <span className="text-3xl font-bold text-white">P</span>
-          </div>
-          <div>
-            <p className="text-sm uppercase tracking-[0.28em] text-primary-dark/70">PathScrawler</p>
-            <h1 className="text-3xl font-bold leading-tight text-slate-900">Explore your future with clarity.</h1>
-          </div>
+        <div className="space-y-6">
+          <motion.div
+            className="flex justify-center"
+            animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
+            transition={reduceMotion ? undefined : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <Logo size="lg" />
+          </motion.div>
+          <h1 className="text-3xl font-bold leading-tight text-slate-900">Explore your future with clarity.</h1>
         </div>
 
         <motion.button
