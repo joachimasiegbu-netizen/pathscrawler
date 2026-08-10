@@ -478,7 +478,7 @@ const rawDemoCareers = [
       'Remote friendly',
       'Work from home',
     ],
-    salary: '£50k - £90k',
+    salary: '£80k - £160k+',
     description: 'Design cloud infrastructure, optimize deployments and manage services on AWS, Azure or Google Cloud.',
     requirements: [
       'Cloud certifications',
@@ -508,10 +508,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=cloud+architect', description: 'Business & tech skills' },
     ],
     progression: [
-      'Junior Cloud Architect (£45k-£55k)',
-      'Cloud Architect (£55k-£70k)',
-      'Senior Cloud Architect (£70k-£85k)',
-      'Principal Cloud Architect (£85k+)',
+      'Junior Cloud Engineer (£45k-£65k)',
+      'Cloud Architect (£65k-£95k)',
+      'Senior Cloud Architect (£95k-£130k)',
+      'Principal / Lead Cloud Architect (£130k-£160k+)',
     ],
     similarCareers: [
       8,
@@ -547,7 +547,7 @@ const rawDemoCareers = [
       'Remote friendly',
       'Work from home',
     ],
-    salary: '£35k - £80k',
+    salary: '£65k - £150k+',
     description: 'Build intelligent models and systems that learn from data and automate decision-making.',
     requirements: [
       'Degree in AI or computing',
@@ -583,10 +583,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=ai+machine+learning+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Junior ML Engineer (£35k-£45k)',
-      'ML Engineer (£45k-£60k)',
-      'Senior ML Engineer (£60k-£80k)',
-      'Principal AI Scientist (£80k+)',
+      'Junior ML Engineer (£40k-£60k)',
+      'ML Engineer (£60k-£85k)',
+      'Senior ML Engineer (£85k-£120k)',
+      'Principal AI/ML Engineer (£120k-£150k+)',
     ],
     similarCareers: [
       3,
@@ -849,7 +849,7 @@ const rawDemoCareers = [
       'Remote friendly',
       'Work from home',
     ],
-    salary: '£25k - £60k',
+    salary: '£50k - £100k+',
     description: 'Prepare financial records, manage accounts and support compliance for businesses and clients.',
     requirements: [
       'ACA/ACCA/CIMA qualifications',
@@ -878,10 +878,10 @@ const rawDemoCareers = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=accountant', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Trainee Accountant (£25k-£35k)',
-      'Accountant (£35k-£50k)',
-      'Senior Accountant (£50k-£70k)',
-      'Finance Manager (£70k+)',
+      'Trainee Accountant (£22k-£30k)',
+      'Qualified Accountant (£30k-£45k)',
+      'Senior Accountant (£45k-£70k)',
+      'Finance Manager / Chartered Accountant (£70k-£100k+)',
     ],
     similarCareers: [
       11,
@@ -1377,7 +1377,7 @@ const rawDemoCareers = [
       'Remote friendly',
       'Work from home',
     ],
-    salary: '£35k - £100k+',
+    salary: '£84k - £500k+',
     description: 'Work on deals, markets and finance strategies for corporate clients and investors.',
     requirements: [
       'Degree and internships',
@@ -1406,10 +1406,10 @@ const rawDemoCareers = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=investment+banker', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Investment Banker Apprentice / Junior (Entry (£18k-£30k))',
-      'Investment Banker (Mid-level (£30k-£50k))',
-      'Senior Investment Banker (Senior (£45k-£70k))',
-      'Lead Investment Banker / Specialist (Lead / Specialist (£60k+))',
+      'Analyst (£45k-£70k)',
+      'Associate (£70k-£110k)',
+      'Vice President (£110k-£210k)',
+      'Managing Director (£210k-£500k+)',
     ],
     similarCareers: [
       11,
@@ -1738,7 +1738,7 @@ const rawDemoCareers = [
       'Accessible',
       'Flexible hours',
     ],
-    salary: '£35k - £55k',
+    salary: '£54k - £75k+',
     description: 'Supply medication, support safe prescriptions and advise patients on pharmacy care.',
     requirements: [
       'Pharmacy degree',
@@ -1765,10 +1765,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=pharmacist', description: 'Business & tech skills' },
     ],
     progression: [
-      'Pharmacist Apprentice / Junior (Entry (£18k-£30k))',
-      'Pharmacist (Mid-level (£30k-£50k))',
-      'Senior Pharmacist (Senior (£45k-£70k))',
-      'Lead Pharmacist / Specialist (Lead / Specialist (£60k+))',
+      'Pre-registration Pharmacist (£25k-£30k)',
+      'Pharmacist (£35k-£45k)',
+      'Senior / Specialist Pharmacist (£45k-£60k)',
+      'Lead Pharmacist / Superintendent (£60k-£75k+)',
     ],
     similarCareers: [
       21,
@@ -2302,7 +2302,7 @@ const rawDemoCareers = [
       'Accessible',
       'Flexible hours',
     ],
-    salary: '£26k - £55k',
+    salary: '£51k - £85k+',
     description: 'Create mechanical systems and products for industry, transport and manufacturing.',
     requirements: [
       'Engineering degree',
@@ -2331,10 +2331,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=mechanical+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Graduate Mechanical Engineer (£25k-£32k)',
+      'Mechanical Engineer (£32k-£45k)',
+      'Senior Mechanical Engineer (£45k-£65k)',
+      'Principal / Chartered Mechanical Engineer (£65k-£85k+)',
     ],
     similarCareers: [
       31,
@@ -2377,7 +2377,7 @@ const rawDemoCareers = [
       'Accessible',
       'Flexible hours',
     ],
-    salary: '£26k - £55k',
+    salary: '£60k - £95k+',
     description: 'Develop electrical systems and equipment for power, automation and infrastructure.',
     requirements: [
       'Engineering degree',
@@ -2406,10 +2406,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=electrical+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Graduate Electrical Engineer (£26k-£34k)',
+      'Electrical Engineer (£34k-£48k)',
+      'Senior Electrical Engineer (£48k-£70k)',
+      'Principal / Chartered Electrical Engineer (£70k-£95k+)',
     ],
     similarCareers: [
       31,
@@ -2654,7 +2654,7 @@ const rawDemoCareers = [
       'Accessible',
       'Flexible hours',
     ],
-    salary: '£25k - £55k',
+    salary: '£53k - £90k+',
     description: 'Manage costs and contracts for construction projects from planning through delivery.',
     requirements: [
       'Degree or RICS qualification',
@@ -2680,10 +2680,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=quantity+surveyor', description: 'Business & tech skills' },
     ],
     progression: [
-      'Surveyor Apprentice / Junior (Entry (£18k-£30k))',
-      'Surveyor (Mid-level (£30k-£50k))',
-      'Senior Surveyor (Senior (£45k-£70k))',
-      'Lead Surveyor / Specialist (Lead / Specialist (£60k+))',
+      'Trainee Quantity Surveyor (£24k-£30k)',
+      'Quantity Surveyor (£30k-£45k)',
+      'Senior Quantity Surveyor (£45k-£65k)',
+      'Chartered / Associate Director QS (£65k-£90k+)',
     ],
     similarCareers: [
       31,
@@ -3560,7 +3560,7 @@ const rawDemoCareers = [
       'Remote friendly',
       'Work from home',
     ],
-    salary: '£35k - £65k',
+    salary: '£53k - £78k',
     description: 'Teach and research at university level while shaping academic programmes and supporting students.',
     requirements: [
       'PhD and research experience',
@@ -3608,10 +3608,10 @@ const rawDemoCareers = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=university+lecturer', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Lecturer Apprentice / Junior (Entry (£18k-£30k))',
-      'Lecturer (Mid-level (£30k-£50k))',
-      'Senior Lecturer (Senior (£45k-£70k))',
-      'Lead Lecturer / Specialist (Lead / Specialist (£60k+))',
+      'Associate Lecturer (£30k-£38k)',
+      'Lecturer (£38k-£48k)',
+      'Senior Lecturer (£48k-£62k)',
+      'Reader / Professor (£62k-£78k)',
     ],
     similarCareers: [
       46,
@@ -6015,6 +6015,1561 @@ const rawDemoCareers = [
           'journalism-ba',
         ],
         description: 'Study full-time for a degree that leads into a career as a Print Journalist.',
+      },
+    ]
+  },
+  {
+    id: 97,
+    category: 'Business & Finance',
+    title: 'Chief Executive / Senior Official',
+    salary: '£100k - £200k+',
+    description: 'Set the strategic direction of an organisation and take ultimate accountability for its performance, people and results.',
+    requirements: [
+      'Degree (often an MBA or postgraduate qualification)',
+      '10-15+ years of progressively senior management experience',
+      'Proven track record leading teams and budgets',
+      'Strong strategic and financial judgement',
+    ],
+    matchedSubjects: [
+      'business-management-ba',
+      'mba',
+      'msc-management',
+      'dba-business-administration',
+      'alevel-business-studies',
+      'gcse-business-studies',
+    ],
+    dayToDay: [
+      'Set organisational strategy and long-term goals',
+      'Report to a board or shareholders on performance',
+      'Lead senior management team meetings',
+      'Represent the organisation externally to investors, press and partners',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Chief%20Executive%20%2F%20Senior%20Official', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Chief%20Executive%20%2F%20Senior%20Official', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Manager (£35k-£55k)',
+      'Senior Manager / Head of Department (£55k-£85k)',
+      'Director (£85k-£130k)',
+      'Chief Executive / Senior Official (£130k-£200k+)',
+    ],
+    similarCareers: [
+      98,
+      102,
+      124,
+      123,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree + MBA Route',
+        duration: '3-4 years degree + 1-2 years MBA',
+        cost: 'Higher cost - tuition fees apply (student finance available for first degree)',
+        entryRequirements: 'A-Levels or BTEC Level 3, then several years of management experience before an MBA',
+        subjects: [
+          'business-management-ba',
+          'mba',
+        ],
+        description: 'Study business or a related degree, build up management experience, then take an MBA to accelerate into senior leadership.',
+      },
+    ]
+  },
+  {
+    id: 98,
+    category: 'Business & Finance',
+    title: 'Marketing, Sales & Advertising Director',
+    salary: '£94k - £180k+',
+    description: 'Own the commercial strategy for how an organisation reaches customers, spanning brand, marketing, advertising and sales performance.',
+    requirements: [
+      'Degree in marketing, business or a related field',
+      '8-12+ years in marketing or sales, including management experience',
+      'Strong commercial and budget management skills',
+      'Track record of hitting growth or revenue targets',
+    ],
+    matchedSubjects: [
+      'marketing-ba',
+      'cim-marketing',
+      'msc-marketing',
+      'business-management-ba',
+      'alevel-business-studies',
+    ],
+    dayToDay: [
+      'Set marketing and sales strategy across channels',
+      'Own budgets for advertising and campaigns',
+      'Manage and mentor marketing and sales teams',
+      'Report on growth, revenue and brand performance to the board',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Marketing%2C%20Sales%20%26%20Advertising%20Director', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Marketing%2C%20Sales%20%26%20Advertising%20Director', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Marketing / Sales Executive (£24k-£32k)',
+      'Marketing / Sales Manager (£32k-£55k)',
+      'Head of Marketing / Sales (£55k-£90k)',
+      'Marketing, Sales & Advertising Director (£90k-£180k+)',
+    ],
+    similarCareers: [
+      97,
+      102,
+      121,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'marketing-ba',
+          'cim-marketing',
+        ],
+        description: 'Study marketing or business, then build a track record in marketing or sales roles on the way to a director-level post.',
+      },
+    ]
+  },
+  {
+    id: 99,
+    category: 'Technology & Digital',
+    title: 'IT Director / CIO',
+    salary: '£92k - £160k+',
+    description: 'Own the technology strategy for an organisation, from infrastructure and security to digital transformation and IT budgets.',
+    requirements: [
+      'Degree in computer science or a related field (or equivalent experience)',
+      '10+ years in IT, including senior technical leadership',
+      'Experience managing large technology budgets and teams',
+      'Strong understanding of cyber security and digital strategy',
+    ],
+    matchedSubjects: [
+      'computer-science-bsc',
+      'msc-computer-science',
+      'mba',
+      'cissp-certification',
+      'aws-solutions-architect',
+      'azure-solutions-architect',
+    ],
+    dayToDay: [
+      'Set the technology strategy and roadmap',
+      'Own IT budgets and vendor relationships',
+      'Oversee cyber security and data governance',
+      'Report to the board on technology risk and opportunity',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=IT%20Director%20%2F%20CIO', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=IT%20Director%20%2F%20CIO', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Software Developer / IT Analyst (£25k-£40k)',
+      'IT Manager / Team Lead (£40k-£65k)',
+      'Head of IT (£65k-£100k)',
+      'IT Director / CIO (£100k-£160k+)',
+    ],
+    similarCareers: [
+      119,
+      120,
+      128,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years degree + 8-10 years experience',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'computer-science-bsc',
+          'msc-computer-science',
+        ],
+        description: 'Study computer science, build up technical and leadership experience, and progress into IT leadership roles.',
+      },
+    ]
+  },
+  {
+    id: 100,
+    category: 'Healthcare & Medicine',
+    title: 'Specialist Medical Practitioner (Consultant Doctor)',
+    salary: '£93k - £169k',
+    description: 'Lead the diagnosis and treatment of patients within a chosen medical specialism as a fully qualified hospital consultant.',
+    requirements: [
+      'Medicine degree (MBBS) recognised by the GMC',
+      'Foundation training plus specialty training (typically 8-10 years post-degree)',
+      'Membership of the relevant Royal College',
+      'GMC registration with a licence to practise',
+    ],
+    matchedSubjects: [
+      'medicine-mbbs',
+      'medicine-graduate-entry',
+      'alevel-biology',
+      'alevel-chemistry',
+    ],
+    dayToDay: [
+      'Diagnose and treat patients within a specialism',
+      'Lead a clinical team including junior doctors',
+      'Make senior decisions on complex cases',
+      'Contribute to research, teaching and service improvement',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Specialist%20Medical%20Practitioner%20(Consultant%20Doctor)', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Specialist%20Medical%20Practitioner%20(Consultant%20Doctor)', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Foundation Doctor (£29k-£34k)',
+      'Specialty Registrar (£40k-£60k)',
+      'Senior Registrar (£60k-£75k)',
+      'Consultant / Specialist Medical Practitioner (£93k-£169k)',
+    ],
+    similarCareers: [
+      125,
+      126,
+      127,
+      128,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Medicine Degree Route',
+        duration: '5-6 years degree + 8-10 years specialty training',
+        cost: 'Higher cost - tuition fees apply (NHS bursaries available in later years)',
+        entryRequirements: 'A-Levels including Chemistry and Biology, plus UCAT/BMAT and interview',
+        subjects: [
+          'medicine-mbbs',
+          'alevel-biology',
+          'alevel-chemistry',
+        ],
+        description: 'Complete a medicine degree, foundation training and specialty training to qualify as a consultant.',
+      },
+      {
+        type: 'university',
+        name: 'Graduate Entry Medicine Route',
+        duration: '4 years degree + 8-10 years specialty training',
+        cost: 'Higher cost - tuition fees apply (NHS bursaries available)',
+        entryRequirements: 'An existing science-related degree, plus GAMSAT/UCAT and interview',
+        subjects: [
+          'medicine-graduate-entry',
+        ],
+        description: 'For graduates of another discipline, an accelerated medicine degree followed by the same specialty training route.',
+      },
+    ]
+  },
+  {
+    id: 101,
+    category: 'Engineering & Manufacturing',
+    title: 'Aircraft Pilot / Air Traffic Controller',
+    salary: '£83k - £150k+',
+    description: 'Fly commercial aircraft or direct air traffic safely through controlled airspace, both requiring years of licensed, safety-critical training.',
+    requirements: [
+      'ATPL (pilots) or NATS air traffic control licence',
+      'Rigorous medical, aptitude and background checks',
+      'Extensive simulator and supervised operational training',
+      'Ongoing recurrent training and licence checks',
+    ],
+    matchedSubjects: [
+      'atpl-pilot-training',
+      'nats-air-traffic-control',
+      'alevel-mathematics',
+      'alevel-physics',
+    ],
+    dayToDay: [
+      'Fly scheduled routes or direct aircraft movements safely',
+      'Follow strict safety procedures and checklists',
+      'Communicate constantly with crew, controllers or pilots',
+      'Complete regular simulator assessments and recurrent training',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Aircraft%20Pilot%20%2F%20Air%20Traffic%20Controller', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Aircraft%20Pilot%20%2F%20Air%20Traffic%20Controller', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Trainee Pilot / Trainee Controller (£25k-£35k)',
+      'First Officer / Air Traffic Controller (£45k-£70k)',
+      'Senior First Officer / Watch Manager (£70k-£100k)',
+      'Captain / Senior Air Traffic Controller (£100k-£150k+)',
+    ],
+    similarCareers: [
+      103,
+      128,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'ATPL / NATS Training Route',
+        duration: '2-3 years',
+        cost: 'Very high cost for pilot training (loans/sponsorship available); NATS training is salaried',
+        entryRequirements: 'GCSEs including Maths and English, strict medical standard, aptitude testing',
+        subjects: [
+          'atpl-pilot-training',
+          'nats-air-traffic-control',
+        ],
+        description: 'Complete integrated flight training (ATPL) or the NATS-run air traffic control training programme - neither requires a degree.',
+      },
+    ]
+  },
+  {
+    id: 102,
+    category: 'Business & Finance',
+    title: 'Financial Manager / Director',
+    salary: '£76k - £150k+',
+    description: 'Own an organisation\'s financial planning, reporting and controls, sitting on the leadership team as its senior finance lead.',
+    requirements: [
+      'Professional accountancy qualification (ACA, ACCA or CIMA)',
+      '8-10+ years in finance, including management experience',
+      'Strong financial reporting and strategic planning skills',
+      'Experience presenting to senior leadership or a board',
+    ],
+    matchedSubjects: [
+      'icaew-aca',
+      'acca-accounting',
+      'cima-management-accounting',
+      'accounting-bsc',
+      'finance-bsc',
+    ],
+    dayToDay: [
+      'Oversee financial reporting, budgeting and forecasting',
+      'Manage a finance team and set financial controls',
+      'Advise the board on financial strategy and risk',
+      'Liaise with auditors, banks and investors',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Financial%20Manager%20%2F%20Director', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Financial%20Manager%20%2F%20Director', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Trainee Accountant (£22k-£30k)',
+      'Qualified Accountant (£35k-£55k)',
+      'Finance Manager (£55k-£85k)',
+      'Financial Manager / Director (£85k-£150k+)',
+    ],
+    similarCareers: [
+      124,
+      123,
+      97,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'Degree + Professional Qualification Route',
+        duration: '3-4 years degree + 3-4 years training contract',
+        cost: 'Higher cost - tuition fees apply (training contracts are usually salaried)',
+        entryRequirements: 'A-Levels or BTEC Level 3, then a graduate training contract',
+        subjects: [
+          'accounting-bsc',
+          'icaew-aca',
+          'acca-accounting',
+        ],
+        description: 'Study accounting or finance, then qualify as a chartered accountant while working, progressing toward a director-level finance role.',
+      },
+    ]
+  },
+  {
+    id: 103,
+    category: 'Public Services',
+    title: 'Train / Tram Driver',
+    salary: '£76k - £90k+',
+    description: 'Operate passenger or freight trains and trams safely on the rail or tram network, a highly-trained, safety-critical role with no degree required.',
+    requirements: [
+      'Full UK driving licence and clean record',
+      'Pass rail-specific medical, aptitude and colour vision tests',
+      'Complete employer-led driver training programme',
+      'Ongoing route knowledge and safety recertification',
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'vocational-driving',
+    ],
+    dayToDay: [
+      'Drive trains or trams safely to a strict timetable',
+      'Respond correctly to signals and safety systems',
+      'Communicate with control centres and station staff',
+      'Complete pre and post-service safety checks',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Train%20%2F%20Tram%20Driver', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Train%20%2F%20Tram%20Driver', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Trainee Driver (£25k-£30k)',
+      'Qualified Driver (£40k-£55k)',
+      'Senior / Mainline Driver (£55k-£70k)',
+      'Senior Driver / Driver Manager (£70k-£90k+)',
+    ],
+    similarCareers: [
+      101,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Employer Training Route',
+        duration: '6-12 months',
+        cost: 'Low cost - salaried while training',
+        entryRequirements: 'GCSEs (English & Maths), full driving licence, pass medical and aptitude tests - no degree needed',
+        subjects: [
+          'gcse-maths',
+          'gcse-english',
+        ],
+        description: 'Train directly with a train or tram operator - almost all drivers qualify through in-house training rather than university.',
+      },
+    ]
+  },
+  {
+    id: 104,
+    category: 'Business & Finance',
+    title: 'PR / Communications Director',
+    salary: '£73k - £130k+',
+    description: 'Lead an organisation\'s public image, media relations and internal communications strategy at the most senior level.',
+    requirements: [
+      'Degree in communications, journalism, marketing or a related field',
+      '8-10+ years in PR or communications, including management experience',
+      'Strong media relations and crisis communications skills',
+      'Experience advising senior leadership',
+    ],
+    matchedSubjects: [
+      'journalism-ba',
+      'marketing-ba',
+      'business-management-ba',
+      'alevel-english-language',
+    ],
+    dayToDay: [
+      'Set the communications and media strategy',
+      'Manage media relationships and crisis communication',
+      'Oversee internal and external messaging',
+      'Advise senior leadership on reputation and public image',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=PR%20%2F%20Communications%20Director', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=PR%20%2F%20Communications%20Director', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'PR / Communications Assistant (£22k-£28k)',
+      'PR / Communications Manager (£30k-£50k)',
+      'Head of Communications (£50k-£80k)',
+      'PR / Communications Director (£80k-£130k+)',
+    ],
+    similarCareers: [
+      98,
+      97,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'journalism-ba',
+          'marketing-ba',
+        ],
+        description: 'Study communications, journalism or marketing, then build experience through PR and comms roles toward a director-level post.',
+      },
+    ]
+  },
+  {
+    id: 105,
+    category: 'Education & Training',
+    title: 'Head Teacher / Principal',
+    salary: '£72k - £120k+',
+    description: 'Lead a school as its most senior member of staff, responsible for educational standards, staff, budgets and pupil outcomes.',
+    requirements: [
+      'Qualified Teacher Status (QTS)',
+      'National Professional Qualification for Headship (NPQH)',
+      '10+ years of teaching and senior leadership experience',
+      'Strong people management and budget skills',
+    ],
+    matchedSubjects: [
+      'pgce-primary',
+      'pgce-secondary',
+      'primary-education-ba',
+      'secondary-education-ba',
+      'ma-education',
+    ],
+    dayToDay: [
+      'Set the strategic direction and standards for the school',
+      'Manage staff, budgets and site operations',
+      'Report to governors and Ofsted on performance',
+      'Represent the school to parents and the wider community',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Head%20Teacher%20%2F%20Principal', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Head%20Teacher%20%2F%20Principal', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Newly Qualified Teacher (£24k-£30k)',
+      'Teacher / Head of Department (£30k-£50k)',
+      'Deputy Head / Assistant Principal (£50k-£70k)',
+      'Head Teacher / Principal (£70k-£120k+)',
+    ],
+    similarCareers: [
+      46,
+      47,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'PGCE / QTS + NPQH Route',
+        duration: '3-4 years degree + 1 year PGCE + 10+ years experience',
+        cost: 'Higher cost - tuition fees apply (training bursaries available for PGCE)',
+        entryRequirements: 'A degree, then a PGCE or School Direct route to QTS, followed by significant leadership experience',
+        subjects: [
+          'pgce-primary',
+          'pgce-secondary',
+        ],
+        description: 'Qualify as a teacher via a degree and PGCE, then progress through leadership roles and the NPQH qualification to headship.',
+      },
+    ]
+  },
+  {
+    id: 106,
+    category: 'Public Services',
+    title: 'Senior Police Officer (Chief Inspector+)',
+    salary: '£67k - £100k+',
+    description: 'Lead policing operations and strategy at a senior rank, overseeing large teams, major investigations and force-wide decisions.',
+    requirements: [
+      'Completion of initial police officer training and years of operational service',
+      'Senior leadership assessment and promotion process',
+      'Strategic Command Course (for the most senior ranks)',
+      'Strong leadership, judgement and crisis management skills',
+    ],
+    matchedSubjects: [
+      'policing-criminal-investigation-bsc',
+      'criminal-justice-ba',
+      'police-apprenticeship',
+      'btec-public-services',
+    ],
+    dayToDay: [
+      'Oversee policing operations across a district or force',
+      'Lead major investigations or incidents',
+      'Manage budgets and senior staffing decisions',
+      'Represent the force to the public, press and partner agencies',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Senior%20Police%20Officer%20(Chief%20Inspector%2B)', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Senior%20Police%20Officer%20(Chief%20Inspector%2B)', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Police Constable (£28k-£35k)',
+      'Sergeant / Inspector (£38k-£55k)',
+      'Chief Inspector (£55k-£75k)',
+      'Superintendent+ (£75k-£100k+)',
+    ],
+    similarCareers: [
+      90,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Police Constable Degree Apprenticeship Route',
+        duration: '3 years initial training + 10+ years to senior rank',
+        cost: 'Low cost - salaried while training',
+        entryRequirements: 'GCSEs (English & Maths), fitness and background checks - no prior degree required',
+        subjects: [
+          'police-apprenticeship',
+        ],
+        description: 'Join as a police constable via the apprenticeship route, then progress through the ranks to chief inspector and above.',
+      },
+    ]
+  },
+  {
+    id: 107,
+    category: 'Engineering & Manufacturing',
+    title: 'Energy / Mining Production Director',
+    salary: '£63k - £120k+',
+    description: 'Direct large-scale energy generation, extraction or mining production operations, balancing output, safety and regulatory compliance.',
+    requirements: [
+      'Degree in engineering, geology or a related field',
+      '10+ years in energy or mining operations, including management experience',
+      'Strong understanding of safety and environmental regulation',
+      'Experience managing large operational budgets and teams',
+    ],
+    matchedSubjects: [
+      'chemical-engineering-beng',
+      'civil-engineering-beng',
+      'renewable-energy-engineering-beng',
+      'msc-renewable-energy-engineering',
+    ],
+    dayToDay: [
+      'Oversee production targets, safety and site operations',
+      'Manage budgets and senior operational teams',
+      'Ensure compliance with safety and environmental regulation',
+      'Report to the board on production and risk',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Energy%20%2F%20Mining%20Production%20Director', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Energy%20%2F%20Mining%20Production%20Director', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Graduate Engineer (£26k-£34k)',
+      'Site / Operations Engineer (£34k-£55k)',
+      'Operations Manager (£55k-£85k)',
+      'Energy / Mining Production Director (£85k-£120k+)',
+    ],
+    similarCareers: [
+      109,
+      110,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years degree + 10 years experience',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels including Maths and a science subject - typical offer varies by university',
+        subjects: [
+          'chemical-engineering-beng',
+          'renewable-energy-engineering-beng',
+        ],
+        description: 'Study engineering, then build operational experience in energy or mining toward a production director role.',
+      },
+    ]
+  },
+  {
+    id: 108,
+    category: 'Healthcare & Medicine',
+    title: 'NHS / Public Health Manager',
+    salary: '£62k - £110k+',
+    description: 'Lead operational or strategic services within the NHS or public health system, managing budgets, staff and service delivery.',
+    requirements: [
+      'Degree in healthcare management, public health or a related field',
+      '8-10+ years in healthcare, including management experience',
+      'Strong understanding of NHS structures and public health policy',
+      'Experience managing large budgets and multidisciplinary teams',
+    ],
+    matchedSubjects: [
+      'msc-healthcare-management',
+      'msc-public-health',
+      'phd-public-health',
+      'mba',
+    ],
+    dayToDay: [
+      'Manage healthcare service delivery and budgets',
+      'Lead multidisciplinary clinical and non-clinical teams',
+      'Ensure compliance with NHS and public health standards',
+      'Report to senior NHS leadership or public health bodies',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=NHS%20%2F%20Public%20Health%20Manager', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=NHS%20%2F%20Public%20Health%20Manager', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Healthcare Assistant / Admin (£22k-£28k)',
+      'Service / Department Manager (£30k-£50k)',
+      'Senior Service Manager (£50k-£80k)',
+      'NHS / Public Health Manager (£80k-£110k+)',
+    ],
+    similarCareers: [
+      100,
+      125,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Postgraduate Route',
+        duration: '3-4 years degree + MSc + experience',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A degree in a related field, then a postgraduate qualification in healthcare or public health management',
+        subjects: [
+          'msc-healthcare-management',
+          'msc-public-health',
+        ],
+        description: 'Study a related degree and postgraduate qualification, then build management experience within the NHS or public health system.',
+      },
+    ]
+  },
+  {
+    id: 109,
+    category: 'Technology & Digital',
+    title: 'IT Project Manager',
+    salary: '£58k - £90k+',
+    description: 'Plan and deliver technology projects on time and on budget, coordinating developers, designers and business stakeholders.',
+    requirements: [
+      'Degree in computing, business or a related field (or equivalent experience)',
+      'PRINCE2 or Agile/Scrum certification',
+      '5+ years of project delivery experience',
+      'Strong stakeholder management and organisational skills',
+    ],
+    matchedSubjects: [
+      'project-management-bsc',
+      'prince2-project-management',
+      'agile-pmp-project-management',
+      'computer-science-bsc',
+    ],
+    dayToDay: [
+      'Plan project timelines, budgets and resources',
+      'Coordinate development, design and business teams',
+      'Manage risks and unblock issues',
+      'Report progress to stakeholders and sponsors',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=IT%20Project%20Manager', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=IT%20Project%20Manager', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Project Coordinator / Junior PM (£26k-£34k)',
+      'Project Manager (£34k-£50k)',
+      'Senior Project Manager (£50k-£70k)',
+      'Programme / Portfolio Manager (£70k-£90k+)',
+    ],
+    similarCareers: [
+      99,
+      128,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Certification Route',
+        duration: '6-18 months',
+        cost: 'Low-medium cost - certification course fees',
+        entryRequirements: 'Relevant work experience plus a PRINCE2 or Agile/Scrum certification - a degree is not strictly required',
+        subjects: [
+          'prince2-project-management',
+          'agile-pmp-project-management',
+        ],
+        description: 'Build project experience in a junior role, then gain PRINCE2 or Agile certification to move into IT project management.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'project-management-bsc',
+          'computer-science-bsc',
+        ],
+        description: 'Study project management or computing, then move into IT project delivery roles.',
+      },
+    ]
+  },
+  {
+    id: 110,
+    category: 'Public Services',
+    title: 'Solicitor / Lawyer',
+    salary: '£57k - £130k+',
+    description: 'Advise clients on the law, draft contracts and legal documents, and represent them in negotiations or before a court.',
+    requirements: [
+      'Law degree (LLB) or a degree plus law conversion (GDL/PGDL)',
+      'Solicitors Qualifying Exam (SQE) or equivalent legal training',
+      'Two years of qualifying work experience',
+      'Strong analytical and written communication skills',
+    ],
+    matchedSubjects: [
+      'law-llb',
+      'gdl-law-conversion',
+      'sqe-preparation',
+      'alevel-law',
+      'business-law-llb',
+    ],
+    dayToDay: [
+      'Advise clients on legal matters and risk',
+      'Draft and review contracts and legal documents',
+      'Negotiate on behalf of clients',
+      'Represent clients in disputes or before a court',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Solicitor%20%2F%20Lawyer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Solicitor%20%2F%20Lawyer', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Trainee Solicitor (£28k-£45k)',
+      'Newly Qualified Solicitor (£45k-£70k)',
+      'Associate / Senior Associate (£70k-£100k)',
+      'Partner / Senior Solicitor (£100k-£130k+)',
+    ],
+    similarCareers: [
+      112,
+      111,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'Law Degree + SQE Route',
+        duration: '3 years degree + 2 years qualifying work experience',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels including English or a humanities subject - typical offer varies by university',
+        subjects: [
+          'law-llb',
+          'sqe-preparation',
+        ],
+        description: 'Study law (or convert via the GDL), pass the SQE, and complete qualifying work experience to become a solicitor.',
+      },
+    ]
+  },
+  {
+    id: 111,
+    category: 'Business & Finance',
+    title: 'Stockbroker / Financial Broker',
+    salary: '£57k - £150k+',
+    description: 'Buy and sell shares, bonds and other financial instruments on behalf of clients, advising on investment strategy and market timing.',
+    requirements: [
+      'Degree in finance, economics or a related field (or equivalent experience)',
+      'CFA or IMC financial qualification',
+      'FCA-regulated training and approval',
+      'Strong numerical and risk-analysis skills',
+    ],
+    matchedSubjects: [
+      'finance-bsc',
+      'economics-bsc',
+      'cfa-finance',
+      'msc-finance',
+    ],
+    dayToDay: [
+      'Advise clients on investment opportunities and risk',
+      'Execute trades on behalf of clients or the firm',
+      'Monitor markets and economic developments',
+      'Build and maintain client relationships',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Stockbroker%20%2F%20Financial%20Broker', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Stockbroker%20%2F%20Financial%20Broker', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Trainee Broker / Analyst (£28k-£38k)',
+      'Broker (£38k-£65k)',
+      'Senior Broker (£65k-£100k)',
+      'Senior Stockbroker / Financial Broker (£100k-£150k+)',
+    ],
+    similarCareers: [
+      123,
+      110,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree + CFA Route',
+        duration: '3-4 years degree + CFA exams while working',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels including Maths - typical offer varies by university',
+        subjects: [
+          'finance-bsc',
+          'cfa-finance',
+        ],
+        description: 'Study finance or economics, then gain FCA approval and the CFA qualification while working in a trading or broking role.',
+      },
+    ]
+  },
+  {
+    id: 112,
+    category: 'Business & Finance',
+    title: 'Actuary',
+    salary: '£53k - £120k+',
+    description: 'Use statistics, probability and financial theory to assess and manage risk for insurers, pension schemes and financial firms.',
+    requirements: [
+      'Degree in actuarial science, maths or a related field',
+      'IFoA actuarial exams (typically completed while working)',
+      'Strong mathematical and analytical skills',
+      '3-6 years to become a Fellow of the IFoA',
+    ],
+    matchedSubjects: [
+      'actuarial-science-bsc',
+      'mathematics-bsc',
+      'ifoa-actuarial-exams',
+      'alevel-mathematics',
+    ],
+    dayToDay: [
+      'Build statistical models to assess financial risk',
+      'Advise on pricing, reserves or pension funding',
+      'Present findings to senior stakeholders',
+      'Study toward professional actuarial exams',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Actuary', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Actuary', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Actuarial Trainee (£28k-£38k)',
+      'Part-Qualified Actuary (£38k-£55k)',
+      'Qualified Actuary (£55k-£85k)',
+      'Senior / Fellow Actuary (£85k-£120k+)',
+    ],
+    similarCareers: [
+      111,
+      123,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree + IFoA Exams Route',
+        duration: '3-4 years degree + 3-6 years professional exams',
+        cost: 'Higher cost - tuition fees apply (exam study often supported by employer)',
+        entryRequirements: 'A-Levels including Maths - typical offer varies by university',
+        subjects: [
+          'actuarial-science-bsc',
+          'ifoa-actuarial-exams',
+        ],
+        description: 'Study actuarial science or maths, then pass the IFoA professional exams while working to qualify as a Fellow.',
+      },
+    ]
+  },
+  {
+    id: 113,
+    category: 'Construction & Trades',
+    title: 'Construction Project Manager',
+    salary: '£48k - £85k+',
+    description: 'Plan, budget and oversee construction projects from groundworks to completion, coordinating contractors, architects and clients.',
+    requirements: [
+      'Degree in construction management or a related field (or equivalent experience)',
+      'Relevant site experience and CSCS card',
+      'Strong budgeting and scheduling skills',
+      'Knowledge of health & safety and building regulations',
+    ],
+    matchedSubjects: [
+      'tlevel-construction-design-surveying-planning',
+      'rics-chartered-surveyor',
+      'project-management-bsc',
+      'btec-construction',
+    ],
+    dayToDay: [
+      'Plan project timelines, budgets and resources',
+      'Coordinate contractors, architects and suppliers',
+      'Monitor site progress and safety compliance',
+      'Report progress and costs to clients',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Construction%20Project%20Manager', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Construction%20Project%20Manager', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Assistant Site Manager (£26k-£35k)',
+      'Site Manager (£35k-£50k)',
+      'Project Manager (£50k-£70k)',
+      'Senior Construction Project Manager (£70k-£85k+)',
+    ],
+    similarCareers: [
+      115,
+      107,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Site Experience + T-Level Route',
+        duration: '2-3 years',
+        cost: 'Low cost - often salaried while training',
+        entryRequirements: 'GCSEs (English & Maths), then a T-Level or apprenticeship in construction',
+        subjects: [
+          'tlevel-construction-design-surveying-planning',
+        ],
+        description: 'Start on site and build experience through a T-Level or apprenticeship route into project management.',
+      },
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'project-management-bsc',
+          'rics-chartered-surveyor',
+        ],
+        description: 'Study construction management or a related degree, then move into site and project management roles.',
+      },
+    ]
+  },
+  {
+    id: 114,
+    category: 'Technology & Digital',
+    title: 'Quantitative Developer',
+    salary: '£90k - £250k+',
+    description: 'Build the high-performance trading and pricing systems used by investment banks and hedge funds, combining software engineering with advanced mathematics.',
+    requirements: [
+      'Degree in computer science, maths, physics or engineering (often a Master\'s or PhD)',
+      'Strong programming skills (C++, Python)',
+      'Advanced mathematical and statistical knowledge',
+      'Experience with financial markets is highly valued',
+    ],
+    matchedSubjects: [
+      'computer-science-bsc',
+      'mathematics-bsc',
+      'msc-finance-financial-engineering',
+      'phd-mathematics',
+      'cfa-finance',
+    ],
+    dayToDay: [
+      'Build and optimise trading or pricing algorithms',
+      'Analyse large financial datasets',
+      'Work closely with traders and quant researchers',
+      'Test and deploy low-latency trading systems',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Quantitative%20Developer', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Quantitative%20Developer', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Graduate Quant Developer (£55k-£80k)',
+      'Quant Developer (£80k-£130k)',
+      'Senior Quant Developer (£130k-£190k)',
+      'Lead Quant Developer / VP (£190k-£250k+)',
+    ],
+    similarCareers: [
+      111,
+      128,
+      123,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Postgraduate Route',
+        duration: '3-4 years degree + often an MSc/PhD',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels including Maths and Further Maths - highly competitive entry, often requiring a postgraduate qualification',
+        subjects: [
+          'mathematics-bsc',
+          'msc-finance-financial-engineering',
+        ],
+        description: 'Study a highly quantitative degree, often followed by a Master\'s, then move into quant development roles at a bank or hedge fund.',
+      },
+    ]
+  },
+  {
+    id: 115,
+    category: 'Technology & Digital',
+    title: 'Cybersecurity Manager / CISO',
+    salary: '£72k - £180k+',
+    description: 'Lead an organisation\'s information security strategy, protecting systems and data from threats and owning incident response.',
+    requirements: [
+      'Degree in cyber security, computer science or a related field (or equivalent experience)',
+      'CISSP or CISM certification',
+      '8-10+ years in security, including leadership experience',
+      'Strong understanding of risk, compliance and incident response',
+    ],
+    matchedSubjects: [
+      'cyber-security-bsc',
+      'msc-cyber-security',
+      'cissp-certification',
+      'cism-certification',
+    ],
+    dayToDay: [
+      'Set the security strategy and policy',
+      'Oversee incident response and threat monitoring',
+      'Manage security budgets and teams',
+      'Report security risk to the board',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Cybersecurity%20Manager%20%2F%20CISO', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Cybersecurity%20Manager%20%2F%20CISO', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Security Analyst (£28k-£40k)',
+      'Security Engineer / Manager (£40k-£65k)',
+      'Head of Security (£65k-£100k)',
+      'Cybersecurity Manager / CISO (£100k-£180k+)',
+    ],
+    similarCareers: [
+      99,
+      109,
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship + Certification Route',
+        duration: '2-4 years plus ongoing certification',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths), then a cyber security apprenticeship and industry certifications',
+        subjects: [
+          'cyber-security-apprenticeship',
+          'cissp-certification',
+        ],
+        description: 'Start via a cyber security apprenticeship, then build toward CISSP/CISM certification and security leadership roles.',
+      },
+      {
+        type: 'university',
+        name: 'University / Postgraduate Route',
+        duration: '3-4 years degree + MSc',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'cyber-security-bsc',
+          'msc-cyber-security',
+        ],
+        description: 'Study cyber security, then build experience and certifications toward a CISO-level role.',
+      },
+    ]
+  },
+  {
+    id: 116,
+    category: 'Technology & Digital',
+    title: 'Software Engineering Manager',
+    salary: '£75k - £160k+',
+    description: 'Lead a team of software engineers, balancing hands-on technical judgement with people management and delivery planning.',
+    requirements: [
+      'Degree in computer science or a related field (or equivalent experience)',
+      '6-8+ years as a software engineer, including some leadership experience',
+      'Strong technical judgement across the stack you manage',
+      'Good people management and planning skills',
+    ],
+    matchedSubjects: [
+      'computer-science-bsc',
+      'software-engineering-bsc',
+      'msc-software-engineering',
+      'coding-bootcamp-software-development',
+    ],
+    dayToDay: [
+      'Manage and mentor a team of software engineers',
+      'Plan technical delivery and sprint priorities',
+      'Make architectural and technical trade-off decisions',
+      'Report progress and risks to senior leadership',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Software%20Engineering%20Manager', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Software%20Engineering%20Manager', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Software Developer (£25k-£40k)',
+      'Senior Developer (£40k-£65k)',
+      'Tech Lead (£65k-£95k)',
+      'Software Engineering Manager (£95k-£160k+)',
+    ],
+    similarCareers: [
+      1,
+      128,
+      99,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years degree + 6-8 years experience',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'computer-science-bsc',
+          'software-engineering-bsc',
+        ],
+        description: 'Study computer science or software engineering, then build experience as a developer before moving into engineering management.',
+      },
+    ]
+  },
+  {
+    id: 117,
+    category: 'Healthcare & Medicine',
+    title: 'Plastic Surgeon',
+    salary: '£97k - £200k+',
+    description: 'Perform reconstructive and cosmetic surgical procedures, requiring years of surgical specialty training after medical school.',
+    requirements: [
+      'Medicine degree (MBBS) recognised by the GMC',
+      'Core and specialty surgical training (typically 10+ years post-degree)',
+      'Membership/Fellowship of the Royal College of Surgeons',
+      'GMC registration with a licence to practise',
+    ],
+    matchedSubjects: [
+      'medicine-mbbs',
+      'medicine-graduate-entry',
+      'alevel-biology',
+      'alevel-chemistry',
+    ],
+    dayToDay: [
+      'Perform reconstructive and cosmetic surgical procedures',
+      'Assess patients and plan surgical treatment',
+      'Lead a surgical team in theatre',
+      'Manage post-operative care and follow-up',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Plastic%20Surgeon', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Plastic%20Surgeon', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Foundation Doctor (£29k-£34k)',
+      'Core Surgical Trainee (£40k-£50k)',
+      'Specialty Registrar in Plastic Surgery (£55k-£75k)',
+      'Consultant Plastic Surgeon (£97k-£200k+)',
+    ],
+    similarCareers: [
+      100,
+      118,
+      119,
+      120,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Medicine + Surgical Training Route',
+        duration: '5-6 years degree + 10+ years surgical training',
+        cost: 'Higher cost - tuition fees apply (NHS bursaries available in later years)',
+        entryRequirements: 'A-Levels including Chemistry and Biology, plus UCAT/BMAT and interview',
+        subjects: [
+          'medicine-mbbs',
+          'alevel-biology',
+          'alevel-chemistry',
+        ],
+        description: 'Complete a medicine degree, foundation training and years of surgical specialty training to qualify as a consultant plastic surgeon.',
+      },
+    ]
+  },
+  {
+    id: 118,
+    category: 'Healthcare & Medicine',
+    title: 'Orthodontist',
+    salary: '£100k - £180k+',
+    description: 'Specialise in diagnosing and correcting teeth and jaw alignment, typically running or working within a specialist dental practice.',
+    requirements: [
+      'Dentistry degree (BDS) recognised by the GDC',
+      'Dental foundation training plus specialty training in orthodontics',
+      'GDC registration with a licence to practise',
+      'Strong manual dexterity and attention to detail',
+    ],
+    matchedSubjects: [
+      'dentistry-bds',
+      'alevel-biology',
+      'alevel-chemistry',
+    ],
+    dayToDay: [
+      'Assess and plan orthodontic treatment for patients',
+      'Fit and adjust braces and other orthodontic devices',
+      'Monitor treatment progress over months or years',
+      'Manage a specialist practice or clinic team',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Orthodontist', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Orthodontist', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Dental Foundation Trainee (£30k-£38k)',
+      'General Dentist (£45k-£70k)',
+      'Specialty Registrar in Orthodontics (£50k-£70k)',
+      'Consultant / Specialist Orthodontist (£100k-£180k+)',
+    ],
+    similarCareers: [
+      117,
+      100,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Dentistry + Specialty Route',
+        duration: '5 years degree + 3+ years specialty training',
+        cost: 'Higher cost - tuition fees apply (NHS bursaries available in later years)',
+        entryRequirements: 'A-Levels including Chemistry and Biology, plus interview',
+        subjects: [
+          'dentistry-bds',
+        ],
+        description: 'Complete a dentistry degree and foundation training, then specialise in orthodontics through further postgraduate training.',
+      },
+    ]
+  },
+  {
+    id: 119,
+    category: 'Healthcare & Medicine',
+    title: 'Ophthalmologist',
+    salary: '£107k - £200k+',
+    description: 'Diagnose and treat conditions of the eye, from prescribing glasses to performing complex eye surgery, as a hospital consultant.',
+    requirements: [
+      'Medicine degree (MBBS) recognised by the GMC',
+      'Ophthalmic specialty training (typically 7-8 years post-degree)',
+      'Membership of the Royal College of Ophthalmologists',
+      'GMC registration with a licence to practise',
+    ],
+    matchedSubjects: [
+      'medicine-mbbs',
+      'medicine-graduate-entry',
+      'alevel-biology',
+      'alevel-chemistry',
+    ],
+    dayToDay: [
+      'Diagnose and treat eye conditions and disease',
+      'Perform eye surgery, including cataract and laser procedures',
+      'Lead a clinical team including junior doctors',
+      'Contribute to research and teaching',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Ophthalmologist', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Ophthalmologist', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Foundation Doctor (£29k-£34k)',
+      'Core Medical Trainee (£40k-£50k)',
+      'Ophthalmology Specialty Registrar (£55k-£75k)',
+      'Consultant Ophthalmologist (£107k-£200k+)',
+    ],
+    similarCareers: [
+      100,
+      117,
+      118,
+      120,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Medicine + Specialty Route',
+        duration: '5-6 years degree + 7-8 years specialty training',
+        cost: 'Higher cost - tuition fees apply (NHS bursaries available in later years)',
+        entryRequirements: 'A-Levels including Chemistry and Biology, plus UCAT/BMAT and interview',
+        subjects: [
+          'medicine-mbbs',
+          'alevel-biology',
+          'alevel-chemistry',
+        ],
+        description: 'Complete a medicine degree, foundation training and ophthalmology specialty training to qualify as a consultant.',
+      },
+    ]
+  },
+  {
+    id: 120,
+    category: 'Healthcare & Medicine',
+    title: 'Anaesthetist',
+    salary: '£98k - £180k+',
+    description: 'Manage pain relief and sedation for patients before, during and after surgery, and provide critical and intensive care.',
+    requirements: [
+      'Medicine degree (MBBS) recognised by the GMC',
+      'Anaesthetic specialty training (typically 7-8 years post-degree)',
+      'Membership of the Royal College of Anaesthetists',
+      'GMC registration with a licence to practise',
+    ],
+    matchedSubjects: [
+      'medicine-mbbs',
+      'medicine-graduate-entry',
+      'alevel-biology',
+      'alevel-chemistry',
+    ],
+    dayToDay: [
+      'Assess patients and plan anaesthetic care',
+      'Administer and monitor anaesthesia during surgery',
+      'Manage pain relief and critical care',
+      'Work closely with surgical and theatre teams',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Anaesthetist', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Anaesthetist', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Foundation Doctor (£29k-£34k)',
+      'Core Anaesthetic Trainee (£40k-£50k)',
+      'Anaesthetic Specialty Registrar (£55k-£75k)',
+      'Consultant Anaesthetist (£98k-£180k+)',
+    ],
+    similarCareers: [
+      100,
+      117,
+      119,
+      118,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Medicine + Specialty Route',
+        duration: '5-6 years degree + 7-8 years specialty training',
+        cost: 'Higher cost - tuition fees apply (NHS bursaries available in later years)',
+        entryRequirements: 'A-Levels including Chemistry and Biology, plus UCAT/BMAT and interview',
+        subjects: [
+          'medicine-mbbs',
+          'alevel-biology',
+          'alevel-chemistry',
+        ],
+        description: 'Complete a medicine degree, foundation training and anaesthetic specialty training to qualify as a consultant.',
+      },
+    ]
+  },
+  {
+    id: 121,
+    category: 'Business & Finance',
+    title: 'VP of Sales',
+    salary: '£116k - £250k+',
+    description: 'Own an organisation\'s revenue targets, leading the entire sales function and setting go-to-market strategy.',
+    requirements: [
+      'Degree in business or a related field (or equivalent experience)',
+      '10+ years in sales, including senior leadership experience',
+      'Proven track record hitting or exceeding revenue targets',
+      'Strong leadership and negotiation skills',
+    ],
+    matchedSubjects: [
+      'business-management-ba',
+      'marketing-ba',
+      'mba',
+    ],
+    dayToDay: [
+      'Set sales strategy and revenue targets',
+      'Lead and coach senior sales managers',
+      'Own key client and partner relationships',
+      'Report revenue performance to the board',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=VP%20of%20Sales', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=VP%20of%20Sales', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Sales Executive (£24k-£32k)',
+      'Sales Manager (£35k-£60k)',
+      'Head of Sales (£60k-£100k)',
+      'VP of Sales (£100k-£250k+)',
+    ],
+    similarCareers: [
+      98,
+      97,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years degree + 10 years experience',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'business-management-ba',
+          'marketing-ba',
+        ],
+        description: 'Study business or marketing, then build a track record in sales roles on the way to a VP-level position.',
+      },
+    ]
+  },
+  {
+    id: 122,
+    category: 'Business & Finance',
+    title: 'Chief Financial Officer (CFO)',
+    salary: '£112k - £350k+',
+    description: 'Sit on the board as the most senior finance leader, owning financial strategy, investor relations and long-term financial health.',
+    requirements: [
+      'Professional accountancy qualification (ACA, ACCA or CIMA), often with an MBA',
+      '15+ years in finance, including several years at director level',
+      'Strong strategic, investor relations and board-level skills',
+      'Track record managing large, complex budgets',
+    ],
+    matchedSubjects: [
+      'icaew-aca',
+      'acca-accounting',
+      'cima-management-accounting',
+      'mba',
+    ],
+    dayToDay: [
+      'Own financial strategy and long-term planning',
+      'Report to the board and investors on financial performance',
+      'Manage risk, treasury and capital allocation',
+      'Lead the wider finance function',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Chief%20Financial%20Officer%20(CFO)', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Chief%20Financial%20Officer%20(CFO)', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Qualified Accountant (£35k-£55k)',
+      'Finance Manager (£55k-£85k)',
+      'Finance Director (£85k-£150k)',
+      'Chief Financial Officer (£150k-£350k+)',
+    ],
+    similarCareers: [
+      102,
+      97,
+      123,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'Degree + Professional Qualification + MBA Route',
+        duration: '3-4 years degree + professional qualification + 15 years experience',
+        cost: 'Higher cost - tuition fees apply (training contracts are usually salaried)',
+        entryRequirements: 'A-Levels or BTEC Level 3, then a graduate training contract and years of senior finance experience',
+        subjects: [
+          'accounting-bsc',
+          'icaew-aca',
+          'mba',
+        ],
+        description: 'Qualify as a chartered accountant, build up director-level finance experience, and often add an MBA on the way to CFO.',
+      },
+    ]
+  },
+  {
+    id: 123,
+    category: 'Business & Finance',
+    title: 'Tax Director',
+    salary: '£94k - £180k+',
+    description: 'Lead an organisation\'s tax strategy and compliance, managing risk across corporate, personal and international tax matters.',
+    requirements: [
+      'Professional accountancy or tax qualification (ACA, ACCA, CTA)',
+      '10+ years in tax, including senior management experience',
+      'Deep knowledge of UK and international tax law',
+      'Strong advisory and risk-management skills',
+    ],
+    matchedSubjects: [
+      'icaew-aca',
+      'acca-accounting',
+      'cima-management-accounting',
+      'accounting-bsc',
+    ],
+    dayToDay: [
+      'Set tax strategy and manage compliance risk',
+      'Advise the board on tax implications of decisions',
+      'Manage relationships with HMRC and external auditors',
+      'Lead a team of tax specialists',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Tax%20Director', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Tax%20Director', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Tax Trainee (£24k-£32k)',
+      'Tax Manager (£40k-£60k)',
+      'Senior Tax Manager (£60k-£90k)',
+      'Tax Director (£90k-£180k+)',
+    ],
+    similarCareers: [
+      122,
+      102,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'Degree + Professional Qualification Route',
+        duration: '3-4 years degree + 3-4 years training contract',
+        cost: 'Higher cost - tuition fees apply (training contracts are usually salaried)',
+        entryRequirements: 'A-Levels or BTEC Level 3, then a graduate training contract in tax',
+        subjects: [
+          'accounting-bsc',
+          'icaew-aca',
+        ],
+        description: 'Study accounting or a related degree, qualify as a chartered accountant or tax adviser, and specialise in tax on the way to director level.',
+      },
+    ]
+  },
+  {
+    id: 124,
+    category: 'Technology & Digital',
+    title: 'Director of Engineering',
+    salary: '£91k - £160k+',
+    description: 'Own the technical strategy and delivery across multiple engineering teams, sitting between senior leadership and engineering management.',
+    requirements: [
+      'Degree in computer science or a related field (or equivalent experience)',
+      '10+ years in software engineering, including senior leadership experience',
+      'Strong technical strategy and cross-team planning skills',
+      'Experience managing engineering managers and large budgets',
+    ],
+    matchedSubjects: [
+      'computer-science-bsc',
+      'software-engineering-bsc',
+      'msc-software-engineering',
+      'mba',
+    ],
+    dayToDay: [
+      'Set engineering strategy across multiple teams',
+      'Manage engineering managers and senior technical staff',
+      'Own technical budgets and hiring plans',
+      'Report engineering progress and risk to the executive team',
+    ],
+    whereToStudy: [
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=Director%20of%20Engineering', description: 'Affordable professional courses' },
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=Director%20of%20Engineering', description: 'Business & tech skills' },
+    ],
+    progression: [
+      'Senior Developer (£40k-£65k)',
+      'Tech Lead / Engineering Manager (£65k-£95k)',
+      'Head of Engineering (£95k-£130k)',
+      'Director of Engineering (£130k-£160k+)',
+    ],
+    similarCareers: [
+      116,
+      99,
+      19,
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years degree + 10 years experience',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'computer-science-bsc',
+          'software-engineering-bsc',
+        ],
+        description: 'Study computer science or software engineering, then build experience through developer and engineering management roles toward a director post.',
       },
     ]
   }

@@ -1,5 +1,5 @@
 import { useMemo, type ReactNode } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import {
   BookOpen,
   Briefcase,
@@ -78,9 +78,22 @@ function CheckList({ items }: { items: string[] }) {
 export default function CareerDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const location = useLocation()
   const selectedRole = usePathStore((state) => state.selectedRole)
   const compareIds = useCompareStore((state) => state.careerIds)
   const toggleCompare = useCompareStore((state) => state.toggle)
+
+  // No hardcoded `to` - this page is reached from many places (Quick
+  // Assessment results, search, Career Changer results, Job Market
+  // spotlight, Easiest Jobs, Highest Paying Jobs, Backtrack, ...), so a
+  // fixed target would send people somewhere they didn't come from. Plain
+  // browser-history back (BackButton's default with no `to`) always
+  // returns to whichever of those actually linked here - the label is the
+  // only thing that changes, read off router state set by the referrer.
+  const backLabel =
+    (location.state as { from?: string } | null)?.from === 'highest-paying'
+      ? 'Highest Paying Jobs'
+      : 'Back'
 
   const career = useMemo(
     () => demoCareers.find((item) => String(item.id) === id),
@@ -90,13 +103,7 @@ export default function CareerDetailPage() {
   if (!career) {
     return (
       <div className="mx-auto w-full max-w-3xl space-y-6 px-4 py-6 sm:px-6">
-        {/* No hardcoded `to` - this page is reached from many places now
-            (Quick Assessment results, search, Career Changer results,
-            Job Market spotlight, Easiest Jobs, Backtrack, ...), so a fixed
-            target would send people somewhere they didn't come from. Plain
-            browser-history back (BackButton's default with no `to`) always
-            returns to whichever of those actually linked here. */}
-        <BackButton />
+        <BackButton label={backLabel} />
         <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-800">
           <h1 className="text-3xl font-bold text-slate-950 dark:text-slate-50">Career not found</h1>
           <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
@@ -111,7 +118,7 @@ export default function CareerDetailPage() {
 
   return (
     <div className="mx-auto w-full max-w-3xl space-y-8 px-4 py-6 sm:px-6">
-      <BackButton />
+      <BackButton label={backLabel} />
 
       <RevealSection className="space-y-2">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">

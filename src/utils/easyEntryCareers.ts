@@ -11,7 +11,7 @@ import type { Career } from '../data/demoCareers'
 // means and where it's a deliberate simplification.
 
 export type EntryBarrier = 'very-easy' | 'easy'
-export type FilterKey = 'all' | 'no-quals' | 'quick-cert' | 'apprenticeship' | 'part-time'
+export type FilterKey = 'all' | 'quick-cert' | 'apprenticeship' | 'part-time'
 
 export interface EasyEntryCareer {
   career: Career
@@ -133,8 +133,6 @@ export function getEasyEntryCareers(): EasyEntryCareer[] {
 
 export function filterEasyEntryCareers(entries: EasyEntryCareer[], filter: FilterKey): EasyEntryCareer[] {
   switch (filter) {
-    case 'no-quals':
-      return entries.filter((entry) => entry.barrier === 'very-easy')
     case 'quick-cert':
       return entries.filter((entry) => entry.barrier === 'easy' && !entry.isApprenticeship)
     case 'apprenticeship':

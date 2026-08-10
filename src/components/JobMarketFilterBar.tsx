@@ -2,7 +2,6 @@ import type { FilterKey } from '../utils/easyEntryCareers'
 
 const FILTERS: { key: FilterKey; label: string }[] = [
   { key: 'all', label: 'All' },
-  { key: 'no-quals', label: 'No qualifications needed' },
   { key: 'quick-cert', label: 'Quick certificate' },
   { key: 'apprenticeship', label: 'Apprenticeship' },
   { key: 'part-time', label: 'Part-time friendly' },
