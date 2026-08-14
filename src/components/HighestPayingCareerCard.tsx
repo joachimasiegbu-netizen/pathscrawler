@@ -1,8 +1,7 @@
-import { useState } from 'react'
+import { useState, type KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
-  ArrowRight,
   Bookmark,
   BookmarkCheck,
   ChevronDown,
@@ -14,7 +13,6 @@ import {
 } from 'lucide-react'
 import type { HighestPayingCareer } from '../utils/highestPayingCareers'
 import { useCareerBoardStore } from '../store/useCareerBoardStore'
-import Button from './Button'
 
 interface HighestPayingCareerCardProps {
   entry: HighestPayingCareer
@@ -37,6 +35,15 @@ export default function HighestPayingCareerCard({ entry }: HighestPayingCareerCa
   const { career } = entry
   const [openSections, setOpenSections] = useState<Set<SectionKey>>(() => new Set(['pathway']))
 
+  const goToDetail = () => navigate(`/career/${career.id}`, { state: { from: 'highest-paying' } })
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      goToDetail()
+    }
+  }
+
   const toggleSection = (key: SectionKey) => {
     setOpenSections((prev) => {
       const next = new Set(prev)
@@ -47,7 +54,25 @@ export default function HighestPayingCareerCard({ entry }: HighestPayingCareerCa
   }
 
   return (
-    <div className="flex h-full flex-col rounded-2xl border border-l-4 border-gray-200 border-l-amber-500 bg-white p-6 shadow-sm dark:border-slate-700 dark:border-l-amber-500 dark:bg-slate-800">
+    // Whole card navigates to the detail page (role="link", not "button" -
+    // it goes to a different resource, not performing an in-place action).
+    // Everything else INSIDE that's independently clickable (accordion
+    // toggles, Backtrack, Save) stops propagation so it doesn't also
+    // trigger this navigation - same pattern as EasyEntryCareerCard.
+    <div
+      role="link"
+      tabIndex={0}
+      onClick={goToDetail}
+      onKeyDown={handleKeyDown}
+      aria-label={`${career.title}, view career details`}
+      // No hover:border-color here - this card's left edge is a deliberate
+      // amber accent (border-l-amber-500) marking "highest paying," and a
+      // generic hover border-color utility would win the cascade over it
+      // during hover (a `:hover` pseudo-class selector out-specifies a
+      // plain class one) and flash it to indigo. Lift + shadow alone is
+      // already a clear enough hover cue without touching that color.
+      className="flex h-full cursor-pointer flex-col rounded-2xl border border-l-4 border-gray-200 border-l-amber-500 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-[0.98] dark:border-slate-700 dark:border-l-amber-500 dark:bg-slate-800"
+    >
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div>
@@ -82,7 +107,10 @@ export default function HighestPayingCareerCard({ entry }: HighestPayingCareerCa
             <div key={key}>
               <button
                 type="button"
-                onClick={() => toggleSection(key)}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  toggleSection(key)
+                }}
                 aria-expanded={isOpen}
                 className="flex w-full items-center justify-between gap-2 py-3 text-left"
               >
@@ -147,19 +175,13 @@ export default function HighestPayingCareerCard({ entry }: HighestPayingCareerCa
 
       {/* Actions */}
       <div className="mt-4 space-y-2 border-t border-slate-100 pt-4 dark:border-slate-700">
-        <Button
-          onClick={() =>
-            navigate(`/career/${career.id}`, { state: { from: 'highest-paying' } })
-          }
-          className="w-full"
-        >
-          View career details
-          <ArrowRight className="ml-1.5 h-4 w-4" />
-        </Button>
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={() => navigate(`/backtrack/pathway/${career.id}`)}
+            onClick={(event) => {
+              event.stopPropagation()
+              navigate(`/backtrack/pathway/${career.id}`)
+            }}
             className="inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-700 transition-colors duration-150 hover:bg-amber-100 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-400 dark:hover:bg-amber-900"
           >
             <Route className="h-4 w-4 shrink-0" />
@@ -167,7 +189,10 @@ export default function HighestPayingCareerCard({ entry }: HighestPayingCareerCa
           </button>
           <button
             type="button"
-            onClick={() => toggleSaved(career.id)}
+            onClick={(event) => {
+              event.stopPropagation()
+              toggleSaved(career.id)
+            }}
             className="inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-600 transition-colors duration-150 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700/50"
           >
             {saved ? <BookmarkCheck className="h-4 w-4 shrink-0" /> : <Bookmark className="h-4 w-4 shrink-0" />}

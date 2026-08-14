@@ -47,7 +47,12 @@ export default function SignupPage() {
           <label className="block">
             <span className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">Email</span>
             <input
-              type="email"
+              // text, not "email" - same reasoning as LoginPage.tsx: the mock
+              // backend accepts any non-empty string as an identifier, so the
+              // form shouldn't reject valid ones (e.g. plain usernames) that
+              // just aren't email-shaped.
+              type="text"
+              inputMode="email"
               required
               autoComplete="email"
               value={email}

@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Bookmark, BookmarkCheck, Check, Copy, Sparkles, TrendingUp } from 'lucide-react'
+import { ArrowRight, Check, Copy, Sparkles, TrendingUp } from 'lucide-react'
 import type { Career } from '../data/demoCareers'
 import { jobMarketData } from '../data/jobMarketData'
-import { useCareerBoardStore } from '../store/useCareerBoardStore'
 import Button from './Button'
 import Toast from './Toast'
 
@@ -50,9 +49,6 @@ function estimateEntryBarrier(requirements: string[]): 'Low' | 'Medium' | 'High'
 
 export default function SpotlightCareerCard({ career, blurb }: SpotlightCareerCardProps) {
   const navigate = useNavigate()
-  const savedCareerIds = useCareerBoardStore((state) => state.careerIds)
-  const toggleSaved = useCareerBoardStore((state) => state.toggle)
-  const saved = savedCareerIds.includes(career.id)
   const [showToast, setShowToast] = useState(false)
 
   const growth = findGrowthRate(career.title)
@@ -136,10 +132,6 @@ export default function SpotlightCareerCard({ career, blurb }: SpotlightCareerCa
               <Button onClick={() => navigate(`/career/${career.id}`)} className="flex-1 sm:flex-none">
                 Explore this career
                 <ArrowRight className="ml-1.5 h-4 w-4" />
-              </Button>
-              <Button variant="secondary" onClick={() => toggleSaved(career.id)} className="flex-1 sm:flex-none">
-                {saved ? <BookmarkCheck className="mr-1.5 h-4 w-4" /> : <Bookmark className="mr-1.5 h-4 w-4" />}
-                {saved ? 'Saved' : 'Save to binder'}
               </Button>
               <motion.button
                 type="button"

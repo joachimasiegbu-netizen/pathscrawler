@@ -1,10 +1,13 @@
 import { useMemo, useState } from 'react'
 import { Zap } from 'lucide-react'
 import BackButton from '../components/BackButton'
+import CompareButton from '../components/CompareButton'
+import CompareFloatingButton from '../components/CompareFloatingButton'
 import EasyEntryCareerCard from '../components/EasyEntryCareerCard'
 import EmptyState from '../components/EmptyState'
 import JobMarketFilterBar from '../components/JobMarketFilterBar'
 import PageHeader from '../components/PageHeader'
+import SelectableCareerCard from '../components/SelectableCareerCard'
 import StaggerGrid from '../components/StaggerGrid'
 import { filterEasyEntryCareers, getEasyEntryCareers, type FilterKey } from '../utils/easyEntryCareers'
 
@@ -18,9 +21,12 @@ export default function JobMarketEasiestPage() {
       <BackButton to="/job-market" label="Job Market" />
       <PageHeader icon={Zap} title="Easiest Jobs to Get Into" subtitle="Careers you can start without years of study" />
 
-      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-        Showing {visibleEntries.length} {visibleEntries.length === 1 ? 'career' : 'careers'}
-      </p>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+          Showing {visibleEntries.length} {visibleEntries.length === 1 ? 'career' : 'careers'}
+        </p>
+        <CompareButton disabled={visibleEntries.length < 2} />
+      </div>
 
       <JobMarketFilterBar active={filter} onChange={setFilter} />
 
@@ -35,10 +41,14 @@ export default function JobMarketEasiestPage() {
       ) : (
         <StaggerGrid revealOnMount className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visibleEntries.map((entry) => (
-            <EasyEntryCareerCard key={entry.career.id} entry={entry} />
+            <SelectableCareerCard key={entry.career.id} careerId={entry.career.id}>
+              <EasyEntryCareerCard entry={entry} />
+            </SelectableCareerCard>
           ))}
         </StaggerGrid>
       )}
+
+      <CompareFloatingButton />
     </div>
   )
 }

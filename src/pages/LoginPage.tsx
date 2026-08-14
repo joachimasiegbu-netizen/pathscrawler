@@ -42,7 +42,13 @@ export default function LoginPage() {
           <label className="block">
             <span className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">Email</span>
             <input
-              type="email"
+              // text, not "email" - the mock backend (useAuthStore) accepts
+              // any non-empty string as an identifier, not just email-shaped
+              // ones (e.g. the seeded "devuser" dev account) - type="email"
+              // would block that at the browser's own validation step before
+              // it ever reaches signIn().
+              type="text"
+              inputMode="email"
               required
               autoComplete="email"
               value={email}

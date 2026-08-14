@@ -18,8 +18,11 @@ export default function EasyEntryCareerCard({ entry }: EasyEntryCareerCardProps)
     // inside a button is invalid HTML and makes click targeting
     // unpredictable, so this whole-card click and that inner button click
     // both exist side by side, with the inner one stopping propagation.
+    // role="link" (not "button") since this goes to a different page,
+    // rather than performing an action in place - a screen reader
+    // announces it as "[title]... link" this way.
     <div
-      role="button"
+      role="link"
       tabIndex={0}
       onClick={goToDetail}
       onKeyDown={(event) => {
@@ -28,7 +31,12 @@ export default function EasyEntryCareerCard({ entry }: EasyEntryCareerCardProps)
           goToDetail()
         }
       }}
-      className="flex h-full w-full cursor-pointer flex-col rounded-2xl border border-l-4 border-gray-200 border-l-emerald-500 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-slate-700 dark:border-l-emerald-500 dark:bg-slate-800"
+      aria-label={`${career.title}, view career details`}
+      // No hover:border-color here, same reasoning as HighestPayingCareerCard -
+      // this card's own left edge (border-l-emerald-500) is a deliberate
+      // "easy entry" accent, and a generic hover border-color utility would
+      // win the cascade over it during hover and flash it to indigo.
+      className="flex h-full w-full cursor-pointer flex-col rounded-2xl border border-l-4 border-gray-200 border-l-emerald-500 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-[0.98] dark:border-slate-700 dark:border-l-emerald-500 dark:bg-slate-800"
     >
       <div className="flex flex-wrap gap-1.5">
         <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">

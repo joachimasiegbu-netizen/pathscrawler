@@ -1,6 +1,7 @@
 const rawDemoCareers = [
   {
     id: 1,
+    employmentPercentage: 1.7625, // SOC 2134: Programmers and software development professionals
     category: 'Technology & Digital',
     title: 'Software Developer',
     supportTags: [
@@ -103,6 +104,7 @@ const rawDemoCareers = [
   },
   {
     id: 2,
+    employmentPercentage: 0.3683, // SOC 3544: Data analysts
     category: 'Technology & Digital',
     title: 'Data Analyst',
     supportTags: [
@@ -168,6 +170,7 @@ const rawDemoCareers = [
   },
   {
     id: 3,
+    employmentPercentage: 0.2056, // SOC 2135: Cyber security professionals
     category: 'Technology & Digital',
     title: 'Cyber Security Analyst',
     supportTags: [
@@ -247,6 +250,7 @@ const rawDemoCareers = [
   },
   {
     id: 4,
+    employmentPercentage: 0.0989, // SOC 2141: Web design professionals
     category: 'Technology & Digital',
     title: 'UX/UI Designer',
     supportTags: [
@@ -312,6 +316,7 @@ const rawDemoCareers = [
   },
   {
     id: 5,
+    employmentPercentage: 0.4421, // SOC 3132: IT user support technicians
     category: 'Technology & Digital',
     title: 'IT Support Technician',
     supportTags: [
@@ -391,6 +396,7 @@ const rawDemoCareers = [
   },
   {
     id: 6,
+    employmentPercentage: 0.096, // SOC 2137: IT network professionals
     category: 'Technology & Digital',
     title: 'Network Engineer',
     supportTags: [
@@ -468,6 +474,7 @@ const rawDemoCareers = [
   },
   {
     id: 7,
+    employmentPercentage: 0.6052, // SOC 2133: IT business analysts, architects and systems designers
     category: 'Technology & Digital',
     title: 'Cloud Architect',
     supportTags: [
@@ -537,6 +544,7 @@ const rawDemoCareers = [
   },
   {
     id: 8,
+    employmentPercentage: 1.7625, // SOC 2134: Programmers and software development professionals (no distinct ML/AI SOC code)
     category: 'Technology & Digital',
     title: 'AI/Machine Learning Engineer',
     supportTags: [
@@ -624,6 +632,7 @@ const rawDemoCareers = [
   },
   {
     id: 9,
+    employmentPercentage: 1.7625, // SOC 2134: Programmers and software development professionals
     category: 'Technology & Digital',
     title: 'Web Developer',
     supportTags: [
@@ -705,6 +714,7 @@ const rawDemoCareers = [
   },
   {
     id: 10,
+    employmentPercentage: 1.7625, // SOC 2134: Programmers and software development professionals (no distinct game dev SOC code)
     category: 'Technology & Digital',
     title: 'Game Developer',
     supportTags: [
@@ -774,6 +784,7 @@ const rawDemoCareers = [
   },
   {
     id: 11,
+    employmentPercentage: 0.6952, // SOC 2431: Management consultants and business analysts
     category: 'Business & Finance',
     title: 'Business Analyst',
     supportTags: [
@@ -839,6 +850,7 @@ const rawDemoCareers = [
   },
   {
     id: 12,
+    employmentPercentage: 0.6081, // SOC 2421: Chartered and certified accountants
     category: 'Business & Finance',
     title: 'Accountant',
     supportTags: [
@@ -916,6 +928,7 @@ const rawDemoCareers = [
   },
   {
     id: 13,
+    employmentPercentage: 0.8971, // SOC 2422: Finance and investment analysts and advisers
     category: 'Business & Finance',
     title: 'Financial Advisor',
     supportTags: [
@@ -1018,6 +1031,7 @@ const rawDemoCareers = [
   },
   {
     id: 14,
+    employmentPercentage: 0.9943, // SOC 2440: Business and financial project management professionals
     category: 'Business & Finance',
     title: 'Project Manager',
     supportTags: [
@@ -1083,6 +1097,7 @@ const rawDemoCareers = [
   },
   {
     id: 15,
+    employmentPercentage: 0.4004, // SOC 2432: Marketing and commercial managers
     category: 'Business & Finance',
     title: 'Marketing Manager',
     supportTags: [
@@ -1148,6 +1163,7 @@ const rawDemoCareers = [
   },
   {
     id: 16,
+    employmentPercentage: 0.6323, // SOC 3571: Human resources and industrial relations officers
     category: 'Business & Finance',
     title: 'Human Resources Officer',
     supportTags: [
@@ -1224,6 +1240,7 @@ const rawDemoCareers = [
   },
   {
     id: 17,
+    employmentPercentage: 1.037, // SOC 3556: Sales accounts and business development managers
     category: 'Business & Finance',
     title: 'Sales Manager',
     supportTags: [
@@ -1299,6 +1316,7 @@ const rawDemoCareers = [
   },
   {
     id: 18,
+    employmentPercentage: 0.6952, // SOC 2431: Management consultants and business analysts
     category: 'Business & Finance',
     title: 'Management Consultant',
     supportTags: [
@@ -1367,6 +1385,7 @@ const rawDemoCareers = [
   },
   {
     id: 19,
+    employmentPercentage: 0.8971, // SOC 2422: Finance and investment analysts and advisers
     category: 'Business & Finance',
     title: 'Investment Banker',
     supportTags: [
@@ -1433,6 +1452,7 @@ const rawDemoCareers = [
   },
   {
     id: 20,
+    employmentPercentage: 0.1002, // SOC 3532: Insurance underwriters
     category: 'Business & Finance',
     title: 'Insurance Underwriter',
     supportTags: [
@@ -1496,6 +1516,7 @@ const rawDemoCareers = [
   },
   {
     id: 21,
+    employmentPercentage: 0.5022, // SOC 2211: Generalist medical practitioners
     category: 'Healthcare & Medicine',
     title: 'Doctor/GP',
     supportTags: [
@@ -1605,6 +1626,7 @@ const rawDemoCareers = [
   },
   {
     id: 22,
+    employmentPercentage: 1.2424, // SOC 2237: Other registered nursing professionals
     category: 'Healthcare & Medicine',
     title: 'Nurse',
     supportTags: [
@@ -1670,6 +1692,7 @@ const rawDemoCareers = [
   },
   {
     id: 23,
+    employmentPercentage: 0.1274, // SOC 2255: Paramedics
     category: 'Healthcare & Medicine',
     title: 'Paramedic',
     supportTags: [
@@ -1730,6 +1753,7 @@ const rawDemoCareers = [
   },
   {
     id: 24,
+    employmentPercentage: 0.1848, // SOC 2251: Pharmacists
     category: 'Healthcare & Medicine',
     title: 'Pharmacist',
     supportTags: [
@@ -1794,6 +1818,7 @@ const rawDemoCareers = [
   },
   {
     id: 25,
+    employmentPercentage: 0.1773, // SOC 2221: Physiotherapists
     category: 'Healthcare & Medicine',
     title: 'Physiotherapist',
     supportTags: [
@@ -1875,6 +1900,7 @@ const rawDemoCareers = [
   },
   {
     id: 26,
+    employmentPercentage: 0.1754, // SOC 2222: Occupational therapists
     category: 'Healthcare & Medicine',
     title: 'Occupational Therapist',
     supportTags: [
@@ -1936,6 +1962,7 @@ const rawDemoCareers = [
   },
   {
     id: 27,
+    employmentPercentage: 0.1037, // SOC 2253: Dental practitioners
     category: 'Healthcare & Medicine',
     title: 'Dentist',
     supportTags: [
@@ -2000,6 +2027,7 @@ const rawDemoCareers = [
   },
   {
     id: 28,
+    employmentPercentage: 0.0779, // SOC 2225: Clinical psychologists
     category: 'Healthcare & Medicine',
     title: 'Psychologist',
     supportTags: [
@@ -2070,6 +2098,7 @@ const rawDemoCareers = [
   },
   {
     id: 29,
+    employmentPercentage: 0.1417, // SOC 2254: Medical radiographers
     category: 'Healthcare & Medicine',
     title: 'Radiographer',
     supportTags: [
@@ -2130,6 +2159,7 @@ const rawDemoCareers = [
   },
   {
     id: 30,
+    employmentPercentage: 0.1267, // SOC 2231: Midwifery nurses
     category: 'Healthcare & Medicine',
     title: 'Midwife',
     supportTags: [
@@ -2190,6 +2220,7 @@ const rawDemoCareers = [
   },
   {
     id: 31,
+    employmentPercentage: 0.2979, // SOC 2121: Civil engineers
     category: 'Engineering & Manufacturing',
     title: 'Civil Engineer',
     supportTags: [
@@ -2294,6 +2325,7 @@ const rawDemoCareers = [
   },
   {
     id: 32,
+    employmentPercentage: 0.2252, // SOC 2122: Mechanical engineers
     category: 'Engineering & Manufacturing',
     title: 'Mechanical Engineer',
     supportTags: [
@@ -2369,6 +2401,7 @@ const rawDemoCareers = [
   },
   {
     id: 33,
+    employmentPercentage: 0.1526, // SOC 2123: Electrical engineers
     category: 'Engineering & Manufacturing',
     title: 'Electrical Engineer',
     supportTags: [
@@ -2444,6 +2477,7 @@ const rawDemoCareers = [
   },
   {
     id: 34,
+    employmentPercentage: 0.0924, // SOC 2126: Aerospace engineers
     category: 'Engineering & Manufacturing',
     title: 'Aerospace Engineer',
     supportTags: [
@@ -2519,6 +2553,7 @@ const rawDemoCareers = [
   },
   {
     id: 35,
+    employmentPercentage: 0.2776, // estimated from SOC 21xx group average: Chemical engineers not in this dataset - Science/Engineering professionals (SOC 21xx) average
     category: 'Engineering & Manufacturing',
     title: 'Chemical Engineer',
     supportTags: [
@@ -2582,6 +2617,7 @@ const rawDemoCareers = [
   },
   {
     id: 36,
+    employmentPercentage: 0.146, // SOC 2451: Architects
     category: 'Engineering & Manufacturing',
     title: 'Architect',
     supportTags: [
@@ -2646,6 +2682,7 @@ const rawDemoCareers = [
   },
   {
     id: 37,
+    employmentPercentage: 0.2171, // SOC 2453: Quantity surveyors
     category: 'Engineering & Manufacturing',
     title: 'Quantity Surveyor',
     supportTags: [
@@ -2707,6 +2744,7 @@ const rawDemoCareers = [
   },
   {
     id: 38,
+    employmentPercentage: 0.1644, // SOC 3120: CAD, drawing and architectural technicians
     category: 'Engineering & Manufacturing',
     title: 'CAD Technician',
     supportTags: [
@@ -2780,6 +2818,7 @@ const rawDemoCareers = [
   },
   {
     id: 39,
+    employmentPercentage: 0.4097, // SOC 2142: Graphic and multimedia designers
     category: 'Creative & Media',
     title: 'Graphic Designer',
     supportTags: [
@@ -2845,6 +2884,7 @@ const rawDemoCareers = [
   },
   {
     id: 40,
+    employmentPercentage: 0.3186, // SOC 3417: Photographers, audio-visual and broadcasting equipment operators
     category: 'Creative & Media',
     title: 'Video Editor',
     supportTags: [
@@ -2910,6 +2950,7 @@ const rawDemoCareers = [
   },
   {
     id: 41,
+    employmentPercentage: 0.3186, // SOC 3417: Photographers, audio-visual and broadcasting equipment operators
     category: 'Creative & Media',
     title: 'Photographer',
     supportTags: [
@@ -2973,6 +3014,7 @@ const rawDemoCareers = [
   },
   {
     id: 42,
+    employmentPercentage: 0.4097, // SOC 2142: Graphic and multimedia designers
     category: 'Creative & Media',
     title: 'Animator',
     supportTags: [
@@ -3037,6 +3079,7 @@ const rawDemoCareers = [
   },
   {
     id: 43,
+    employmentPercentage: 0.292, // SOC 3412: Authors, writers and translators
     category: 'Creative & Media',
     title: 'Writer/Copywriter',
     supportTags: [
@@ -3117,6 +3160,7 @@ const rawDemoCareers = [
   },
   {
     id: 44,
+    employmentPercentage: 0.6244, // SOC 3554: Advertising and marketing associate professionals
     category: 'Creative & Media',
     title: 'Social Media Manager',
     supportTags: [
@@ -3183,6 +3227,7 @@ const rawDemoCareers = [
   },
   {
     id: 45,
+    employmentPercentage: 0.3392, // SOC 3416: Arts officers, producers and directors
     category: 'Creative & Media',
     title: 'Film/TV Producer',
     supportTags: [
@@ -3295,6 +3340,7 @@ const rawDemoCareers = [
   },
   {
     id: 46,
+    employmentPercentage: 1.157, // SOC 2314: Primary education teaching professionals
     category: 'Education & Training',
     title: 'Primary School Teacher',
     supportTags: [
@@ -3358,6 +3404,7 @@ const rawDemoCareers = [
   },
   {
     id: 47,
+    employmentPercentage: 1.3965, // SOC 2313: Secondary education teaching professionals
     category: 'Education & Training',
     title: 'Secondary School Teacher',
     supportTags: [
@@ -3489,6 +3536,7 @@ const rawDemoCareers = [
   },
   {
     id: 48,
+    employmentPercentage: 0.8245, // SOC 6112: Teaching assistants
     category: 'Education & Training',
     title: 'Teaching Assistant',
     supportTags: [
@@ -3550,6 +3598,7 @@ const rawDemoCareers = [
   },
   {
     id: 49,
+    employmentPercentage: 0.7927, // SOC 2311: Higher education teaching professionals
     category: 'Education & Training',
     title: 'University Lecturer',
     supportTags: [
@@ -3650,6 +3699,7 @@ const rawDemoCareers = [
   },
   {
     id: 50,
+    employmentPercentage: 0.0863, // SOC 3572: Careers advisers and vocational guidance specialists
     category: 'Education & Training',
     title: 'Career Advisor',
     supportTags: [
@@ -3735,6 +3785,7 @@ const rawDemoCareers = [
   },
   {
     id: 61,
+    employmentPercentage: 1.7625, // SOC 2134: Programmers and software development professionals (no distinct DevOps SOC code)
     category: 'Technology & Digital',
     title: 'DevOps Engineer',
     supportTags: [
@@ -3800,6 +3851,7 @@ const rawDemoCareers = [
   },
   {
     id: 62,
+    employmentPercentage: 0.175, // SOC 3133: Database administrators and web content technicians
     category: 'Technology & Digital',
     title: 'Database Administrator',
     supportTags: [
@@ -3864,6 +3916,7 @@ const rawDemoCareers = [
   },
   {
     id: 63,
+    employmentPercentage: 1.7625, // SOC 2134: Programmers and software development professionals (no distinct blockchain SOC code)
     category: 'Technology & Digital',
     title: 'Blockchain Developer',
     supportTags: [
@@ -3927,6 +3980,7 @@ const rawDemoCareers = [
   },
   {
     id: 64,
+    employmentPercentage: 0.2056, // SOC 2135: Cyber security professionals
     category: 'Technology & Digital',
     title: 'Ethical Hacker',
     supportTags: [
@@ -4003,6 +4057,7 @@ const rawDemoCareers = [
   },
   {
     id: 65,
+    employmentPercentage: 0.2056, // SOC 2135: Cyber security professionals
     category: 'Technology & Digital',
     title: 'Digital Forensics Investigator',
     supportTags: [
@@ -4078,6 +4133,7 @@ const rawDemoCareers = [
   },
   {
     id: 66,
+    employmentPercentage: 0.2056, // SOC 2135: Cyber security professionals
     category: 'Technology & Digital',
     title: 'Cloud Security Engineer',
     supportTags: [
@@ -4143,6 +4199,7 @@ const rawDemoCareers = [
   },
   {
     id: 67,
+    employmentPercentage: 1.7625, // SOC 2134: Programmers and software development professionals
     category: 'Technology & Digital',
     title: 'Site Reliability Engineer',
     supportTags: [
@@ -4208,6 +4265,7 @@ const rawDemoCareers = [
   },
   {
     id: 68,
+    employmentPercentage: 1.7625, // SOC 2134: Programmers and software development professionals
     category: 'Technology & Digital',
     title: 'Mobile App Developer',
     supportTags: [
@@ -4283,6 +4341,7 @@ const rawDemoCareers = [
   },
   {
     id: 69,
+    employmentPercentage: 0.6052, // SOC 2133: IT business analysts, architects and systems designers
     category: 'Technology & Digital',
     title: 'Systems Analyst',
     supportTags: [
@@ -4347,6 +4406,7 @@ const rawDemoCareers = [
   },
   {
     id: 70,
+    employmentPercentage: 0.292, // SOC 3412: Authors, writers and translators
     category: 'Technology & Digital',
     title: 'Technical Writer',
     supportTags: [
@@ -4411,6 +4471,7 @@ const rawDemoCareers = [
   },
   {
     id: 71,
+    employmentPercentage: 0.1231, // SOC 4152: Data entry administrators
     category: 'Business & Finance',
     title: 'Data Entry Clerk',
     supportTags: [
@@ -4475,6 +4536,7 @@ const rawDemoCareers = [
   },
   {
     id: 72,
+    employmentPercentage: 0.4358, // SOC 4215: Personal assistants and other secretaries
     category: 'Business & Finance',
     title: 'Virtual Assistant',
     supportTags: [
@@ -4537,6 +4599,7 @@ const rawDemoCareers = [
   },
   {
     id: 73,
+    employmentPercentage: 2.4954, // SOC 6135: Care workers and home carers
     category: 'Healthcare & Medicine',
     title: 'Care Assistant',
     supportTags: [
@@ -4597,6 +4660,7 @@ const rawDemoCareers = [
   },
   {
     id: 74,
+    employmentPercentage: 1.2388, // SOC 4122: Book-keepers, payroll managers and wages clerks
     category: 'Business & Finance',
     title: 'Bookkeeper',
     supportTags: [
@@ -4661,6 +4725,7 @@ const rawDemoCareers = [
   },
   {
     id: 75,
+    employmentPercentage: 0.3227, // SOC 7211: Call and contact centre occupations
     category: 'Business & Finance',
     title: 'Customer Service Advisor',
     supportTags: [
@@ -4725,6 +4790,7 @@ const rawDemoCareers = [
   },
   {
     id: 76,
+    employmentPercentage: 0.292, // SOC 3412: Authors, writers and translators
     category: 'Creative & Media',
     title: 'Content Writer',
     supportTags: [
@@ -4788,6 +4854,7 @@ const rawDemoCareers = [
   },
   {
     id: 77,
+    employmentPercentage: 1.2206, // SOC 9263: Kitchen and catering assistants
     category: 'Service & Hospitality',
     title: 'Hospitality Worker',
     supportTags: [
@@ -4881,6 +4948,7 @@ const rawDemoCareers = [
   },
   {
     id: 79,
+    employmentPercentage: 0.3969, // SOC 6221: Hairdressers and barbers
     category: 'Service & Hospitality',
     title: 'Salon Worker',
     supportTags: [
@@ -4948,6 +5016,7 @@ const rawDemoCareers = [
   },
   {
     id: 82,
+    employmentPercentage: 0.4409, // estimated from SOC 61xx group average: Animal care worker not in this dataset - Caring personal services (SOC 61xx) average
     category: 'Agriculture & Animal Care',
     title: 'Animal Care Worker',
     supportTags: [
@@ -5026,6 +5095,7 @@ const rawDemoCareers = [
   },
   {
     id: 83,
+    employmentPercentage: 0.258, // SOC 5111: Farmers
     category: 'Agriculture & Animal Care',
     title: 'Farmer / Agricultural Worker',
     supportTags: [
@@ -5088,6 +5158,7 @@ const rawDemoCareers = [
   },
   {
     id: 84,
+    employmentPercentage: 0.4637, // SOC 5113: Gardeners and landscape gardeners
     category: 'Agriculture & Animal Care',
     title: 'Horticulturist',
     supportTags: [
@@ -5150,6 +5221,7 @@ const rawDemoCareers = [
   },
   {
     id: 85,
+    employmentPercentage: 0.0765, // SOC 3240: Veterinary nurses
     category: 'Agriculture & Animal Care',
     title: 'Veterinary Nurse',
     supportTags: [
@@ -5223,6 +5295,7 @@ const rawDemoCareers = [
   },
   {
     id: 86,
+    employmentPercentage: 0.6481, // SOC 5434: Chefs
     category: 'Service & Hospitality',
     title: 'Chef',
     supportTags: [
@@ -5295,6 +5368,7 @@ const rawDemoCareers = [
   },
   {
     id: 87,
+    employmentPercentage: 0.2053, // SOC 3557: Events managers and organisers
     category: 'Service & Hospitality',
     title: 'Event Manager',
     supportTags: [
@@ -5358,6 +5432,7 @@ const rawDemoCareers = [
   },
   {
     id: 88,
+    employmentPercentage: 0.3168, // SOC 3432: Sports coaches, instructors and officials
     category: 'Sport & Leisure',
     title: 'Sports Coach / Personal Trainer',
     supportTags: [
@@ -5439,6 +5514,7 @@ const rawDemoCareers = [
   },
   {
     id: 89,
+    employmentPercentage: 0.2396, // estimated from SOC 53xx group average: Generic construction trades - Skilled construction trades (SOC 53xx) average
     category: 'Construction & Trades',
     title: 'Construction Trades Worker',
     supportTags: [
@@ -5515,6 +5591,7 @@ const rawDemoCareers = [
   },
   {
     id: 90,
+    employmentPercentage: 0.5846, // SOC 3312: Police officers (sergeant and below)
     category: 'Public Services',
     title: 'Police & Public Services Officer',
     supportTags: [
@@ -5603,6 +5680,7 @@ const rawDemoCareers = [
   },
   {
     id: 91,
+    employmentPercentage: 0.2228, // SOC 2162: Other researchers, unspecified discipline
     category: 'Science & Research',
     title: 'Science Researcher',
     supportTags: [
@@ -5689,6 +5767,7 @@ const rawDemoCareers = [
   },
   {
     id: 92,
+    employmentPercentage: 0.6084, // SOC 2412: Solicitors and lawyers
     category: 'Business & Finance',
     title: 'Legal Advisor',
     supportTags: [
@@ -5768,6 +5847,7 @@ const rawDemoCareers = [
   },
   {
     id: 93,
+    employmentPercentage: 0.2776, // estimated from SOC 21xx group average: Renewable energy engineer not in this dataset - Science/Engineering professionals (SOC 21xx) average
     category: 'Engineering & Manufacturing',
     title: 'Renewable Energy Engineer',
     salary: '£32k - £58k',
@@ -5832,6 +5912,7 @@ const rawDemoCareers = [
   },
   {
     id: 94,
+    employmentPercentage: 0.9318, // SOC 1150: Managers and directors in retail and wholesale
     category: 'Service & Hospitality',
     title: 'Retail Manager',
     salary: '£24k - £40k',
@@ -5895,6 +5976,7 @@ const rawDemoCareers = [
   },
   {
     id: 95,
+    employmentPercentage: 0.3112, // estimated from SOC 41xx group average: Generic administrative assistant not in this dataset - Administrative occupations (SOC 41xx) average
     category: 'Business & Finance',
     title: 'Administrative Assistant',
     salary: '£19k - £28k',
@@ -5957,6 +6039,7 @@ const rawDemoCareers = [
   },
   {
     id: 96,
+    employmentPercentage: 0.1645, // SOC 2492: Newspaper and periodical broadcast journalists and reporters
     category: 'Creative & Media',
     title: 'Print Journalist',
     salary: '£20k - £38k',
@@ -6020,6 +6103,7 @@ const rawDemoCareers = [
   },
   {
     id: 97,
+    employmentPercentage: 0.3237, // SOC 1111: Chief executives and senior officials
     category: 'Business & Finance',
     title: 'Chief Executive / Senior Official',
     salary: '£100k - £200k+',
@@ -6077,6 +6161,7 @@ const rawDemoCareers = [
   },
   {
     id: 98,
+    employmentPercentage: 0.7331, // SOC 1132: Marketing, sales and advertising directors
     category: 'Business & Finance',
     title: 'Marketing, Sales & Advertising Director',
     salary: '£94k - £180k+',
@@ -6132,6 +6217,7 @@ const rawDemoCareers = [
   },
   {
     id: 99,
+    employmentPercentage: 0.4298, // SOC 1137: Information technology directors
     category: 'Technology & Digital',
     title: 'IT Director / CIO',
     salary: '£92k - £160k+',
@@ -6188,6 +6274,7 @@ const rawDemoCareers = [
   },
   {
     id: 100,
+    employmentPercentage: 0.4794, // SOC 2212: Specialist medical practitioners
     category: 'Healthcare & Medicine',
     title: 'Specialist Medical Practitioner (Consultant Doctor)',
     salary: '£93k - £169k',
@@ -6255,6 +6342,7 @@ const rawDemoCareers = [
   },
   {
     id: 101,
+    employmentPercentage: 0.0983, // SOC 3511: Aircraft pilots and air traffic controllers
     category: 'Engineering & Manufacturing',
     title: 'Aircraft Pilot / Air Traffic Controller',
     salary: '£83k - £150k+',
@@ -6308,6 +6396,7 @@ const rawDemoCareers = [
   },
   {
     id: 102,
+    employmentPercentage: 1.2402, // SOC 1131: Financial managers and directors
     category: 'Business & Finance',
     title: 'Financial Manager / Director',
     salary: '£76k - £150k+',
@@ -6364,6 +6453,7 @@ const rawDemoCareers = [
   },
   {
     id: 103,
+    employmentPercentage: 0.0977, // SOC 8231: Train and tram drivers
     category: 'Public Services',
     title: 'Train / Tram Driver',
     salary: '£76k - £90k+',
@@ -6415,6 +6505,7 @@ const rawDemoCareers = [
   },
   {
     id: 104,
+    employmentPercentage: 0.1296, // SOC 1133: Public relations and communications directors
     category: 'Business & Finance',
     title: 'PR / Communications Director',
     salary: '£73k - £130k+',
@@ -6468,6 +6559,7 @@ const rawDemoCareers = [
   },
   {
     id: 105,
+    employmentPercentage: 0.1371, // SOC 2321: Head teachers and principals
     category: 'Education & Training',
     title: 'Head Teacher / Principal',
     salary: '£72k - £120k+',
@@ -6522,6 +6614,7 @@ const rawDemoCareers = [
   },
   {
     id: 106,
+    employmentPercentage: 0.0502, // SOC 1162: Senior police officers
     category: 'Public Services',
     title: 'Senior Police Officer (Chief Inspector+)',
     salary: '£67k - £100k+',
@@ -6573,6 +6666,7 @@ const rawDemoCareers = [
   },
   {
     id: 107,
+    employmentPercentage: 0.0362, // SOC 1123: Production managers and directors in mining and energy
     category: 'Engineering & Manufacturing',
     title: 'Energy / Mining Production Director',
     salary: '£63k - £120k+',
@@ -6626,6 +6720,7 @@ const rawDemoCareers = [
   },
   {
     id: 108,
+    employmentPercentage: 0.2292, // SOC 1171: Health services and public health managers and directors
     category: 'Healthcare & Medicine',
     title: 'NHS / Public Health Manager',
     salary: '£62k - £110k+',
@@ -6679,6 +6774,7 @@ const rawDemoCareers = [
   },
   {
     id: 109,
+    employmentPercentage: 0.2627, // SOC 2131: IT project managers
     category: 'Technology & Digital',
     title: 'IT Project Manager',
     salary: '£58k - £90k+',
@@ -6744,6 +6840,7 @@ const rawDemoCareers = [
   },
   {
     id: 110,
+    employmentPercentage: 0.6084, // SOC 2412: Solicitors and lawyers
     category: 'Public Services',
     title: 'Solicitor / Lawyer',
     salary: '£57k - £130k+',
@@ -6798,6 +6895,7 @@ const rawDemoCareers = [
   },
   {
     id: 111,
+    employmentPercentage: 0.1989, // SOC 3531: Brokers
     category: 'Business & Finance',
     title: 'Stockbroker / Financial Broker',
     salary: '£57k - £150k+',
@@ -6851,6 +6949,7 @@ const rawDemoCareers = [
   },
   {
     id: 112,
+    employmentPercentage: 0.2135, // SOC 2433: Actuaries, economists and statisticians
     category: 'Business & Finance',
     title: 'Actuary',
     salary: '£53k - £120k+',
@@ -6904,6 +7003,7 @@ const rawDemoCareers = [
   },
   {
     id: 113,
+    employmentPercentage: 0.2709, // SOC 2455: Construction project managers and related professionals
     category: 'Construction & Trades',
     title: 'Construction Project Manager',
     salary: '£48k - £85k+',
@@ -6968,6 +7068,7 @@ const rawDemoCareers = [
   },
   {
     id: 114,
+    employmentPercentage: 1.7625, // SOC 2134: Programmers and software development professionals
     category: 'Technology & Digital',
     title: 'Quantitative Developer',
     salary: '£90k - £250k+',
@@ -7023,6 +7124,7 @@ const rawDemoCareers = [
   },
   {
     id: 115,
+    employmentPercentage: 0.2056, // SOC 2135: Cyber security professionals
     category: 'Technology & Digital',
     title: 'Cybersecurity Manager / CISO',
     salary: '£72k - £180k+',
@@ -7088,6 +7190,7 @@ const rawDemoCareers = [
   },
   {
     id: 116,
+    employmentPercentage: 0.7486, // SOC 2132: IT managers
     category: 'Technology & Digital',
     title: 'Software Engineering Manager',
     salary: '£75k - £160k+',
@@ -7142,6 +7245,7 @@ const rawDemoCareers = [
   },
   {
     id: 117,
+    employmentPercentage: 0.4794, // SOC 2212: Specialist medical practitioners
     category: 'Healthcare & Medicine',
     title: 'Plastic Surgeon',
     salary: '£97k - £200k+',
@@ -7198,6 +7302,7 @@ const rawDemoCareers = [
   },
   {
     id: 118,
+    employmentPercentage: 0.1037, // SOC 2253: Dental practitioners
     category: 'Healthcare & Medicine',
     title: 'Orthodontist',
     salary: '£100k - £180k+',
@@ -7249,6 +7354,7 @@ const rawDemoCareers = [
   },
   {
     id: 119,
+    employmentPercentage: 0.4794, // SOC 2212: Specialist medical practitioners
     category: 'Healthcare & Medicine',
     title: 'Ophthalmologist',
     salary: '£107k - £200k+',
@@ -7305,6 +7411,7 @@ const rawDemoCareers = [
   },
   {
     id: 120,
+    employmentPercentage: 0.4794, // SOC 2212: Specialist medical practitioners
     category: 'Healthcare & Medicine',
     title: 'Anaesthetist',
     salary: '£98k - £180k+',
@@ -7361,6 +7468,7 @@ const rawDemoCareers = [
   },
   {
     id: 121,
+    employmentPercentage: 0.7331, // SOC 1132: Marketing, sales and advertising directors
     category: 'Business & Finance',
     title: 'VP of Sales',
     salary: '£116k - £250k+',
@@ -7413,6 +7521,7 @@ const rawDemoCareers = [
   },
   {
     id: 122,
+    employmentPercentage: 1.2402, // SOC 1131: Financial managers and directors
     category: 'Business & Finance',
     title: 'Chief Financial Officer (CFO)',
     salary: '£112k - £350k+',
@@ -7468,6 +7577,7 @@ const rawDemoCareers = [
   },
   {
     id: 123,
+    employmentPercentage: 0.1531, // SOC 2423: Taxation experts
     category: 'Business & Finance',
     title: 'Tax Director',
     salary: '£94k - £180k+',
@@ -7521,6 +7631,7 @@ const rawDemoCareers = [
   },
   {
     id: 124,
+    employmentPercentage: 0.1268, // SOC 2127: Engineering project managers and project engineers
     category: 'Technology & Digital',
     title: 'Director of Engineering',
     salary: '£91k - £160k+',

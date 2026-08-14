@@ -1,0 +1,104 @@
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import { TIERS, type TierKey } from '../utils/careerTiers'
+import type { RollContext } from '../utils/rollEngine'
+
+// Same pure-localStorage pattern as useCareerBoardStore.ts / useCompareStore.ts.
+// The Recent Rolls list and the pity system (soft/hard guaranteed rolls)
+// have been removed - this store now only keeps `lastRolledCareerId`
+// (needed so rollEngine.ts can still avoid repeating the same career twice
+// in a row - that's part of the weighted-random logic itself, not a
+// "history" feature) plus lifetime tallies for the stats panel and the
+// first-visit tutorial flag.
+interface RollState {
+  lastRolledCareerId: number | null
+  lifetimeTierCounts: Partial<Record<TierKey, number>>
+  lifetimeCareerCounts: Record<number, number>
+  lifetimeTotalRolls: number
+  bestTier: TierKey | null
+  hasSeenRollTutorial: boolean
+  getRollContext: () => RollContext
+  recordRoll: (careerId: number, tier: TierKey) => void
+  resetStats: () => void
+  dismissTutorial: () => void
+}
+
+function tierRank(tier: TierKey): number {
+  return TIERS.findIndex((t) => t.key === tier)
+}
+
+const initialState = {
+  lastRolledCareerId: null as number | null,
+  lifetimeTierCounts: {} as Partial<Record<TierKey, number>>,
+  lifetimeCareerCounts: {} as Record<number, number>,
+  lifetimeTotalRolls: 0,
+  bestTier: null as TierKey | null,
+  hasSeenRollTutorial: false,
+}
+
+export const useRollStore = create<RollState>()(
+  persist(
+    (set, get) => ({
+      ...initialState,
+
+      getRollContext: () => {
+        const state = get()
+        return {
+          lastCareerId: state.lastRolledCareerId,
+          lifetimeTierCounts: state.lifetimeTierCounts,
+          lifetimeTotalRolls: state.lifetimeTotalRolls,
+        }
+      },
+
+      recordRoll: (careerId, tier) => {
+        const state = get()
+        set({
+          lastRolledCareerId: careerId,
+          lifetimeTierCounts: {
+            ...state.lifetimeTierCounts,
+            [tier]: (state.lifetimeTierCounts[tier] ?? 0) + 1,
+          },
+          lifetimeCareerCounts: {
+            ...state.lifetimeCareerCounts,
+            [careerId]: (state.lifetimeCareerCounts[careerId] ?? 0) + 1,
+          },
+          lifetimeTotalRolls: state.lifetimeTotalRolls + 1,
+          bestTier: state.bestTier === null || tierRank(tier) > tierRank(state.bestTier) ? tier : state.bestTier,
+        })
+      },
+
+      resetStats: () =>
+        set({
+          lastRolledCareerId: null,
+          lifetimeTierCounts: {},
+          lifetimeCareerCounts: {},
+          lifetimeTotalRolls: 0,
+          bestTier: null,
+        }),
+
+      dismissTutorial: () => set({ hasSeenRollTutorial: true }),
+    }),
+    {
+      name: 'pathscrawler-roll',
+      // Bumped because the persisted shape changed (rollHistory and the
+      // pity counters - rollsSinceEpicPlus/rollsSinceLegendaryPlus - were
+      // removed). Without an explicit migrate, zustand/persist would merge
+      // those stale fields from an old session's localStorage back onto
+      // the new state shape; this rebuilds state from only the fields
+      // that still exist, so old history/pity data is actually dropped
+      // rather than just unused.
+      version: 1,
+      migrate: (persisted) => {
+        const old = (persisted ?? {}) as Partial<RollState>
+        return {
+          ...initialState,
+          lifetimeTierCounts: old.lifetimeTierCounts ?? {},
+          lifetimeCareerCounts: old.lifetimeCareerCounts ?? {},
+          lifetimeTotalRolls: old.lifetimeTotalRolls ?? 0,
+          bestTier: old.bestTier ?? null,
+          hasSeenRollTutorial: old.hasSeenRollTutorial ?? false,
+        }
+      },
+    },
+  ),
+)

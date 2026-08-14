@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { FolderClock, GitCompare, LogIn, LogOut, Moon, Settings2, Sun, TrendingUp, X } from 'lucide-react'
+import { BookOpen, Dices, FolderClock, GitCompare, LogIn, LogOut, Settings2, TrendingUp, X } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useCompareStore } from './store/useCompareStore'
@@ -16,6 +16,11 @@ import JobMarketSpotlightPage from './pages/JobMarketSpotlightPage'
 import JobMarketStatisticsPage from './pages/JobMarketStatisticsPage'
 import JobMarketEasiestPage from './pages/JobMarketEasiestPage'
 import JobMarketHighestPayingPage from './pages/JobMarketHighestPayingPage'
+import JobMarketRollPage from './pages/JobMarketRollPage'
+import CareerSmasherEntryPage from './pages/CareerSmasherEntryPage'
+import CareerSmasherTreePage from './pages/CareerSmasherTreePage'
+import MyBinderPage from './pages/MyBinderPage'
+import BinderComparePage from './pages/BinderComparePage'
 import LoadingPage from './pages/LoadingPage'
 import QuickAssessmentPage from './pages/QuickAssessmentPage'
 import RoleSelectionPage from './pages/RoleSelectionPage'
@@ -41,6 +46,7 @@ import BacktrackPathwayOptionsPage from './pages/BacktrackPathwayOptionsPage'
 import BacktrackSubjectSelectionPage from './pages/BacktrackSubjectSelectionPage'
 import MobileContainer from './components/MobileContainer'
 import Logo from './components/Logo'
+import NavGlowOrbs from './components/NavGlowOrbs'
 
 function App() {
   const location = useLocation()
@@ -50,10 +56,27 @@ function App() {
   const reset = usePathStore((state) => state.reset)
   const currentUser = useAuthStore((state) => state.currentUser)
   const signOut = useAuthStore((state) => state.signOut)
-  const compareCount = useCompareStore((state) => state.careerIds.length)
-  const appClassName = `min-h-screen transition-colors duration-300 ${accessibilitySettings.darkMode ? 'bg-background-dark text-slate-100' : 'bg-background text-slate-900'}`
-  const toggleDarkMode = () =>
-    setAccessibilitySettings({ ...accessibilitySettings, darkMode: !accessibilitySettings.darkMode })
+  const compareCount = useCompareStore((state) => state.selectedCompareCards.length)
+  const compareSelectionMode = useCompareStore((state) => state.compareSelectionMode)
+  const compareSourcePage = useCompareStore((state) => state.compareSourcePage)
+  const exitCompareSelectionMode = useCompareStore((state) => state.exitCompareSelectionMode)
+  // Roll a Job is its own top-level nav pill now (see below), promoted out
+  // of the Job Market hub - so it needs to be excluded from Job Market's
+  // own "am I active" check, or both pills would light up at once while on
+  // /job-market/roll.
+  const isRollActive = location.pathname === '/job-market/roll'
+  const isJobMarketActive = location.pathname.startsWith('/job-market') && !isRollActive
+  // isRollActive forces the dark look here too, not just accessibilitySettings.darkMode -
+  // Roll a Job is a fixed "game mode" dark page (JobMarketRollPage.tsx)
+  // regardless of the site's own toggle. Without this, the app SHELL (this
+  // outermost div, which every route including the header/back-button row
+  // sits on top of) stayed whatever the toggle said - so with the toggle
+  // off, a light strip showed through behind the header/back button above
+  // the page's own dark full-bleed section, even though that section's
+  // dark: utilities were already correctly forced via the header's own
+  // dark-mode scoping below. Confirmed via a real rendered screenshot, not
+  // eyeballed - this is what that gap turned out to be.
+  const appClassName = `min-h-screen transition-colors duration-300 ${accessibilitySettings.darkMode || isRollActive ? 'bg-background-dark text-slate-100' : 'bg-background text-slate-900'}`
   const isHome = location.pathname === '/'
   const isFullBleed = isHome
   const [showAccountMenu, setShowAccountMenu] = useState(false)
@@ -70,6 +93,25 @@ function App() {
     setShowAccountMenu(false)
   }, [location.pathname])
 
+  // Selection mode is meant to end when you actually finish with it
+  // (Cancel, or leaving /compare - see CompareButton/ComparePage), not the
+  // instant you navigate anywhere at all - the whole point is surviving the
+  // hop from a results page to /compare. But wandering off to some
+  // unrelated page mid-selection (clicking a header nav link, the logo,
+  // browser back past both pages, ...) should still clean it up rather than
+  // leaving gray/circled cards armed in memory for whenever that results
+  // page is next visited. "Unrelated" here is just: neither the page that
+  // started selection mode, nor /compare itself.
+  useEffect(() => {
+    if (!compareSelectionMode) return
+    // compareSourcePage is pathname+search (see CompareButton) - a page
+    // like /search identifies "where I was" by its query string too, not
+    // just the route.
+    const currentFullPath = location.pathname + location.search
+    const onAllowedRoute = currentFullPath === compareSourcePage || location.pathname === '/compare'
+    if (!onAllowedRoute) exitCompareSelectionMode()
+  }, [location.pathname, location.search, compareSelectionMode, compareSourcePage, exitCompareSelectionMode])
+
   useEffect(() => {
     const html = document.documentElement
     html.classList.toggle('reduce-motion', accessibilitySettings.reduceMotion)
@@ -84,9 +126,24 @@ function App() {
 
   return (
     <div className={appClassName}>
-      <MobileContainer fullBleed={isFullBleed}>
+      <MobileContainer fullBleed={isFullBleed} forceDarkBg={isRollActive}>
         {!isFullBleed ? (
-          <div className="flex items-center justify-between gap-3 px-4 pt-3 sm:px-6">
+          // dark-mode: Roll a Job is a fixed "game mode" dark page now
+          // (JobMarketRollPage.tsx), regardless of the site's own light/dark
+          // toggle - the header needs to visually match that dark backdrop
+          // whenever it's showing, not just when the user has actually
+          // toggled dark mode. Adding the class here (rather than actually
+          // flipping accessibilitySettings.darkMode) reuses every dark:
+          // utility already written throughout the header for free, via
+          // Tailwind's own `.dark-mode <descendant>` selector strategy - it
+          // does NOT touch the user's real persisted preference, so leaving
+          // this page puts the header right back to whatever they'd actually
+          // chosen. (It only covers genuine `dark:` utility classes, not
+          // this file's separate hand-rolled `html.dark-mode .bg-white`-
+          // style overrides elsewhere in index.css, which specifically
+          // require the real <html> element - the header doesn't lean on
+          // those, so that's not a gap in practice.)
+          <div className={`flex items-center justify-between gap-3 px-4 pt-3 sm:px-6 ${isRollActive ? 'dark-mode' : ''}`}>
             <button
               type="button"
               onClick={() => {
@@ -97,45 +154,118 @@ function App() {
               className="shrink-0 rounded-lg transition hover:opacity-80"
             >
               {/* Full lockup by default (desktop and tablet both keep the
-                  wordmark) - icon-only only kicks in below 380px, a true
-                  last resort for phones too narrow to fit "PathScrawler"
-                  next to the nav cluster on the right. Rendering both and
-                  toggling with CSS (rather than one Logo with a
-                  media-query-driven prop) means this collapse is scoped to
-                  the header specifically - the hero and auth-page logos
-                  always show the full wordmark regardless of viewport. */}
-              <span className="hidden max-[380px]:inline-flex">
+                  wordmark) - icon-only kicks in below 480px, a true last
+                  resort for phones too narrow to fit "PathScrawler" next to
+                  the nav cluster on the right. That cutoff was 380px before
+                  Roll a Job joined Job Market as a second persistent pill in
+                  the cluster (see below) - confirmed via a real rendered
+                  overflow at common ~390px phone widths with the old
+                  threshold, now covers that plus the next size up (412-428px
+                  phones) with margin. Rendering both and toggling with CSS
+                  (rather than one Logo with a media-query-driven prop) means
+                  this collapse is scoped to the header specifically - the
+                  hero and auth-page logos always show the full wordmark
+                  regardless of viewport. */}
+              <span className="hidden max-[480px]:inline-flex">
                 <Logo showText={false} />
               </span>
-              <span className="inline-flex max-[380px]:hidden">
+              <span className="inline-flex max-[480px]:hidden">
                 <Logo />
               </span>
             </button>
 
-            <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            {/* gap-1.5 up through the sm breakpoint, then md: for both the
+                gap and every pill's own icon-only -> icon+text expansion
+                below - deferred from sm (640px) to md (768px) across this
+                whole cluster once Roll a Job joined Job Market as a second
+                persistent text pill: at sm, Job Market + Roll a Job + Sign in
+                all expanding to full text plus two icon circles genuinely
+                overflowed a 640-767px header (confirmed via a real rendered
+                scrollWidth check). Icon-only through that tablet-ish range
+                and text from md on keeps every pill in this row switching in
+                lockstep - one flipping to text while its neighbor stays
+                icon-only would look broken mid-transition even if it
+                technically fit. flex-wrap + justify-end on top of that is a
+                safety net, not the primary fix: the rare compound state of
+                signed-in AND an active Compare pill AND a ~700-830px width
+                still doesn't fit even icon-only-until-md (confirmed via a
+                real rendered scrollWidth check) - rather than keep chasing
+                one more exact pixel threshold for today's exact button
+                count, letting the cluster drop to a right-aligned second row
+                if it ever runs out of room means a future added item can't
+                silently push something off-screen again the way Roll a Job
+                just did. flex-1 + min-w-0 (not shrink-0) is what actually
+                makes that wrap trigger - shrink-0 alone left this div free
+                to grow to its full unwrapped content width and push past
+                the viewport instead of ever being constrained enough to
+                wrap; flex-1 hands it "whatever space the logo didn't take"
+                as a real max-width, and min-w-0 overrides a flex item's
+                default min-width:auto (which would otherwise refuse to
+                shrink below its content's natural width regardless). */}
+            <div className="flex min-w-0 flex-1 flex-wrap items-center justify-end gap-1.5 md:gap-3">
             {compareCount > 0 ? (
               <button
                 type="button"
                 onClick={() => navigate('/compare')}
-                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-soft/40 px-4 py-2 text-sm font-semibold text-primary-dark shadow-sm transition hover:bg-primary-soft/70 dark:border-primary/50 dark:bg-primary/10 dark:text-primary-light dark:hover:bg-primary/20"
+                title={`Compare (${compareCount})`}
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-full border border-primary/30 bg-primary-soft/40 text-sm font-semibold text-primary-dark shadow-sm transition hover:bg-primary-soft/70 dark:border-primary/50 dark:bg-primary/10 dark:text-primary-light dark:hover:bg-primary/20 md:h-auto md:w-auto md:px-4 md:py-2"
               >
-                <GitCompare className="h-4 w-4" />
-                Compare ({compareCount})
+                <GitCompare className="h-4 w-4 shrink-0" />
+                <span className="md:hidden">{compareCount}</span>
+                <span className="hidden md:inline">Compare ({compareCount})</span>
               </button>
             ) : null}
+            {/* nav-glow-btn: the "pop" treatment (index.css) - a radial-
+                gradient fill plus 12 small blurred color circles drifting
+                behind the label, teal/indigo/purple themed to match the
+                Roll button's own gradient rather than the yellow it started
+                as. border-2 (not ring, which would fight the class's own
+                literal box-shadow on the same CSS property) is the active-
+                page indicator now, replacing the old solid-vs-outline swap
+                that this glow background replaced. */}
             <button
               type="button"
               onClick={() => navigate('/job-market')}
-              aria-current={location.pathname.startsWith('/job-market') ? 'page' : undefined}
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold shadow-sm transition ${
-                location.pathname.startsWith('/job-market')
-                  ? 'border-primary bg-primary text-white hover:bg-primary-dark'
-                  : 'border-primary/30 bg-primary-soft/40 text-primary-dark hover:bg-primary-soft/70 dark:border-primary/50 dark:bg-primary/10 dark:text-primary-light dark:hover:bg-primary/20'
+              aria-current={isJobMarketActive ? 'page' : undefined}
+              title="Job Market"
+              className={`nav-glow-btn inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold text-white transition md:h-auto md:w-auto ${
+                isJobMarketActive ? 'border-white/90' : 'border-transparent'
               }`}
             >
-              <TrendingUp className="h-4 w-4" />
-              Job Market
+              <div className="glow-wrapper flex items-center justify-center gap-2 px-0 py-0 md:px-4 md:py-2">
+                <span className="relative z-10 flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 shrink-0" />
+                  <span className="hidden md:inline">Job Market</span>
+                </span>
+                <NavGlowOrbs />
+              </div>
             </button>
+            {/* Top-level nav item, same pill language as Job Market right
+                above - promoted out of the Job Market hub (JobMarketPage.tsx)
+                since it's popular/fun enough to deserve one-click access from
+                anywhere, not a click-deep hub tile. /job-market/roll itself
+                didn't move, just how you get to it. */}
+            <button
+              type="button"
+              onClick={() => navigate('/job-market/roll')}
+              aria-current={isRollActive ? 'page' : undefined}
+              title="Roll a Job"
+              className={`nav-glow-btn inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold text-white transition md:h-auto md:w-auto ${
+                isRollActive ? 'border-white/90' : 'border-transparent'
+              }`}
+            >
+              <div className="glow-wrapper flex items-center justify-center gap-2 px-0 py-0 md:px-4 md:py-2">
+                <span className="relative z-10 flex items-center gap-2">
+                  <Dices className="h-4 w-4 shrink-0" />
+                  <span className="hidden md:inline">Roll a Job</span>
+                </span>
+                <NavGlowOrbs />
+              </div>
+            </button>
+            {/* "My Binder" moved out of the public nav (see the account
+                dropdown below) - the Binder is account-gated now, so it no
+                longer belongs next to Job Market where anyone, signed in or
+                not, could reach it. */}
             {currentUser ? (
               <div className="relative">
                 <button
@@ -155,6 +285,18 @@ function App() {
                       <p className="truncate px-3 py-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
                         {currentUser.email}
                       </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigate('/binder')
+                          setShowAccountMenu(false)
+                        }}
+                        aria-current={location.pathname === '/binder' ? 'page' : undefined}
+                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-700"
+                      >
+                        <BookOpen className="h-4 w-4" />
+                        My Binder
+                      </button>
                       <button
                         type="button"
                         onClick={() => {
@@ -185,20 +327,18 @@ function App() {
               <button
                 type="button"
                 onClick={() => navigate('/login')}
-                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-primary-light dark:ring-slate-700"
+                title="Sign in"
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-full bg-white text-sm font-semibold text-primary ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-primary-light dark:ring-slate-700 md:h-auto md:w-auto md:px-4 md:py-2"
               >
-                <LogIn className="h-4 w-4" />
-                Sign in
+                <LogIn className="h-4 w-4 shrink-0" />
+                <span className="hidden md:inline">Sign in</span>
               </button>
             )}
-            <button
-              type="button"
-              onClick={toggleDarkMode}
-              aria-label={accessibilitySettings.darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-primary-light dark:ring-slate-700 dark:hover:bg-slate-700"
-            >
-              {accessibilitySettings.darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </button>
+            {/* Dark mode toggle is inside the accessibility panel this opens
+                (AccessibilitySettingsPanel.tsx already has a Dark mode tile
+                among its other toggles) - no longer a separate standalone
+                icon here too, since that was two controls doing the same
+                job. */}
             <button
               type="button"
               onClick={() => setShowAccessibility(true)}
@@ -260,6 +400,11 @@ function App() {
           <Route path="/job-market/statistics" element={<JobMarketStatisticsPage />} />
           <Route path="/job-market/easiest" element={<JobMarketEasiestPage />} />
           <Route path="/job-market/highest-paying" element={<JobMarketHighestPayingPage />} />
+          <Route path="/job-market/roll" element={<JobMarketRollPage />} />
+          <Route path="/career-smasher" element={<CareerSmasherEntryPage />} />
+          <Route path="/career-smasher/:id" element={<CareerSmasherTreePage />} />
+          <Route path="/binder" element={<MyBinderPage />} />
+          <Route path="/binder/compare" element={<BinderComparePage />} />
         </Routes>
       </MobileContainer>
     </div>

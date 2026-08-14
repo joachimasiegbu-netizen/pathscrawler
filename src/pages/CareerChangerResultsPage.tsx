@@ -1,14 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowRight, Bookmark, BookmarkCheck, Compass } from 'lucide-react'
+import { Bookmark, BookmarkCheck, Compass } from 'lucide-react'
 import { usePathStore } from '../store/usePathStore'
 import { useCareerBoardStore } from '../store/useCareerBoardStore'
 import { currentRoles, currentJobSkills } from '../data/careerChangerData'
 import demoCareers2 from '../data/demoCareers2'
 import type { Career2 } from '../data/demoCareers2'
 import BackButton from '../components/BackButton'
+import CompareButton from '../components/CompareButton'
+import CompareFloatingButton from '../components/CompareFloatingButton'
 import EmptyState from '../components/EmptyState'
 import PageHeader from '../components/PageHeader'
+import SelectableCareerCard from '../components/SelectableCareerCard'
 import SkeletonCard from '../components/SkeletonCard'
 import StaggerGrid from '../components/StaggerGrid'
 
@@ -211,6 +214,7 @@ export default function CareerChangerResultsPage() {
           title="Alternate careers for you"
           subtitle={`${matchedAlternates.length} careers matched to your background as a ${displayTitle ?? 'career changer'}.`}
         />
+        {!isCalculating && matchedAlternates.length > 0 ? <CompareButton disabled={matchedAlternates.length < 2} /> : null}
       </div>
 
       {isCalculating ? (
@@ -232,9 +236,12 @@ export default function CareerChangerResultsPage() {
           {matchedAlternates.map(({ career, sharedSkills }) => {
             const saved = savedCareerIds.includes(career.id)
             return (
-              <div
+              <SelectableCareerCard
                 key={career.id}
-                className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-slate-700 dark:bg-slate-800"
+                careerId={career.id}
+                onClick={() => navigate(`/career/${career.id}`)}
+                ariaLabel={`${career.title}, view career details`}
+                className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg active:scale-[0.98] dark:border-slate-700 dark:bg-slate-800 dark:hover:border-primary-light/40"
               >
                 <div className="flex-1">
                   <div className="flex items-start justify-between gap-3">
@@ -274,14 +281,10 @@ export default function CareerChangerResultsPage() {
                 <div className="mt-5 flex gap-2">
                   <button
                     type="button"
-                    onClick={() => navigate(`/career/${career.id}`)}
-                    className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-gray-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-700 sm:text-sm"
-                  >
-                    Explore career <ArrowRight className="h-3.5 w-3.5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => toggleSavedCareer(career.id)}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      toggleSavedCareer(career.id)
+                    }}
                     aria-pressed={saved}
                     className={`inline-flex flex-1 items-center justify-center gap-1.5 rounded-2xl border px-3 py-2 text-xs font-semibold transition-all duration-200 sm:text-sm ${
                       saved
@@ -293,11 +296,13 @@ export default function CareerChangerResultsPage() {
                     {saved ? 'Saved' : 'Save to binder'}
                   </button>
                 </div>
-              </div>
+              </SelectableCareerCard>
             )
           })}
         </StaggerGrid>
       )}
+
+      <CompareFloatingButton />
     </div>
   )
 }

@@ -44,6 +44,21 @@ function writeAccounts(accounts: StoredAccount[]) {
   localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts))
 }
 
+// DEV CONVENIENCE ONLY - seeds a fixed devuser/devword account into this
+// browser's mock account list the first time the app loads, so it's always
+// available at /login without going through Sign Up first. Gated on
+// import.meta.env.DEV, which Vite statically replaces with `false` in
+// production builds - this whole block (and the known credential) is dead
+// code and gets tree-shaken out of what actually ships/deploys. Idempotent:
+// only inserts the account if it isn't already there, so it survives across
+// dev-server restarts without duplicating or resetting it.
+if (import.meta.env.DEV) {
+  const accounts = readAccounts()
+  if (!accounts.some((account) => account.email === 'devuser')) {
+    writeAccounts([...accounts, { id: 'dev-account', email: 'devuser', passwordHash: hashPassword('devword') }])
+  }
+}
+
 interface AuthResult {
   success: boolean
   error?: string
@@ -51,6 +66,12 @@ interface AuthResult {
 
 interface AuthState {
   currentUser: MockUser | null
+  // Mirrors `currentUser !== null` as an explicit field (rather than making
+  // callers repeat that null-check everywhere) - kept in lockstep with
+  // currentUser in every action below, never set independently.
+  isAuthenticated: boolean
+  /** Alias for currentUser - some call sites (e.g. binder gating) read this name. */
+  user: MockUser | null
   signUp: (email: string, password: string) => AuthResult
   signIn: (email: string, password: string) => AuthResult
   signOut: () => void
@@ -60,6 +81,8 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       currentUser: null,
+      isAuthenticated: false,
+      user: null,
       signUp: (email, password) => {
         const normalizedEmail = email.trim().toLowerCase()
         if (!normalizedEmail || !password) {
@@ -75,7 +98,7 @@ export const useAuthStore = create<AuthState>()(
         const user: MockUser = { id: crypto.randomUUID(), email: normalizedEmail }
         accounts.push({ ...user, passwordHash: hashPassword(password) })
         writeAccounts(accounts)
-        set({ currentUser: user })
+        set({ currentUser: user, user, isAuthenticated: true })
         return { success: true }
       },
       signIn: (email, password) => {
@@ -85,10 +108,11 @@ export const useAuthStore = create<AuthState>()(
         if (!account || account.passwordHash !== hashPassword(password)) {
           return { success: false, error: 'Incorrect email or password.' }
         }
-        set({ currentUser: { id: account.id, email: account.email } })
+        const user: MockUser = { id: account.id, email: account.email }
+        set({ currentUser: user, user, isAuthenticated: true })
         return { success: true }
       },
-      signOut: () => set({ currentUser: null }),
+      signOut: () => set({ currentUser: null, user: null, isAuthenticated: false }),
     }),
     {
       name: 'pathscrawler-auth-session',

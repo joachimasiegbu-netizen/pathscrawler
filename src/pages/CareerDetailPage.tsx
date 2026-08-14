@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   ExternalLink,
   FileText,
-  GitCompare,
   GraduationCap,
   HeartHandshake,
   Layers,
@@ -20,7 +19,6 @@ import RevealSection from '../components/RevealSection'
 import StaggerGrid from '../components/StaggerGrid'
 import demoCareers from '../data/demoCareers'
 import { usePathStore } from '../store/usePathStore'
-import { useCompareStore, MAX_COMPARE_CAREERS } from '../store/useCompareStore'
 
 const resourceLinks = [
   { label: 'Evenbreak', href: 'https://www.evenbreak.co.uk' },
@@ -80,8 +78,6 @@ export default function CareerDetailPage() {
   const navigate = useNavigate()
   const location = useLocation()
   const selectedRole = usePathStore((state) => state.selectedRole)
-  const compareIds = useCompareStore((state) => state.careerIds)
-  const toggleCompare = useCompareStore((state) => state.toggle)
 
   // No hardcoded `to` - this page is reached from many places (Quick
   // Assessment results, search, Career Changer results, Job Market
@@ -90,10 +86,9 @@ export default function CareerDetailPage() {
   // browser-history back (BackButton's default with no `to`) always
   // returns to whichever of those actually linked here - the label is the
   // only thing that changes, read off router state set by the referrer.
+  const referrer = (location.state as { from?: string } | null)?.from
   const backLabel =
-    (location.state as { from?: string } | null)?.from === 'highest-paying'
-      ? 'Highest Paying Jobs'
-      : 'Back'
+    referrer === 'highest-paying' ? 'Highest Paying Jobs' : referrer === 'roll' ? 'Roll a Job' : 'Back'
 
   const career = useMemo(
     () => demoCareers.find((item) => String(item.id) === id),
@@ -258,24 +253,6 @@ export default function CareerDetailPage() {
         <Button onClick={() => navigate('/results')} className="w-full sm:w-auto">
           Back to results
         </Button>
-        <button
-          type="button"
-          onClick={() => toggleCompare(career.id)}
-          disabled={!compareIds.includes(career.id) && compareIds.length >= MAX_COMPARE_CAREERS}
-          title={
-            !compareIds.includes(career.id) && compareIds.length >= MAX_COMPARE_CAREERS
-              ? `You can compare up to ${MAX_COMPARE_CAREERS} careers at once`
-              : undefined
-          }
-          className={`inline-flex w-full items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-center text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto ${
-            compareIds.includes(career.id)
-              ? 'border-primary bg-primary-soft/70 text-primary-dark dark:border-primary/60 dark:bg-primary/15 dark:text-primary-light'
-              : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
-          }`}
-        >
-          <GitCompare className="h-4 w-4" />
-          {compareIds.includes(career.id) ? 'Added to compare' : 'Add to compare'}
-        </button>
         {isDisabledLearner ? (
           <a
             href="https://www.gov.uk/access-to-work"

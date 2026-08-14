@@ -1,47 +1,72 @@
 import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ExternalLink, X } from 'lucide-react'
+import { ArrowLeft, ExternalLink, X } from 'lucide-react'
 import demoCareers from '../data/demoCareers'
-import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import { useCompareStore } from '../store/useCompareStore'
 import { usePathStore } from '../store/usePathStore'
+import { computeCompareHighlights } from '../utils/compareHighlights'
 
-// Salary strings look like "£25k - £70k" or "£35k - £100k+" - pull out the
-// highest £Xk figure so careers can be ranked for the "higher salary in
-// green" highlight. Not a real currency parser, just enough to compare the
-// upper bound across a handful of careers.
-function parseSalaryCeiling(salary: string): number {
-  const matches = salary.match(/£(\d+(?:\.\d+)?)k/gi) || []
-  const values = matches.map((match) => parseFloat(match.replace(/[£k]/gi, '')))
-  return values.length ? Math.max(...values) : 0
-}
-
+// The universal comparison page - reachable from EVERY results page in the
+// app (standard /results, /career-changer/results, /job-market/easiest,
+// /job-market/highest-paying, /search) via CompareButton's grid selection
+// mode + CompareFloatingButton, as well as the pre-existing always-visible
+// "Add to compare" toggle on CareerDetailPage and the header's "Compare
+// (N)" pill - all of those read/write the SAME useCompareStore list
+// (selectedCompareCards), so a career added from any of those surfaces
+// shows up here and on all the others too. (The Binder's own comparison -
+// tier-colored cards for careers you've actually rolled - is a separate,
+// deliberately different page: BinderComparePage.tsx at /binder/compare.)
 export default function ComparePage() {
   const navigate = useNavigate()
-  const careerIds = useCompareStore((state) => state.careerIds)
+  const careerIds = useCompareStore((state) => state.selectedCompareCards)
   const remove = useCompareStore((state) => state.remove)
   const clear = useCompareStore((state) => state.clear)
+  const compareSourcePage = useCompareStore((state) => state.compareSourcePage)
+  const compareSelectionMode = useCompareStore((state) => state.compareSelectionMode)
+  const exitCompareSelectionMode = useCompareStore((state) => state.exitCompareSelectionMode)
   const selectedRole = usePathStore((state) => state.selectedRole)
   const isDisabledLearner = selectedRole === 'disabled-learner'
+
+  // Leaving this page via the back link is "done comparing" for the
+  // grid-selection flow (see CompareButton/SelectableCareerCard), so
+  // selection mode - and its gray/circle UI back on whichever results page
+  // started it - ends here. This is deliberately an onClick, NOT an
+  // unmount-effect cleanup: React.StrictMode (src/main.tsx) double-invokes
+  // effects in dev, mounting/cleaning-up/remounting this page once on every
+  // real visit - an unmount-effect clearing global store state fired during
+  // that synthetic cleanup and wiped the selection the instant the page
+  // arrived, before the user ever saw it (confirmed via the live store
+  // state: selectedCompareCards was already `[]` immediately post-mount).
+  // Guarded on compareSelectionMode so this doesn't clobber the OLDER
+  // always-on compare list (CareerDetailPage's single toggle button) for a
+  // visitor who never used grid selection mode at all - browser
+  // back/forward and other exits are covered by App.tsx's route-level guard
+  // instead, which has no such double-invoke risk.
+  const handleBack = () => {
+    if (compareSelectionMode) exitCompareSelectionMode()
+    if (compareSourcePage) navigate(compareSourcePage)
+    else navigate(-1)
+  }
 
   const careers = useMemo(
     () => careerIds.map((id) => demoCareers.find((career) => career.id === id)).filter(Boolean) as typeof demoCareers,
     [careerIds],
   )
 
-  const highestSalary = useMemo(() => {
-    if (careers.length < 2) return null
-    const ceilings = careers.map((career) => parseSalaryCeiling(career.salary))
-    const max = Math.max(...ceilings)
-    const min = Math.min(...ceilings)
-    return max > min ? max : null
-  }, [careers])
+  const highlights = careers.length >= 2 ? computeCompareHighlights(careers) : null
 
   return (
     <div className="space-y-6 pt-8 px-6 pb-8 sm:px-8">
       <div className="space-y-4">
-        <BackButton to="/results" />
+        <button
+          type="button"
+          onClick={handleBack}
+          className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition hover:text-primary-dark"
+        >
+          <ArrowLeft className="h-5 w-5" />
+          Back
+        </button>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h2 className="text-3xl font-bold text-slate-950 dark:text-slate-50">Compare Careers</h2>
@@ -69,13 +94,12 @@ export default function ComparePage() {
           </Button>
         </div>
       ) : (
-        <div className="overflow-x-auto">
+        <>
           <div
-            className="grid min-w-[560px] gap-4"
-            style={{ gridTemplateColumns: `repeat(${careers.length}, minmax(0, 1fr))` }}
+            className={`grid gap-6 grid-cols-1 sm:grid-cols-2 ${careers.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'}`}
           >
             {careers.map((career) => {
-              const isHighestSalary = highestSalary !== null && parseSalaryCeiling(career.salary) === highestSalary
+              const isBestSalary = highlights?.bestSalary.id === career.id
               const courseSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(`${career.title} courses UK`)}`
 
               return (
@@ -117,11 +141,11 @@ export default function ComparePage() {
                     <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">Salary</p>
                     <p
                       className={`mt-1 text-sm font-semibold ${
-                        isHighestSalary ? 'text-green-600 dark:text-green-400' : 'text-slate-900 dark:text-slate-100'
+                        isBestSalary ? 'text-green-600 dark:text-green-400' : 'text-slate-900 dark:text-slate-100'
                       }`}
                     >
                       {career.salary}
-                      {isHighestSalary ? ' · Highest' : ''}
+                      {isBestSalary ? ' · Highest' : ''}
                     </p>
                   </div>
 
@@ -165,7 +189,7 @@ export default function ComparePage() {
                       href={courseSearchUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-700"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-700"
                     >
                       Find courses for this career
                       <ExternalLink className="h-3.5 w-3.5" />
@@ -175,7 +199,24 @@ export default function ComparePage() {
               )
             })}
           </div>
-        </div>
+
+          {highlights ? (
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Best for...</p>
+              <ul className="mt-2.5 space-y-1.5 text-sm text-slate-700 dark:text-slate-300">
+                <li>
+                  💰 Best salary: <strong className="text-slate-950 dark:text-slate-50">{highlights.bestSalary.title}</strong>
+                </li>
+                <li>
+                  🚀 Easiest to start: <strong className="text-slate-950 dark:text-slate-50">{highlights.easiestStart.title}</strong>
+                </li>
+                <li>
+                  📈 Best long-term: <strong className="text-slate-950 dark:text-slate-50">{highlights.bestLongTerm.title}</strong>
+                </li>
+              </ul>
+            </div>
+          ) : null}
+        </>
       )}
     </div>
   )

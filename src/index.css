@@ -120,6 +120,249 @@ html.reduce-motion *::after {
   }
 }
 
+/* Roll a Job page: floating mini job-card background (see
+   FloatingJobBackground.tsx), sitting behind the slot lane. Plain CSS
+   `animation` (not framer-motion) on purpose - the reduce-motion rules
+   just above already strip any `animation` globally, so these
+   automatically go still for reduce-motion users. The static `opacity`
+   below is what they're left with instead of the animated fade in/out.
+   Three drift variants (a/b/c) give visual variety without per-frame JS.
+   Each card keeps a constant --card-scale throughout (that's just its
+   size), while --rotate flips sign between start and end for a gentle
+   wobble as it drifts. */
+.floating-job-card {
+  opacity: 0.2;
+  will-change: transform, opacity;
+}
+
+@keyframes float-up-a {
+  0% { transform: translate3d(0, 15vh, 0) rotate(var(--rotate, -4deg)) scale(var(--card-scale, 0.7)); opacity: 0; }
+  12% { opacity: var(--peak-opacity, 0.2); }
+  88% { opacity: var(--peak-opacity, 0.2); }
+  100% { transform: translate3d(-24px, -125vh, 0) rotate(calc(var(--rotate, -4deg) * -1)) scale(var(--card-scale, 0.7)); opacity: 0; }
+}
+@keyframes float-up-b {
+  0% { transform: translate3d(0, 15vh, 0) rotate(var(--rotate, -4deg)) scale(var(--card-scale, 0.7)); opacity: 0; }
+  12% { opacity: var(--peak-opacity, 0.2); }
+  88% { opacity: var(--peak-opacity, 0.2); }
+  100% { transform: translate3d(30px, -125vh, 0) rotate(calc(var(--rotate, -4deg) * -1)) scale(var(--card-scale, 0.7)); opacity: 0; }
+}
+@keyframes float-up-c {
+  0% { transform: translate3d(0, 15vh, 0) rotate(var(--rotate, -4deg)) scale(var(--card-scale, 0.7)); opacity: 0; }
+  12% { opacity: var(--peak-opacity, 0.2); }
+  50% { transform: translate3d(16px, -55vh, 0) rotate(0deg) scale(var(--card-scale, 0.7)); }
+  88% { opacity: var(--peak-opacity, 0.2); }
+  100% { transform: translate3d(-14px, -125vh, 0) rotate(calc(var(--rotate, -4deg) * -1)) scale(var(--card-scale, 0.7)); opacity: 0; }
+}
+
+
+
+/* Result card shimmer sweep (Epic+ tiers) - a light diagonal band crossing
+   the card once every few seconds. Same background-position-sweep
+   technique as .skeleton-shimmer above, different colors/target. */
+@keyframes card-shimmer-sweep {
+  0% { background-position: -300px 0; }
+  100% { background-position: 300px 0; }
+}
+.tier-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.tier-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
+  background-size: 300px 100%;
+  background-repeat: no-repeat;
+  animation: card-shimmer-sweep 2.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Mythic tier - pulsing gold glow on top of whatever box-shadow the card's
+   own Tailwind classes set. */
+@keyframes mythic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.35), 0 25px 60px -12px rgba(0, 0, 0, 0.5); }
+  50% { box-shadow: 0 0 50px 12px rgba(245, 158, 11, 0.45), 0 25px 60px -12px rgba(0, 0, 0, 0.6); }
+}
+.tier-mythic-pulse {
+  animation: mythic-pulse 1.8s ease-in-out infinite;
+}
+
+/* Mythic roll - brief full-screen darken behind the card for a "spotlight"
+   moment. Controlled by mounting/unmounting rather than a toggled class,
+   so this is just the fade. */
+@keyframes screen-darken-fade {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.mythic-screen-darken {
+  animation: screen-darken-fade 2.4s ease-in-out forwards;
+}
+
+/* Roll! button - gentle idle breathing glow, indigo->purple->pink to match
+   the button's own gradient fill (see JobMarketRollPage.tsx). Roll a Job is
+   a fixed "game mode" dark page now regardless of the site's own light/dark
+   toggle, so this no longer needs the light/dark split its predecessor
+   (roll-pulse-light/dark) had - one look, always. */
+.roll-button {
+  animation: roll-pulse-dramatic 2.6s ease-in-out infinite;
+}
+@keyframes roll-pulse-dramatic {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(129, 82, 245, 0.45), 0 25px 60px -12px rgba(168, 85, 247, 0.5); transform: scale(1); }
+  50% { box-shadow: 0 0 60px 22px rgba(168, 85, 247, 0.5), 0 25px 70px -10px rgba(236, 72, 153, 0.55); transform: scale(1.02); }
+}
+
+/* Roll a Job "game mode" - ambient ember/firefly particles drifting upward
+   behind the cylinder (see FloatingRollEmbers.tsx). Same drift-and-fade
+   shape as .floating-job-card's float-up-a/b/c above, simplified to a
+   single keyframe (a plain glowing dot has no rotation/card-scale to
+   animate) - horizontal drift and duration both come from CSS custom
+   properties set per-particle inline, so one keyframe covers all of them.
+   Respects reduce-motion via the existing global rules above. */
+@keyframes ember-float {
+  0% { transform: translate3d(0, 10vh, 0) scale(var(--ember-scale, 1)); opacity: 0; }
+  15% { opacity: var(--ember-opacity, 0.5); }
+  85% { opacity: var(--ember-opacity, 0.5); }
+  100% { transform: translate3d(var(--ember-drift, 20px), -110vh, 0) scale(var(--ember-scale, 1)); opacity: 0; }
+}
+.roll-ember {
+  position: absolute;
+  bottom: 0;
+  border-radius: 9999px;
+  will-change: transform, opacity;
+  animation-name: ember-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Epic+ roll reveal - a brief white screen flash (not a sustained darken
+   like .mythic-screen-darken above) for the "camera flash" reward-feeling
+   moment right as the result card pops in. Mounted/unmounted by the page
+   rather than toggled, same as .mythic-screen-darken. */
+@keyframes epic-screen-flash {
+  0% { opacity: 0; }
+  10% { opacity: 0.2; }
+  100% { opacity: 0; }
+}
+.epic-screen-flash {
+  animation: epic-screen-flash 0.4s ease-out forwards;
+}
+
+/* "Pop" nav pills - Job Market / Roll a Job in the header (App.tsx). Base
+   technique adapted from a Uiverse.io button: a radial-gradient fill behind
+   12 small blurred color circles drifting on independent loops inside a
+   masked/clipped wrapper, giving a soft "lava lamp" glow under the label
+   rather than a flat color. Re-themed from the original's yellow/gold to
+   the app's own teal accent + the indigo/purple/pink family already
+   established for the Roll button's own gradient (see .roll-button above) -
+   not an unrelated new color. Circles animate via plain CSS `transform`/
+   `animation`, so the existing global reduce-motion rules already still
+   them for those users automatically, same as every other decorative
+   effect in this file - no extra guard needed here.
+   --duration/--easing/the color custom properties are scoped to .nav-glow-btn
+   itself (not :root) so the two buttons using this class don't fight over
+   one shared set of values. */
+.nav-glow-btn {
+  --duration: 7s;
+  --easing: linear;
+  --c-color-1: rgba(6, 182, 212, 0.7);
+  --c-color-2: #6366f1;
+  --c-color-3: #d946ef;
+  --c-color-4: rgba(45, 212, 191, 0.7);
+  --c-shadow: rgba(34, 211, 238, 0.45);
+  --c-shadow-inset-top: rgba(103, 232, 249, 0.7);
+  --c-shadow-inset-bottom: rgba(224, 242, 254, 0.5);
+  --c-radial-inner: #0e7490;
+  --c-radial-outer: #22d3ee;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle, var(--c-radial-inner), var(--c-radial-outer) 80%);
+  box-shadow: 0 0 14px var(--c-shadow);
+}
+.nav-glow-btn::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 3px 12px var(--c-shadow-inset-top),
+    inset 0 -3px 4px var(--c-shadow-inset-bottom);
+}
+.nav-glow-btn:hover {
+  --duration: 1400ms;
+}
+.nav-glow-btn .glow-wrapper {
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  overflow: hidden;
+  position: relative;
+  border-radius: inherit;
+}
+.nav-glow-btn .glow-circle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  filter: blur(var(--blur, 8px));
+  background: var(--background, transparent);
+  transform: translate(var(--x, 0), var(--y, 0)) translateZ(0);
+  animation: var(--animation, none) var(--duration) var(--easing) infinite;
+}
+.nav-glow-btn .glow-circle.c1, .nav-glow-btn .glow-circle.c9, .nav-glow-btn .glow-circle.c10 { --background: var(--c-color-4); }
+.nav-glow-btn .glow-circle.c3, .nav-glow-btn .glow-circle.c4 { --background: var(--c-color-2); --blur: 14px; }
+.nav-glow-btn .glow-circle.c5, .nav-glow-btn .glow-circle.c6 { --background: var(--c-color-3); --blur: 16px; }
+.nav-glow-btn .glow-circle.c2, .nav-glow-btn .glow-circle.c7, .nav-glow-btn .glow-circle.c8, .nav-glow-btn .glow-circle.c11, .nav-glow-btn .glow-circle.c12 { --background: var(--c-color-1); --blur: 12px; }
+
+.nav-glow-btn .glow-circle.c1 { --x: 0px; --y: -40px; --animation: nav-circle-1; }
+.nav-glow-btn .glow-circle.c2 { --x: 92px; --y: 8px; --animation: nav-circle-2; }
+.nav-glow-btn .glow-circle.c3 { --x: -12px; --y: -12px; --animation: nav-circle-3; }
+.nav-glow-btn .glow-circle.c4 { --x: 80px; --y: -12px; --animation: nav-circle-4; }
+.nav-glow-btn .glow-circle.c5 { --x: 12px; --y: -4px; --animation: nav-circle-5; }
+.nav-glow-btn .glow-circle.c6 { --x: 56px; --y: 16px; --animation: nav-circle-6; }
+.nav-glow-btn .glow-circle.c7 { --x: 8px; --y: 28px; --animation: nav-circle-7; }
+.nav-glow-btn .glow-circle.c8 { --x: 28px; --y: -4px; --animation: nav-circle-8; }
+.nav-glow-btn .glow-circle.c9 { --x: 20px; --y: -12px; --animation: nav-circle-9; }
+.nav-glow-btn .glow-circle.c10 { --x: 64px; --y: 16px; --animation: nav-circle-10; }
+.nav-glow-btn .glow-circle.c11 { --x: 4px; --y: 4px; --animation: nav-circle-11; }
+.nav-glow-btn .glow-circle.c12 { --blur: 14px; --x: 52px; --y: 4px; --animation: nav-circle-12; }
+
+@keyframes nav-circle-1 { 33% { transform: translate(0px, 16px) translateZ(0); } 66% { transform: translate(12px, 64px) translateZ(0); } }
+@keyframes nav-circle-2 { 33% { transform: translate(80px, -10px) translateZ(0); } 66% { transform: translate(72px, -48px) translateZ(0); } }
+@keyframes nav-circle-3 { 33% { transform: translate(20px, 12px) translateZ(0); } 66% { transform: translate(12px, 4px) translateZ(0); } }
+@keyframes nav-circle-4 { 33% { transform: translate(76px, -12px) translateZ(0); } 66% { transform: translate(112px, -8px) translateZ(0); } }
+@keyframes nav-circle-5 { 33% { transform: translate(84px, 28px) translateZ(0); } 66% { transform: translate(40px, -32px) translateZ(0); } }
+@keyframes nav-circle-6 { 33% { transform: translate(28px, -16px) translateZ(0); } 66% { transform: translate(76px, -56px) translateZ(0); } }
+@keyframes nav-circle-7 { 33% { transform: translate(8px, 28px) translateZ(0); } 66% { transform: translate(20px, -60px) translateZ(0); } }
+@keyframes nav-circle-8 { 33% { transform: translate(32px, -4px) translateZ(0); } 66% { transform: translate(56px, -20px) translateZ(0); } }
+@keyframes nav-circle-9 { 33% { transform: translate(20px, -12px) translateZ(0); } 66% { transform: translate(80px, -8px) translateZ(0); } }
+@keyframes nav-circle-10 { 33% { transform: translate(68px, 20px) translateZ(0); } 66% { transform: translate(100px, 28px) translateZ(0); } }
+@keyframes nav-circle-11 { 33% { transform: translate(4px, 4px) translateZ(0); } 66% { transform: translate(68px, 20px) translateZ(0); } }
+@keyframes nav-circle-12 { 33% { transform: translate(56px, 0px) translateZ(0); } 66% { transform: translate(60px, -32px) translateZ(0); } }
+
+/* Career Smasher hub door (JobMarketDoorButton.tsx, iconClassName prop) -
+   only the hammer icon animates on hover, not the whole card (the card's
+   own lift/shadow already comes from its own separate hover: utility
+   classes). A real @keyframes rather than a plain CSS `transition`, since
+   a transition only interpolates current-state -> target-state (one hop);
+   this needs two hops in one hover - wind up to -45deg, then swing back
+   down through 0deg for the "smash" - which only a keyframe animation can
+   express. Covered by the existing global reduce-motion rules like every
+   other CSS `animation` in this file, no extra guard needed. */
+@keyframes hammer-smash {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-45deg); }
+  100% { transform: rotate(0deg); }
+}
+.group:hover .hammer-smash-icon {
+  animation: hammer-smash 300ms ease-out;
+}
+
 html.high-contrast {
   color: #000 !important;
   background-color: #fff !important;
@@ -227,6 +470,19 @@ html.dark-mode .text-white {
   color: #f8fafc !important;
 }
 
+/* Roll a Job slot lane: Epic/Legendary reel cards are intentionally
+   theme-independent (bright amber/cyan bg regardless of light/dark mode -
+   same idea as Mythic's black-and-gold card elsewhere in this feature).
+   The blanket rule just above, written for slate-900 text sitting on a
+   light card background that itself goes dark in dark mode, would flip
+   this dark text to near-white and make it unreadable against a
+   background that never changed. Scoped back out of it here rather than
+   picking a different shade, since the actual problem is "this text
+   shouldn't respond to dark mode at all", not the specific color used. */
+html.dark-mode .slot-cylinder-stage .text-slate-900 {
+  color: #0f172a !important;
+}
+
 html.dark-mode .text-slate-600,
 html.dark-mode .text-slate-500 {
   color: #cbd5e1 !important;
@@ -306,4 +562,220 @@ html.dark-mode a:focus-visible {
 input[type='search']::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
+}
+
+/* My Binder page - a subtle dot-grid texture over the page background.
+   Follows the app's normal light/dark toggle now (it used to be fixed-dark
+   always), so the dots need both a light-mode variant (dark dots on the
+   light page bg) and the original dark-mode one (light dots on the dark
+   page bg) rather than the single fixed rgba it used to be. Pure CSS, no
+   image asset needed. */
+.binder-texture {
+  background-image: radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.05) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+html.dark-mode .binder-texture {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
+}
+
+/* My Binder card tiles - hover-flip trading-card effect (front: tier
+   badge/title/salary, as before; back: category + description teaser +
+   "view details" prompt, tier-colored gradient - see BinderCardTile.tsx).
+   Desktop/mouse enhancement only, driven by plain CSS :hover - touch/mobile
+   has no true hover, so tapping there just opens the detail modal directly
+   instead, which already shows everything the back face teases, so
+   nothing is lost by skipping a tap-to-flip fallback. No separate
+   reduce-motion override needed: the global `html.reduce-motion *` /
+   prefers-reduced-motion rules above already zero out this `transition`
+   for those users, same as everything else in this file. */
+.binder-card-flip {
+  perspective: 1200px;
+}
+.binder-card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.1, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.binder-card-flip:hover .binder-card-flip-inner {
+  transform: rotateY(180deg);
+}
+.binder-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.binder-card-face-back {
+  transform: rotateY(180deg);
+}
+
+/* ===== Roll a Job: premium collectible-card effects ===================
+   All keyframe-driven effects here are plain CSS `animation`, so the
+   existing `html.reduce-motion` / prefers-reduced-motion rules above
+   already strip them automatically - only the JS-driven 3D tilt and
+   mouse-sheen tracking in RollResultCard.tsx need their own explicit
+   reduce-motion guard, since those aren't CSS `animation` at all.
+   Each effect reads its color from --tier-glow-rgb, set inline per-card
+   from tierStyles.ts's glowRgb so one set of keyframes serves all tiers. */
+
+/* Subtle grain overlay for a "premium card stock" feel - inline SVG
+   turbulence filter, no image asset needed. */
+.card-noise {
+  position: relative;
+}
+.card-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.03;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Mouse-follow light sheen - position driven by --mx/--my custom
+   properties updated on mousemove in RollResultCard.tsx. */
+.card-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.3), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.card-sheen-active {
+  opacity: 1;
+}
+
+/* Uncommon - gentle pulsing glow ring (not rotating - that's Rare below). */
+@keyframes shimmer-border-pulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(var(--tier-glow-rgb), 0.4), 0 0 16px 2px rgba(var(--tier-glow-rgb), 0.22); }
+  50% { box-shadow: 0 0 0 1px rgba(var(--tier-glow-rgb), 0.7), 0 0 26px 6px rgba(var(--tier-glow-rgb), 0.4); }
+}
+.tier-shimmer-border {
+  animation: shimmer-border-pulse 2.6s ease-in-out infinite;
+}
+
+/* Rare - animated conic-gradient ring rotating around the card. The ring
+   sits BEHIND the card (z-index -1) and extends past its edges (inset
+   -3px); the card's own opaque background covers the middle, leaving
+   only a spinning 3px border visible. */
+@keyframes rotate-border-spin {
+  to { transform: rotate(360deg); }
+}
+.tier-rotating-border {
+  position: relative;
+}
+.tier-rotating-border::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from 0deg, transparent 0%, rgba(var(--tier-glow-rgb), 0.95) 15%, transparent 35%);
+  animation: rotate-border-spin 3.5s linear infinite;
+}
+
+/* Epic - small twinkling sparkle points around the frame. */
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1); }
+}
+.sparkle-dot {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  animation: sparkle-twinkle 1.9s ease-in-out infinite;
+}
+
+/* Legendary - holographic rainbow sweep, same background-position-sweep
+   technique as .tier-shimmer, multi-color instead of single-tone. */
+@keyframes holo-sweep {
+  0% { background-position: -320px 0; }
+  100% { background-position: 320px 0; }
+}
+.tier-holographic {
+  position: relative;
+  overflow: hidden;
+}
+.tier-holographic::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(6, 182, 212, 0.28) 38%,
+    rgba(255, 255, 255, 0.55) 48%,
+    rgba(168, 85, 247, 0.28) 58%,
+    transparent 72%
+  );
+  background-size: 320px 100%;
+  background-repeat: no-repeat;
+  animation: holo-sweep 3.2s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Mythic - static obsidian "veins", layered under the existing
+   .tier-mythic-pulse glow (see index.css above) rather than replacing it. */
+.tier-obsidian {
+  background-image:
+    repeating-linear-gradient(115deg, transparent 0px, transparent 38px, rgba(245, 158, 11, 0.09) 39px, transparent 41px, transparent 88px),
+    repeating-linear-gradient(25deg, transparent 0px, transparent 58px, rgba(245, 158, 11, 0.07) 59px, transparent 61px, transparent 126px);
+}
+
+/* One-shot glow pulse on card arrival - distinct from the continuous
+   tier glows, fires once and holds still. */
+@keyframes glow-pulse-once {
+  0% { box-shadow: 0 0 0 0 rgba(var(--tier-glow-rgb), 0); }
+  35% { box-shadow: 0 0 55px 14px rgba(var(--tier-glow-rgb), 0.55); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--tier-glow-rgb), 0); }
+}
+.card-arrival-pulse {
+  animation: glow-pulse-once 900ms ease-out 1;
+}
+
+/* Roll Again button - idle breathing glow in the app's accent color
+   (the button's own fill color), separate from the Roll! button's pulse
+   (different shape/color, same "alive while idle" idea). */
+@keyframes roll-again-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+  50% { box-shadow: 0 0 18px 5px rgba(6, 182, 212, 0.45); }
+}
+.roll-again-glow {
+  animation: roll-again-pulse 2.2s ease-in-out infinite;
+}
+
+/* Floating dust/smoke particles around Legendary/Mythic cards - color and
+   drift distance set inline per-particle from CardParticles.tsx. */
+@keyframes card-particle-drift {
+  0% { transform: translate(0, 0) scale(0.7); opacity: 0; }
+  15% { opacity: var(--particle-opacity, 0.55); }
+  85% { opacity: var(--particle-opacity, 0.55); }
+  100% { transform: translate(var(--particle-dx, 16px), var(--particle-dy, -28px)) scale(1.15); opacity: 0; }
+}
+.card-particle {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation: card-particle-drift 4.5s ease-in-out infinite;
+}
+
+/* Roll result card action buttons - border color keyed off --tier-glow-rgb
+   (set on the card and inherited down), not a dynamically-built Tailwind
+   class string (Tailwind's build-time scanner can't see those - a
+   `${style.borderColorClass}/40` template literal never appears as literal
+   text anywhere, so the utility it names never gets generated). */
+.tier-action-btn {
+  border-color: rgba(var(--tier-glow-rgb), 0.35);
+}
+.tier-action-btn:hover {
+  border-color: rgb(var(--tier-glow-rgb));
 }

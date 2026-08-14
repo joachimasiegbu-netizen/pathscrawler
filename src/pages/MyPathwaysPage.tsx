@@ -43,7 +43,7 @@ export default function MyPathwaysPage() {
       {pathways.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
           <p className="font-semibold">You haven't saved a pathway yet.</p>
-          <p className="mt-2 text-sm">Build a pathway and use "Save my pathway" on your results to keep it here.</p>
+          <p className="mt-2 text-sm">Pathways you save will show up here.</p>
           <Button onClick={() => navigate('/role')} className="mt-4">
             Start a pathway
           </Button>

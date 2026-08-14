@@ -1,10 +1,13 @@
 import { useMemo, useState } from 'react'
 import { Crown } from 'lucide-react'
 import BackButton from '../components/BackButton'
+import CompareButton from '../components/CompareButton'
+import CompareFloatingButton from '../components/CompareFloatingButton'
 import EmptyState from '../components/EmptyState'
 import HighestPayingCareerCard from '../components/HighestPayingCareerCard'
 import HighestPayingFilterBar from '../components/HighestPayingFilterBar'
 import PageHeader from '../components/PageHeader'
+import SelectableCareerCard from '../components/SelectableCareerCard'
 import StaggerGrid from '../components/StaggerGrid'
 import { getHighestPayingCareers, type FilterOption, type SortOption } from '../utils/highestPayingCareers'
 
@@ -20,9 +23,12 @@ export default function JobMarketHighestPayingPage() {
       <BackButton to="/job-market" label="Job Market" />
       <PageHeader icon={Crown} title="Highest Paying Jobs" subtitle="Careers where the investment pays off" />
 
-      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-        Showing {entries.length} of {totalVerified} verified highest paying careers
-      </p>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+          Showing {entries.length} of {totalVerified} verified highest paying careers
+        </p>
+        <CompareButton disabled={entries.length < 2} />
+      </div>
 
       <HighestPayingFilterBar sort={sort} filter={filter} onSortChange={setSort} onFilterChange={setFilter} />
 
@@ -37,7 +43,9 @@ export default function JobMarketHighestPayingPage() {
       ) : (
         <StaggerGrid revealOnMount className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {entries.map((entry) => (
-            <HighestPayingCareerCard key={entry.career.id} entry={entry} />
+            <SelectableCareerCard key={entry.career.id} careerId={entry.career.id}>
+              <HighestPayingCareerCard entry={entry} />
+            </SelectableCareerCard>
           ))}
         </StaggerGrid>
       )}
@@ -46,6 +54,8 @@ export default function JobMarketHighestPayingPage() {
         Salary data sourced from ONS ASHE 2025 and industry reports. Figures are median full-time gross annual pay and
         the top 10% of earners in each role. Actual earnings vary by location, employer and experience.
       </p>
+
+      <CompareFloatingButton />
     </div>
   )
 }
