@@ -1,33 +1,24 @@
-// Career Smasher's job-skill tree data. One source of truth: which skills
-// each career needs (careerId -> skill names). The reverse map (skill ->
-// which careers need it, what the tree actually branches out through) is
-// DERIVED from this by inversion (see getSkillToCareerIds() in
-// src/utils/skillTree.ts), not hand-authored as a second file - a
-// hand-written skill->careers map would drift out of sync with this one the
-// first time either gets edited without the other, and the "if a skill is
-// in a career's list, that career must appear in the skill's related-careers
-// list" rule the tree depends on would only be a promise, not a guarantee.
-// Deriving it means that rule can't ever be broken.
+// Per-career skill data, originally built for the Career Smasher feature
+// (a job-skill tree UI - smash a career into its skills, tap a skill to see
+// who else needs it). That UI has since been removed, but this data file is
+// kept on purpose: careerId -> skill names is generally useful (e.g. skill
+// matching elsewhere in the app) independent of any one feature that reads
+// it, so it wasn't deleted along with the tree components.
 //
 // Skill names are real and specific (SQL, Figma, Blueprint Reading, Adobe
 // Suite - not generic placeholders), but still deliberately REUSED across
-// several careers wherever the real-world skill genuinely is shared - that
-// overlap is what makes the tree branch to DIFFERENT careers when you
-// expand a skill node (e.g. "Patient Care" fans out across Nurse, Doctor,
-// Paramedic, Midwife, ...; "Leadership" fans out across senior roles in
-// completely different categories) instead of every skill leading straight
-// back to just the one career that introduced it. A handful of skills are
-// intentionally near-unique to one specialist career (e.g. "Aerodynamics",
-// "Piloting") because that's just true to the real job - expanding one of
-// those hits the tree's "No related careers found" empty state, which is
-// the same real state the UI already handles for skills that happen to
-// have no other match yet.
+// several careers wherever the real-world skill genuinely is shared (e.g.
+// "Patient Care" spans Nurse, Doctor, Paramedic, Midwife, ...; "Leadership"
+// spans senior roles across completely different categories) rather than
+// each career getting its own bespoke, never-repeated skill names. A
+// handful of skills are intentionally near-unique to one specialist career
+// (e.g. "Aerodynamics", "Piloting") because that's just true to the real
+// job.
 
 // The cross-cutting skills reused across many DIFFERENT categories, not
-// just within one domain - these are what make the tree jump from, say, a
-// tech career into a completely unrelated one a couple of hops later. This
-// list is documentation of that shared pool, not an exhaustive vocabulary -
-// most careers below also carry domain-specific skills that aren't in it.
+// just within one domain. This list is documentation of that shared pool,
+// not an exhaustive vocabulary - most careers below also carry
+// domain-specific skills that aren't in it.
 export const CANONICAL_SKILLS = [
   'Communication',
   'Problem Solving',

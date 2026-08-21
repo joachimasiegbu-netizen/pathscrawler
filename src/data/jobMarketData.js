@@ -19,10 +19,25 @@ export const jobMarketData = {
     { career: "Teaching Assistant", change: "+7%", avgSalary: "£19,000", jobPostings: "Consistent need", description: "Schools requiring additional classroom support" }
   ],
 
+  // trendingDown is kept at one fewer entry than trendingUp (7 vs 8) by
+  // design - see JobMarketStatisticsPage.tsx's trendingItems useMemo,
+  // which shuffles both lists together into one "Trending now" section.
+  // 4 of these 7 are AI-exposed roles from PathScrawler_AI_Endangered_Jobs.txt
+  // (IPPR, Microsoft Research, GLA London and employer surveys repeatedly
+  // flag routine cognitive/text-based/entry-level knowledge work as the
+  // category most exposed to AI right now) - their `description` is a
+  // plain, neutral description of the job itself, same as every other
+  // entry here; the AI-specific reasoning lives in `aiNote` instead, shown
+  // only via a "Why AI?" dropdown on those rows (TrendingRow), not in the
+  // main Trending list text.
   trendingDown: [
     { career: "Retail Manager", change: "-6%", avgSalary: "£26,000", jobPostings: "Declining", description: "High street contraction and automation" },
     { career: "Administrative Assistant", change: "-4%", avgSalary: "£22,000", jobPostings: "Falling", description: "Digital tools reducing traditional admin roles" },
-    { career: "Print Journalist", change: "-8%", avgSalary: "£24,000", jobPostings: "Shrinking", description: "Shift to digital media continuing" }
+    { career: "Print Journalist", change: "-8%", avgSalary: "£24,000", jobPostings: "Shrinking", description: "Shift to digital media continuing" },
+    { career: "Bookkeeper", change: "-10%", avgSalary: "£27,500", jobPostings: "Declining", description: "Manages financial records, invoices and accounts for businesses", aiNote: "AI bookkeeping tools are automating routine ledger work." },
+    { career: "Data Entry Clerk", change: "-14%", avgSalary: "£23,000", jobPostings: "Shrinking fast", description: "Enters and organises information in systems, focused on accuracy", aiNote: "Among the most AI-exposed roles - manual entry is going automated." },
+    { career: "Customer Service Advisor", change: "-9%", avgSalary: "£23,000", jobPostings: "Falling", description: "Supports customers through enquiries and service requests", aiNote: "AI chatbots are handling a growing share of routine queries." },
+    { career: "Translator (routine work)", change: "-15%", avgSalary: "£24,000", jobPostings: "Rapidly declining", description: "Translates documents and text between languages for clients", aiNote: "Machine translation now handles most routine text work." }
   ],
 
   hotSkills: [

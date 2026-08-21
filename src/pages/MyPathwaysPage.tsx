@@ -1,101 +1,96 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Trash2 } from 'lucide-react'
-import subjectsData from '../data/subjects.json'
+import { Compass } from 'lucide-react'
+import demoCareers, { type Career } from '../data/demoCareers'
 import BackButton from '../components/BackButton'
-import Button from '../components/Button'
-import { deletePathway, getSavedPathways, type SavedPathway } from '../utils/pathwayStorage'
+import EmptyState from '../components/EmptyState'
+import PathwaysAuthWall from '../components/PathwaysAuthWall'
+import SavePathwayButton from '../components/SavePathwayButton'
+import ShowFullPathwayButton from '../components/ShowFullPathwayButton'
+import { useAuthStore } from '../store/useAuthStore'
+import { useMySavedPathways } from '../store/useSavedPathwaysStore'
 
-function formatLabel(value: string | null): string {
-  if (!value) return 'Not set'
-  return value
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
+// Sourced from useSavedPathwaysStore now - every career bookmarked with the
+// "Save pathway" button anywhere in the app (Results, Search, Career
+// Changer, Easiest Jobs, Highest Paying Jobs) shows up here, for whichever
+// account saved it. This replaced the older CareerPathwayStepperPage ->
+// pathwayStorage.ts flow (a heavier "role + subjects + career" journey
+// record, not account-scoped) - that page and its saved-pathway detail
+// view (/my-pathways/:pathwayId, PathwayFlowPage) are now unreachable from
+// here, since "Save pathway" never had subjects/role data to show in the
+// first place. Not deleted, just orphaned - same call made for
+// CareerPathwayStepperPage itself earlier.
+function formatDate(timestamp: number): string {
+  return new Date(timestamp).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
 export default function MyPathwaysPage() {
   const navigate = useNavigate()
-  const [pathways, setPathways] = useState<SavedPathway[]>(() => getSavedPathways())
+  const currentUser = useAuthStore((state) => state.currentUser)
+  const savedPathways = useMySavedPathways()
 
-  const subjectMap = useMemo(
-    () => Object.fromEntries(subjectsData.map((subject) => [subject.id, subject.label])),
-    [],
+  const cards = useMemo(
+    () =>
+      savedPathways
+        .map((entry) => ({ entry, career: demoCareers.find((item) => item.id === entry.careerId) ?? null }))
+        .filter((row): row is { entry: (typeof savedPathways)[number]; career: Career } => Boolean(row.career)),
+    [savedPathways],
   )
 
-  const handleDelete = (id: string) => {
-    deletePathway(id)
-    setPathways(getSavedPathways())
+  if (!currentUser) {
+    return <PathwaysAuthWall />
   }
 
   return (
     <div className="space-y-6 pt-8 px-6 pb-8 sm:px-8">
       <div className="space-y-4">
-        <BackButton to="/results" />
+        <BackButton to="/job-market" />
         <div>
           <h2 className="text-3xl font-bold text-slate-950 dark:text-slate-50">My saved pathways</h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">
-            Saved in this browser only - {pathways.length} {pathways.length === 1 ? 'pathway' : 'pathways'} stored here.
+            Saved to your account - {cards.length} {cards.length === 1 ? 'pathway' : 'pathways'} saved.
           </p>
         </div>
       </div>
 
-      {pathways.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
-          <p className="font-semibold">You haven't saved a pathway yet.</p>
-          <p className="mt-2 text-sm">Pathways you save will show up here.</p>
-          <Button onClick={() => navigate('/role')} className="mt-4">
-            Start a pathway
-          </Button>
-        </div>
+      {cards.length === 0 ? (
+        <EmptyState
+          icon={Compass}
+          title="No saved pathways yet"
+          message="Explore careers and hit 'Save pathway' to keep track of your favourites!"
+          actionLabel="Explore careers"
+          onAction={() => navigate('/search')}
+        />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {pathways.map((pathway) => (
+          {cards.map(({ entry, career }) => (
             <div
-              key={pathway.id}
-              className="flex flex-col justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-700 dark:bg-slate-800"
+              key={career.id}
+              role="link"
+              tabIndex={0}
+              onClick={() => navigate(`/career/${career.id}`)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  navigate(`/career/${career.id}`)
+                }
+              }}
+              aria-label={`${career.title}, view career details`}
+              className="flex cursor-pointer flex-col rounded-2xl bg-white p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-800"
             >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary-dark dark:text-primary-light">
-                    {formatLabel(pathway.role)} - {formatLabel(pathway.level)}
-                  </span>
-                  <span className="text-xs text-slate-400">{pathway.date}</span>
-                </div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary-dark dark:text-primary-light">{career.category}</p>
+              <h3 className="mt-1 text-xl font-bold text-slate-950 dark:text-slate-50">{career.title}</h3>
+              <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">{career.salary}</p>
+              <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">Saved on {formatDate(entry.savedAt)}</p>
 
-                <div className="flex flex-wrap gap-1.5">
-                  {pathway.subjects.slice(0, 4).map((subjectId) => (
-                    <span
-                      key={subjectId}
-                      className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-700 dark:bg-slate-900 dark:text-slate-200"
-                    >
-                      {subjectMap[subjectId] || subjectId}
-                    </span>
-                  ))}
-                  {pathway.subjects.length > 4 ? (
-                    <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-500 dark:bg-slate-900 dark:text-slate-400">
-                      +{pathway.subjects.length - 4} more
-                    </span>
-                  ) : null}
-                </div>
-
-                <p className="text-sm text-slate-600 dark:text-slate-300">
-                  {pathway.careers.length} matched {pathway.careers.length === 1 ? 'career' : 'careers'}
-                </p>
-              </div>
-
-              <div className="flex gap-2">
-                <Button onClick={() => navigate(`/pathway/${pathway.id}`)} className="flex-1 justify-center">
-                  View
-                </Button>
-                <button
-                  type="button"
-                  onClick={() => handleDelete(pathway.id)}
-                  aria-label="Remove saved pathway"
-                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-500 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600 dark:border-slate-700 dark:text-slate-400 dark:hover:border-red-900 dark:hover:bg-red-950/40 dark:hover:text-red-400"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
+              {/* Same pair used on every other job card in the app - "See
+                  full pathway" navigates to the Backtrack flow exactly like
+                  it does from Results/Search/Career Changer, and "Save
+                  pathway" doubles as the way to remove a card from this
+                  page (toggling it back off). */}
+              <div className="mt-3 flex gap-2">
+                <ShowFullPathwayButton career={career} className="flex-1" />
+                <SavePathwayButton careerId={career.id} className="flex-1" />
               </div>
             </div>
           ))}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { BookOpen, Dices, FolderClock, GitCompare, LogIn, LogOut, Settings2, TrendingUp, X } from 'lucide-react'
+import { BookOpen, FolderClock, GitCompare, LogIn, LogOut, Settings2, TrendingUp, X } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useCompareStore } from './store/useCompareStore'
@@ -10,15 +10,19 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import SharedPathwayPage from './pages/SharedPathwayPage'
 import MyPathwaysPage from './pages/MyPathwaysPage'
+import PathwayFlowPage from './pages/PathwayFlowPage'
 import ComparePage from './pages/ComparePage'
 import JobMarketPage from './pages/JobMarketPage'
 import JobMarketSpotlightPage from './pages/JobMarketSpotlightPage'
 import JobMarketStatisticsPage from './pages/JobMarketStatisticsPage'
+import JobMarketUkStatsPage from './pages/JobMarketUkStatsPage'
+import JobMarketHeritageCraftsPage from './pages/JobMarketHeritageCraftsPage'
+import JobMarketHighDemandCareersPage from './pages/JobMarketHighDemandCareersPage'
+import JobMarketVanishedJobsPage from './pages/JobMarketVanishedJobsPage'
+import JobMarketAiEndangeredJobsPage from './pages/JobMarketAiEndangeredJobsPage'
 import JobMarketEasiestPage from './pages/JobMarketEasiestPage'
 import JobMarketHighestPayingPage from './pages/JobMarketHighestPayingPage'
 import JobMarketRollPage from './pages/JobMarketRollPage'
-import CareerSmasherEntryPage from './pages/CareerSmasherEntryPage'
-import CareerSmasherTreePage from './pages/CareerSmasherTreePage'
 import MyBinderPage from './pages/MyBinderPage'
 import BinderComparePage from './pages/BinderComparePage'
 import LoadingPage from './pages/LoadingPage'
@@ -35,6 +39,7 @@ import RefugeeSubjectPage from './pages/RefugeeSubjectPage'
 import TLevelSubjectPage from './pages/TLevelSubjectPage'
 import ResultPage from './pages/ResultPage'
 import CareerDetailPage from './pages/CareerDetailPage'
+import CareerPathwayStepperPage from './pages/CareerPathwayStepperPage'
 import ESOLSubjectPage from './pages/ESOLSubjectPage'
 import QualificationRecognitionPage from './pages/QualificationRecognitionPage'
 import DisabledWelcomePage from './pages/DisabledWelcomePage'
@@ -44,6 +49,7 @@ import BacktrackCareersListPage from './pages/BacktrackCareersListPage'
 import BacktrackPathwayOverviewPage from './pages/BacktrackPathwayOverviewPage'
 import BacktrackPathwayOptionsPage from './pages/BacktrackPathwayOptionsPage'
 import BacktrackSubjectSelectionPage from './pages/BacktrackSubjectSelectionPage'
+import NotFoundPage from './pages/NotFoundPage'
 import MobileContainer from './components/MobileContainer'
 import Logo from './components/Logo'
 import NavGlowOrbs from './components/NavGlowOrbs'
@@ -60,12 +66,13 @@ function App() {
   const compareSelectionMode = useCompareStore((state) => state.compareSelectionMode)
   const compareSourcePage = useCompareStore((state) => state.compareSourcePage)
   const exitCompareSelectionMode = useCompareStore((state) => state.exitCompareSelectionMode)
-  // Roll a Job is its own top-level nav pill now (see below), promoted out
-  // of the Job Market hub - so it needs to be excluded from Job Market's
-  // own "am I active" check, or both pills would light up at once while on
-  // /job-market/roll.
+  // Roll a Job lives back inside the Job Market hub as a door tile (see
+  // JobMarketPage.tsx) rather than its own nav pill - isRollActive still
+  // exists on its own because the page itself needs the dark "game mode"
+  // styling below regardless of how you got there, but it no longer needs
+  // to be excluded from Job Market's "am I active" check.
   const isRollActive = location.pathname === '/job-market/roll'
-  const isJobMarketActive = location.pathname.startsWith('/job-market') && !isRollActive
+  const isJobMarketActive = location.pathname.startsWith('/job-market')
   // isRollActive forces the dark look here too, not just accessibilitySettings.darkMode -
   // Roll a Job is a fixed "game mode" dark page (JobMarketRollPage.tsx)
   // regardless of the site's own toggle. Without this, the app SHELL (this
@@ -157,9 +164,10 @@ function App() {
                   wordmark) - icon-only kicks in below 480px, a true last
                   resort for phones too narrow to fit "PathScrawler" next to
                   the nav cluster on the right. That cutoff was 380px before
-                  Roll a Job joined Job Market as a second persistent pill in
-                  the cluster (see below) - confirmed via a real rendered
-                  overflow at common ~390px phone widths with the old
+                  this cluster briefly carried a second persistent pill for
+                  Roll a Job (since folded back into the Job Market hub as a
+                  door tile - see JobMarketPage.tsx) - confirmed via a real
+                  rendered overflow at common ~390px phone widths with the old
                   threshold, now covers that plus the next size up (412-428px
                   phones) with margin. Rendering both and toggling with CSS
                   (rather than one Logo with a media-query-driven prop) means
@@ -177,24 +185,28 @@ function App() {
             {/* gap-1.5 up through the sm breakpoint, then md: for both the
                 gap and every pill's own icon-only -> icon+text expansion
                 below - deferred from sm (640px) to md (768px) across this
-                whole cluster once Roll a Job joined Job Market as a second
-                persistent text pill: at sm, Job Market + Roll a Job + Sign in
-                all expanding to full text plus two icon circles genuinely
-                overflowed a 640-767px header (confirmed via a real rendered
-                scrollWidth check). Icon-only through that tablet-ish range
-                and text from md on keeps every pill in this row switching in
-                lockstep - one flipping to text while its neighbor stays
-                icon-only would look broken mid-transition even if it
-                technically fit. flex-wrap + justify-end on top of that is a
-                safety net, not the primary fix: the rare compound state of
-                signed-in AND an active Compare pill AND a ~700-830px width
-                still doesn't fit even icon-only-until-md (confirmed via a
-                real rendered scrollWidth check) - rather than keep chasing
-                one more exact pixel threshold for today's exact button
-                count, letting the cluster drop to a right-aligned second row
-                if it ever runs out of room means a future added item can't
-                silently push something off-screen again the way Roll a Job
-                just did. flex-1 + min-w-0 (not shrink-0) is what actually
+                whole cluster back when it briefly carried Roll a Job as a
+                second persistent text pill alongside Job Market: at sm, the
+                two of them plus Sign in all expanding to full text plus two
+                icon circles genuinely overflowed a 640-767px header
+                (confirmed via a real rendered scrollWidth check). Roll a Job
+                has since moved back into the Job Market hub as a door tile
+                (JobMarketPage.tsx), but the md threshold and the safety net
+                below are left as-is - loosening them back to sm risks the
+                same overflow the moment this cluster gains another item.
+                Icon-only through that tablet-ish range and text from md on
+                keeps every pill in this row switching in lockstep - one
+                flipping to text while its neighbor stays icon-only would
+                look broken mid-transition even if it technically fit.
+                flex-wrap + justify-end on top of that is a safety net, not
+                the primary fix: the rare compound state of signed-in AND an
+                active Compare pill AND a ~700-830px width still doesn't fit
+                even icon-only-until-md (confirmed via a real rendered
+                scrollWidth check) - rather than keep chasing one more exact
+                pixel threshold for today's exact button count, letting the
+                cluster drop to a right-aligned second row if it ever runs
+                out of room means a future added item can't silently push
+                something off-screen again. flex-1 + min-w-0 (not shrink-0) is what actually
                 makes that wrap trigger - shrink-0 alone left this div free
                 to grow to its full unwrapped content width and push past
                 the viewport instead of ever being constrained enough to
@@ -240,28 +252,10 @@ function App() {
                 <NavGlowOrbs />
               </div>
             </button>
-            {/* Top-level nav item, same pill language as Job Market right
-                above - promoted out of the Job Market hub (JobMarketPage.tsx)
-                since it's popular/fun enough to deserve one-click access from
-                anywhere, not a click-deep hub tile. /job-market/roll itself
-                didn't move, just how you get to it. */}
-            <button
-              type="button"
-              onClick={() => navigate('/job-market/roll')}
-              aria-current={isRollActive ? 'page' : undefined}
-              title="Roll a Job"
-              className={`nav-glow-btn inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold text-white transition md:h-auto md:w-auto ${
-                isRollActive ? 'border-white/90' : 'border-transparent'
-              }`}
-            >
-              <div className="glow-wrapper flex items-center justify-center gap-2 px-0 py-0 md:px-4 md:py-2">
-                <span className="relative z-10 flex items-center gap-2">
-                  <Dices className="h-4 w-4 shrink-0" />
-                  <span className="hidden md:inline">Roll a Job</span>
-                </span>
-                <NavGlowOrbs />
-              </div>
-            </button>
+            {/* "I Know My Goal" nav pill (a brief experiment, promoted out
+                of RoleSelectionPage's "Have a career in mind?" card) was
+                removed again - that card is back to being the one door in,
+                not duplicated in the header too. */}
             {/* "My Binder" moved out of the public nav (see the account
                 dropdown below) - the Binder is account-gated now, so it no
                 longer belongs next to Job Market where anyone, signed in or
@@ -384,6 +378,7 @@ function App() {
           <Route path="/refugee/recognition" element={<QualificationRecognitionPage />} />
           <Route path="/results" element={<ResultPage />} />
           <Route path="/career/:id" element={<CareerDetailPage />} />
+          <Route path="/career-pathway/:careerId" element={<CareerPathwayStepperPage />} />
           <Route path="/search" element={<SearchResultsPage />} />
           <Route path="/backtrack/categories" element={<BacktrackCategoriesPage />} />
           <Route path="/backtrack/careers/:category" element={<BacktrackCareersListPage />} />
@@ -394,17 +389,22 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/pathway/:id" element={<SharedPathwayPage />} />
           <Route path="/my-pathways" element={<MyPathwaysPage />} />
+          <Route path="/my-pathways/:pathwayId" element={<PathwayFlowPage />} />
           <Route path="/compare" element={<ComparePage />} />
           <Route path="/job-market" element={<JobMarketPage />} />
           <Route path="/job-market/spotlight" element={<JobMarketSpotlightPage />} />
           <Route path="/job-market/statistics" element={<JobMarketStatisticsPage />} />
+          <Route path="/job-market/statistics/uk-numbers" element={<JobMarketUkStatsPage />} />
+          <Route path="/job-market/statistics/uk-numbers/heritage-crafts" element={<JobMarketHeritageCraftsPage />} />
+          <Route path="/job-market/statistics/uk-numbers/high-demand-careers" element={<JobMarketHighDemandCareersPage />} />
+          <Route path="/job-market/statistics/uk-numbers/vanished-jobs" element={<JobMarketVanishedJobsPage />} />
+          <Route path="/job-market/statistics/ai-endangered-jobs" element={<JobMarketAiEndangeredJobsPage />} />
           <Route path="/job-market/easiest" element={<JobMarketEasiestPage />} />
           <Route path="/job-market/highest-paying" element={<JobMarketHighestPayingPage />} />
           <Route path="/job-market/roll" element={<JobMarketRollPage />} />
-          <Route path="/career-smasher" element={<CareerSmasherEntryPage />} />
-          <Route path="/career-smasher/:id" element={<CareerSmasherTreePage />} />
           <Route path="/binder" element={<MyBinderPage />} />
           <Route path="/binder/compare" element={<BinderComparePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </MobileContainer>
     </div>

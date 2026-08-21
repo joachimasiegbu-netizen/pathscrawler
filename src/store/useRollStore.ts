@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 import { TIERS, type TierKey } from '../utils/careerTiers'
 import type { RollContext } from '../utils/rollEngine'
 
-// Same pure-localStorage pattern as useCareerBoardStore.ts / useCompareStore.ts.
+// Same pure-localStorage pattern as useCompareStore.ts.
 // The Recent Rolls list and the pity system (soft/hard guaranteed rolls)
 // have been removed - this store now only keeps `lastRolledCareerId`
 // (needed so rollEngine.ts can still avoid repeating the same career twice

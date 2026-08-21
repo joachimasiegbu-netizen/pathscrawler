@@ -1,4 +1,4 @@
-import { BarChart3, Crown, Hammer, Rocket, Sparkles } from 'lucide-react'
+import { BarChart3, Crown, Dices, Rocket, Sparkles } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import JobMarketDoorButton, { type DoorAccent } from '../components/JobMarketDoorButton'
 import PageHeader from '../components/PageHeader'
@@ -16,7 +16,6 @@ interface Door {
   subtitle: string
   href: string
   accent: DoorAccent
-  iconClassName?: string
 }
 
 const DOORS: Door[] = [
@@ -48,20 +47,12 @@ const DOORS: Door[] = [
     href: '/job-market/highest-paying',
     accent: 'amber',
   },
-  // "Roll a Job" moved to the main nav bar (see App.tsx, next to "Job
-  // Market") - it's a top-level destination now, not buried a click deep
-  // inside this hub. /job-market/roll itself is untouched, still reachable
-  // by anyone who lands on this URL directly.
   {
-    icon: Hammer,
-    title: 'Career Smasher',
-    subtitle: 'Break a job into skills, then branch to new careers',
-    href: '/career-smasher',
-    accent: 'orange',
-    // hammer-smash-icon: only the icon does the wind-up-and-swing animation
-    // on hover (index.css), not the whole card - matches every other door's
-    // own separate lift/shadow hover treatment.
-    iconClassName: 'hammer-smash-icon',
+    icon: Dices,
+    title: 'Roll a Job',
+    subtitle: 'Collect them all',
+    href: '/job-market/roll',
+    accent: 'rose',
   },
 ]
 

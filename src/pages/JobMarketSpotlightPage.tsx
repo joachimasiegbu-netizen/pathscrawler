@@ -58,7 +58,7 @@ export default function JobMarketSpotlightPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 py-8 sm:px-6">
       <BackButton to="/job-market" label="Job Market" />
-      <PageHeader icon={Sparkles} title="This Week's Spotlight" subtitle="A career worth exploring right now" />
+      <PageHeader icon={Sparkles} title="This Week's Spotlight" />
 
       {phase === 'loading' ? (
         <div className="space-y-4 overflow-hidden rounded-[26px] border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800 sm:p-8">

@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { Bookmark, BookmarkCheck, Check, Dices, Share2, X } from 'lucide-react'
 import type { Career } from '../data/demoCareers'
 import type { TierKey } from '../utils/careerTiers'
-import { getTierConfig } from '../utils/careerTiers'
+import { getDisplayRarityN, getTierConfig } from '../utils/careerTiers'
 import { getTierStyle } from '../utils/tierStyles'
 import { useAuthStore } from '../store/useAuthStore'
 import { useBinderStore } from '../store/useBinderStore'
@@ -65,6 +65,7 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
   const config = getTierConfig(tier)
   const style = getTierStyle(tier)
   const isMythic = tier === 'mythic'
+  const isHighTier = tier === 'epic' || tier === 'legendary' || tier === 'mythic'
 
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     if (reduceMotion || !cardRef.current) return
@@ -241,14 +242,38 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
             {career.description}
           </p>
 
-          <p className={`relative z-10 mt-3 text-xs font-medium italic ${isMythic ? 'text-amber-400/90' : style.badgeText}`}>
-            {/* A REAL fact, not the game's roll odds relabeled - actual UK
-                employment share (career.employmentPercentage, see
-                demoCareers.d.ts/demoCareers.js for the ONS SOC 2020 / DfE
-                Occupations in Demand 2024 source, one entry per career),
-                converted from a percentage to "1 in every N workers". */}
-            1 in every {Math.round(100 / career.employmentPercentage).toLocaleString('en-GB')} workers{tier === 'epic' || tier === 'legendary' || tier === 'mythic' ? '!' : '.'}
-          </p>
+          {isHighTier ? (
+            // Epic/Legendary/Mythic (by pay - see careerTiers.ts's
+            // getCareerTier) gets a badge of its own rather than the plain
+            // italic line below - "Mythic • 1 in 300" is the whole point of
+            // rolling one of these, not a footnote. The figure is
+            // getDisplayRarityN's floored value for ordinary high earners
+            // (a high-paying job that's actually common in real life gets
+            // bumped up to at least 1 in 300 so "Mythic" still feels rare),
+            // or the exact hand-sourced rarityLabel for the handful of
+            // ultra-rare heritage-craft careers that happen to also clear
+            // the pay bar.
+            <p
+              className="relative z-10 mt-3 inline-flex items-center gap-1.5 rounded-full bg-amber-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-300 ring-1 ring-amber-400/40"
+              style={{ boxShadow: '0 2px 12px -2px rgba(251, 191, 36, 0.35)' }}
+            >
+              {config.emoji} {config.label} •{' '}
+              {career.rarityLabel
+                ? career.rarityLabel.replace('1 in every ', '1 in ').replace(' workers', '')
+                : `1 in ${getDisplayRarityN(career).toLocaleString('en-GB')}`}
+            </p>
+          ) : (
+            <p className={`relative z-10 mt-3 text-xs font-medium italic ${isMythic ? 'text-amber-400/90' : style.badgeText}`}>
+              {/* A REAL fact, not the game's roll odds relabeled - actual UK
+                  employment share (career.employmentPercentage, see
+                  demoCareers.d.ts/demoCareers.js for the ONS SOC 2020 / DfE
+                  Occupations in Demand 2024 source, one entry per career),
+                  converted to "1 in every N workers" - real figure here,
+                  no scarcity floor, since that only applies to the Epic+
+                  badge above. */}
+              {career.rarityLabel ? `${career.rarityLabel}.` : `1 in every ${getDisplayRarityN(career).toLocaleString('en-GB')} workers.`}
+            </p>
+          )}
 
           {/* Discard was removed as redundant - the X in the top-right
               corner and clicking outside the card already close it. 3

@@ -2,8 +2,6 @@ import { useState, type KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
-  Bookmark,
-  BookmarkCheck,
   ChevronDown,
   Clock,
   GraduationCap,
@@ -12,7 +10,8 @@ import {
   Wallet,
 } from 'lucide-react'
 import type { HighestPayingCareer } from '../utils/highestPayingCareers'
-import { useCareerBoardStore } from '../store/useCareerBoardStore'
+import SavePathwayButton from './SavePathwayButton'
+import ShowFullPathwayButton from './ShowFullPathwayButton'
 
 interface HighestPayingCareerCardProps {
   entry: HighestPayingCareer
@@ -29,9 +28,6 @@ const SECTIONS: { key: SectionKey; label: string; icon: typeof Route }[] = [
 
 export default function HighestPayingCareerCard({ entry }: HighestPayingCareerCardProps) {
   const navigate = useNavigate()
-  const savedCareerIds = useCareerBoardStore((state) => state.careerIds)
-  const toggleSaved = useCareerBoardStore((state) => state.toggle)
-  const saved = savedCareerIds.includes(entry.career.id)
   const { career } = entry
   const [openSections, setOpenSections] = useState<Set<SectionKey>>(() => new Set(['pathway']))
 
@@ -174,31 +170,9 @@ export default function HighestPayingCareerCard({ entry }: HighestPayingCareerCa
       </div>
 
       {/* Actions */}
-      <div className="mt-4 space-y-2 border-t border-slate-100 pt-4 dark:border-slate-700">
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              navigate(`/backtrack/pathway/${career.id}`)
-            }}
-            className="inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-700 transition-colors duration-150 hover:bg-amber-100 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-400 dark:hover:bg-amber-900"
-          >
-            <Route className="h-4 w-4 shrink-0" />
-            Backtrack
-          </button>
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              toggleSaved(career.id)
-            }}
-            className="inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-600 transition-colors duration-150 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700/50"
-          >
-            {saved ? <BookmarkCheck className="h-4 w-4 shrink-0" /> : <Bookmark className="h-4 w-4 shrink-0" />}
-            {saved ? 'Saved' : 'Save'}
-          </button>
-        </div>
+      <div className="mt-4 flex gap-2 border-t border-slate-100 pt-4 dark:border-slate-700">
+        <ShowFullPathwayButton career={career} className="flex-1" />
+        <SavePathwayButton careerId={career.id} className="flex-1" />
       </div>
     </div>
   )

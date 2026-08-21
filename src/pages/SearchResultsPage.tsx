@@ -10,7 +10,9 @@ import CompareFloatingButton from '../components/CompareFloatingButton'
 import EmptyState from '../components/EmptyState'
 import HighlightMatch from '../components/HighlightMatch'
 import PageHeader from '../components/PageHeader'
+import SavePathwayButton from '../components/SavePathwayButton'
 import SelectableCareerCard from '../components/SelectableCareerCard'
+import ShowFullPathwayButton from '../components/ShowFullPathwayButton'
 import StaggerGrid from '../components/StaggerGrid'
 
 const subjectLabelById: Record<string, string> = Object.fromEntries(
@@ -89,6 +91,11 @@ export default function SearchResultsPage() {
                         <li key={req}>{req}</li>
                       ))}
                     </ul>
+                  </div>
+
+                  <div className="!mt-4 flex gap-2 border-t border-slate-100 pt-4 dark:border-slate-700">
+                    <ShowFullPathwayButton career={career} className="flex-1" />
+                    <SavePathwayButton careerId={career.id} className="flex-1" />
                   </div>
                 </div>
               </Card>

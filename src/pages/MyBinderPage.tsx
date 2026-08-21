@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { BookOpen, Check, Dices, GitCompare, Share2, X } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import BinderAuthWall from '../components/BinderAuthWall'
-import BinderCardModal from '../components/BinderCardModal'
 import BinderCardTile from '../components/BinderCardTile'
 import BinderStatsPanel from '../components/BinderStatsPanel'
 import FloatingCompareButton from '../components/FloatingCompareButton'
@@ -29,11 +28,12 @@ function tierRank(tier: TierKey): number {
 }
 
 // My Binder is the Roll a Job trading-card collection - a different
-// feature from "My saved careers" (useCareerBoardStore, used on the
-// Spotlight/Easiest Jobs/Highest Paying cards elsewhere in this app):
-// this one allows duplicates and is scoped specifically to what you've
-// rolled, so it gets its own store (useBinderStore) and its own page
-// rather than reusing that one. The literal multi-page/flip/swipe "binder
+// feature from "My saved pathways" (useSavedPathwaysStore, the "Save
+// pathway" button used on Results/Search/Career Changer/Easiest Jobs/
+// Highest Paying Jobs cards elsewhere in this app): this one allows
+// duplicates and is scoped specifically to what you've rolled, so it gets
+// its own store (useBinderStore) and its own page rather than reusing
+// that one. The literal multi-page/flip/swipe "binder
 // pages" from the brief are simplified to a single responsive scrolling
 // grid inside a page-styled panel - a real page-turn/flip implementation
 // (drag gesture handling, 3D flip transforms, per-page state) would be a
@@ -47,7 +47,6 @@ export default function MyBinderPage() {
   const navigate = useNavigate()
   const currentUser = useAuthStore((state) => state.currentUser)
   const cards = useMyBinderCards()
-  const removeCard = useBinderStore((state) => state.removeCard)
   const binderSelectionMode = useBinderStore((state) => state.binderSelectionMode)
   const selectedBinderCards = useBinderStore((state) => state.selectedBinderCards)
   const enterSelectionMode = useBinderStore((state) => state.enterSelectionMode)
@@ -56,7 +55,6 @@ export default function MyBinderPage() {
   const [activeTab, setActiveTab] = useState<TabKey>('all')
   const [sort, setSort] = useState<SortKey>('newest')
   const [search, setSearch] = useState('')
-  const [selected, setSelected] = useState<GroupedBinderCard | null>(null)
   const [toast, setToast] = useState<string | null>(null)
 
   const allGrouped = useMemo(() => groupBinderCards(cards), [cards])
@@ -144,10 +142,7 @@ export default function MyBinderPage() {
     // "bottom-6" position once the page was scrolled all the way down. Both
     // are pulled out as siblings of the translated div below, outside its
     // containing-block reach, so they stay genuinely pinned to the
-    // viewport at any scroll position. (BinderCardModal's `inset-0` dim
-    // overlay doesn't have this problem in practice - covering "the whole
-    // scrollable box" and covering "the whole viewport" look identical for
-    // a full-bleed backdrop - so it's left where it is.)
+    // viewport at any scroll position.
     <>
       <div className="binder-texture relative left-1/2 w-screen min-h-screen -translate-x-1/2 bg-background px-4 py-8 dark:bg-background-dark sm:px-6">
       <div className="mx-auto max-w-5xl space-y-6">
@@ -284,7 +279,7 @@ export default function MyBinderPage() {
                         <BinderCardTile
                           key={entry.latest.careerId}
                           entry={entry}
-                          onClick={() => setSelected(entry)}
+                          onClick={() => navigate(`/career/${entry.latest.careerId}`, { state: { from: 'binder' } })}
                           selectionMode={binderSelectionMode}
                           selected={selectedBinderCards.includes(entry.latest.careerId)}
                           onToggleSelect={() => handleToggleSelect(entry.latest.careerId)}
@@ -299,17 +294,6 @@ export default function MyBinderPage() {
         </div>
       </div>
 
-      {selected ? (
-        <BinderCardModal
-          entry={selected}
-          onClose={() => setSelected(null)}
-          onRemove={() => {
-            selected.copies.forEach((copy) => removeCard(copy.id))
-            flashToast('Removed from binder.')
-            setSelected(null)
-          }}
-        />
-      ) : null}
       </div>
 
       {toast ? <Toast message={toast} type="success" /> : null}

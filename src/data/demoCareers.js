@@ -4082,6 +4082,9 @@ const rawDemoCareers = [
       'gcse-maths',
       'gcse-english',
       'gcse-science-combined',
+      'computer-forensics-bsc',
+      'forensic-science-bsc',
+      'btec-forensic-science',
     ],
     dayToDay: [
       'Investigate data, systems and security events',
@@ -4115,6 +4118,7 @@ const rawDemoCareers = [
         entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
         subjects: [
           'tlevel-digital-support-services',
+          'btec-forensic-science',
         ],
         description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Digital Forensics Investigator.',
       },
@@ -4126,6 +4130,8 @@ const rawDemoCareers = [
         entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
         subjects: [
           'alevel-compsci',
+          'computer-forensics-bsc',
+          'forensic-science-bsc',
         ],
         description: 'Study full-time for a degree that leads into a career as a Digital Forensics Investigator.',
       },
@@ -4853,100 +4859,6 @@ const rawDemoCareers = [
     ]
   },
   {
-    id: 77,
-    employmentPercentage: 1.2206, // SOC 9263: Kitchen and catering assistants
-    category: 'Service & Hospitality',
-    title: 'Hospitality Worker',
-    supportTags: [
-      'Disability Confident employer',
-      'Access to Work eligible',
-      'Accessible',
-      'Flexible hours',
-    ],
-    salary: '£18k - £40k',
-    description: 'Support hospitality, catering and guest service roles across hotels, events and food service.',
-    requirements: [
-      'Relevant vocational training',
-      'Practical skills',
-      'Good communication',
-      'Customer service or team working',
-    ],
-    matchedSubjects: [
-      'gcse-food-technology',
-      'nvq-catering-professional-cookery',
-      'btec-hospitality',
-      'chef-apprenticeship',
-      'hotel-management-apprenticeship',
-      'vocational-hospitality-catering',
-      'hotel-hospitality-management-ba',
-      'event-management-ba',
-      'tourism-management-ba',
-      'culinary-arts-ba',
-      'nutrition-food-science-bsc',
-      'btec-travel-tourism',
-      'tlevel-catering',
-      'gcse-maths',
-      'gcse-english',
-      'vocational-cleaning-facilities',
-    ],
-    dayToDay: [
-      'Support everyday tasks and customer needs',
-      'Work with colleagues to complete practical work',
-      'Use skills to solve problems and support services',
-      'Keep records and follow workplace procedures',
-    ],
-    whereToStudy: [
-      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=hospitality+worker', description: 'Affordable professional courses' },
-      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=hospitality+worker', description: 'Business & tech skills' },
-    ],
-    progression: [
-      'Hospitality Worker Apprentice (£18k-£24k)',
-      'Hospitality Worker (£24k-£32k)',
-      'Senior Hospitality Worker (£32k-£40k)',
-    ],
-    similarCareers: [
-      86,
-      1,
-      5,
-      11,
-    ],
-    backtrackPathways: [
-      {
-        type: 'vocational',
-        name: 'Apprenticeship / Vocational Route',
-        duration: '2-4 years',
-        cost: 'Low cost - often paid while you train (apprenticeship wage)',
-        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
-        subjects: [
-          'nvq-catering-professional-cookery',
-          'chef-apprenticeship',
-          'hotel-management-apprenticeship',
-          'vocational-hospitality-catering',
-          'tlevel-catering',
-          'vocational-cleaning-facilities',
-        ],
-        description: 'Learn on the job through an apprenticeship or vocational course while working toward becoming a Hospitality Worker.',
-      },
-      {
-        type: 'university',
-        name: 'University / Degree Route',
-        duration: '3-4 years',
-        cost: 'Higher cost - tuition fees apply (student finance available)',
-        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
-        subjects: [
-          'btec-hospitality',
-          'hotel-hospitality-management-ba',
-          'event-management-ba',
-          'tourism-management-ba',
-          'culinary-arts-ba',
-          'nutrition-food-science-bsc',
-          'btec-travel-tourism',
-        ],
-        description: 'Study full-time for a degree that leads into a career as a Hospitality Worker.',
-      },
-    ]
-  },
-  {
     id: 79,
     employmentPercentage: 0.3969, // SOC 6221: Hairdressers and barbers
     category: 'Service & Hospitality',
@@ -5337,7 +5249,7 @@ const rawDemoCareers = [
       'Head Chef (£36k-£45k)',
     ],
     similarCareers: [
-      77,
+      171,
       87,
     ],
     backtrackPathways: [
@@ -5410,7 +5322,7 @@ const rawDemoCareers = [
       'Senior / Head of Events (£38k-£45k)',
     ],
     similarCareers: [
-      77,
+      174,
       86,
     ],
     backtrackPathways: [
@@ -5957,7 +5869,7 @@ const rawDemoCareers = [
     similarCareers: [
       87,
       17,
-      77,
+      171,
     ],
     backtrackPathways: [
       {
@@ -7683,7 +7595,3347 @@ const rawDemoCareers = [
         description: 'Study computer science or software engineering, then build experience through developer and engineering management roles toward a director post.',
       },
     ]
-  }
+  },
+  // --- Ultra-rare / Mythic-tier heritage crafts & specialist roles ---
+  // Real 2025-2026 UK workforce figures from Heritage Crafts' Red List of
+  // Endangered Crafts, the Institute of British Organ Building, the
+  // National Society of Master Thatchers, trade body/company filings, and
+  // (for Forensic Anthropologist) the Royal Anthropological Institute /
+  // British Association for Forensic Anthropology - not the DfE
+  // "Occupations in Demand" CSV the rest of this file's employmentPercentage
+  // values come from, since occupations this niche were never granular
+  // enough to get their own SOC-coded row in that dataset. Denominator is
+  // ONS's ~34.5M UK "people in work" total (a different, more recent figure
+  // than the ~31.4M workforce total the rest of this file uses - both are
+  // real ONS totals, just from different points/definitions, so a Master
+  // Thatcher's percentage isn't perfectly apples-to-apples comparable to a
+  // Software Developer's down to the last decimal - the "1 in every N"
+  // rarityLabel string is what's authoritative for these 7, not a precise
+  // division of the two numbers). rarityLabel is a new, optional field
+  // (see demoCareers.d.ts) - RollResultCard prefers it when present instead
+  // of computing "1 in every N" from employmentPercentage, since these
+  // headline counts were deliberately rounded to the same clean figures
+  // Heritage Crafts and the trade bodies themselves quote, not left as a
+  // raw division that'd print a slightly-off number like "43,126".
+  {
+    id: 125,
+    employmentPercentage: 0.002319, // ~800 UK Master Thatchers of ~34.5M in work (National Society of Master Thatchers, 2025)
+    rarityLabel: '1 in every 43,000 workers',
+    category: 'Construction & Trades',
+    title: 'Master Thatcher',
+    salary: '£28k - £48k',
+    description: 'Weave and repair traditional straw and water reed roofs on historic and residential buildings, keeping a centuries-old craft alive.',
+    requirements: [
+      'Traditional apprenticeship (typically 5-7 years)',
+      'Physical fitness and a head for heights',
+      'Knowledge of regional thatching styles (long straw, combed wheat reed, water reed, Welsh vernacular, Irish vernacular)',
+      'GCSE Maths and English',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Strip and re-thatch roofs using straw or water reed',
+      'Repair storm damage and patch worn or leaking areas',
+      'Fit fire-retardant and bird-proofing layers to new work',
+      'Advise homeowners and conservation officers on materials and regional style',
+    ],
+    whereToStudy: [
+      { name: 'National Society of Master Thatchers', url: 'https://www.nsmt.co.uk', description: 'Apprenticeships and trade body for UK thatchers' },
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/thatching/', description: 'Endangered crafts directory and training routes' },
+    ],
+    progression: [
+      "Thatcher's Apprentice (Entry (£18k-£24k))",
+      'Journeyman Thatcher (Mid-level (£28k-£38k))',
+      'Master Thatcher (Senior (£38k-£48k))',
+      'Master Thatcher with own client waiting list (Lead / Specialist (£45k+))',
+    ],
+    similarCareers: [
+      130,
+      131,
+      89,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'tlevel-construction-on-site-construction',
+      'btec-construction',
+      'tlevel-craft-design',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Traditional Apprenticeship Route',
+        duration: '5-7 years',
+        cost: 'Low cost - trained on the job under a master thatcher, wage while training',
+        entryRequirements: 'No formal qualifications required - GCSEs helpful, fitness and reliability essential',
+        subjects: [
+          'tlevel-construction-on-site-construction',
+          'btec-construction',
+          'tlevel-craft-design',
+        ],
+        description: 'Only ~50-60k thatched properties remain in the UK and the workforce is ageing, so most training happens directly under a working master thatcher rather than in a classroom. Heritage Crafts\' 2025 Red List separately flagged Welsh vernacular and Irish vernacular thatching as newly critically endangered regional techniques within this same trade.',
+      },
+    ],
+  },
+  {
+    id: 126,
+    employmentPercentage: 0.0001884, // ~65 UK pipe organ builders/restorers of ~34.5M in work (Institute of British Organ Building, 2025)
+    rarityLabel: '1 in every 530,000 workers',
+    category: 'Creative & Media',
+    title: 'Pipe Organ Builder / Restorer',
+    salary: '£26k - £50k',
+    description: 'Build, tune, voice and restore pipe organs in churches, cathedrals and concert halls, a craft that blends woodwork, metalwork and acoustics.',
+    requirements: [
+      'Long-term apprenticeship or trainee post with an established organ builder (5+ years)',
+      'Fine woodworking, metalworking and mechanical skills',
+      'A trained ear for tuning and voicing pipework',
+      'GCSE Maths, English and Science',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Restore and rebuild historic pipe organs on site or in the workshop',
+      'Voice and tune individual pipes by ear',
+      'Fabricate replacement pipework, action and casework',
+      'Carry out routine maintenance and emergency repairs for churches and venues',
+    ],
+    whereToStudy: [
+      { name: 'Institute of British Organ Building', url: 'https://www.ibo.co.uk', description: 'Trade body, apprenticeships and heritage skills training' },
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/organ-building/', description: 'Endangered crafts directory and training routes' },
+    ],
+    progression: [
+      'Trainee / Apprentice Organ Builder (Entry (£20k-£26k))',
+      'Organ Builder (Mid-level (£26k-£36k))',
+      'Senior Restorer (Senior (£36k-£45k))',
+      'Master Organ Builder / Workshop Owner (Lead / Specialist (£45k+))',
+    ],
+    similarCareers: [
+      127,
+      128,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'gcse-science-combined',
+      'tlevel-craft-design',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Trade Apprenticeship Route',
+        duration: '5+ years',
+        cost: 'Low cost - trained on the job with an established organ-building firm',
+        entryRequirements: 'No formal qualifications required - practical aptitude and a trained ear matter most',
+        subjects: [
+          'gcse-science-combined',
+          'tlevel-craft-design',
+        ],
+        description: "Heritage Crafts lists organ building as endangered - 62% of the workforce is over 46, and most firms are 1-2 people, so almost everyone learns through a direct trainee post rather than a course.",
+      },
+    ],
+  },
+  {
+    id: 127,
+    employmentPercentage: 0.000058, // ~20 UK bell founders of ~34.5M in work (John Taylor & Co, Loughborough - last major traditional foundry, 2025)
+    rarityLabel: '1 in every 1,725,000 workers',
+    category: 'Engineering & Manufacturing',
+    title: 'Bell Founder',
+    salary: '£26k - £45k',
+    description: 'Cast, tune and hang church and clock bells using traditional loam-mould casting, one of the rarest metal crafts still practised in the UK.',
+    requirements: [
+      'Long-term apprenticeship at a working bell foundry',
+      'Foundry and metal casting skills, comfortable with molten metal',
+      'A trained ear for tuning bells to pitch',
+      'GCSE Maths and Science',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Prepare loam moulds and cast bronze bells',
+      'Tune cast bells on a lathe to the correct pitch',
+      'Restore and re-hang historic bells and fittings',
+      'Work with churches, cathedrals and heritage bodies on commissions',
+    ],
+    whereToStudy: [
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/bell-founding/', description: 'Endangered crafts directory - bell founding is critically endangered' },
+    ],
+    progression: [
+      'Foundry Apprentice (Entry (£20k-£24k))',
+      'Bell Founder (Mid-level (£26k-£34k))',
+      'Senior Founder / Tuner (Senior (£34k-£42k))',
+      'Master Bell Founder (Lead / Specialist (£42k+))',
+    ],
+    similarCareers: [
+      126,
+      130,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'gcse-science-combined',
+      'tlevel-craft-design',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Foundry Apprenticeship Route',
+        duration: '5+ years',
+        cost: 'Low cost - trained on the job at a working bell foundry',
+        entryRequirements: 'No formal qualifications required - the Whitechapel Bell Foundry closed in 2017, leaving very few working foundries to train at',
+        subjects: [
+          'gcse-science-combined',
+          'tlevel-craft-design',
+        ],
+        description: 'Traditional loam-mould casting is now extremely scarce - John Taylor & Co in Loughborough is the last major traditional foundry, so almost the entire trade is learned there or not at all.',
+      },
+    ],
+  },
+  {
+    id: 128,
+    employmentPercentage: 0.0002319, // ~80 UK full-time hand engravers of ~34.5M in work (Heritage Crafts / trade estimate, 2025)
+    rarityLabel: '1 in every 430,000 workers',
+    category: 'Creative & Media',
+    title: 'Traditional Hand Engraver',
+    salary: '£25k - £45k',
+    description: 'Cut fine lettering and decorative patterns into jewellery, silverware and firearms by hand, a precision skill now largely displaced by laser engraving.',
+    requirements: [
+      'Apprenticeship or specialist college course in hand engraving',
+      'Exceptional hand-eye coordination and patience',
+      'Design and draughtsmanship skills',
+      'GCSE Art & Design, Maths and English',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Hand-cut monograms, crests and decorative patterns into metal',
+      'Engrave jewellery, trophies, silverware and presentation firearms',
+      'Design bespoke lettering and motifs for clients',
+      'Restore and re-cut worn engraving on antique pieces',
+    ],
+    whereToStudy: [
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/hand-engraving/', description: 'Endangered crafts directory and training routes' },
+      { name: 'Birmingham School of Jewellery', url: 'https://www.bcu.ac.uk/jewellery', description: 'Specialist jewellery and engraving courses' },
+    ],
+    progression: [
+      'Engraving Apprentice (Entry (£18k-£24k))',
+      'Hand Engraver (Mid-level (£25k-£34k))',
+      'Senior Engraver (Senior (£34k-£40k))',
+      'Master Engraver / Own Workshop (Lead / Specialist (£40k+))',
+    ],
+    similarCareers: [
+      126,
+      39,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'tlevel-craft-design',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Craft Apprenticeship Route',
+        duration: '4-6 years',
+        cost: 'Low to moderate cost - some specialist college courses charge fees, most training is apprenticeship-based',
+        entryRequirements: 'No formal qualifications required - a strong art/design portfolio helps',
+        subjects: [
+          'tlevel-craft-design',
+        ],
+        description: 'Still used for high-end jewellery, silver and firearms, but largely displaced by laser engraving - fewer than 100 full-time specialists are thought to remain in the UK.',
+      },
+    ],
+  },
+  {
+    id: 129,
+    employmentPercentage: 0.0001304, // ~45 UK full-time forensic anthropologists of ~34.5M in work (RAI / British Association for Forensic Anthropology, 2025)
+    rarityLabel: '1 in every 767,000 workers',
+    category: 'Science & Research',
+    title: 'Forensic Anthropologist',
+    salary: '£35k - £70k+',
+    description: 'Analyse human skeletal remains to determine age, sex, ancestry, stature, trauma and time since death, working with police, coroners and international bodies.',
+    requirements: [
+      "Degree in anthropology or archaeology, plus postgraduate specialisation",
+      'Years of supervised casework experience',
+      'Professional registration (Royal Anthropological Institute / BAFA)',
+      'A-Level Biology or equivalent science background',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Examine skeletal remains to establish identity and cause of death',
+      'Support police and coroners with casework and expert testimony',
+      'Assist disaster victim identification and mass grave investigations',
+      'Publish research and train the next generation of practitioners',
+    ],
+    whereToStudy: [
+      { name: 'British Association for Forensic Anthropology', url: 'https://bafa.org.uk', description: 'Professional body and case accreditation' },
+      { name: 'Royal Anthropological Institute', url: 'https://therai.org.uk', description: 'Professional registration and CPD' },
+    ],
+    progression: [
+      'PhD Researcher / Trainee (Entry (£25k-£35k))',
+      'Forensic Anthropologist, casework + academic post (Mid-level (£35k-£50k))',
+      'Senior Consultant Forensic Anthropologist (Senior (£50k-£65k))',
+      'Lead Consultant / Professor (Lead / Specialist (£65k+))',
+    ],
+    similarCareers: [
+      91,
+      28,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'gcse-science-combined',
+      'anthropology-ba',
+      'archaeology-ba',
+      'forensic-science-bsc',
+      'btec-forensic-science',
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years degree + postgraduate specialisation + years of casework',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels including a science subject - typical offer varies by university',
+        subjects: [
+          'anthropology-ba',
+          'archaeology-ba',
+          'forensic-science-bsc',
+        ],
+        description: 'Full-time practitioners who regularly do casework are estimated at well under 50 (some sources suggest closer to 20-30 active experts) - most work is freelance, university-based or consultancy, since very few permanent posts exist.',
+      },
+    ],
+  },
+  {
+    id: 130,
+    employmentPercentage: 0.0004348, // ~150 UK architectural/heritage blacksmiths of ~34.5M in work (Scotland alone has ~20 - trade estimate, 2025)
+    rarityLabel: '1 in every 230,000 workers',
+    category: 'Construction & Trades',
+    title: 'Architectural / Traditional Blacksmith',
+    salary: '£26k - £48k',
+    description: 'Design and forge ornamental gates, railings and structural ironwork by hand, and restore historic wrought and cast ironwork on listed buildings.',
+    requirements: [
+      'Apprenticeship or specialist blacksmithing course (3-5 years)',
+      'Forge and hand-forging skills, comfortable working at high heat',
+      'Design and technical drawing skills for bespoke commissions',
+      'GCSE Maths, Art & Design and English',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Hand-forge gates, railings, balustrades and structural ironwork',
+      'Restore historic wrought and cast ironwork on listed buildings',
+      'Work from client briefs and heritage conservation specifications',
+      'Run and maintain a traditional coal or gas forge and workshop',
+    ],
+    whereToStudy: [
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/blacksmithing-architectural/', description: 'Endangered crafts directory and training routes' },
+      { name: 'National Heritage Ironwork Group', url: 'https://nhig.org.uk', description: 'Standards, training and accreditation for heritage blacksmiths' },
+    ],
+    progression: [
+      'Blacksmithing Apprentice (Entry (£19k-£25k))',
+      'Blacksmith (Mid-level (£26k-£36k))',
+      'Senior / Heritage Blacksmith (Senior (£36k-£44k))',
+      'Master Blacksmith / Own Forge (Lead / Specialist (£44k+))',
+    ],
+    similarCareers: [
+      125,
+      131,
+      127,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'tlevel-craft-design',
+      'btec-construction',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Forge Apprenticeship Route',
+        duration: '3-5 years',
+        cost: 'Low cost - trained on the job or via a specialist short course, wage while training',
+        entryRequirements: 'No formal qualifications required - a strong design/craft portfolio helps for heritage commissions',
+        subjects: [
+          'tlevel-craft-design',
+          'btec-construction',
+        ],
+        description: 'Scotland alone is estimated to have only around 20 architectural blacksmiths - the specialist heritage-ironwork pool across the whole UK is well under 1 in every 100,000 workers.',
+      },
+    ],
+  },
+  {
+    id: 131,
+    employmentPercentage: 0.0000232, // ~8 UK skilled professional pargeters of ~34.5M in work (Heritage Crafts, East Anglia trade estimate, 2025)
+    rarityLabel: '1 in every 4,313,000 workers',
+    category: 'Construction & Trades',
+    title: 'Pargeter (Decorative Plasterer)',
+    salary: '£26k - £45k',
+    description: 'Create raised ornamental plasterwork on building exteriors - freehand or moulded motifs, animals and coats of arms - strongly associated with East Anglia.',
+    requirements: [
+      'Apprenticeship or specialist training under a working pargeter',
+      'Freehand modelling and sculptural skills in wet plaster',
+      'Design and pattern-drawing ability',
+      'GCSE Art & Design, Maths and English',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Model raised decorative motifs, animals and crests into wet plaster',
+      'Restore historic pargeting on listed timber-framed buildings',
+      'Mix traditional lime-based plasters and prepare surfaces',
+      'Work with conservation officers on heritage restoration projects',
+    ],
+    whereToStudy: [
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/pargeting/', description: 'Endangered crafts directory - pargeting is critically endangered' },
+    ],
+    progression: [
+      'Plastering Apprentice (Entry (£19k-£25k))',
+      'Decorative Plasterer (Mid-level (£26k-£34k))',
+      'Pargeter, simple stamped/combed work (Senior (£34k-£40k))',
+      'Master Pargeter, freehand ornamental work (Lead / Specialist (£40k+))',
+    ],
+    similarCareers: [
+      125,
+      130,
+      36,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'tlevel-craft-design',
+      'btec-construction',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Craft Apprenticeship Route',
+        duration: '4-6 years',
+        cost: 'Low cost - trained on the job under a working pargeter',
+        entryRequirements: 'No formal qualifications required - a strong art/sculpture portfolio helps',
+        subjects: [
+          'tlevel-craft-design',
+          'btec-construction',
+        ],
+        description: 'Only around 6-11 highly skilled professional pargeters are thought to remain, concentrated in East Anglia (Suffolk/Essex) - most modern plastering is plain, so this freehand ornamental skill is critically endangered.',
+      },
+    ],
+  },
+  // --- 3 more ultra-rare heritage crafts, added from Heritage Crafts' Red
+  // List 2025 "12 new critically endangered crafts" - the actual named
+  // examples PathScrawler_UK_Stats.txt cited (rattan furniture, cut
+  // crystal, ship figurehead carving), researched individually the same
+  // way as ids 125-131 above (Heritage Crafts' own craft pages, fetched
+  // May-Aug 2026). The 4th named example, Welsh/Irish vernacular
+  // thatching, is NOT a separate entry here - Heritage Crafts lists it as
+  // a newly-endangered regional TECHNIQUE within thatching, not a
+  // separate profession with its own UK headcount, so it's folded into
+  // Master Thatcher (id 125)'s own requirements/backtrackPathways above
+  // rather than inventing a second thatcher entry with a fabricated
+  // separate practitioner count.
+  {
+    id: 132,
+    employmentPercentage: 0.00005222, // 18 craftspeople at Soane Britain, the UK's only rattan furniture maker, of ~34.5M in work (Heritage Crafts, 2025)
+    rarityLabel: '1 in every 1,915,000 workers',
+    category: 'Creative & Media',
+    title: 'Rattan Furniture Maker',
+    salary: '£24k - £42k',
+    description: 'Hand-weave and frame rattan furniture, lighting and baskets - a craft that now exists at a single UK company after decades of manufacturing moving overseas.',
+    requirements: [
+      'Apprenticeship with the one remaining UK rattan furniture maker (typically 3-4 years)',
+      'Hand-weaving dexterity and patience for slow, repetitive work',
+      'Frame-making and finishing skills',
+      'GCSE Maths, English and Design & Technology',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Weave rattan cane into sofas, chairs, lighting and baskets by hand',
+      'Build and prepare timber/rattan frames before weaving',
+      'Finish and polish completed pieces',
+      'Work from bespoke client and interior-designer commissions',
+    ],
+    whereToStudy: [
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/rattan-furniture-making/', description: 'Endangered crafts directory - rattan furniture making is critically endangered' },
+    ],
+    progression: [
+      'Rattan Weaving Apprentice (Entry (£19k-£24k))',
+      'Rattan Furniture Maker (Mid-level (£24k-£32k))',
+      'Senior Weaver, complex pieces (Senior (£32k-£38k))',
+      'Master Weaver / Workshop Lead (Lead / Specialist (£38k+))',
+    ],
+    similarCareers: [
+      128,
+      131,
+      126,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'tlevel-craft-design',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'In-House Apprenticeship Route',
+        duration: '3-4 years',
+        cost: 'Low cost - trained on the job, paid at least National Living Wage throughout',
+        entryRequirements: 'No formal qualifications required - fine hand-dexterity and patience matter most',
+        subjects: [
+          'tlevel-craft-design',
+        ],
+        description: 'All UK rattan furniture making now happens at a single company (Soane Britain, 18 craftspeople) after the trade largely moved to Asia in the 1970s - there is no government apprenticeship route or independent training provider, only that one in-house programme.',
+      },
+    ],
+  },
+  {
+    id: 133,
+    employmentPercentage: 0.0000232, // ~8 UK cut crystal glass cutters with main income of ~34.5M in work (Heritage Crafts, 2025)
+    rarityLabel: '1 in every 4,309,000 workers',
+    category: 'Creative & Media',
+    title: 'Cut Crystal Glass Cutter',
+    salary: '£24k - £42k',
+    description: 'Hand-cut decorative patterns into blown lead crystal glassware using grinding wheels, then polish it to a brilliant finish - a precision trade down to a handful of UK glassworks.',
+    requirements: [
+      'Apprenticeship or trainee post at a working crystal glassworks',
+      'Steady hands and an eye for symmetry and pattern',
+      'Comfort working with grinding wheels and (historically) acid polishing',
+      'GCSE Maths, English and Science',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Mark out cutting patterns on blown crystal blanks',
+      'Cut facets and designs using rotating grinding wheels',
+      'Polish cut glass to a brilliant finish',
+      'Work from both traditional pattern books and bespoke commissions',
+    ],
+    whereToStudy: [
+      { name: 'Heritage Crafts', url: 'https://www.heritagecrafts.org.uk/craft/cut-crystal-glass-making-skilled-trades-manufacture/', description: 'Endangered crafts directory - cut crystal glass making is critically endangered' },
+    ],
+    progression: [
+      'Glass Cutting Trainee (Entry (£19k-£24k))',
+      'Glass Cutter (Mid-level (£24k-£32k))',
+      'Senior Cutter, bespoke commissions (Senior (£32k-£38k))',
+      'Master Cutter / Studio Lead (Lead / Specialist (£38k+))',
+    ],
+    similarCareers: [
+      128,
+      132,
+      126,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'gcse-science-combined',
+      'tlevel-craft-design',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Glassworks Trainee Route',
+        duration: '4-6 years',
+        cost: 'Low cost - trained on the job at one of the UK\'s few remaining crystal glassworks',
+        entryRequirements: 'No formal qualifications required - some employers sponsor RCA-linked design training for standout trainees',
+        subjects: [
+          'gcse-science-combined',
+          'tlevel-craft-design',
+        ],
+        description: 'Fewer than 8 skilled cutters remain with this as their main income, spread across a small handful of glassworks (Dartington, Cumbria Crystal, Royal Brierley among them) - most of the workforce is over 50, with very few trainees behind them.',
+      },
+    ],
+  },
+  {
+    id: 134,
+    employmentPercentage: 0.0000174, // ~6 UK ship figurehead carvers (1 full-time + up to 5 side-income) of ~34.5M in work (Heritage Crafts, 2025)
+    rarityLabel: '1 in every 5,745,000 workers',
+    category: 'Creative & Media',
+    title: "Ship's Figurehead Carver",
+    salary: '£22k - £40k+',
+    description: 'Hand-carve and restore ornately-sculpted wooden figureheads and decorative ship carvings, a maritime craft down to essentially one full-time practitioner in the UK.',
+    requirements: [
+      'Woodcarving training (specialist courses or a fine art/sculpture route, since no dedicated apprenticeship exists)',
+      'Sculptural skill in laminated timber, from maquette to finished carving',
+      'Knowledge of historic ship decoration for accurate restoration work',
+      'GCSE Art & Design, Maths and English',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Sketch and build small-scale maquettes before carving',
+      'Laminate and hand-carve timber into figures and decorative panels',
+      'Restore historic figureheads for museums and preserved ships',
+      'Carve new figureheads and ship ornamentation for private commissions',
+    ],
+    whereToStudy: [
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/figurehead-and-ship-carving/', description: 'Endangered crafts directory - figurehead and ship carving is critically endangered' },
+      { name: 'City & Guilds of London Art School', url: 'https://www.cityandguildsartschool.ac.uk', description: 'Woodcarving & gilding degree routes relevant to historic carving' },
+    ],
+    progression: [
+      'Woodcarving Trainee (Entry (£18k-£24k))',
+      'Carver, restoration assistant work (Mid-level (£24k-£32k))',
+      'Carver, own commissions (Senior (£32k-£40k))',
+      'Master Carver, museum & heritage-fleet work (Lead / Specialist (£40k+))',
+    ],
+    similarCareers: [
+      128,
+      130,
+      125,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'tlevel-craft-design',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Woodcarving & Restoration Route',
+        duration: '5+ years, largely self-directed',
+        cost: 'Moderate cost - no dedicated apprenticeship exists, so training is via general woodcarving courses plus self-taught restoration experience',
+        entryRequirements: 'No formal qualifications required - a strong sculpture/woodcarving portfolio is essential to get restoration commissions',
+        subjects: [
+          'tlevel-craft-design',
+        ],
+        description: 'Heritage Crafts records just one full-time UK professional (plus up to 5 more doing it as side income) and zero current trainees - the itinerant, unpredictable nature of ship-restoration work makes it very hard to train someone into full-time.',
+      },
+    ],
+  },
+  // --- 5 ordinary, common UK jobs flagged as AI-exposed on the "Jobs
+  // Endangered by AI" page (aiEndangeredJobs.ts) - NOT rare or heritage
+  // careers (no rarityLabel), just real, everyday roles a growing amount
+  // of AI tooling is displacing. employmentPercentage uses the same
+  // ~31.4M UK workforce denominator as the original 111 careers (not the
+  // ~34.5M heritage-crafts one), since these aren't from that dataset.
+  // Where an exact SOC-coded headcount wasn't available, the estimate and
+  // its source are named inline rather than presented as more precise
+  // than it is.
+  {
+    id: 135,
+    employmentPercentage: 0.1433, // ~45,000 UK telephone salespersons (SOC 7113) - estimate, no single confirmed ONS headcount for this unit group
+    category: 'Business & Finance',
+    title: 'Telesales Representative',
+    salary: '£19k - £28k',
+    description: 'Sell products or services to customers over the phone, following scripts and working toward sales targets.',
+    requirements: [
+      'Communication and persuasion skills',
+      'Resilience and a target-driven mindset',
+      'GCSE English and Maths',
+      'Confidence handling rejection',
+    ],
+    supportTags: [
+      'Remote friendly',
+      'Work from home',
+    ],
+    dayToDay: [
+      'Make outbound calls to warm and cold leads',
+      'Follow scripts while adapting to the conversation',
+      'Log call outcomes and update the CRM',
+      'Work toward daily and weekly sales targets',
+    ],
+    whereToStudy: [
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=telesales', description: 'Business & sales skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=telesales', description: 'Affordable professional courses' },
+    ],
+    progression: [
+      'Telesales Representative (Entry (£19k-£23k))',
+      'Senior Telesales Representative (Mid-level (£23k-£28k))',
+      'Telesales Team Leader (Senior (£28k-£34k))',
+      'Sales Manager (Lead / Specialist (£34k+))',
+    ],
+    similarCareers: [
+      17,
+      75,
+    ],
+    matchedSubjects: [
+      'customer-service-apprenticeship',
+      'gcse-english',
+      'gcse-business-studies',
+      'gcse-maths',
+      'vocational-retail',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '1-2 years',
+        cost: 'Low cost - often paid while you train (apprenticeship wage)',
+        entryRequirements: 'GCSEs (English & Maths) or equivalent - varies by employer',
+        subjects: [
+          'customer-service-apprenticeship',
+          'vocational-retail',
+        ],
+        description: 'Most telesales roles train on the job with no formal qualification required, though AI dialers and scripted bots are shrinking the number of these roles overall.',
+      },
+    ],
+  },
+  {
+    id: 136,
+    employmentPercentage: 0.1656, // ~52,000 UK travel agency employees (IBISWorld, Travel Agencies UK industry employment, 2024/2025)
+    category: 'Service & Hospitality',
+    title: 'Travel Agent',
+    salary: '£19k - £27k',
+    description: 'Book flights, holidays and other travel arrangements for customers, matching trips to their budget and preferences.',
+    requirements: [
+      'Customer service skills',
+      'Attention to detail',
+      'Sales ability',
+      'GCSE English and Maths',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Consult customers on travel needs and budgets',
+      'Book flights, hotels and package holidays',
+      'Process payments and travel documentation',
+      'Stay current on destinations, visas and travel advisories',
+    ],
+    whereToStudy: [
+      { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=travel+agent', description: 'Business & travel industry skills' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=travel+agent', description: 'Affordable professional courses' },
+    ],
+    progression: [
+      'Trainee Travel Agent (Entry (£19k-£22k))',
+      'Travel Agent (Mid-level (£22k-£27k))',
+      'Senior Travel Consultant (Senior (£27k-£33k))',
+      'Branch Manager (Lead / Specialist (£33k+))',
+    ],
+    similarCareers: [
+      75,
+      179,
+    ],
+    matchedSubjects: [
+      'btec-travel-tourism',
+      'gcse-english',
+      'gcse-business-studies',
+      'gcse-maths',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Travel & Tourism Route',
+        duration: '1-2 years',
+        cost: 'Low to moderate cost - college course or on-the-job training',
+        entryRequirements: 'GCSEs helpful but not always required - varies by employer',
+        subjects: [
+          'btec-travel-tourism',
+        ],
+        description: 'Online booking sites and AI trip-planning tools have already reduced demand for this role significantly, and that shift is continuing.',
+      },
+    ],
+  },
+  {
+    id: 137,
+    employmentPercentage: 0.2866, // ~90,000 estimated UK entry-level/junior developers - a subset of SOC 2136's total (see Software Developer, id 1), not a separate SOC code
+    category: 'Technology & Digital',
+    title: 'Junior Software Developer',
+    salary: '£22k - £32k',
+    description: 'Write and test code for websites and software under supervision, handling bug fixes, small features and routine tasks.',
+    requirements: [
+      'Programming fundamentals (at least one language)',
+      'Problem-solving skills',
+      'GCSE Maths',
+      'Willingness to learn and take feedback',
+    ],
+    supportTags: [
+      'Remote friendly',
+    ],
+    dayToDay: [
+      'Write and test code for small features and bug fixes',
+      'Pair with senior developers and follow code reviews',
+      'Attend stand-ups and sprint planning',
+      'Learn the codebase, tools and team conventions',
+    ],
+    whereToStudy: [
+      { name: 'freeCodeCamp', url: 'https://www.freecodecamp.org', description: 'Free coding curriculum and certifications' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=junior+software+developer', description: 'Affordable professional courses' },
+    ],
+    progression: [
+      'Junior Software Developer (Entry (£22k-£28k))',
+      'Software Developer (Mid-level (£28k-£45k))',
+      'Senior Software Developer (Senior (£45k-£60k))',
+      'Lead Developer / Engineering Manager (Lead / Specialist (£60k+))',
+    ],
+    similarCareers: [
+      1,
+      10,
+      68,
+    ],
+    matchedSubjects: [
+      'software-development-apprenticeship',
+      'coding-bootcamp-software-development',
+      'computer-science-bsc',
+      'gcse-maths',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Bootcamp Route',
+        duration: '1-2 years',
+        cost: 'Low cost (apprenticeship, paid) to moderate cost (bootcamp fees)',
+        entryRequirements: 'No degree required - a portfolio of projects matters more than qualifications',
+        subjects: [
+          'software-development-apprenticeship',
+          'coding-bootcamp-software-development',
+        ],
+        description: 'AI coding assistants are increasingly handling the routine, entry-level tasks juniors traditionally cut their teeth on, making this specific rung of the career ladder harder to get a foothold on.',
+      },
+    ],
+  },
+  {
+    id: 138,
+    employmentPercentage: 0.1433, // ~45,000 UK legal secretaries (SOC 4212) - estimate, paralegal work folded in rather than a separate entry
+    category: 'Business & Finance',
+    title: 'Legal Secretary / Paralegal',
+    salary: '£20k - £30k',
+    description: "Provide administrative, document-drafting and case-research support in solicitors' offices and legal departments.",
+    requirements: [
+      'Organisation and attention to detail',
+      'GCSE English',
+      'Confidentiality and discretion',
+      'Typing and document-formatting skills',
+    ],
+    supportTags: [],
+    dayToDay: [
+      "Prepare legal documents and client correspondence",
+      'Manage and organise case files',
+      'Research case law and precedent for solicitors',
+      'Liaise with clients and courts on case admin',
+    ],
+    whereToStudy: [
+      { name: 'CILEx', url: 'https://www.cilex.org.uk', description: 'Legal executive and paralegal qualifications' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=legal+secretary', description: 'Affordable professional courses' },
+    ],
+    progression: [
+      'Legal Secretary / Paralegal (Entry (£20k-£25k))',
+      'Senior Paralegal (Mid-level (£25k-£32k))',
+      'Legal Executive (CILEx) (Senior (£32k-£45k))',
+      'Chartered Legal Executive (Lead / Specialist (£45k+))',
+    ],
+    similarCareers: [
+      92,
+      75,
+    ],
+    matchedSubjects: [
+      'tlevel-legal-services',
+      'cilex-legal-executive',
+      'gcse-english',
+      'gcse-business-studies',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Legal Services Route',
+        duration: '2-3 years',
+        cost: 'Low to moderate cost - college course or CILEx qualifications, often part-funded by an employer',
+        entryRequirements: 'GCSEs (English) - a T Level or CILEx route can start without a law degree',
+        subjects: [
+          'tlevel-legal-services',
+          'cilex-legal-executive',
+        ],
+        description: 'AI document review and drafting tools are increasingly handling the routine admin this role has traditionally covered.',
+      },
+    ],
+  },
+  {
+    id: 139,
+    employmentPercentage: 0.0892, // ~28,000 UK translation & interpretation employees (Statista, translation and interpretation activities, 2019) - SOC 3412 "Authors, writers and translators" is a broader group average
+    category: 'Creative & Media',
+    title: 'Translator',
+    salary: '£22k - £32k',
+    description: 'Translate documents, media and communications between languages for businesses, publishers and public bodies.',
+    requirements: [
+      'Fluency in at least two languages',
+      'Excellent writing skills in the target language',
+      'Attention to detail',
+      'A relevant degree is common but not always required',
+    ],
+    supportTags: [
+      'Remote friendly',
+      'Work from home',
+    ],
+    dayToDay: [
+      'Translate written documents and media between languages',
+      'Proofread and quality-check finished translations',
+      'Research specialist terminology for technical/legal texts',
+      'Liaise with clients on tone, context and requirements',
+    ],
+    whereToStudy: [
+      { name: 'Chartered Institute of Linguists', url: 'https://www.ciol.org.uk', description: 'Professional qualifications and accreditation for translators' },
+      { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=translation', description: 'Affordable professional courses' },
+    ],
+    progression: [
+      'Junior Translator (Entry (£22k-£26k))',
+      'Translator (Mid-level (£26k-£32k))',
+      'Senior / Specialist Translator (Senior (£32k-£40k))',
+      'Translation Project Manager (Lead / Specialist (£40k+))',
+    ],
+    similarCareers: [
+      43,
+      70,
+    ],
+    matchedSubjects: [
+      'modern-languages-ba',
+      'translation-interpreting-ba',
+      'gcse-french',
+      'gcse-spanish',
+      'gcse-english',
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels including a modern foreign language - typical offer varies by university',
+        subjects: [
+          'modern-languages-ba',
+          'translation-interpreting-ba',
+        ],
+        description: 'Machine translation now handles most routine text work, so this route increasingly favours specialist/technical translation over general text.',
+      },
+    ],
+  },
+  // --- 19 ordinary, common UK jobs behind the "Careers Least at Risk from
+  // AI" pills (aiSafeCareers.ts) - added so every pill in that section
+  // links to a real PathScrawler career, not just the ones that happened
+  // to already exist. Same ~31.4M workforce denominator as the original
+  // 111 careers. These are common, well-documented UK occupations, so
+  // employmentPercentage is a rounded general estimate rather than an
+  // individually WebSearch-verified figure per role (unlike the ultra-rare
+  // heritage crafts, where that precision mattered) - each is noted as an
+  // estimate rather than presented as more precise than it is.
+  {
+    id: 140,
+    employmentPercentage: 0.0955, // ~30,000 UK roofers (SOC 5314) - estimate
+    category: 'Construction & Trades',
+    title: 'Roofer',
+    salary: '£22k - £38k',
+    description: 'Fit, repair and maintain roofs on new-build and existing properties, working at height in all weather.',
+    requirements: [
+      'Physical fitness and a head for heights',
+      'Practical, hands-on skills',
+      'GCSE Maths and English',
+      'CSCS card (Construction Skills Certification Scheme)',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Fit tiles, slates or felt roofing to new and existing buildings',
+      'Repair storm damage, leaks and worn roofing',
+      'Work safely at height using scaffolding and harnesses',
+      'Assess roof structures and quote for jobs',
+    ],
+    whereToStudy: [
+      { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
+    ],
+    progression: [
+      'Roofing Apprentice (Entry (£18k-£24k))',
+      'Roofer (Mid-level (£24k-£32k))',
+      'Senior Roofer (Senior (£32k-£38k))',
+      'Roofing Contractor / Business Owner (Lead / Specialist (£38k+))',
+    ],
+    similarCareers: [
+      89,
+      125,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'tlevel-construction-on-site-construction',
+      'btec-construction',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship Route',
+        duration: '2-3 years',
+        cost: 'Low cost - paid apprenticeship wage while training',
+        entryRequirements: 'No formal qualifications required - GCSEs helpful',
+        subjects: [
+          'tlevel-construction-on-site-construction',
+          'btec-construction',
+        ],
+        description: 'Hands-on, physical work at height in unpredictable weather and site conditions - the kind of work AI systems can\'t currently do.',
+      },
+    ],
+  },
+  {
+    id: 141,
+    employmentPercentage: 0.1433, // ~45,000 UK plasterers (SOC 5321) - estimate
+    category: 'Construction & Trades',
+    title: 'Plasterer',
+    salary: '£22k - £36k',
+    description: 'Apply plaster, render and dry-lining to walls and ceilings for a smooth, finished surface.',
+    requirements: [
+      'Practical, hands-on skills',
+      'Physical fitness',
+      'GCSE Maths and English',
+      'CSCS card',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Prepare surfaces and mix plaster/render',
+      'Apply plaster to walls and ceilings by hand or machine',
+      'Fit dry-lining and plasterboard',
+      'Finish surfaces ready for painting/decorating',
+    ],
+    whereToStudy: [
+      { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
+    ],
+    progression: [
+      'Plastering Apprentice (Entry (£18k-£23k))',
+      'Plasterer (Mid-level (£23k-£30k))',
+      'Senior Plasterer (Senior (£30k-£36k))',
+      'Plastering Contractor (Lead / Specialist (£36k+))',
+    ],
+    similarCareers: [
+      89,
+      131,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'tlevel-construction-on-site-construction',
+      'btec-construction',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship Route',
+        duration: '2-3 years',
+        cost: 'Low cost - paid apprenticeship wage while training',
+        entryRequirements: 'No formal qualifications required - GCSEs helpful',
+        subjects: [
+          'tlevel-construction-on-site-construction',
+          'btec-construction',
+        ],
+        description: 'Every wall and room is a slightly different job - reading and adapting to real surfaces in real time is still a human skill.',
+      },
+    ],
+  },
+  {
+    id: 142,
+    employmentPercentage: 0.6369, // ~200,000 UK electricians (SOC 5241) - estimate
+    category: 'Construction & Trades',
+    title: 'Electrician',
+    salary: '£26k - £42k',
+    description: 'Install, inspect and repair electrical wiring and systems in homes, businesses and industrial sites.',
+    requirements: [
+      'Technical and problem-solving skills',
+      'Attention to detail and safety awareness',
+      'GCSE Maths, English and Science',
+      'NVQ/City & Guilds electrical qualification',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Install and wire electrical systems in new builds',
+      'Diagnose and repair faults',
+      'Test and certify electrical installations for safety',
+      'Read technical drawings and building plans',
+    ],
+    whereToStudy: [
+      { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
+      { name: 'NICEIC', url: 'https://www.niceic.com', description: 'Electrical contractor certification' },
+    ],
+    progression: [
+      'Electrical Apprentice (Entry (£18k-£25k))',
+      'Electrician (Mid-level (£28k-£36k))',
+      'Approved Electrician (Senior (£36k-£42k))',
+      'Electrical Contractor / Business Owner (Lead / Specialist (£42k+))',
+    ],
+    similarCareers: [
+      33,
+      89,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'gcse-science-combined',
+      'electrical-engineering-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship Route',
+        duration: '3-4 years',
+        cost: 'Low cost - paid apprenticeship wage while training',
+        entryRequirements: 'GCSEs including Maths and Science helpful',
+        subjects: [
+          'electrical-engineering-apprenticeship',
+        ],
+        description: 'Diagnosing faults in real buildings and making safety-critical judgment calls on site is still squarely human work.',
+      },
+    ],
+  },
+  {
+    id: 143,
+    employmentPercentage: 0.4777, // ~150,000 UK plumbers and heating engineers - estimate
+    category: 'Construction & Trades',
+    title: 'Plumber',
+    salary: '£26k - £42k',
+    description: 'Install and repair pipework, heating systems and water fittings in homes and businesses.',
+    requirements: [
+      'Practical, hands-on skills',
+      'Problem-solving ability',
+      'GCSE Maths and English',
+      'NVQ/City & Guilds plumbing qualification',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Install and repair pipework, boilers and heating systems',
+      'Diagnose and fix leaks and blockages',
+      'Fit bathrooms and kitchen plumbing',
+      'Carry out gas safety checks (Gas Safe registered plumbers)',
+    ],
+    whereToStudy: [
+      { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
+      { name: 'Gas Safe Register', url: 'https://www.gassaferegister.co.uk', description: 'Gas safety registration and training' },
+    ],
+    progression: [
+      'Plumbing Apprentice (Entry (£18k-£25k))',
+      'Plumber (Mid-level (£28k-£36k))',
+      'Gas Safe Registered Plumber (Senior (£36k-£42k))',
+      'Plumbing Contractor / Business Owner (Lead / Specialist (£42k+))',
+    ],
+    similarCareers: [
+      142,
+      89,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'nvq-plumbing',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship Route',
+        duration: '3-4 years',
+        cost: 'Low cost - paid apprenticeship wage while training',
+        entryRequirements: 'No formal qualifications required - GCSEs helpful',
+        subjects: [
+          'nvq-plumbing',
+        ],
+        description: 'Every property\'s pipework is laid out differently and faults are rarely identical - hands-on diagnosis in cramped, awkward real spaces is hard to automate.',
+      },
+    ],
+  },
+  {
+    id: 144,
+    employmentPercentage: 0.4777, // ~150,000 UK carpenters and joiners (SOC 5319) - estimate
+    category: 'Construction & Trades',
+    title: 'Carpenter',
+    salary: '£24k - £38k',
+    description: 'Build, install and repair wooden structures, fixtures and fittings on construction sites and in workshops.',
+    requirements: [
+      'Practical woodworking skills',
+      'Attention to detail',
+      'GCSE Maths and English',
+      'NVQ/City & Guilds carpentry qualification',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Measure, cut and fit timber for structures and fittings',
+      'Install doors, stairs, kitchens and fitted furniture',
+      'Read technical drawings and building plans',
+      'Repair and restore existing woodwork',
+    ],
+    whereToStudy: [
+      { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
+    ],
+    progression: [
+      'Carpentry Apprentice (Entry (£18k-£24k))',
+      'Carpenter (Mid-level (£24k-£32k))',
+      'Senior Carpenter / Joiner (Senior (£32k-£38k))',
+      'Carpentry Contractor / Business Owner (Lead / Specialist (£38k+))',
+    ],
+    similarCareers: [
+      89,
+      125,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'nvq-carpentry',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship Route',
+        duration: '2-3 years',
+        cost: 'Low cost - paid apprenticeship wage while training',
+        entryRequirements: 'No formal qualifications required - GCSEs helpful',
+        subjects: [
+          'nvq-carpentry',
+        ],
+        description: 'Skilled hands-on craft, adapting each cut and fit to the real material in front of you - creative physical work that\'s hard to automate.',
+      },
+    ],
+  },
+  {
+    id: 145,
+    employmentPercentage: 0.2548, // ~80,000 UK bricklayers (SOC 5312) - estimate
+    category: 'Construction & Trades',
+    title: 'Bricklayer',
+    salary: '£24k - £38k',
+    description: 'Build and repair walls, structures and brickwork on construction sites using bricks, blocks and mortar.',
+    requirements: [
+      'Physical fitness and hands-on skills',
+      'Attention to detail and precision',
+      'GCSE Maths and English',
+      'CSCS card',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Lay bricks and blocks to build walls and structures',
+      'Mix mortar and prepare materials',
+      'Read building plans and follow measurements precisely',
+      'Repair and repoint existing brickwork',
+    ],
+    whereToStudy: [
+      { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
+    ],
+    progression: [
+      'Bricklaying Apprentice (Entry (£18k-£24k))',
+      'Bricklayer (Mid-level (£24k-£32k))',
+      'Senior Bricklayer (Senior (£32k-£38k))',
+      'Bricklaying Contractor / Business Owner (Lead / Specialist (£38k+))',
+    ],
+    similarCareers: [
+      89,
+      130,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'bricklaying-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship Route',
+        duration: '2-3 years',
+        cost: 'Low cost - paid apprenticeship wage while training',
+        entryRequirements: 'No formal qualifications required - GCSEs helpful',
+        subjects: [
+          'bricklaying-apprenticeship',
+        ],
+        description: 'Outdoor, physical, precision work on a different site with different conditions every time - real-world unpredictability that resists automation.',
+      },
+    ],
+  },
+  {
+    id: 146,
+    employmentPercentage: 0.1911, // ~60,000 UK dental nurses (SOC 6131) - estimate
+    category: 'Healthcare & Medicine',
+    title: 'Dental Nurse',
+    salary: '£20k - £28k',
+    description: 'Support dentists during treatment, prepare equipment, and care for patients before, during and after procedures.',
+    requirements: [
+      'Care and communication skills',
+      'Attention to detail and hygiene standards',
+      'GCSE English, Maths and Science',
+      'NVQ/Diploma in Dental Nursing (or equivalent)',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Prepare instruments and materials for dental treatment',
+      'Assist dentists during procedures',
+      'Reassure and care for patients',
+      'Maintain hygiene and sterilisation standards',
+    ],
+    whereToStudy: [
+      { name: 'National Examining Board for Dental Nurses', url: 'https://www.nebdn.org', description: 'Dental nursing qualifications' },
+    ],
+    progression: [
+      'Trainee Dental Nurse (Entry (£18k-£21k))',
+      'Qualified Dental Nurse (Mid-level (£21k-£26k))',
+      'Senior Dental Nurse (Senior (£26k-£30k))',
+      'Practice Manager / Lead Dental Nurse (Lead / Specialist (£30k+))',
+    ],
+    similarCareers: [
+      22,
+      24,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'gcse-maths',
+      'gcse-science-combined',
+      'dental-nursing-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Vocational Route',
+        duration: '1-2 years',
+        cost: 'Low cost - often paid while you train',
+        entryRequirements: 'GCSEs (English, Maths, Science) - varies by employer',
+        subjects: [
+          'dental-nursing-apprenticeship',
+        ],
+        description: 'Hands-on chairside assistance and calming anxious patients in the moment - presence-based care that AI can\'t provide.',
+      },
+    ],
+  },
+  {
+    id: 147,
+    employmentPercentage: 0.1592, // ~50,000 UK firefighters (SOC 3411, inc. retained/part-time) - estimate
+    category: 'Public Services',
+    title: 'Firefighter',
+    salary: '£24k - £40k',
+    description: 'Respond to fires, road accidents and other emergencies to protect life, property and the environment.',
+    requirements: [
+      'Physical fitness',
+      'Calm under pressure',
+      'GCSE Maths and English',
+      'Full driving licence usually required',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Respond to emergency calls (fires, road accidents, floods)',
+      'Carry out rescues and firefighting operations',
+      'Maintain equipment and vehicles',
+      'Deliver fire safety education to the public',
+    ],
+    whereToStudy: [
+      { name: 'National Fire Chiefs Council', url: 'https://nfcc.org.uk', description: 'Firefighter recruitment and training routes' },
+    ],
+    progression: [
+      'Trainee Firefighter (Entry (£24k-£28k))',
+      'Firefighter (Mid-level (£28k-£34k))',
+      'Crew Manager (Senior (£34k-£40k))',
+      'Watch Manager / Station Manager (Lead / Specialist (£40k+))',
+    ],
+    similarCareers: [
+      90,
+      23,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'firefighter-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Direct Entry Route',
+        duration: '1-2 years training',
+        cost: 'Low cost - paid role from day one',
+        entryRequirements: 'No degree required - fitness test and assessment centre',
+        subjects: [
+          'firefighter-apprenticeship',
+        ],
+        description: 'Every incident is physically unpredictable and demands real-time judgment under pressure - the opposite of a scriptable task.',
+      },
+    ],
+  },
+  {
+    id: 148,
+    employmentPercentage: 0.9554, // ~300,000 UK security guards (SOC 9241) - estimate
+    category: 'Public Services',
+    title: 'Security Guard',
+    salary: '£20k - £28k',
+    description: 'Protect people, property and premises by monitoring sites, checking access and responding to incidents.',
+    requirements: [
+      'Alertness and reliability',
+      'Communication and conflict-resolution skills',
+      'GCSE English',
+      'SIA (Security Industry Authority) licence',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Patrol and monitor premises',
+      'Check identification and control access',
+      'Respond to alarms and incidents',
+      'Write incident reports',
+    ],
+    whereToStudy: [
+      { name: 'Security Industry Authority', url: 'https://www.sia.homeoffice.gov.uk', description: 'SIA licensing and training requirements' },
+    ],
+    progression: [
+      'Security Guard (Entry (£20k-£23k))',
+      'Senior Security Officer (Mid-level (£23k-£27k))',
+      'Security Supervisor (Senior (£27k-£32k))',
+      'Security Manager (Lead / Specialist (£32k+))',
+    ],
+    similarCareers: [
+      90,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'vocational-security-guard',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'SIA Licence Route',
+        duration: 'A few weeks of training',
+        cost: 'Low cost - short course plus SIA licence fee',
+        entryRequirements: 'No formal qualifications required - background check and SIA licence needed',
+        subjects: [
+          'vocational-security-guard',
+        ],
+        description: 'Reading real, unpredictable situations and people in the moment is a human judgment call, not a scriptable one.',
+      },
+    ],
+  },
+  {
+    id: 149,
+    employmentPercentage: 2.5478, // ~800,000 UK cleaners (SOC 9231) - estimate, one of the largest UK occupations
+    category: 'Service & Hospitality',
+    title: 'Cleaner',
+    salary: '£18k - £24k',
+    description: 'Clean and maintain homes, offices and public buildings to a high standard of hygiene and presentation.',
+    requirements: [
+      'Reliability and attention to detail',
+      'Physical stamina',
+      'No formal qualifications usually required',
+      'Basic health & safety awareness',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Clean and sanitise rooms, surfaces and equipment',
+      'Restock supplies and report maintenance issues',
+      'Follow health and safety / COSHH procedures',
+      'Work to a schedule across multiple sites or rooms',
+    ],
+    whereToStudy: [
+      { name: 'British Institute of Cleaning Science', url: 'https://www.bics.org.uk', description: 'Cleaning industry training and standards' },
+    ],
+    progression: [
+      'Cleaner (Entry (£18k-£21k))',
+      'Senior Cleaner (Mid-level (£21k-£23k))',
+      'Cleaning Supervisor (Senior (£23k-£27k))',
+      'Cleaning Contracts Manager (Lead / Specialist (£27k+))',
+    ],
+    similarCareers: [
+      165,
+      148,
+    ],
+    matchedSubjects: [
+      'vocational-cleaning-facilities',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Days to weeks',
+        cost: 'Low cost - trained on the job',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'vocational-cleaning-facilities',
+        ],
+        description: 'Physically adapting to a different, messy, real space every time is a mundane but genuinely hard-to-automate task.',
+      },
+    ],
+  },
+  {
+    id: 150,
+    employmentPercentage: 1.2739, // ~400,000 UK childcare/early years workers (SOC 6121) - estimate
+    category: 'Education & Training',
+    title: 'Childcare Worker',
+    salary: '£17k - £24k',
+    description: 'Care for and support the development of young children in nurseries, pre-schools or as a childminder.',
+    requirements: [
+      'Patience and communication skills',
+      'Enhanced DBS check',
+      'GCSE English and Maths',
+      'Level 3 Early Years qualification (or working toward one)',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Plan and lead play-based learning activities',
+      'Support children\'s social, emotional and physical development',
+      'Monitor safety, wellbeing and hygiene',
+      'Communicate with parents about a child\'s progress',
+    ],
+    whereToStudy: [
+      { name: 'Early Years Alliance', url: 'https://www.eyalliance.org.uk', description: 'Early years training and qualifications' },
+    ],
+    progression: [
+      'Nursery Assistant (Entry (£17k-£19k))',
+      'Early Years Educator (Mid-level (£19k-£23k))',
+      'Room Leader (Senior (£23k-£26k))',
+      'Nursery Manager (Lead / Specialist (£26k+))',
+    ],
+    similarCareers: [
+      48,
+      82,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'gcse-maths',
+      'nvq-early-years-educator',
+      'tlevel-education-childcare',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Early Years Qualification Route',
+        duration: '1-2 years',
+        cost: 'Low to moderate cost - college course or apprenticeship',
+        entryRequirements: 'GCSEs (English & Maths) helpful - varies by provider',
+        subjects: [
+          'nvq-early-years-educator',
+          'tlevel-education-childcare',
+        ],
+        description: 'Presence, patience and emotional attunement with young children is exactly the kind of care work AI can\'t replace.',
+      },
+    ],
+  },
+  {
+    id: 151,
+    employmentPercentage: 0.0955, // ~30,000 UK professional athletes across all sports (SOC 3441) - estimate
+    category: 'Sport & Leisure',
+    title: 'Professional Athlete',
+    salary: '£18k - £100k+',
+    description: 'Compete professionally in a sport, training and performing at elite level - pay varies enormously by sport and level.',
+    requirements: [
+      'Elite physical ability in a chosen sport',
+      'Years of dedicated training from a young age',
+      'Mental resilience',
+      'GCSE Maths and English',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Train and condition for competition',
+      'Compete in matches, races or events',
+      'Work with coaches on technique and strategy',
+      'Manage recovery, diet and injury prevention',
+    ],
+    whereToStudy: [
+      { name: 'UK Sport', url: 'https://www.uksport.gov.uk', description: 'Talent pathways and elite sport support' },
+    ],
+    progression: [
+      'Academy / Youth Athlete (Entry (£18k-£25k))',
+      'Professional Athlete (Mid-level (£25k-£45k))',
+      'Elite / International Athlete (Senior (£45k-£100k+))',
+      'Top-Tier Professional (Lead / Specialist (£100k+))',
+    ],
+    similarCareers: [
+      88,
+      152,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+      'gcse-english',
+      'gcse-pe',
+      'sports-coaching-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Talent Pathway Route',
+        duration: 'Years of youth-level training and competition',
+        cost: 'Variable - some sports fund talent pathways, others require significant family investment',
+        entryRequirements: 'No formal academic qualifications required - selection is on sporting ability',
+        subjects: [
+          'sports-coaching-apprenticeship',
+        ],
+        description: 'Real-time physical performance and split-second in-competition decisions are inherently human.',
+      },
+    ],
+  },
+  {
+    id: 152,
+    employmentPercentage: 0.2866, // ~90,000 UK fitness instructors (SOC 3443) - estimate
+    category: 'Sport & Leisure',
+    title: 'Fitness Instructor',
+    salary: '£18k - £28k',
+    description: 'Lead gym sessions, classes and personal training, motivating clients and correcting technique in real time.',
+    requirements: [
+      'Fitness and communication skills',
+      'Level 2/3 Fitness Instructor qualification',
+      'GCSE PE and Science helpful',
+      'First aid certificate',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Lead one-to-one and group fitness sessions',
+      'Design tailored training programmes',
+      'Correct form and technique in real time',
+      'Motivate and track client progress',
+    ],
+    whereToStudy: [
+      { name: 'CIMSPA', url: 'https://www.cimspa.co.uk', description: 'Fitness industry qualifications and standards' },
+    ],
+    progression: [
+      'Gym Instructor (Entry (£18k-£21k))',
+      'Personal Trainer (Mid-level (£21k-£28k))',
+      'Senior / Specialist Trainer (Senior (£28k-£35k))',
+      'Studio / Gym Manager (Lead / Specialist (£35k+))',
+    ],
+    similarCareers: [
+      88,
+      151,
+    ],
+    matchedSubjects: [
+      'gcse-pe',
+      'gcse-science-combined',
+      'sports-coaching-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Fitness Qualification Route',
+        duration: 'A few months to 1 year',
+        cost: 'Low to moderate cost - short qualification courses',
+        entryRequirements: 'No formal qualifications required - a Level 2 Fitness Instructor course is the usual entry point',
+        subjects: [
+          'sports-coaching-apprenticeship',
+        ],
+        description: 'Reading a client\'s form and motivation in the room, moment to moment, is hands-on human coaching.',
+      },
+    ],
+  },
+  {
+    id: 153,
+    employmentPercentage: 0.3185, // ~100,000 UK social workers (SOC 2442) - estimate
+    category: 'Public Services',
+    title: 'Social Worker',
+    salary: '£28k - £42k',
+    description: 'Support children, families and vulnerable adults, assessing needs and coordinating care and protection.',
+    requirements: [
+      'Empathy and resilience',
+      'Social Work degree (BA/MA) and Social Work England registration',
+      'Strong judgment under pressure',
+      'Enhanced DBS check',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Assess and support the needs of individuals and families',
+      'Coordinate care plans with other services',
+      'Make safeguarding judgment calls',
+      'Write case reports and attend reviews',
+    ],
+    whereToStudy: [
+      { name: 'Social Work England', url: 'https://www.socialworkengland.org.uk', description: 'Registration and professional standards' },
+    ],
+    progression: [
+      'Newly Qualified Social Worker (Entry (£28k-£32k))',
+      'Social Worker (Mid-level (£32k-£38k))',
+      'Senior Practitioner (Senior (£38k-£45k))',
+      'Team Manager (Lead / Specialist (£45k+))',
+    ],
+    similarCareers: [
+      154,
+      155,
+    ],
+    matchedSubjects: [
+      'social-work-ba',
+      'gcse-english',
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years',
+        cost: 'Higher cost - tuition fees apply (student finance available, some NHS/local authority bursaries)',
+        entryRequirements: 'A-Levels or equivalent - typical offer varies by university',
+        subjects: [
+          'social-work-ba',
+        ],
+        description: 'High-stakes safeguarding judgment calls, made with incomplete information about real people\'s lives, need a person to own the decision.',
+      },
+    ],
+  },
+  {
+    id: 154,
+    employmentPercentage: 0.1592, // ~50,000 UK counsellors and psychotherapists - estimate
+    category: 'Healthcare & Medicine',
+    title: 'Counsellor',
+    salary: '£22k - £38k',
+    description: 'Provide talking therapy to help clients work through emotional, mental health and life challenges.',
+    requirements: [
+      'Empathy and active listening skills',
+      'Counselling/psychotherapy qualification (Level 4+)',
+      'Accreditation with a professional body (e.g. BACP)',
+      'Personal resilience and boundaries',
+    ],
+    supportTags: [
+      'Remote friendly',
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Hold one-to-one or group therapy sessions',
+      'Build trust and rapport with clients',
+      'Adapt approach in real time to what a client needs',
+      'Keep confidential clinical notes',
+    ],
+    whereToStudy: [
+      { name: 'BACP', url: 'https://www.bacp.co.uk', description: 'Counselling accreditation and training routes' },
+    ],
+    progression: [
+      'Trainee Counsellor (Entry (£20k-£24k))',
+      'Qualified Counsellor (Mid-level (£24k-£32k))',
+      'Senior / Accredited Counsellor (Senior (£32k-£40k))',
+      'Private Practice / Clinical Lead (Lead / Specialist (£40k+))',
+    ],
+    similarCareers: [
+      153,
+      22,
+    ],
+    matchedSubjects: [
+      'counselling-ba',
+      'gcse-english',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Counselling Qualification Route',
+        duration: '2-4 years part-time is common',
+        cost: 'Moderate cost - training courses and accreditation fees',
+        entryRequirements: 'No specific qualifications required to start Level 2/3 courses - a degree route also exists',
+        subjects: [
+          'counselling-ba',
+        ],
+        description: 'Trust, presence and emotional attunement built session by session with a real person - the core of the job is human connection.',
+      },
+    ],
+  },
+  {
+    id: 155,
+    employmentPercentage: 0.1274, // ~40,000 UK youth workers (SOC 2443) - estimate
+    category: 'Public Services',
+    title: 'Youth Worker',
+    salary: '£22k - £32k',
+    description: 'Support young people\'s personal, social and educational development through youth clubs, projects and mentoring.',
+    requirements: [
+      'Communication and relationship-building skills',
+      'Enhanced DBS check',
+      'Youth Work qualification (or working toward one)',
+      'Resilience and adaptability',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Run youth clubs, groups and activities',
+      'Build trusted relationships with young people',
+      'Support young people through personal challenges',
+      'Liaise with schools, families and other services',
+    ],
+    whereToStudy: [
+      { name: 'National Youth Agency', url: 'https://www.nya.org.uk', description: 'Youth work qualifications and standards' },
+    ],
+    progression: [
+      'Youth Support Worker (Entry (£20k-£24k))',
+      'Youth Worker (Mid-level (£24k-£29k))',
+      'Senior Youth Worker (Senior (£29k-£34k))',
+      'Youth Service Manager (Lead / Specialist (£34k+))',
+    ],
+    similarCareers: [
+      153,
+      48,
+    ],
+    matchedSubjects: [
+      'youth-work-ba',
+      'gcse-english',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Youth Work Qualification Route',
+        duration: '1-3 years',
+        cost: 'Low to moderate cost - some routes are apprenticeship/employer-funded',
+        entryRequirements: 'No formal qualifications required to start - a degree route also exists',
+        subjects: [
+          'youth-work-ba',
+        ],
+        description: 'Building trust with a young person over time, adapting to whatever they bring that day, is relationship-based work.',
+      },
+    ],
+  },
+  {
+    id: 156,
+    employmentPercentage: 0.0955, // ~30,000 UK clergy across denominations - estimate
+    category: 'Public Services',
+    title: 'Clergy',
+    salary: '£20k - £30k',
+    description: 'Lead worship, pastoral care and community life for a faith congregation - pay is typically a modest stipend.',
+    requirements: [
+      'A sense of vocation and pastoral commitment',
+      'Denomination-specific ministry training',
+      'Public speaking and community leadership skills',
+      'Enhanced DBS check',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Lead services and religious ceremonies',
+      'Provide pastoral care and support to a congregation',
+      'Support people through bereavement, illness and crisis',
+      'Run or oversee community and outreach programmes',
+    ],
+    whereToStudy: [
+      { name: 'Church of England Ministry', url: 'https://www.churchofengland.org/careers-and-vocations', description: 'Ordained ministry training pathways' },
+    ],
+    progression: [
+      'Trainee / Curate (Entry (£18k-£24k))',
+      'Minister / Vicar (Mid-level (£24k-£28k))',
+      'Senior Minister (Senior (£28k-£32k))',
+      'Bishop / Denominational Leader (Lead / Specialist (£32k+))',
+    ],
+    similarCareers: [
+      153,
+      154,
+    ],
+    matchedSubjects: [
+      'gcse-religious-studies',
+      'alevel-religious-studies',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Ministry Training Route',
+        duration: '2-4 years, varies by denomination',
+        cost: 'Often funded by the denomination itself',
+        entryRequirements: 'Varies significantly by denomination and faith tradition',
+        subjects: [
+          'gcse-religious-studies',
+          'alevel-religious-studies',
+        ],
+        description: 'Being physically and emotionally present with people at the most significant moments of their lives - comfort, ritual, trust - is not a software problem.',
+      },
+    ],
+  },
+  {
+    id: 157,
+    employmentPercentage: 0.0382, // ~12,000 UK commercial fishing workforce - estimate
+    category: 'Agriculture & Animal Care',
+    title: 'Commercial Fisher',
+    salary: '£20k - £35k',
+    description: 'Catch fish and shellfish at sea for the commercial seafood industry, working in physically demanding conditions.',
+    requirements: [
+      'Physical fitness and resilience',
+      'Comfort working at sea in all weather',
+      'Basic Sea Survival certificate',
+      'Practical, hands-on skills',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Operate fishing gear and equipment at sea',
+      'Navigate and read weather/sea conditions',
+      'Sort, process and store the catch',
+      'Maintain boats and equipment',
+    ],
+    whereToStudy: [
+      { name: 'Seafish', url: 'https://www.seafish.org', description: 'UK seafood industry training and safety courses' },
+    ],
+    progression: [
+      'Deckhand (Entry (£20k-£25k))',
+      'Fisher (Mid-level (£25k-£30k))',
+      'Skipper (Senior (£30k-£38k))',
+      'Boat Owner / Fleet Operator (Lead / Specialist (£38k+))',
+    ],
+    similarCareers: [
+      83,
+      84,
+    ],
+    matchedSubjects: [
+      'agriculture-apprenticeship',
+      'gcse-maths',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job / Safety Training Route',
+        duration: 'Weeks of safety training, then on-the-job experience',
+        cost: 'Low cost - safety courses plus on-the-job training',
+        entryRequirements: 'No formal qualifications required - sea survival training is essential',
+        subjects: [
+          'agriculture-apprenticeship',
+        ],
+        description: 'Working at sea means constantly adapting to weather, tides and conditions that change by the hour.',
+      },
+    ],
+  },
+  {
+    id: 158,
+    employmentPercentage: 0.1592, // ~50,000 UK refuse collectors - estimate
+    category: 'Public Services',
+    title: 'Refuse Collector',
+    salary: '£20k - £26k',
+    description: 'Collect household and commercial waste and recycling on a scheduled round, keeping communities clean.',
+    requirements: [
+      'Physical fitness',
+      'Reliability and punctuality',
+      'Full driving licence useful (for driver roles)',
+      'No formal qualifications usually required',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Collect waste and recycling from homes and businesses',
+      'Operate or assist with collection vehicles',
+      'Sort recyclable materials',
+      'Follow a scheduled round across a local area',
+    ],
+    whereToStudy: [
+      { name: 'WAMITAB', url: 'https://www.wamitab.org.uk', description: 'Waste management training and qualifications' },
+    ],
+    progression: [
+      'Loader / Refuse Collector (Entry (£20k-£23k))',
+      'Refuse Vehicle Driver (Mid-level (£23k-£27k))',
+      'Crew Supervisor (Senior (£27k-£31k))',
+      'Waste Services Manager (Lead / Specialist (£31k+))',
+    ],
+    similarCareers: [
+      148,
+      149,
+    ],
+    matchedSubjects: [
+      'gcse-maths',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Days to weeks',
+        cost: 'Low cost - trained on the job',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [],
+        description: 'Physically navigating real streets, obstacles and properties on a round is still a human (and vehicle) job.',
+      },
+    ],
+  },
+  // --- 27 Hospitality & Tourism careers, from a compiled 2025-2026 dataset
+  // (National Careers Service / ONS SOC 2020 / UKHospitality / Coursera-
+  // Glassdoor 2026 - UK hospitality workforce ~3.5M, UKHospitality; ~2.6M
+  // on ONS's narrower measure). category stays 'Service & Hospitality' -
+  // the existing internal category string - rather than the literal
+  // 'Hospitality & Tourism' the source data uses: backtrackCategories.ts
+  // already exposes a category with the *label* "Hospitality & Tourism"
+  // that matches on career.category === 'Service & Hospitality', so using
+  // that value is what actually puts these careers in the bucket the data
+  // asks for - introducing a second, differently-spelled category string
+  // would just split the same bucket into two that never match each
+  // other. Five roles from the source list were skipped as already
+  // present: Chef (id 86), Event Manager (id 87, matches "Conference /
+  // Events Manager"), Travel Agent (id 136), Cleaner (id 149), and the
+  // "Kitchen Porter" entry-level duplicate (merged into id 167 below,
+  // which already covers it). Hospitality Worker (id 77) was removed
+  // separately as too vague now that these more specific roles exist.
+  {
+    id: 159,
+    employmentPercentage: 0.7962, // ~250,000 UK waiting staff (SOC 9273) - estimate
+    category: 'Service & Hospitality',
+    title: 'Waiter / Waitress',
+    salary: '£19k - £24k',
+    description: 'Take orders, serve food and drinks, and process payments in restaurants, cafes and hotels.',
+    requirements: [
+      'Communication and multitasking',
+      'Customer service skills',
+      'No formal qualifications required',
+      'GCSE English helpful',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Take food and drink orders and relay them to the kitchen/bar',
+      'Serve customers and process payments',
+      'Keep tables and service areas clean and set',
+      'Handle customer questions and requests',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
+    ],
+    progression: [
+      'Waiter / Waitress (Entry (£17k-£20k))',
+      'Head Waiter (Mid-level (£20k-£24k))',
+      'Restaurant Supervisor (Senior (£24k-£28k))',
+      'Restaurant Manager (Lead / Specialist (£28k+))',
+    ],
+    similarCareers: [
+      160,
+      171,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'customer-service-apprenticeship',
+      'btec-hospitality',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, trained on the job',
+        cost: 'Low cost - paid from day one',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'btec-hospitality',
+        ],
+        description: 'One of the easiest hospitality roles to start in - most venues train new waiting staff on shift.',
+      },
+    ],
+  },
+  {
+    id: 160,
+    employmentPercentage: 0.6369, // ~200,000 UK bar staff (SOC 9274) - estimate
+    category: 'Service & Hospitality',
+    title: 'Bar Person / Bartender',
+    salary: '£19k - £24k',
+    description: 'Serve drinks and mix cocktails in pubs, clubs, bars, hotels and restaurants.',
+    requirements: [
+      'Customer service and cash handling',
+      'Drink and cocktail knowledge',
+      'No formal qualifications required',
+      'Must be 18+ to serve alcohol',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Prepare and serve drinks and cocktails',
+      'Handle cash and card payments',
+      'Check ID and manage responsible service of alcohol',
+      'Maintain stock levels and clean the bar area',
+    ],
+    whereToStudy: [
+      { name: 'British Institute of Innkeeping', url: 'https://www.bii.org', description: 'Licensed trade training and qualifications' },
+    ],
+    progression: [
+      'Bar Person (Entry (£17k-£20k))',
+      'Senior Bartender (Mid-level (£20k-£24k))',
+      'Bar Supervisor (Senior (£24k-£28k))',
+      'Bar Manager (Lead / Specialist (£28k+))',
+    ],
+    similarCareers: [
+      159,
+      173,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'customer-service-apprenticeship',
+      'btec-hospitality',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, trained on the job',
+        cost: 'Low cost - paid from day one',
+        entryRequirements: 'No formal qualifications required - must be 18+',
+        subjects: [
+          'btec-hospitality',
+        ],
+        description: 'Most bar skills (cocktails, cellar management) are learned on shift rather than in a classroom.',
+      },
+    ],
+  },
+  {
+    id: 161,
+    employmentPercentage: 0.2866, // ~90,000 UK baristas - estimate, no dedicated SOC unit group
+    category: 'Service & Hospitality',
+    title: 'Barista',
+    salary: '£19k - £24k',
+    description: 'Prepare and serve coffee and other beverages in cafes, coffee shops, restaurants and hotels.',
+    requirements: [
+      'Coffee preparation skills (training usually provided)',
+      'Customer service and attention to detail',
+      'No formal qualifications required',
+      'Efficiency under pressure',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Prepare espresso-based drinks and other beverages',
+      'Take orders and handle payments',
+      'Maintain and clean coffee equipment',
+      'Keep the counter and seating area presentable',
+    ],
+    whereToStudy: [
+      { name: 'Speciality Coffee Association', url: 'https://sca.coffee', description: 'Barista skills and coffee industry training' },
+    ],
+    progression: [
+      'Barista (Entry (£17k-£20k))',
+      'Senior Barista (Mid-level (£20k-£24k))',
+      'Cafe Supervisor (Senior (£24k-£27k))',
+      'Cafe Manager (Lead / Specialist (£27k+))',
+    ],
+    similarCareers: [
+      159,
+      86,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'customer-service-apprenticeship',
+      'btec-hospitality',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, trained on the job',
+        cost: 'Low cost - paid from day one, training usually provided',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'btec-hospitality',
+        ],
+        description: 'Coffee skills are almost always taught on shift, with some independent chains offering barista academies.',
+      },
+    ],
+  },
+  {
+    id: 162,
+    employmentPercentage: 0.1274, // ~40,000 UK hosts/hostesses - estimate
+    category: 'Service & Hospitality',
+    title: 'Host / Hostess',
+    salary: '£18k - £22k',
+    description: 'Greet guests, manage reservations and seat customers in restaurants and venues.',
+    requirements: [
+      'Communication and organisation',
+      'Customer service and professionalism',
+      'No formal qualifications required',
+      'Confidence managing a busy front desk',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Greet and welcome guests as they arrive',
+      'Manage the reservations book and waiting list',
+      'Seat customers and coordinate with waiting staff',
+      'Handle guest enquiries and phone bookings',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
+    ],
+    progression: [
+      'Host / Hostess (Entry (£17k-£19k))',
+      'Senior Host (Mid-level (£19k-£22k))',
+      'Head Host (Senior (£22k-£25k))',
+      'Front of House Manager (Lead / Specialist (£25k+))',
+    ],
+    similarCareers: [
+      163,
+      159,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'customer-service-apprenticeship',
+      'btec-hospitality',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, trained on the job',
+        cost: 'Low cost - paid from day one',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'btec-hospitality',
+        ],
+        description: 'A natural first hospitality role for anyone confident and organised on their feet.',
+      },
+    ],
+  },
+  {
+    id: 163,
+    employmentPercentage: 0.1911, // ~60,000 UK hotel receptionists - estimate
+    category: 'Service & Hospitality',
+    title: 'Receptionist (Hotel)',
+    salary: '£19k - £25k',
+    description: 'Welcome guests, check them in and out, and handle bookings and enquiries about hotel services.',
+    requirements: [
+      'Communication and IT skills',
+      'Customer service and organisation',
+      'GCSE English and Maths helpful',
+      'A second language is a bonus',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Check guests in and out',
+      'Take and manage room bookings',
+      'Answer queries about hotel services and local area',
+      'Handle payments and billing',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
+    ],
+    progression: [
+      'Hotel Receptionist (Entry (£18k-£21k))',
+      'Senior Receptionist (Mid-level (£21k-£25k))',
+      'Front Office Manager (Senior (£25k-£32k))',
+      'Hotel Manager (Lead / Specialist (£32k+))',
+    ],
+    similarCareers: [
+      172,
+      164,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'gcse-maths',
+      'btec-hospitality',
+      'hotel-management-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship Route',
+        duration: '1-2 years',
+        cost: 'Low cost - paid apprenticeship wage while training',
+        entryRequirements: 'GCSEs (English & Maths) helpful - varies by employer',
+        subjects: [
+          'hotel-management-apprenticeship',
+        ],
+        description: 'A common entry point into hotel management - many front office managers started on the desk.',
+      },
+    ],
+  },
+  {
+    id: 164,
+    employmentPercentage: 0.0701, // ~22,000 UK concierge roles (hotels, serviced apartments, corporate) - estimate
+    category: 'Service & Hospitality',
+    title: 'Concierge',
+    salary: '£20k - £30k',
+    description: 'Assist hotel guests with bookings, recommendations, transport and local knowledge.',
+    requirements: [
+      'Strong local knowledge and networking',
+      'Communication and problem-solving',
+      'Customer service experience essential',
+      'No formal qualifications required',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Arrange restaurant bookings, tickets and transport for guests',
+      'Give recommendations on local attractions and events',
+      'Handle special requests and problem-solve on the spot',
+      'Build a network of local contacts and suppliers',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
+    ],
+    progression: [
+      'Concierge Assistant (Entry (£19k-£23k))',
+      'Concierge (Mid-level (£23k-£28k))',
+      'Head Concierge (Senior (£28k-£34k))',
+      'Guest Services Manager (Lead / Specialist (£34k+))',
+    ],
+    similarCareers: [
+      163,
+      166,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'btec-hospitality',
+      'hotel-hospitality-management-ba',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Experience-Based Route',
+        duration: 'Builds from customer-facing hospitality experience',
+        cost: 'Low cost - typically progressed into rather than trained for directly',
+        entryRequirements: 'No formal qualifications required - strong customer service experience essential',
+        subjects: [
+          'btec-hospitality',
+        ],
+        description: 'Usually a step up from front-of-house or reception roles once local knowledge and a contact network are built.',
+      },
+    ],
+  },
+  {
+    id: 165,
+    employmentPercentage: 0.4777, // ~150,000 UK room attendants/housekeepers - estimate
+    category: 'Service & Hospitality',
+    title: 'Room Attendant / Housekeeper',
+    salary: '£18k - £23k',
+    description: 'Clean and maintain guest rooms, replenish supplies and ensure hygiene standards in hotels.',
+    requirements: [
+      'Attention to detail and time management',
+      'Physical stamina',
+      'No formal qualifications required',
+      'Reliability and hygiene standards',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Clean and prepare guest rooms to a set standard',
+      'Restock toiletries, linen and minibar supplies',
+      'Report maintenance issues and lost property',
+      'Follow hygiene and safety procedures',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
+    ],
+    progression: [
+      'Room Attendant (Entry (£17k-£19k))',
+      'Senior Housekeeper (Mid-level (£19k-£23k))',
+      'Housekeeping Supervisor (Senior (£23k-£27k))',
+      'Executive Housekeeper (Lead / Specialist (£27k+))',
+    ],
+    similarCareers: [
+      166,
+      149,
+    ],
+    matchedSubjects: [
+      'btec-hospitality',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, trained on the job',
+        cost: 'Low cost - paid from day one',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'btec-hospitality',
+        ],
+        description: 'Hotels train room attendants on their own standards and checklists directly on the job.',
+      },
+    ],
+  },
+  {
+    id: 166,
+    employmentPercentage: 0.0764, // ~24,000 UK hotel porters - estimate
+    category: 'Service & Hospitality',
+    title: 'Hotel Porter',
+    salary: '£21k - £27k',
+    description: 'Welcome guests, carry luggage, and answer questions about hotel services and facilities.',
+    requirements: [
+      'Customer service and physical fitness',
+      'Communication and local knowledge',
+      'No formal qualifications required',
+      'Reliability and a professional manner',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Welcome guests and carry luggage to rooms',
+      'Show guests around hotel facilities',
+      'Answer questions about services and the local area',
+      'Support the front desk during busy periods',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
+    ],
+    progression: [
+      'Hotel Porter (Entry (£19k-£22k))',
+      'Senior Porter (Mid-level (£22k-£27k))',
+      'Head Porter (Senior (£27k-£31k))',
+      'Concierge / Front of House Manager (Lead / Specialist (£31k+))',
+    ],
+    similarCareers: [
+      164,
+      163,
+    ],
+    matchedSubjects: [
+      'btec-hospitality',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, trained on the job',
+        cost: 'Low cost - paid from day one',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'btec-hospitality',
+        ],
+        description: 'A common route into concierge and front-of-house management with a few years of experience.',
+      },
+    ],
+  },
+  {
+    id: 167,
+    employmentPercentage: 0.5732, // ~180,000 UK kitchen porters/assistants (SOC 9272) - estimate
+    category: 'Service & Hospitality',
+    title: 'Kitchen Porter / Kitchen Assistant',
+    salary: '£17k - £25k',
+    description: 'Support chefs, prepare basic food, wash dishes and keep the kitchen clean and organised.',
+    requirements: [
+      'Teamwork and physical stamina',
+      'Hygiene and organisation',
+      'No formal qualifications required',
+      'Reliability, especially during service',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Wash dishes, pots and kitchen equipment',
+      'Carry out basic food preparation for chefs',
+      'Keep kitchen surfaces and floors clean',
+      'Take deliveries and manage stock rotation',
+    ],
+    whereToStudy: [
+      { name: 'City & Guilds', url: 'https://www.cityandguilds.com', description: 'Catering and hospitality qualifications' },
+    ],
+    progression: [
+      'Kitchen Assistant (Entry (£17k-£19k))',
+      'Kitchen Porter (Mid-level (£19k-£22k))',
+      'Commis Chef (Senior (£22k-£25k))',
+      'Chef de Partie (Lead / Specialist (£25k+))',
+    ],
+    similarCareers: [
+      86,
+      185,
+    ],
+    matchedSubjects: [
+      'btec-hospitality',
+      'chef-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, no experience needed',
+        cost: 'Low cost - paid from day one',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'chef-apprenticeship',
+        ],
+        description: 'Constant demand and high turnover make this one of the easiest hospitality roles to start in - and a common route into a chef apprenticeship from there.',
+      },
+    ],
+  },
+  {
+    id: 168,
+    employmentPercentage: 0.0701, // ~22,000 UK pastry chefs - estimate
+    category: 'Service & Hospitality',
+    title: 'Pastry Chef',
+    salary: '£22k - £35k',
+    description: 'Create desserts, pastries, breads and baked goods for restaurants, hotels and bakeries.',
+    requirements: [
+      'NVQ/City & Guilds in patisserie or bakery',
+      'Baking techniques and precision',
+      'Creativity and time management',
+      'Apprenticeship route common',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Bake and prepare desserts, pastries and breads',
+      'Design new dishes and seasonal menu items',
+      'Manage stock and ingredients for the pastry section',
+      'Maintain hygiene and food safety standards',
+    ],
+    whereToStudy: [
+      { name: 'City & Guilds', url: 'https://www.cityandguilds.com', description: 'Catering and hospitality qualifications' },
+    ],
+    progression: [
+      'Junior Pastry Chef (Entry (£20k-£24k))',
+      'Pastry Chef (Mid-level (£24k-£30k))',
+      'Head Pastry Chef (Senior (£30k-£38k))',
+      'Executive Pastry Chef (Lead / Specialist (£38k+))',
+    ],
+    similarCareers: [
+      169,
+      170,
+    ],
+    matchedSubjects: [
+      'nvq-catering-professional-cookery',
+      'chef-apprenticeship',
+      'culinary-arts-ba',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / NVQ Route',
+        duration: '6-12 months training',
+        cost: 'Low cost - paid apprenticeship wage while training',
+        entryRequirements: 'No formal qualifications required to start',
+        subjects: [
+          'nvq-catering-professional-cookery',
+          'chef-apprenticeship',
+        ],
+        description: 'Most pastry chefs train through a bakery/patisserie NVQ or apprenticeship rather than a degree.',
+      },
+    ],
+  },
+  {
+    id: 169,
+    employmentPercentage: 0.0796, // ~25,000 UK cake decorators - estimate
+    category: 'Service & Hospitality',
+    title: 'Cake Decorator',
+    salary: '£19k - £28k',
+    description: 'Design, make and decorate cakes for birthdays, weddings and other special occasions.',
+    requirements: [
+      'Artistic ability and attention to detail',
+      'Creativity and hand-eye coordination',
+      'No formal qualifications required',
+      'A strong design portfolio helps',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Bake and prepare cakes to order',
+      'Design and apply icing, fondant and decorative details',
+      'Meet clients to discuss bespoke designs',
+      'Manage orders and delivery schedules',
+    ],
+    whereToStudy: [
+      { name: 'City & Guilds', url: 'https://www.cityandguilds.com', description: 'Catering and hospitality qualifications' },
+    ],
+    progression: [
+      'Cake Decorator (Entry (£18k-£21k))',
+      'Senior Cake Decorator (Mid-level (£21k-£26k))',
+      'Bakery Supervisor (Senior (£26k-£30k))',
+      'Bakery Manager / Own Business (Lead / Specialist (£30k+))',
+    ],
+    similarCareers: [
+      170,
+      168,
+    ],
+    matchedSubjects: [
+      'nvq-catering-professional-cookery',
+      'tlevel-craft-design',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Craft / On-the-Job Route',
+        duration: 'A few months to build a portfolio',
+        cost: 'Low cost - short courses plus practice',
+        entryRequirements: 'No formal qualifications required - a strong portfolio matters more',
+        subjects: [
+          'tlevel-craft-design',
+        ],
+        description: 'Many cake decorators are self-taught or trained through short specialist courses rather than a formal qualification.',
+      },
+    ],
+  },
+  {
+    id: 170,
+    employmentPercentage: 0.2866, // ~90,000 UK bakers (SOC 5432) - estimate
+    category: 'Service & Hospitality',
+    title: 'Baker',
+    salary: '£19k - £26k',
+    description: 'Make bread, cakes and pastries by hand and with catering equipment in bakeries, shops and hotels.',
+    requirements: [
+      'NVQ in bakery helpful',
+      'Baking techniques and quality control',
+      'Comfortable with early starts',
+      'Physical stamina',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Prepare dough and bake bread, cakes and pastries',
+      'Follow recipes and quality standards',
+      'Manage stock and ingredient orders',
+      'Maintain hygiene standards in the bakery',
+    ],
+    whereToStudy: [
+      { name: 'City & Guilds', url: 'https://www.cityandguilds.com', description: 'Catering and hospitality qualifications' },
+    ],
+    progression: [
+      'Baker (Entry (£18k-£21k))',
+      'Senior Baker (Mid-level (£21k-£24k))',
+      'Bakery Supervisor (Senior (£24k-£28k))',
+      'Bakery Manager (Lead / Specialist (£28k+))',
+    ],
+    similarCareers: [
+      169,
+      168,
+    ],
+    matchedSubjects: [
+      'nvq-catering-professional-cookery',
+      'chef-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / NVQ Route',
+        duration: '1-2 years',
+        cost: 'Low cost - paid apprenticeship wage while training',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'nvq-catering-professional-cookery',
+        ],
+        description: 'Most bakers train on the job at a bakery, supermarket bakery or hotel, with an NVQ alongside.',
+      },
+    ],
+  },
+  {
+    id: 171,
+    employmentPercentage: 0.3503, // ~110,000 UK restaurant managers (SOC 1223) - estimate
+    category: 'Service & Hospitality',
+    title: 'Restaurant Manager',
+    salary: '£26k - £40k',
+    description: "Organise a venue's day-to-day running, manage staff, ensure customer satisfaction and handle budgets.",
+    requirements: [
+      'Leadership and budgeting skills',
+      'Customer service and problem-solving',
+      'Experience required',
+      'Hospitality management degree or apprenticeship helpful',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Oversee daily front-of-house and kitchen coordination',
+      'Manage rotas, hire and train staff',
+      'Handle customer complaints and feedback',
+      'Monitor budgets, stock and supplier orders',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality management training and qualifications' },
+    ],
+    progression: [
+      'Assistant Manager (Entry (£22k-£27k))',
+      'Restaurant Manager (Mid-level (£27k-£36k))',
+      'Area Manager (Senior (£36k-£48k))',
+      'Operations Director (Lead / Specialist (£48k+))',
+    ],
+    similarCareers: [
+      159,
+      174,
+    ],
+    matchedSubjects: [
+      'gcse-business-studies',
+      'btec-hospitality',
+      'hotel-hospitality-management-ba',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Experience / Apprenticeship Route',
+        duration: '2-4 years, building from a front-of-house role',
+        cost: 'Low cost - typically progressed into on the job',
+        entryRequirements: 'No formal qualifications required - experience matters most',
+        subjects: [
+          'hotel-management-apprenticeship',
+        ],
+        description: 'Most restaurant managers work their way up from waiting, bar or kitchen roles rather than starting in management.',
+      },
+    ],
+  },
+  {
+    id: 172,
+    employmentPercentage: 0.1752, // ~55,000 UK hotel managers (SOC 1221) - estimate
+    category: 'Service & Hospitality',
+    title: 'Hotel Manager',
+    salary: '£28k - £50k+',
+    description: 'Manage all hotel operations, staff, budgets, guest satisfaction and marketing.',
+    requirements: [
+      'Degree in hospitality management or advanced apprenticeship',
+      'Leadership and financial management',
+      'Strategic planning and communication',
+      'Significant hospitality experience',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Oversee all hotel departments and staff',
+      'Manage budgets, occupancy and revenue targets',
+      'Handle guest satisfaction and escalated complaints',
+      'Coordinate marketing and local partnerships',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality management training and qualifications' },
+    ],
+    progression: [
+      'Assistant Manager (Entry (£24k-£30k))',
+      'Deputy Manager (Mid-level (£30k-£40k))',
+      'Hotel Manager (Senior (£40k-£55k))',
+      'Regional / Group Operations Director (Lead / Specialist (£60k+))',
+    ],
+    similarCareers: [
+      163,
+      171,
+    ],
+    matchedSubjects: [
+      'gcse-business-studies',
+      'hotel-hospitality-management-ba',
+      'hotel-management-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years degree + significant experience',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels or BTEC Level 3 - typical offer varies by university',
+        subjects: [
+          'hotel-hospitality-management-ba',
+        ],
+        description: 'A hospitality management degree is common for larger hotel groups, though many managers also progress entirely through experience.',
+      },
+    ],
+  },
+  {
+    id: 173,
+    employmentPercentage: 0.2229, // ~70,000 UK pub/bar managers (SOC 1222) - estimate
+    category: 'Service & Hospitality',
+    title: 'Pub / Bar Manager',
+    salary: '£24k - £40k',
+    description: 'Manage licensed premises, staff, stock, finances, compliance and customer experience.',
+    requirements: [
+      'Personal licence needed',
+      'Leadership and stock management',
+      'Financial control and licensing law knowledge',
+      'Experience required',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Manage bar staff rotas and training',
+      'Order stock and control costs',
+      'Ensure licensing and compliance standards are met',
+      'Oversee events, promotions and customer experience',
+    ],
+    whereToStudy: [
+      { name: 'British Institute of Innkeeping', url: 'https://www.bii.org', description: 'Licensed trade training and personal licence qualifications' },
+    ],
+    progression: [
+      'Assistant Manager (Entry (£21k-£26k))',
+      'Pub / Bar Manager (Mid-level (£26k-£36k))',
+      'Area Manager (Senior (£36k-£48k))',
+      'Regional Director (Lead / Specialist (£48k+))',
+    ],
+    similarCareers: [
+      160,
+      171,
+    ],
+    matchedSubjects: [
+      'gcse-business-studies',
+      'btec-hospitality',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Experience Route',
+        duration: '1-3 years, building from a bar role',
+        cost: 'Low to moderate cost - personal licence qualification required',
+        entryRequirements: 'No formal qualifications required - a personal licence and experience are essential',
+        subjects: [
+          'btec-hospitality',
+        ],
+        description: 'Almost always reached by progressing up from bar staff, with a personal licence qualification along the way.',
+      },
+    ],
+  },
+  {
+    id: 174,
+    employmentPercentage: 0.1911, // ~60,000 UK catering managers (SOC 5436) - estimate
+    category: 'Service & Hospitality',
+    title: 'Catering Manager',
+    salary: '£20k - £34k',
+    description: 'Run food service for organisations including restaurants, bars, schools, colleges and outside suppliers.',
+    requirements: [
+      'Experience in catering',
+      'NVQ/degree in hospitality management helpful',
+      'Organisation and budgeting',
+      'Menu planning and hygiene compliance',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Plan menus and manage food budgets',
+      'Recruit, train and manage catering staff',
+      'Ensure hygiene and food safety compliance',
+      'Liaise with clients on events and contracts',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality management training and qualifications' },
+    ],
+    progression: [
+      'Assistant Catering Manager (Entry (£19k-£23k))',
+      'Catering Manager (Mid-level (£23k-£30k))',
+      'Senior Catering Manager (Senior (£30k-£36k))',
+      'Food and Beverage Director (Lead / Specialist (£36k+))',
+    ],
+    similarCareers: [
+      171,
+      86,
+    ],
+    matchedSubjects: [
+      'gcse-business-studies',
+      'nvq-catering-professional-cookery',
+      'hotel-hospitality-management-ba',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Experience / NVQ Route',
+        duration: '1-3 years',
+        cost: 'Low to moderate cost - NVQ courses plus on-the-job experience',
+        entryRequirements: 'No formal qualifications required - catering experience essential',
+        subjects: [
+          'nvq-catering-professional-cookery',
+        ],
+        description: 'Most catering managers progress from kitchen or front-of-house roles into contract catering.',
+      },
+    ],
+  },
+  {
+    id: 175,
+    employmentPercentage: 0.0637, // ~20,000 UK accommodation wardens - estimate
+    category: 'Service & Hospitality',
+    title: 'Accommodation Warden',
+    salary: '£24k - £28k',
+    description: 'Manage the day-to-day running of services like sheltered housing, hostels and student flats.',
+    requirements: [
+      'Organisation and communication',
+      'Problem-solving and empathy',
+      'No formal qualifications required',
+      'Management experience helpful',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Oversee the day-to-day running of accommodation',
+      'Support residents with queries and issues',
+      'Coordinate maintenance and safety checks',
+      'Handle administration and record-keeping',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality and accommodation management training' },
+    ],
+    progression: [
+      'Accommodation Warden (Entry (£22k-£25k))',
+      'Senior Warden (Mid-level (£25k-£28k))',
+      'Accommodation Manager (Senior (£28k-£34k))',
+      'Housing Services Manager (Lead / Specialist (£34k+))',
+    ],
+    similarCareers: [
+      165,
+      163,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'btec-hospitality',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Experience Route',
+        duration: 'Builds from customer-facing or care experience',
+        cost: 'Low cost - typically progressed into rather than trained for directly',
+        entryRequirements: 'No formal qualifications required - management experience helpful',
+        subjects: [
+          'btec-hospitality',
+        ],
+        description: 'A role usually reached through experience in housing, hospitality or care rather than a specific qualification.',
+      },
+    ],
+  },
+  {
+    id: 176,
+    employmentPercentage: 0.0637, // ~20,000 UK sommelier / wine service roles - broader definition (formally WSET-certified sommeliers alone number in the low thousands; SOC has no dedicated unit group)
+    category: 'Service & Hospitality',
+    title: 'Sommelier',
+    salary: '£22k - £40k+',
+    description: 'Curate wine lists, advise guests on wine pairings, and manage wine stock and cellar.',
+    requirements: [
+      'WSET qualifications (Level 2-4)',
+      'Extensive wine knowledge and palate',
+      'Customer service and sales skills',
+      'Organisation',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Curate and update the wine list',
+      'Advise guests on wine and food pairings',
+      'Manage wine stock, cellar conditions and ordering',
+      'Train front-of-house staff on wine knowledge',
+    ],
+    whereToStudy: [
+      { name: 'WSET', url: 'https://www.wsetglobal.com', description: 'Wine & Spirit Education Trust qualifications' },
+    ],
+    progression: [
+      'Junior Sommelier (Entry (£22k-£27k))',
+      'Sommelier (Mid-level (£27k-£35k))',
+      'Head Sommelier (Senior (£35k-£45k))',
+      'Wine Director (Lead / Specialist (£45k+))',
+    ],
+    similarCareers: [
+      159,
+      86,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'btec-hospitality',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'WSET Qualification Route',
+        duration: '1-2 years alongside restaurant work',
+        cost: 'Moderate cost - WSET course fees, often part-funded by an employer',
+        entryRequirements: 'No formal qualifications required to start - WSET Level 2 is the usual first step',
+        subjects: [],
+        description: 'Almost always built up while working front-of-house, studying WSET levels alongside the job.',
+      },
+    ],
+  },
+  {
+    id: 177,
+    employmentPercentage: 0.0701, // ~22,000 UK food safety officers / hygiene inspectors (across the whole food industry, not just hospitality) - estimate
+    category: 'Service & Hospitality',
+    title: 'Food Safety Officer / Hygiene Inspector',
+    salary: '£22k - £32k',
+    description: 'Ensure food businesses comply with hygiene and safety regulations.',
+    requirements: [
+      'Food safety qualification (Level 3/4)',
+      'Attention to detail',
+      'Knowledge of regulations',
+      'Environmental health background helpful',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Inspect food premises for hygiene and safety compliance',
+      'Advise businesses on meeting regulations',
+      'Write inspection reports and ratings',
+      'Investigate complaints and food safety incidents',
+    ],
+    whereToStudy: [
+      { name: 'Chartered Institute of Environmental Health', url: 'https://www.cieh.org', description: 'Environmental health and food safety qualifications' },
+    ],
+    progression: [
+      'Trainee Inspector (Entry (£20k-£24k))',
+      'Food Safety Officer (Mid-level (£24k-£29k))',
+      'Senior Inspector / Team Leader (Senior (£29k-£36k))',
+      'Environmental Health Manager (Lead / Specialist (£36k+))',
+    ],
+    similarCareers: [
+      86,
+      174,
+    ],
+    matchedSubjects: [
+      'gcse-science-combined',
+      'nvq-catering-professional-cookery',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Food Safety Qualification Route',
+        duration: '6-12 months training',
+        cost: 'Low to moderate cost - Level 3/4 food safety course',
+        entryRequirements: 'No degree required - a food safety qualification and attention to detail matter most',
+        subjects: [
+          'gcse-science-combined',
+        ],
+        description: 'Often a route in from kitchen or catering experience, formalised with a recognised food safety qualification.',
+      },
+    ],
+  },
+  {
+    id: 178,
+    employmentPercentage: 0.0701, // ~22,000 UK menu/food product developers - estimate, includes food manufacturing NPD roles
+    category: 'Service & Hospitality',
+    title: 'Menu Developer / Food Product Developer',
+    salary: '£25k - £40k',
+    description: 'Create new dishes, develop menus, test recipes, and analyse food trends and costs.',
+    requirements: [
+      'Degree in food science or culinary arts',
+      'Kitchen experience',
+      'Creativity and nutrition understanding',
+      'Cost analysis and trend awareness',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Develop and test new recipes and dishes',
+      'Analyse food trends, nutrition and cost',
+      'Work with chefs and suppliers on new menu items',
+      'Document recipes and standardise portions',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality and culinary industry training' },
+    ],
+    progression: [
+      'Junior Developer (Entry (£23k-£28k))',
+      'Menu / Food Product Developer (Mid-level (£28k-£36k))',
+      'Senior Developer (Senior (£36k-£45k))',
+      'Head of Food Development (Lead / Specialist (£45k+))',
+    ],
+    similarCareers: [
+      86,
+      168,
+    ],
+    matchedSubjects: [
+      'gcse-science-combined',
+      'culinary-arts-ba',
+    ],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'University / Degree Route',
+        duration: '3-4 years degree + kitchen experience',
+        cost: 'Higher cost - tuition fees apply (student finance available)',
+        entryRequirements: 'A-Levels including Science - typical offer varies by university',
+        subjects: [
+          'culinary-arts-ba',
+        ],
+        description: 'A food science or culinary arts degree combined with real kitchen experience is the typical route in.',
+      },
+    ],
+  },
+  {
+    id: 179,
+    employmentPercentage: 0.0701, // ~22,000 UK tour managers - estimate
+    category: 'Service & Hospitality',
+    title: 'Tour Manager',
+    salary: '£20k - £35k',
+    description: 'Manage travel arrangements of holidaymakers and business clients to ensure trips run smoothly.',
+    requirements: [
+      'Organisation and communication',
+      'Problem-solving',
+      'Languages and cultural awareness a bonus',
+      'No formal qualifications required',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Coordinate itineraries, transport and accommodation',
+      'Lead groups and resolve issues on the road',
+      'Liaise with local guides and suppliers',
+      'Manage budgets for the tour',
+    ],
+    whereToStudy: [
+      { name: 'ABTA', url: 'https://abta.com', description: 'Travel industry training and standards' },
+    ],
+    progression: [
+      'Tour Guide (Entry (£18k-£22k))',
+      'Tour Manager (Mid-level (£22k-£30k))',
+      'Operations Manager (Senior (£30k-£38k))',
+      'Travel Director (Lead / Specialist (£38k+))',
+    ],
+    similarCareers: [
+      180,
+      136,
+    ],
+    matchedSubjects: [
+      'btec-travel-tourism',
+      'tourism-management-ba',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Travel & Tourism Route',
+        duration: '1-2 years',
+        cost: 'Low to moderate cost - college course or on-the-job training',
+        entryRequirements: 'No formal qualifications required - a travel/tourism qualification helps',
+        subjects: [
+          'btec-travel-tourism',
+        ],
+        description: 'Often starts as a tour guide before progressing to managing full itineraries and groups.',
+      },
+    ],
+  },
+  {
+    id: 180,
+    employmentPercentage: 0.0637, // ~20,000 UK resort representatives - estimate, seasonal + full-time
+    category: 'Service & Hospitality',
+    title: 'Resort Representative',
+    salary: '£18k - £25k',
+    description: "Ensure holidaymakers enjoy their vacation - plan trips, organise activities and deal with issues.",
+    requirements: [
+      'Communication and problem-solving',
+      'Organisation and customer service',
+      'Languages a bonus',
+      'No formal qualifications required',
+    ],
+    supportTags: [
+      'Flexible hours',
+    ],
+    dayToDay: [
+      'Welcome holidaymakers and run welcome meetings',
+      'Sell and organise excursions and activities',
+      'Resolve guest issues and emergencies',
+      'Liaise with hotels and local suppliers',
+    ],
+    whereToStudy: [
+      { name: 'ABTA', url: 'https://abta.com', description: 'Travel industry training and standards' },
+    ],
+    progression: [
+      'Resort Representative (Entry (£17k-£21k))',
+      'Senior Representative (Mid-level (£21k-£25k))',
+      'Resort Manager (Senior (£25k-£32k))',
+      'Area Manager (Lead / Specialist (£32k+))',
+    ],
+    similarCareers: [
+      179,
+      136,
+    ],
+    matchedSubjects: [
+      'btec-travel-tourism',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Travel & Tourism Route',
+        duration: 'Immediate start, trained on the job',
+        cost: 'Low cost - often includes accommodation as part of the role',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'btec-travel-tourism',
+        ],
+        description: 'A common seasonal entry point into the travel industry, often leading to resort or area management.',
+      },
+    ],
+  },
+  {
+    id: 181,
+    employmentPercentage: 0.1115, // ~35,000 UK cinema/theatre attendants - estimate
+    category: 'Service & Hospitality',
+    title: 'Cinema / Theatre Attendant',
+    salary: '£18k - £22k',
+    description: "Check customers' tickets, direct them to seats, and sell refreshments.",
+    requirements: [
+      'Customer service and communication',
+      'Cash handling',
+      'No formal qualifications required',
+      'Reliability',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Check tickets and direct customers to seats',
+      'Sell food, drinks and merchandise',
+      'Keep the venue clean between showings/performances',
+      'Assist with customer queries and accessibility needs',
+    ],
+    whereToStudy: [
+      { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Customer service and hospitality training' },
+    ],
+    progression: [
+      'Attendant (Entry (£17k-£19k))',
+      'Supervisor (Mid-level (£19k-£23k))',
+      'Duty Manager (Senior (£23k-£27k))',
+      'Venue Manager (Lead / Specialist (£27k+))',
+    ],
+    similarCareers: [
+      182,
+      159,
+    ],
+    matchedSubjects: [
+      'gcse-english',
+      'customer-service-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, trained on the job',
+        cost: 'Low cost - paid from day one',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'customer-service-apprenticeship',
+        ],
+        description: 'A common part-time or first job, with clear progression into duty and venue management.',
+      },
+    ],
+  },
+  {
+    id: 182,
+    employmentPercentage: 0.1433, // ~45,000 UK leisure centre assistants - estimate
+    category: 'Service & Hospitality',
+    title: 'Leisure Centre Assistant',
+    salary: '£18k - £24k',
+    description: 'Assist with gym operations, pool supervision, customer enquiries and facility maintenance.',
+    requirements: [
+      'Customer service skills',
+      'Basic fitness knowledge',
+      'First aid certificate',
+      'Sports qualification helpful',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Supervise the gym floor and swimming pool',
+      'Handle customer enquiries and bookings',
+      'Carry out routine facility checks and light maintenance',
+      'Respond to first aid and emergency situations',
+    ],
+    whereToStudy: [
+      { name: 'CIMSPA', url: 'https://www.cimspa.co.uk', description: 'Sport and leisure industry qualifications' },
+    ],
+    progression: [
+      'Leisure Assistant (Entry (£17k-£20k))',
+      'Senior Assistant (Mid-level (£20k-£24k))',
+      'Duty Manager (Senior (£24k-£29k))',
+      'Centre Manager (Lead / Specialist (£29k+))',
+    ],
+    similarCareers: [
+      152,
+      181,
+    ],
+    matchedSubjects: [
+      'gcse-pe',
+      'customer-service-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, trained on the job',
+        cost: 'Low cost - paid from day one, first aid training usually provided',
+        entryRequirements: 'No formal qualifications required - a sports qualification helps',
+        subjects: [
+          'gcse-pe',
+        ],
+        description: 'A common first job for anyone into sport and fitness, with a clear route into duty and centre management.',
+      },
+    ],
+  },
+  {
+    id: 183,
+    employmentPercentage: 0.4777, // ~150,000 UK food delivery drivers - estimate, gig-economy platforms
+    category: 'Service & Hospitality',
+    title: 'Food Delivery Driver',
+    salary: '£18k - £25k',
+    description: 'Deliver food orders from restaurants and takeaways to customers, usually via an app-based platform.',
+    requirements: [
+      'UK driving licence (or valid bike/e-bike)',
+      'Reliability and time management',
+      'No formal qualifications required',
+      'Comfortable navigating local areas',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Accept and collect food orders from restaurants',
+      'Navigate to customer addresses efficiently',
+      'Handle food safely and on time',
+      'Manage own schedule via a delivery app',
+    ],
+    whereToStudy: [
+      { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
+    ],
+    progression: [
+      'Delivery Driver (Entry (£18k-£21k))',
+      'Experienced Driver, peak-time earnings (Mid-level (£21k-£25k))',
+      'Fleet / Local Area Coordinator (Senior (£25k-£30k))',
+      'Operations Manager (Lead / Specialist (£30k+))',
+    ],
+    similarCareers: [
+      184,
+      158,
+    ],
+    matchedSubjects: [],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start',
+        cost: 'Low cost - own vehicle/bike required, flexible gig-based pay',
+        entryRequirements: 'A driving licence (or bike) and right to work in the UK',
+        subjects: [],
+        description: 'One of the fastest-growing entry points into the sector, driven by app-based platforms and flexible hours.',
+      },
+    ],
+  },
+  {
+    id: 184,
+    employmentPercentage: 0.9554, // ~300,000 UK fast food crew members - estimate, major chains
+    category: 'Service & Hospitality',
+    title: 'Fast Food Crew Member',
+    salary: '£18k - £22k',
+    description: 'Prepare and serve food quickly and consistently in a fast food or quick-service restaurant.',
+    requirements: [
+      'Teamwork and reliability',
+      'No formal qualifications required',
+      'Comfort working at speed',
+      'Structured training provided',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Prepare food to brand standards and speed targets',
+      'Take orders at the till or drive-through',
+      'Keep the kitchen and service area clean',
+      'Work as part of a fast-paced team',
+    ],
+    whereToStudy: [
+      { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
+    ],
+    progression: [
+      'Crew Member (Entry (£17k-£19k))',
+      'Shift Leader (Mid-level (£19k-£23k))',
+      'Assistant Manager (Senior (£23k-£28k))',
+      'Restaurant Manager (Lead / Specialist (£28k+))',
+    ],
+    similarCareers: [
+      159,
+      167,
+    ],
+    matchedSubjects: [
+      'customer-service-apprenticeship',
+    ],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, structured training provided',
+        cost: 'Low cost - paid from day one',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [
+          'customer-service-apprenticeship',
+        ],
+        description: 'Major chains are consistently hiring, with structured in-house training and a clear path into shift and restaurant management.',
+      },
+    ],
+  },
+  {
+    id: 185,
+    employmentPercentage: 0.1911, // ~60,000 UK dishwashers/kitchen cleaning staff - estimate
+    category: 'Service & Hospitality',
+    title: 'Dishwasher',
+    salary: '£17k - £21k',
+    description: 'Wash dishes, pots and kitchen equipment in restaurants, hotels and catering kitchens.',
+    requirements: [
+      'No formal qualifications required',
+      'Physical stamina',
+      'Reliability, especially during service',
+      'Teamwork',
+    ],
+    supportTags: [
+      'Flexible hours',
+      'Part-time available',
+    ],
+    dayToDay: [
+      'Wash dishes, pots and kitchen equipment',
+      'Keep the dishwashing station organised',
+      'Support kitchen staff during busy service',
+      'Manage waste and recycling',
+    ],
+    whereToStudy: [
+      { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
+    ],
+    progression: [
+      'Dishwasher (Entry (£17k-£19k))',
+      'Kitchen Porter (Mid-level (£19k-£21k))',
+      'Commis Chef (Senior (£21k-£25k))',
+      'Chef de Partie (Lead / Specialist (£25k+))',
+    ],
+    similarCareers: [
+      167,
+      184,
+    ],
+    matchedSubjects: [],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'On-the-Job Route',
+        duration: 'Immediate start, no experience needed',
+        cost: 'Low cost - paid from day one',
+        entryRequirements: 'No formal qualifications required',
+        subjects: [],
+        description: 'Every kitchen needs one - the easiest entry point into a kitchen career, with a clear route up to commis chef.',
+      },
+    ],
+  },
 ]
 // Normalize subject ids to match `subjects.json` ids and fix common typos
 const demoCareers = rawDemoCareers.map((career) => ({

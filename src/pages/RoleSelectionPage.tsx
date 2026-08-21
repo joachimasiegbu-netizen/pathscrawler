@@ -14,7 +14,6 @@ import {
   ShieldCheck,
   Briefcase,
   Globe2,
-  Accessibility,
   Flag,
   Lightbulb,
   Target,
@@ -44,11 +43,10 @@ const categories = [
   },
   {
     id: 'support-access',
-    title: 'Supporters & access-focused',
-    description: 'For new arrivals and learners with additional support needs.',
+    title: 'New arrivals to the UK',
+    description: 'Support for immigrants and asylum seekers building a career here.',
     roles: [
       { id: 'refugee-asylum-seeker', label: 'Immigrant / Asylum Seeker', description: 'New to the UK? Get support with English, qualifications, and finding your career path.', icon: Globe2 },
-      { id: 'disabled-learner', label: 'Disabled Learner', description: 'Learners with accessibility needs or additional support requirements.', icon: Accessibility },
     ],
   },
 ]
@@ -115,12 +113,6 @@ export default function RoleSelectionPage() {
     if (id === 'refugee-asylum-seeker') {
       console.log('[RoleSelectionPage] navigating refugee-asylum-seeker to /subjects/refugee-asylum-seeker')
       navigate('/subjects/refugee-asylum-seeker', { replace: true })
-      return
-    }
-
-    if (id === 'disabled-learner') {
-      console.log('[RoleSelectionPage] navigating disabled-learner to /subjects/disabled-learner')
-      navigate('/subjects/disabled-learner', { replace: true })
       return
     }
 

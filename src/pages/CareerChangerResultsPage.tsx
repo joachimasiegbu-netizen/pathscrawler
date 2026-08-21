@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Bookmark, BookmarkCheck, Compass } from 'lucide-react'
+import { Compass } from 'lucide-react'
 import { usePathStore } from '../store/usePathStore'
-import { useCareerBoardStore } from '../store/useCareerBoardStore'
 import { currentRoles, currentJobSkills } from '../data/careerChangerData'
 import demoCareers2 from '../data/demoCareers2'
 import type { Career2 } from '../data/demoCareers2'
@@ -11,7 +10,9 @@ import CompareButton from '../components/CompareButton'
 import CompareFloatingButton from '../components/CompareFloatingButton'
 import EmptyState from '../components/EmptyState'
 import PageHeader from '../components/PageHeader'
+import SavePathwayButton from '../components/SavePathwayButton'
 import SelectableCareerCard from '../components/SelectableCareerCard'
+import ShowFullPathwayButton from '../components/ShowFullPathwayButton'
 import SkeletonCard from '../components/SkeletonCard'
 import StaggerGrid from '../components/StaggerGrid'
 
@@ -119,8 +120,6 @@ export default function CareerChangerResultsPage() {
   const currentJob = usePathStore((state) => state.currentJob)
   const qualityPreferences = usePathStore((state) => state.qualityPreferences)
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
-  const savedCareerIds = useCareerBoardStore((state) => state.careerIds)
-  const toggleSavedCareer = useCareerBoardStore((state) => state.toggle)
   const [isCalculating, setIsCalculating] = useState(true)
 
   // Enforce Step 1 -> Step 2 -> Results: jumping straight to this URL sends
@@ -234,7 +233,6 @@ export default function CareerChangerResultsPage() {
       ) : (
         <StaggerGrid revealOnMount className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {matchedAlternates.map(({ career, sharedSkills }) => {
-            const saved = savedCareerIds.includes(career.id)
             return (
               <SelectableCareerCard
                 key={career.id}
@@ -279,22 +277,8 @@ export default function CareerChangerResultsPage() {
                 </div>
 
                 <div className="mt-5 flex gap-2">
-                  <button
-                    type="button"
-                    onClick={(event) => {
-                      event.stopPropagation()
-                      toggleSavedCareer(career.id)
-                    }}
-                    aria-pressed={saved}
-                    className={`inline-flex flex-1 items-center justify-center gap-1.5 rounded-2xl border px-3 py-2 text-xs font-semibold transition-all duration-200 sm:text-sm ${
-                      saved
-                        ? 'border-primary bg-primary-soft/70 text-primary-dark dark:border-primary/60 dark:bg-primary/15 dark:text-primary-light'
-                        : 'border-gray-200 bg-slate-50 text-slate-700 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-700'
-                    }`}
-                  >
-                    {saved ? <BookmarkCheck className="h-3.5 w-3.5" /> : <Bookmark className="h-3.5 w-3.5" />}
-                    {saved ? 'Saved' : 'Save to binder'}
-                  </button>
+                  <ShowFullPathwayButton career={career} className="flex-1" />
+                  <SavePathwayButton careerId={career.id} className="flex-1" />
                 </div>
               </SelectableCareerCard>
             )

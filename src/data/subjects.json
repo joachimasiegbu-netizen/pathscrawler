@@ -1,412 +1,2372 @@
 [
-  { "id": "gcse-maths", "label": "GCSE Maths", "description": "Build essential analytical and problem-solving skills.", "category": "GCSE" },
-  { "id": "gcse-english", "label": "GCSE English", "description": "Develop strong reading, writing, and communication foundations.", "category": "GCSE" },
-  { "id": "gcse-science-combined", "label": "GCSE Science (Combined)", "description": "Learn broad scientific principles across biology, chemistry and physics.", "category": "GCSE" },
-  { "id": "gcse-biology", "label": "GCSE Biology", "description": "Study living organisms, ecosystems and biological processes.", "category": "GCSE" },
-  { "id": "gcse-chemistry", "label": "GCSE Chemistry", "description": "Explore matter, reactions and chemical principles.", "category": "GCSE" },
-  { "id": "gcse-physics", "label": "GCSE Physics", "description": "Understand forces, energy, waves and fundamental physical laws.", "category": "GCSE" },
-  { "id": "gcse-history", "label": "GCSE History", "description": "Examine key events, cultures and developments from the past.", "category": "GCSE" },
-  { "id": "gcse-geography", "label": "GCSE Geography", "description": "Learn about people, places, environments and global systems.", "category": "GCSE" },
-  { "id": "gcse-religious-studies", "label": "GCSE Religious Studies", "description": "Explore belief systems, ethics and world religions.", "category": "GCSE" },
-  { "id": "gcse-spanish", "label": "GCSE Spanish", "description": "Develop listening, speaking, reading and writing skills in Spanish.", "category": "GCSE" },
-  { "id": "gcse-french", "label": "GCSE French", "description": "Build fluency in French through practical language learning.", "category": "GCSE" },
-  { "id": "gcse-german", "label": "GCSE German", "description": "Study German language and culture for communication and travel.", "category": "GCSE" },
-  { "id": "gcse-mandarin", "label": "GCSE Mandarin", "description": "Learn Mandarin Chinese fundamentals for speaking and reading.", "category": "GCSE" },
-  { "id": "gcse-art-design", "label": "GCSE Art & Design", "description": "Explore creativity, visual media and artistic techniques.", "category": "GCSE" },
-  { "id": "gcse-music", "label": "GCSE Music", "description": "Study performance, composition and music theory.", "category": "GCSE" },
-  { "id": "gcse-drama", "label": "GCSE Drama", "description": "Develop acting, production and performance skills.", "category": "GCSE" },
-  { "id": "gcse-media-studies", "label": "GCSE Media Studies", "description": "Analyse media, film and digital communication.", "category": "GCSE" },
-  { "id": "gcse-design-technology", "label": "GCSE Design & Technology", "description": "Learn design, engineering and product development skills.", "category": "GCSE" },
-  { "id": "gcse-computer-science", "label": "GCSE Computer Science", "description": "Understand computing, coding and digital systems.", "category": "GCSE" },
-  { "id": "gcse-business-studies", "label": "GCSE Business Studies", "description": "Explore business operations, finance and enterprise concepts.", "category": "GCSE" },
-  { "id": "gcse-economics", "label": "GCSE Economics", "description": "Learn how markets, money and the economy function.", "category": "GCSE" },
-  { "id": "gcse-food-technology", "label": "GCSE Food Technology", "description": "Study nutrition, food science and practical cooking skills.", "category": "GCSE" },
-  { "id": "gcse-pe", "label": "GCSE Physical Education", "description": "Develop sporting skills, fitness knowledge and healthy habits.", "category": "GCSE" },
-  { "id": "nvq-plumbing", "label": "NVQ Plumbing (Level 2/3)", "description": "Learn pipework, water systems and plumbing installation skills.", "category": "Vocational" },
-  { "id": "nvq-electrical-installation", "label": "NVQ Electrical Installation (Level 2/3)", "description": "Study electrical wiring, safety and building installation techniques.", "category": "Vocational" },
-  { "id": "nvq-carpentry", "label": "NVQ Carpentry (Level 2/3)", "description": "Gain practical woodworking and joinery skills for construction.", "category": "Vocational" },
-  { "id": "btec-construction", "label": "BTEC Construction (Level 3)", "description": "Develop construction knowledge from planning to site delivery.", "category": "Vocational" },
-  { "id": "bricklaying-apprenticeship", "label": "Bricklaying Apprenticeship", "description": "Train in brickwork, masonry and building structures on site.", "category": "Vocational" },
-  { "id": "nvq-health-social-care", "label": "NVQ Health & Social Care (Level 2/3)", "description": "Study care practices, wellbeing and support for vulnerable people.", "category": "Vocational" },
-  { "id": "nvq-early-years-educator", "label": "NVQ Early Years Educator (Level 3)", "description": "Learn childcare, development and classroom support skills.", "category": "Vocational" },
-  { "id": "btec-health-social-care", "label": "BTEC Health & Social Care (Level 3)", "description": "Explore health care, social services and person-centred support.", "category": "Vocational" },
-  { "id": "healthcare-assistant-apprenticeship", "label": "Healthcare Assistant Apprenticeship", "description": "Gain hands-on experience supporting patients in health settings.", "category": "Vocational" },
-  { "id": "dental-nursing-apprenticeship", "label": "Dental Nursing Apprenticeship", "description": "Train to support dentists and maintain patient care standards.", "category": "Vocational" },
-  { "id": "btec-it", "label": "BTEC IT (Level 3)", "description": "Develop practical IT skills for business and digital environments.", "category": "Vocational" },
-  { "id": "btec-computing", "label": "BTEC Computing (Level 3)", "description": "Study computing systems, programming and software development.", "category": "Vocational" },
-  { "id": "cyber-security-apprenticeship", "label": "Cyber Security Apprenticeship", "description": "Learn how to protect systems and data from cyber threats.", "category": "Vocational" },
-  { "id": "software-development-apprenticeship", "label": "Software Development Apprenticeship", "description": "Train in coding, development workflows and application delivery.", "category": "Vocational" },
-  { "id": "network-engineer-apprenticeship", "label": "Network Engineer Apprenticeship", "description": "Gain skills in network design, installation and troubleshooting.", "category": "Vocational" },
-  { "id": "btec-business", "label": "BTEC Business (Level 3)", "description": "Study business strategy, finance and enterprise skills.", "category": "Vocational" },
-  { "id": "nvq-business-administration", "label": "NVQ Business Administration (Level 2/3)", "description": "Learn administration, office systems and customer support.", "category": "Vocational" },
-  { "id": "customer-service-apprenticeship", "label": "Customer Service Apprenticeship", "description": "Train in frontline service skills, communication and sales support.", "category": "Vocational" },
-  { "id": "hr-apprenticeship", "label": "HR Apprenticeship", "description": "Study recruitment, staff support and workplace processes.", "category": "Vocational" },
-  { "id": "accounting-apprenticeship-aat", "label": "Accounting Apprenticeship (AAT)", "description": "Learn bookkeeping, accounting principles and financial reporting.", "category": "Vocational" },
-  { "id": "btec-engineering", "label": "BTEC Engineering (Level 3)", "description": "Develop engineering principles for design and manufacturing.", "category": "Vocational" },
-  { "id": "nvq-vehicle-maintenance", "label": "NVQ Vehicle Maintenance (Level 2/3)", "description": "Learn vehicle servicing, repair and maintenance techniques.", "category": "Vocational" },
-  { "id": "mechanical-engineering-apprenticeship", "label": "Mechanical Engineering Apprenticeship", "description": "Train in mechanical systems, fabrication and engineering maintenance.", "category": "Vocational" },
-  { "id": "electrical-engineering-apprenticeship", "label": "Electrical Engineering Apprenticeship", "description": "Study electrical systems, circuit design and industrial installation.", "category": "Vocational" },
-  { "id": "aerospace-manufacturing-apprenticeship", "label": "Aerospace Manufacturing Apprenticeship", "description": "Gain skills in aerospace production, assembly and engineering.", "category": "Vocational" },
-  { "id": "nvq-catering-professional-cookery", "label": "NVQ Catering & Professional Cookery (Level 2/3)", "description": "Learn kitchen skills, food service and catering operations.", "category": "Vocational" },
-  { "id": "btec-hospitality", "label": "BTEC Hospitality (Level 3)", "description": "Study customer service, events and hospitality management.", "category": "Vocational" },
-  { "id": "chef-apprenticeship", "label": "Chef Apprenticeship", "description": "Train in culinary preparation, kitchen operations and food safety.", "category": "Vocational" },
-  { "id": "hotel-management-apprenticeship", "label": "Hotel Management Apprenticeship", "description": "Develop skills in guest services, operations and hotel management.", "category": "Vocational" },
-  { "id": "nvq-hairdressing", "label": "NVQ Hairdressing (Level 2/3)", "description": "Learn cutting, styling and salon hairdressing techniques.", "category": "Vocational" },
-  { "id": "nvq-beauty-therapy", "label": "NVQ Beauty Therapy (Level 2/3)", "description": "Study beauty treatments, skincare and salon customer care.", "category": "Vocational" },
-  { "id": "barbering-apprenticeship", "label": "Barbering Apprenticeship", "description": "Train in barbering, grooming and men's hair styling.", "category": "Vocational" },
-  { "id": "btec-sport", "label": "BTEC Sport (Level 3)", "description": "Study coaching, fitness and sports performance.", "category": "Vocational" },
-  { "id": "personal-training", "label": "Personal Training (Level 3)", "description": "Learn fitness programming, coaching and health guidance.", "category": "Vocational" },
-  { "id": "sports-coaching-apprenticeship", "label": "Sports Coaching Apprenticeship", "description": "Train in coaching practice, athlete development and sport delivery.", "category": "Vocational" },
-  { "id": "leisure-management-apprenticeship", "label": "Leisure Management Apprenticeship", "description": "Develop operations and customer experience skills for leisure venues.", "category": "Vocational" },
-  { "id": "btec-performing-arts", "label": "BTEC Performing Arts (Level 3)", "description": "Study performance, production and stagecraft skills.", "category": "Vocational" },
-  { "id": "btec-media", "label": "BTEC Media (Level 3)", "description": "Learn media production, storytelling and digital communication.", "category": "Vocational" },
-  { "id": "btec-music", "label": "BTEC Music (Level 3)", "description": "Study music performance, composition and production.", "category": "Vocational" },
-  { "id": "btec-art-design", "label": "BTEC Art & Design (Level 3)", "description": "Develop visual arts, design thinking and creative practice.", "category": "Vocational" },
-  { "id": "photography-apprenticeship", "label": "Photography Apprenticeship", "description": "Train in photography, editing and visual storytelling.", "category": "Vocational" },
-  { "id": "nvq-land-based-studies", "label": "NVQ Land-Based Studies (Level 2/3)", "description": "Study land management, agriculture and environmental skills.", "category": "Vocational" },
-  { "id": "horticulture-apprenticeship", "label": "Horticulture Apprenticeship", "description": "Gain practical experience in planting, gardening and land care.", "category": "Vocational" },
-  { "id": "agriculture-apprenticeship", "label": "Agriculture Apprenticeship", "description": "Train in farming, crop production and animal husbandry.", "category": "Vocational" },
-  { "id": "animal-care-apprenticeship", "label": "Animal Care Apprenticeship", "description": "Learn animal welfare, care and husbandry practices.", "category": "Vocational" },
-  { "id": "btec-public-services", "label": "BTEC Public Services (Level 3)", "description": "Explore public sector roles, teamwork and civic responsibility.", "category": "Vocational" },
-  { "id": "police-apprenticeship", "label": "Police Apprenticeship", "description": "Train in policing, community safety and law enforcement support.", "category": "Vocational" },
-  { "id": "firefighter-apprenticeship", "label": "Firefighter Apprenticeship", "description": "Gain skills in fire response, rescue and safety operations.", "category": "Vocational" },
-  { "id": "military-apprenticeship", "label": "Military Apprenticeship", "description": "Study leadership, discipline and public service skills.", "category": "Vocational" },
-  { "id": "university-engineering", "label": "University Engineering", "description": "Prepare for technical roles through accredited engineering coursework.", "category": "University" },
-  { "id": "computer-science-bsc", "label": "Computer Science (BSc)", "description": "Study computing fundamentals, algorithms and software systems.", "category": "University" },
-  { "id": "software-engineering-bsc", "label": "Software Engineering (BSc)", "description": "Learn software development practices, architecture and project delivery.", "category": "University" },
-  { "id": "cyber-security-bsc", "label": "Cyber Security (BSc)", "description": "Explore digital security, risk management and threat protection.", "category": "University" },
-  { "id": "data-science-bsc", "label": "Data Science (BSc)", "description": "Analyse data, modelling and machine learning for real-world insights.", "category": "University" },
-  { "id": "artificial-intelligence-bsc", "label": "Artificial Intelligence (BSc)", "description": "Study intelligent systems, machine learning and AI applications.", "category": "University" },
-  { "id": "information-technology-bsc", "label": "Information Technology (BSc)", "description": "Develop IT skills for networks, systems and business technologies.", "category": "University" },
-  { "id": "computer-forensics-bsc", "label": "Computer Forensics (BSc)", "description": "Learn digital investigation methods and cybercrime analysis.", "category": "University" },
-  { "id": "web-development-bsc", "label": "Web Development (BSc)", "description": "Build websites, web apps and modern front-end/back-end solutions.", "category": "University" },
-  { "id": "game-development-bsc", "label": "Game Development (BSc)", "description": "Study game design, programming and interactive media creation.", "category": "University" },
-  { "id": "network-engineering-bsc", "label": "Network Engineering (BSc)", "description": "Understand network design, infrastructure and communications systems.", "category": "University" },
-  { "id": "business-management-ba", "label": "Business Management (BA)", "description": "Learn leadership, strategy and organisational decision-making.", "category": "University" },
-  { "id": "marketing-ba", "label": "Marketing (BA)", "description": "Study branding, customer insight and digital marketing campaigns.", "category": "University" },
-  { "id": "finance-bsc", "label": "Finance (BSc)", "description": "Study financial markets, investment and corporate finance principles.", "category": "University" },
-  { "id": "accounting-bsc", "label": "Accounting (BSc)", "description": "Learn accounting practice, reporting and financial analysis.", "category": "University" },
-  { "id": "economics-bsc", "label": "Economics (BSc)", "description": "Explore economic theory, markets and global financial systems.", "category": "University" },
-  { "id": "human-resource-management-ba", "label": "Human Resource Management (BA)", "description": "Study recruitment, training and organisational people practices.", "category": "University" },
-  { "id": "international-business-ba", "label": "International Business (BA)", "description": "Learn global trade, cross-border strategy and business operations.", "category": "University" },
-  { "id": "entrepreneurship-ba", "label": "Entrepreneurship (BA)", "description": "Develop skills to start businesses, innovation and growth planning.", "category": "University" },
-  { "id": "supply-chain-management-ba", "label": "Supply Chain Management (BA)", "description": "Study logistics, procurement and efficient distribution networks.", "category": "University" },
-  { "id": "project-management-bsc", "label": "Project Management (BSc)", "description": "Learn planning, delivery and control of complex projects.", "category": "University" },
-  { "id": "law-llb", "label": "Law (LLB)", "description": "Study legal systems, case law and legal reasoning.", "category": "University" },
-  { "id": "criminology-ba", "label": "Criminology (BA)", "description": "Explore crime, justice systems and social responses.", "category": "University" },
-  { "id": "criminal-justice-ba", "label": "Criminal Justice (BA)", "description": "Study policing, courts and rehabilitation systems.", "category": "University" },
-  { "id": "international-law-llb", "label": "International Law (LLB)", "description": "Learn cross-border legal frameworks and international treaties.", "category": "University" },
-  { "id": "business-law-llb", "label": "Business Law (LLB)", "description": "Study corporate law, contracts and commercial regulation.", "category": "University" },
-  { "id": "medicine-mbbs", "label": "Medicine (MBBS)", "description": "Train in clinical medicine, diagnosis and patient care.", "category": "University" },
-  { "id": "nursing-adult-bsc", "label": "Nursing (Adult) (BSc)", "description": "Study adult nursing, care practice and clinical skills.", "category": "University" },
-  { "id": "nursing-mental-health-bsc", "label": "Nursing (Mental Health) (BSc)", "description": "Learn mental health nursing and psychological care techniques.", "category": "University" },
-  { "id": "nursing-children-bsc", "label": "Nursing (Children) (BSc)", "description": "Study paediatric nursing and child health care.", "category": "University" },
-  { "id": "midwifery-bsc", "label": "Midwifery (BSc)", "description": "Train in maternity care, pregnancy and birth support.", "category": "University" },
-  { "id": "pharmacy-mpharm", "label": "Pharmacy (MPharm)", "description": "Study medicines, patient safety and pharmaceutical science.", "category": "University" },
-  { "id": "physiotherapy-bsc", "label": "Physiotherapy (BSc)", "description": "Learn movement, rehabilitation and physical therapy techniques.", "category": "University" },
-  { "id": "occupational-therapy-bsc", "label": "Occupational Therapy (BSc)", "description": "Study helping people overcome daily living challenges.", "category": "University" },
-  { "id": "dentistry-bds", "label": "Dentistry (BDS)", "description": "Train in dental care, oral health and clinical dentistry.", "category": "University" },
-  { "id": "paramedic-science-bsc", "label": "Paramedic Science (BSc)", "description": "Learn emergency response, patient assessment and care.", "category": "University" },
-  { "id": "radiography-diagnostic-bsc", "label": "Radiography (Diagnostic) (BSc)", "description": "Study imaging techniques and patient diagnostic support.", "category": "University" },
-  { "id": "radiography-therapeutic-bsc", "label": "Radiography (Therapeutic) (BSc)", "description": "Learn therapeutic imaging and cancer treatment support.", "category": "University" },
-  { "id": "speech-language-therapy-bsc", "label": "Speech & Language Therapy (BSc)", "description": "Study communication support and speech development therapy.", "category": "University" },
-  { "id": "operating-department-practice-bsc", "label": "Operating Department Practice (BSc)", "description": "Learn perioperative care and surgical team support.", "category": "University" },
-  { "id": "dietetics-bsc", "label": "Dietetics (BSc)", "description": "Study nutrition, diet planning and health promotion.", "category": "University" },
-  { "id": "veterinary-medicine-bvetmed", "label": "Veterinary Medicine (BVetMed)", "description": "Train in animal health, diagnosis and veterinary care.", "category": "University" },
-  { "id": "psychology-bsc", "label": "Psychology (BSc)", "description": "Study human behaviour, cognition and psychological science.", "category": "University" },
-  { "id": "clinical-psychology-doctorate", "label": "Clinical Psychology (Doctorate)", "description": "Train in clinical assessment, therapy and mental healthcare.", "category": "University" },
-  { "id": "counselling-ba", "label": "Counselling (BA)", "description": "Learn therapeutic listening, support and counselling techniques.", "category": "University" },
-  { "id": "psychotherapy-bsc", "label": "Psychotherapy (BSc)", "description": "Study psychological therapies and patient wellbeing support.", "category": "University" },
-  { "id": "mental-health-nursing-bsc", "label": "Mental Health Nursing (BSc)", "description": "Learn mental health care and psychiatric nursing practice.", "category": "University" },
-  { "id": "biomedical-science-bsc", "label": "Biomedical Science (BSc)", "description": "Study biology, lab work and healthcare research techniques.", "category": "University" },
-  { "id": "biochemistry-bsc", "label": "Biochemistry (BSc)", "description": "Study chemical processes in living organisms and labs.", "category": "University" },
-  { "id": "microbiology-bsc", "label": "Microbiology (BSc)", "description": "Learn about microorganisms, infections and lab diagnostics.", "category": "University" },
-  { "id": "forensic-science-bsc", "label": "Forensic Science (BSc)", "description": "Study crime scene analysis, evidence and scientific investigation.", "category": "University" },
-  { "id": "environmental-science-bsc", "label": "Environmental Science (BSc)", "description": "Learn ecosystems, sustainability and environmental research.", "category": "University" },
-  { "id": "marine-biology-bsc", "label": "Marine Biology (BSc)", "description": "Study ocean life, ecosystems and marine conservation.", "category": "University" },
-  { "id": "astrophysics-bsc", "label": "Astrophysics (BSc)", "description": "Explore stars, galaxies and the physics of the universe.", "category": "University" },
-  { "id": "mathematics-bsc", "label": "Mathematics (BSc)", "description": "Study pure and applied maths for scientific problem solving.", "category": "University" },
-  { "id": "physics-bsc", "label": "Physics (BSc)", "description": "Learn physical laws, experimental methods and scientific analysis.", "category": "University" },
-  { "id": "chemistry-bsc", "label": "Chemistry (BSc)", "description": "Study chemical theory, lab techniques and materials science.", "category": "University" },
-  { "id": "biology-bsc", "label": "Biology (BSc)", "description": "Learn life sciences, ecology and biological research methods.", "category": "University" },
-  { "id": "geology-bsc", "label": "Geology (BSc)", "description": "Study earth structures, rocks and geological processes.", "category": "University" },
-  { "id": "meteorology-bsc", "label": "Meteorology (BSc)", "description": "Learn weather systems, climate and atmospheric science.", "category": "University" },
-  { "id": "materials-science-bsc", "label": "Materials Science (BSc)", "description": "Study materials, nanostructures and engineering properties.", "category": "University" },
-  { "id": "nanotechnology-bsc", "label": "Nanotechnology (BSc)", "description": "Explore nanoscale science and advanced technology applications.", "category": "University" },
-  { "id": "civil-engineering-beng", "label": "Civil Engineering (BEng)", "description": "Study infrastructure design, construction and structural engineering.", "category": "University" },
-  { "id": "mechanical-engineering-beng", "label": "Mechanical Engineering (BEng)", "description": "Learn mechanical systems, design and manufacturing processes.", "category": "University" },
-  { "id": "electrical-engineering-beng", "label": "Electrical Engineering (BEng)", "description": "Study electrical systems, circuits and power engineering.", "category": "University" },
-  { "id": "aerospace-engineering-beng", "label": "Aerospace Engineering (BEng)", "description": "Learn aircraft design, propulsion and aerospace systems.", "category": "University" },
-  { "id": "chemical-engineering-beng", "label": "Chemical Engineering (BEng)", "description": "Study processes, materials and chemical plant engineering.", "category": "University" },
-  { "id": "automotive-engineering-beng", "label": "Automotive Engineering (BEng)", "description": "Learn vehicle systems, design and automotive technology.", "category": "University" },
-  { "id": "petroleum-engineering-beng", "label": "Petroleum Engineering (BEng)", "description": "Study oil, gas and energy extraction engineering.", "category": "University" },
-  { "id": "nuclear-engineering-beng", "label": "Nuclear Engineering (BEng)", "description": "Learn nuclear systems, power generation and safety.", "category": "University" },
-  { "id": "renewable-energy-engineering-beng", "label": "Renewable Energy Engineering (BEng)", "description": "Study sustainable energy systems and green engineering.", "category": "University" },
-  { "id": "railway-engineering-beng", "label": "Railway Engineering (BEng)", "description": "Learn rail systems, signalling and rail infrastructure design.", "category": "University" },
-  { "id": "mechatronics-beng", "label": "Mechatronics (BEng)", "description": "Study robotics, automation and integrated engineering systems.", "category": "University" },
-  { "id": "robotics-beng", "label": "Robotics (BEng)", "description": "Learn robotic systems, control and autonomous technologies.", "category": "University" },
-  { "id": "architecture-ba", "label": "Architecture (BA)", "description": "Study building design, planning and architectural practice.", "category": "University" },
-  { "id": "interior-design-ba", "label": "Interior Design (BA)", "description": "Learn spatial design, interiors and human-centred environments.", "category": "University" },
-  { "id": "product-design-ba", "label": "Product Design (BA)", "description": "Study product development, innovation and design thinking.", "category": "University" },
-  { "id": "graphic-design-ba", "label": "Graphic Design (BA)", "description": "Learn visual communication, branding and digital design.", "category": "University" },
-  { "id": "animation-ba", "label": "Animation (BA)", "description": "Study animation techniques, storytelling and motion design.", "category": "University" },
-  { "id": "fashion-design-ba", "label": "Fashion Design (BA)", "description": "Learn clothing design, trend development and apparel creation.", "category": "University" },
-  { "id": "urban-planning-ba", "label": "Urban Planning (BA)", "description": "Study city design, planning policy and urban systems.", "category": "University" },
-  { "id": "landscape-architecture-ba", "label": "Landscape Architecture (BA)", "description": "Learn outdoor space design, landscapes and environmental planning.", "category": "University" },
-  { "id": "film-production-ba", "label": "Film Production (BA)", "description": "Study filmmaking, production and visual storytelling.", "category": "University" },
-  { "id": "music-production-ba", "label": "Music Production (BA)", "description": "Learn music creation, recording and audio production skills.", "category": "University" },
-  { "id": "creative-writing-ba", "label": "Creative Writing (BA)", "description": "Study storytelling, writing craft and literary creation.", "category": "University" },
-  { "id": "journalism-ba", "label": "Journalism (BA)", "description": "Learn news reporting, media ethics and storytelling skills.", "category": "University" },
-  { "id": "photography-ba", "label": "Photography (BA)", "description": "Study photographic technique, composition and visual media.", "category": "University" },
-  { "id": "theatre-performance-ba", "label": "Theatre & Performance (BA)", "description": "Learn acting, stagecraft and live performance skills.", "category": "University" },
-  { "id": "dance-ba", "label": "Dance (BA)", "description": "Study dance technique, choreography and performance.", "category": "University" },
-  { "id": "game-design-ba", "label": "Game Design (BA)", "description": "Study interactive design, gameplay and creative systems.", "category": "University" },
-  { "id": "virtual-reality-development-bsc", "label": "Virtual Reality Development (BSc)", "description": "Learn immersive tech, VR applications and interaction design.", "category": "University" },
-  { "id": "augmented-reality-development-bsc", "label": "Augmented Reality Development (BSc)", "description": "Study AR design, mixed reality and digital experiences.", "category": "University" },
-  { "id": "education-studies-ba", "label": "Education Studies (BA)", "description": "Explore teaching theory, learning and educational systems.", "category": "University" },
-  { "id": "primary-education-ba", "label": "Primary Education (BA)", "description": "Study teaching methods and child development for primary schools.", "category": "University" },
-  { "id": "secondary-education-ba", "label": "Secondary Education (BA)", "description": "Learn secondary teaching practice and adolescent learning.", "category": "University" },
-  { "id": "special-educational-needs-ba", "label": "Special Educational Needs (BA)", "description": "Study inclusive teaching for learners with additional needs.", "category": "University" },
-  { "id": "early-childhood-education-ba", "label": "Early Childhood Education (BA)", "description": "Learn early years teaching and child development support.", "category": "University" },
-  { "id": "tesol-tefl-ba", "label": "TESOL / TEFL (BA)", "description": "Study teaching English to speakers of other languages.", "category": "University" },
-  { "id": "sociology-ba", "label": "Sociology (BA)", "description": "Explore society, culture and social behaviour.", "category": "University" },
-  { "id": "social-work-ba", "label": "Social Work (BA)", "description": "Learn support practice, advocacy and community care.", "category": "University" },
-  { "id": "youth-work-ba", "label": "Youth Work (BA)", "description": "Study youth support, community engagement and mentoring.", "category": "University" },
-  { "id": "politics-ba", "label": "Politics (BA)", "description": "Learn political systems, policy and governance analysis.", "category": "University" },
-  { "id": "international-relations-ba", "label": "International Relations (BA)", "description": "Study global politics, diplomacy and international affairs.", "category": "University" },
-  { "id": "anthropology-ba", "label": "Anthropology (BA)", "description": "Explore human cultures, societies and behaviour.", "category": "University" },
-  { "id": "archaeology-ba", "label": "Archaeology (BA)", "description": "Study ancient cultures, excavations and historical research.", "category": "University" },
-  { "id": "development-studies-ba", "label": "Development Studies (BA)", "description": "Learn global development, poverty and social change.", "category": "University" },
-  { "id": "gender-studies-ba", "label": "Gender Studies (BA)", "description": "Study gender, identity and social equality themes.", "category": "University" },
-  { "id": "disability-studies-ba", "label": "Disability Studies (BA)", "description": "Explore disability rights, inclusion and social policy.", "category": "University" },
-  { "id": "english-literature-ba", "label": "English Literature (BA)", "description": "Study literary texts, criticism and writing traditions.", "category": "University" },
-  { "id": "history-ba", "label": "History (BA)", "description": "Explore historical periods, events and cultural change.", "category": "University" },
-  { "id": "philosophy-ba", "label": "Philosophy (BA)", "description": "Study ethics, thought and philosophical ideas.", "category": "University" },
-  { "id": "classical-studies-ba", "label": "Classical Studies (BA)", "description": "Learn ancient Greek and Roman culture and history.", "category": "University" },
-  { "id": "medieval-studies-ba", "label": "Medieval Studies (BA)", "description": "Study medieval history, culture and society.", "category": "University" },
-  { "id": "art-history-ba", "label": "Art History (BA)", "description": "Explore art movements, artists and cultural context.", "category": "University" },
-  { "id": "linguistics-ba", "label": "Linguistics (BA)", "description": "Study language structure, meaning and communication.", "category": "University" },
-  { "id": "comparative-literature-ba", "label": "Comparative Literature (BA)", "description": "Learn texts and literary traditions across cultures.", "category": "University" },
-  { "id": "modern-languages-ba", "label": "Modern Languages (BA)", "description": "Study multiple languages and cross-cultural communication.", "category": "University" },
-  { "id": "translation-interpreting-ba", "label": "Translation & Interpreting (BA)", "description": "Learn translation practice and interpreting skills.", "category": "University" },
-  { "id": "english-language-ba", "label": "English Language (BA)", "description": "Study language use, structure and communication.", "category": "University" },
-  { "id": "policing-criminal-investigation-bsc", "label": "Policing & Criminal Investigation (BSc)", "description": "Learn investigative techniques and policing practice.", "category": "University" },
-  { "id": "fire-rescue-bsc", "label": "Fire & Rescue (BSc)", "description": "Study fire response, rescue operations and safety.", "category": "University" },
-  { "id": "emergency-planning-bsc", "label": "Emergency Planning (BSc)", "description": "Learn crisis response, preparedness and recovery planning.", "category": "University" },
-  { "id": "disaster-management-bsc", "label": "Disaster Management (BSc)", "description": "Study disaster response, risk reduction and resilience.", "category": "University" },
-  { "id": "public-administration-ba", "label": "Public Administration (BA)", "description": "Learn public sector management and government operations.", "category": "University" },
-  { "id": "local-government-management-ba", "label": "Local Government Management (BA)", "description": "Study local policy, services and community leadership.", "category": "University" },
-  { "id": "hotel-hospitality-management-ba", "label": "Hotel & Hospitality Management (BA)", "description": "Learn hotel operations, service and hospitality business.", "category": "University" },
-  { "id": "event-management-ba", "label": "Event Management (BA)", "description": "Study event planning, logistics and guest experience.", "category": "University" },
-  { "id": "tourism-management-ba", "label": "Tourism Management (BA)", "description": "Learn tourism strategy, travel markets and hospitality.", "category": "University" },
-  { "id": "culinary-arts-ba", "label": "Culinary Arts (BA)", "description": "Study culinary skills, food creativity and hospitality.", "category": "University" },
-  { "id": "nutrition-food-science-bsc", "label": "Nutrition & Food Science (BSc)", "description": "Study nutrition, health and food science applications.", "category": "University" },
-  { "id": "sports-science-bsc", "label": "Sports Science (BSc)", "description": "Learn exercise, performance and human physiology.", "category": "University" },
-  { "id": "sports-therapy-bsc", "label": "Sports Therapy (BSc)", "description": "Study injury rehabilitation and sports healthcare.", "category": "University" },
-  { "id": "exercise-physiology-bsc", "label": "Exercise Physiology (BSc)", "description": "Learn body systems, exercise response and fitness science.", "category": "University" },
-  { "id": "coaching-sports-development-bsc", "label": "Coaching & Sports Development (BSc)", "description": "Study coaching practice, athlete development and sport programs.", "category": "University" },
-  { "id": "alevel-mathematics", "label": "A-Level Mathematics", "description": "Advanced mathematical concepts for further study.", "category": "A-Level" },
-  { "id": "alevel-biology", "label": "A-Level Biology", "description": "In-depth study of living organisms and systems.", "category": "A-Level" },
-  { "id": "alevel-chemistry", "label": "A-Level Chemistry", "description": "Study of chemical principles and reactions.", "category": "A-Level" },
-  { "id": "alevel-physics", "label": "A-Level Physics", "description": "Explore mechanics, energy, and modern physics.", "category": "A-Level" },
-  { "id": "alevel-psychology", "label": "A-Level Psychology", "description": "Understanding behaviour and mental processes.", "category": "A-Level" },
-  { "id": "alevel-economics", "label": "A-Level Economics", "description": "Micro and macroeconomics for analytical thinking.", "category": "A-Level" },
-  { "id": "alevel-business-studies", "label": "A-Level Business Studies", "description": "Advanced business concepts and strategy.", "category": "A-Level" },
-  { "id": "alevel-compsci", "label": "A-Level Computer Science", "description": "Algorithms, programming and computational theory.", "category": "A-Level" },
-  { "id": "alevel-law", "label": "A-Level Law", "description": "Foundations of legal systems and reasoning.", "category": "A-Level" },
-  { "id": "alevel-media", "label": "A-Level Media Studies", "description": "Analysis of media forms and production.", "category": "A-Level" },
-  { "id": "alevel-english-lit", "label": "A-Level English Literature", "description": "Critical study of literary texts.", "category": "A-Level" },
-  { "id": "alevel-english-language", "label": "A-Level English Language", "description": "Study language, communication and written expression.", "category": "A-Level" },
-  { "id": "alevel-history", "label": "A-Level History", "description": "In-depth historical analysis and interpretation.", "category": "A-Level" },
-  { "id": "alevel-geography", "label": "A-Level Geography", "description": "Physical and human geography concepts.", "category": "A-Level" },
-  { "id": "alevel-politics", "label": "A-Level Politics", "description": "Study of political systems and theory.", "category": "A-Level" },
-  { "id": "alevel-sociology", "label": "A-Level Sociology", "description": "Exploration of social structures and behaviour.", "category": "A-Level" },
-  { "id": "alevel-art-design", "label": "A-Level Art & Design", "description": "Study visual arts, design principles and creative practice.", "category": "A-Level" },
-  { "id": "alevel-photography", "label": "A-Level Photography", "description": "Learn photographic techniques, composition and visual storytelling.", "category": "A-Level" },
-  { "id": "alevel-music-technology", "label": "A-Level Music Technology", "description": "Study music production, sound design and audio technology.", "category": "A-Level" },
-  { "id": "alevel-drama-theatre", "label": "A-Level Drama & Theatre", "description": "Learn acting, performance and theatre production skills.", "category": "A-Level" },
-  { "id": "alevel-physical-education", "label": "A-Level Physical Education", "description": "Study sport science, performance and physical training.", "category": "A-Level" },
-  { "id": "alevel-modern-languages", "label": "A-Level Modern Languages", "description": "Learn advanced language skills and cultural study.", "category": "A-Level" },
-  { "id": "alevel-philosophy", "label": "A-Level Philosophy", "description": "Study ethics, logic and philosophical thinking.", "category": "A-Level" },
-  { "id": "alevel-religious-studies", "label": "A-Level Religious Studies", "description": "Explore religion, morality and ethical debates.", "category": "A-Level" },
-  { "id": "alevel-classical-civilisation", "label": "A-Level Classical Civilisation", "description": "Study ancient Greece and Rome, culture and history.", "category": "A-Level" },
-  { "id": "alevel-environmental-science", "label": "A-Level Environmental Science", "description": "Learn ecosystems, sustainability and environmental study.", "category": "A-Level" },
-  { "id": "alevel-film-studies", "label": "A-Level Film Studies", "description": "Study film history, analysis and production techniques.", "category": "A-Level" },
-  { "id": "alevel-graphic-communication", "label": "A-Level Graphic Communication", "description": "Learn design communication and visual media presentation.", "category": "A-Level" },
-  { "id": "btec-applied-science", "label": "BTEC Applied Science (Level 3)", "description": "Study science in applied lab and industry contexts.", "category": "A-Level" },
-  { "id": "btec-business", "label": "BTEC Business (Level 3)", "description": "Explore business systems, management and enterprise.", "category": "A-Level" },
-  { "id": "btec-computing", "label": "BTEC Computing (Level 3)", "description": "Study computing systems, programming and IT applications.", "category": "A-Level" },
-  { "id": "btec-engineering", "label": "BTEC Engineering (Level 3)", "description": "Learn engineering principles and practical technical skills.", "category": "A-Level" },
-  { "id": "btec-health-social-care", "label": "BTEC Health & Social Care (Level 3)", "description": "Study health services, care delivery and support systems.", "category": "A-Level" },
-  { "id": "btec-it", "label": "BTEC IT (Level 3)", "description": "Learn IT systems, networking and business technology skills.", "category": "A-Level" },
-  { "id": "btec-media", "label": "BTEC Media (Level 3)", "description": "Study media production, digital storytelling and communication.", "category": "A-Level" },
-  { "id": "btec-performing-arts", "label": "BTEC Performing Arts (Level 3)", "description": "Learn performance, production and stagecraft skills.", "category": "A-Level" },
-  { "id": "btec-sport", "label": "BTEC Sport (Level 3)", "description": "Study sport performance, coaching and fitness skills.", "category": "A-Level" },
-  { "id": "btec-art-design", "label": "BTEC Art & Design (Level 3)", "description": "Explore creative design, visual arts and practical projects.", "category": "A-Level" },
-  { "id": "btec-construction", "label": "BTEC Construction (Level 3)", "description": "Study construction techniques, planning and site work.", "category": "A-Level" },
-  { "id": "btec-hospitality", "label": "BTEC Hospitality (Level 3)", "description": "Learn hospitality operations, guest service and events.", "category": "A-Level" },
-  { "id": "btec-public-services", "label": "BTEC Public Services (Level 3)", "description": "Study public service roles, teamwork and civic duty.", "category": "A-Level" },
-  { "id": "btec-travel-tourism", "label": "BTEC Travel & Tourism (Level 3)", "description": "Learn travel industry operations, tourism and customer service.", "category": "A-Level" },
-  { "id": "btec-forensic-science", "label": "BTEC Forensic Science (Level 3)", "description": "Study investigative science, evidence and forensic practice.", "category": "A-Level" },
-  { "id": "tlevel-digital-production-design-development", "label": "T-Level Digital Production, Design & Development", "description": "Develop digital skills for software, media and product design roles.", "category": "T-Level" },
-  { "id": "tlevel-digital-business-services", "label": "T-Level Digital Business Services", "description": "Learn digital operations, business systems and technology support.", "category": "T-Level" },
-  { "id": "tlevel-digital-support-services", "label": "T-Level Digital Support Services", "description": "Develop IT support, customer service and technical troubleshooting skills.", "category": "T-Level" },
-  { "id": "tlevel-construction-design-surveying-planning", "label": "T-Level Construction: Design, Surveying & Planning", "description": "Study design, surveying and planning for construction projects.", "category": "T-Level" },
-  { "id": "tlevel-construction-building-services-engineering", "label": "T-Level Construction: Building Services Engineering", "description": "Learn building services systems and engineering for construction sites.", "category": "T-Level" },
-  { "id": "tlevel-construction-on-site-construction", "label": "T-Level Construction: On-Site Construction", "description": "Gain practical skills in on-site construction trades and site delivery.", "category": "T-Level" },
-  { "id": "tlevel-education-childcare", "label": "T-Level Education & Childcare", "description": "Study early years and childcare practice for education settings.", "category": "T-Level" },
-  { "id": "tlevel-health", "label": "T-Level Health", "description": "Explore health and social care skills for clinical and care environments.", "category": "T-Level" },
-  { "id": "tlevel-healthcare-science", "label": "T-Level Healthcare Science", "description": "Develop laboratory and healthcare science skills in medical settings.", "category": "T-Level" },
-  { "id": "tlevel-science", "label": "T-Level Science", "description": "Study scientific principles and laboratory techniques for science careers.", "category": "T-Level" },
-  { "id": "tlevel-engineering-manufacturing-design-development", "label": "T-Level Engineering & Manufacturing: Design & Development", "description": "Learn design and manufacturing skills for engineering and production roles.", "category": "T-Level" },
-  { "id": "tlevel-engineering-manufacturing-maintenance-installation-repair", "label": "T-Level Engineering & Manufacturing: Maintenance, Installation & Repair", "description": "Develop maintenance, installation and repair skills for engineering equipment.", "category": "T-Level" },
-  { "id": "tlevel-engineering-manufacturing-processing-control", "label": "T-Level Engineering & Manufacturing: Processing & Control", "description": "Study process engineering, control systems and industrial production techniques.", "category": "T-Level" },
-  { "id": "tlevel-finance", "label": "T-Level Finance", "description": "Learn finance, accounting and financial services processes.", "category": "T-Level" },
-  { "id": "tlevel-accounting", "label": "T-Level Accounting", "description": "Study accounting principles, bookkeeping and financial reporting.", "category": "T-Level" },
-  { "id": "tlevel-management-administration", "label": "T-Level Management & Administration", "description": "Develop administration, management and business support skills.", "category": "T-Level" },
-  { "id": "tlevel-legal-services", "label": "T-Level Legal Services", "description": "Learn legal support, administration and justice system fundamentals.", "category": "T-Level" },
-  { "id": "tlevel-agriculture-land-management-production", "label": "T-Level Agriculture, Land Management & Production", "description": "Study farming, land management and agricultural production skills.", "category": "T-Level" },
-  { "id": "tlevel-animal-care-management", "label": "T-Level Animal Care & Management", "description": "Learn animal care, welfare and management skills for animal settings.", "category": "T-Level" },
-  { "id": "tlevel-hairdressing-barbering-beauty-therapy", "label": "T-Level Hairdressing, Barbering & Beauty Therapy", "description": "Study salon, grooming and beauty therapy skills for the personal care sector.", "category": "T-Level" },
-  { "id": "tlevel-craft-design", "label": "T-Level Craft & Design", "description": "Learn craft, product design and creative making skills.", "category": "T-Level" },
-  { "id": "tlevel-media-broadcast-production", "label": "T-Level Media, Broadcast & Production", "description": "Study media production, broadcast technology and content creation.", "category": "T-Level" },
-  { "id": "tlevel-catering", "label": "T-Level Catering", "description": "Learn catering, hospitality and food service skills for the hospitality sector.", "category": "T-Level" },
-  { "id": "esol-entry-1", "label": "ESOL Entry Level 1", "description": "Begin English language learning for everyday communication.", "category": "Refugee ESOL" },
-  { "id": "esol-entry-2", "label": "ESOL Entry Level 2", "description": "Build basic English skills for listening, speaking and reading.", "category": "Refugee ESOL" },
-  { "id": "esol-entry-3", "label": "ESOL Entry Level 3", "description": "Develop confidence in English for study and work.", "category": "Refugee ESOL" },
-  { "id": "esol-level-1", "label": "ESOL Level 1", "description": "Improve English with structured learning for interaction and writing.", "category": "Refugee ESOL" },
-  { "id": "esol-level-2", "label": "ESOL Level 2", "description": "Gain stronger English skills to support progression into further study.", "category": "Refugee ESOL" },
-  { "id": "ielts-preparation", "label": "IELTS Preparation", "description": "Prepare for the IELTS test with practice in reading, writing, speaking and listening.", "category": "Refugee ESOL" },
-  { "id": "functional-skills-english", "label": "Functional Skills English", "description": "Develop practical English skills for work, study and daily life.", "category": "Refugee ESOL" },
-  { "id": "academic-writing", "label": "Academic Writing", "description": "Learn essay writing, structure and research skills for study.", "category": "Refugee ESOL" },
-  { "id": "conversation-pronunciation", "label": "Conversation & Pronunciation", "description": "Practice spoken English and build confidence in everyday conversations.", "category": "Refugee ESOL" },
-  { "id": "functional-skills-maths-entry-1", "label": "Functional Skills Maths Entry 1", "description": "Start with basic maths skills for everyday tasks.", "category": "Refugee GCSE" },
-  { "id": "functional-skills-maths-entry-2", "label": "Functional Skills Maths Entry 2", "description": "Develop practical maths skills for work and daily life.", "category": "Refugee GCSE" },
-  { "id": "functional-skills-maths-level-1", "label": "Functional Skills Maths Level 1", "description": "Build maths confidence for study and employment.", "category": "Refugee GCSE" },
-  { "id": "functional-skills-maths-level-2", "label": "Functional Skills Maths Level 2", "description": "Gain stronger maths skills for progression and exams.", "category": "Refugee GCSE" },
-  { "id": "functional-skills-english-entry-1", "label": "Functional Skills English Entry 1", "description": "Learn basic English skills for reading and writing.", "category": "Refugee GCSE" },
-  { "id": "functional-skills-english-entry-2", "label": "Functional Skills English Entry 2", "description": "Develop practical English for communication and study.", "category": "Refugee GCSE" },
-  { "id": "functional-skills-english-level-1", "label": "Functional Skills English Level 1", "description": "Improve reading, writing and grammar for daily life.", "category": "Refugee GCSE" },
-  { "id": "functional-skills-english-level-2", "label": "Functional Skills English Level 2", "description": "Strengthen English skills for work and further learning.", "category": "Refugee GCSE" },
-  { "id": "functional-skills-ict", "label": "Functional Skills ICT", "description": "Learn essential digital skills for study and employment.", "category": "Refugee GCSE" },
-  { "id": "gcse-maths-refugee", "label": "GCSE Maths", "description": "Build maths knowledge for progression in education and work.", "category": "Refugee GCSE" },
-  { "id": "gcse-english-refugee", "label": "GCSE English", "description": "Develop strong English skills for study and communication.", "category": "Refugee GCSE" },
-  { "id": "vocational-hospitality-catering", "label": "Hospitality & Catering", "description": "Learn practical service and food preparation skills for hospitality roles.", "category": "Refugee Vocational" },
-  { "id": "vocational-cleaning-facilities", "label": "Cleaning & Facilities Services", "description": "Train for entry-level roles maintaining buildings and services.", "category": "Refugee Vocational" },
-  { "id": "vocational-warehouse-logistics", "label": "Warehouse & Logistics", "description": "Develop skills for storage, delivery and supply chain roles.", "category": "Refugee Vocational" },
-  { "id": "vocational-construction-labourer", "label": "Construction Labourer", "description": "Gain practical experience working on construction sites.", "category": "Refugee Vocational" },
-  { "id": "vocational-care-worker", "label": "Care Worker", "description": "Learn person-centred care skills for support roles in health and social care.", "category": "Refugee Vocational" },
-  { "id": "vocational-retail", "label": "Retail", "description": "Prepare for customer service roles in shops and retail environments.", "category": "Refugee Vocational" },
-  { "id": "vocational-security-guard", "label": "Security Guard", "description": "Train for entry-level roles in protection and premises security.", "category": "Refugee Vocational" },
-  { "id": "vocational-driving", "label": "Driving (HGV, delivery)", "description": "Learn the skills needed for driving, logistics and delivery roles.", "category": "Refugee Vocational" },
-  { "id": "vocational-hairdressing", "label": "Hairdressing", "description": "Train in hair care, styling and salon customer service.", "category": "Refugee Vocational" },
-  { "id": "vocational-beauty-therapy", "label": "Beauty Therapy", "description": "Study beauty and wellbeing treatments for salon roles.", "category": "Refugee Vocational" },
-  { "id": "foundation-access-he-diploma", "label": "Access to HE Diploma", "description": "Study a recognised pathway for entry into higher education.", "category": "Refugee Foundation" },
-  { "id": "foundation-international-year", "label": "International Foundation Year", "description": "Prepare for UK university studies through a tailored foundation course.", "category": "Refugee Foundation" },
-  { "id": "foundation-pre-sessional-english", "label": "Pre-Sessional English", "description": "Improve academic English before starting university-level study.", "category": "Refugee Foundation" },
-  { "id": "foundation-study-skills", "label": "Study Skills", "description": "Learn research, academic writing and independent study techniques.", "category": "Refugee Foundation" },
-  { "id": "msc-computer-science", "label": "MSc Computer Science", "description": "Advanced study of algorithms, systems and software engineering, often used as a conversion route for non-CS graduates.", "category": "Masters" },
-  { "id": "msc-data-science", "label": "MSc Data Science", "description": "Statistics, machine learning and data engineering for analytics and data science careers.", "category": "Masters" },
-  { "id": "msc-artificial-intelligence", "label": "MSc Artificial Intelligence", "description": "Machine learning, neural networks and applied AI systems for research or industry roles.", "category": "Masters" },
-  { "id": "msc-cyber-security", "label": "MSc Cyber Security", "description": "Security engineering, threat defence and digital forensics for a career in cyber security.", "category": "Masters" },
-  { "id": "msc-software-engineering", "label": "MSc Software Engineering", "description": "Software design, architecture and engineering practice for building production systems at scale.", "category": "Masters" },
-  { "id": "mba", "label": "MBA (Master of Business Administration)", "description": "General management, leadership and strategy for professionals moving into senior business roles.", "category": "Masters" },
-  { "id": "msc-finance", "label": "MSc Finance", "description": "Financial markets, investment analysis and corporate finance for careers in banking and finance.", "category": "Masters" },
-  { "id": "msc-marketing", "label": "MSc Marketing", "description": "Brand strategy, digital marketing and consumer behaviour for marketing leadership roles.", "category": "Masters" },
-  { "id": "msc-human-resource-management", "label": "MSc Human Resource Management", "description": "People strategy, employment law and organisational development, often accredited by the CIPD.", "category": "Masters" },
-  { "id": "msc-management", "label": "MSc Management", "description": "A general management conversion degree for graduates of any discipline moving into business roles.", "category": "Masters" },
-  { "id": "ma-international-relations", "label": "MA International Relations", "description": "Global politics, diplomacy and policy analysis for roles in international business, consultancy and public affairs.", "category": "Masters" },
-  { "id": "msc-nursing-advanced-practice", "label": "MSc Advanced Nursing Practice", "description": "Advanced clinical skills, prescribing and leadership for registered nurses progressing into advanced practice.", "category": "Masters" },
-  { "id": "msc-public-health", "label": "MSc Public Health", "description": "Population health, epidemiology and health policy for careers in public health and research.", "category": "Masters" },
-  { "id": "msc-psychology-conversion", "label": "MSc Psychology (Conversion)", "description": "British Psychological Society accredited conversion course for graduates without a psychology degree.", "category": "Masters" },
-  { "id": "msc-healthcare-management", "label": "MSc Healthcare Management", "description": "NHS and healthcare systems, leadership and operations for management roles in health services.", "category": "Masters" },
-  { "id": "msc-mechanical-engineering", "label": "MSc Mechanical Engineering", "description": "Advanced mechanical design, thermodynamics and manufacturing systems.", "category": "Masters" },
-  { "id": "msc-electrical-engineering", "label": "MSc Electrical Engineering", "description": "Power systems, electronics and control engineering at postgraduate level.", "category": "Masters" },
-  { "id": "msc-civil-engineering", "label": "MSc Civil Engineering", "description": "Structural, geotechnical and infrastructure engineering for chartership-track civil engineers.", "category": "Masters" },
-  { "id": "msc-aerospace-engineering", "label": "MSc Aerospace Engineering", "description": "Aerodynamics, propulsion and aircraft systems design at postgraduate level.", "category": "Masters" },
-  { "id": "msc-chemical-engineering", "label": "MSc Chemical Engineering", "description": "Process design, reaction engineering and industrial chemical systems.", "category": "Masters" },
-  { "id": "msc-renewable-energy-engineering", "label": "MSc Renewable Energy Engineering", "description": "Wind, solar and grid-integration engineering for the low-carbon energy sector.", "category": "Masters" },
-  { "id": "ma-education", "label": "MA Education", "description": "Curriculum, pedagogy and educational leadership for teachers and education professionals.", "category": "Masters" },
-  { "id": "ma-social-work", "label": "MA Social Work", "description": "Social work theory and practice, including statutory placements, leading to professional registration.", "category": "Masters" },
-  { "id": "msc-criminology", "label": "MSc Criminology", "description": "Crime, justice systems and offending behaviour for careers in policy, research or criminal justice.", "category": "Masters" },
-  { "id": "ma-applied-linguistics-tesol", "label": "MA Applied Linguistics & TESOL", "description": "Language teaching methodology for careers teaching English as a foreign/second language.", "category": "Masters" },
-  { "id": "ma-graphic-design", "label": "MA Graphic Design", "description": "Advanced visual communication, branding and design practice with a professional portfolio.", "category": "Masters" },
-  { "id": "ma-photography", "label": "MA Photography", "description": "Advanced photographic practice, critical theory and a self-directed portfolio project.", "category": "Masters" },
-  { "id": "ma-film-production", "label": "MA Film Production", "description": "Hands-on filmmaking, producing and post-production for the film and TV industry.", "category": "Masters" },
-  { "id": "ma-creative-writing", "label": "MA Creative Writing", "description": "Workshop-based writing practice across fiction, poetry or scriptwriting with a final manuscript project.", "category": "Masters" },
-  { "id": "llm-commercial-law", "label": "LLM Commercial Law", "description": "Advanced study of contract, corporate and commercial law for specialist legal practice.", "category": "Masters" },
-  { "id": "llm-international-law", "label": "LLM International Law", "description": "Public and private international law for careers in international organisations, NGOs or global firms.", "category": "Masters" },
-  { "id": "llm-cyber-law", "label": "LLM Cyber & Technology Law", "description": "Data protection, IP and technology regulation for lawyers specialising in the tech sector.", "category": "Masters" },
-  { "id": "msc-sport-nutrition", "label": "MSc Sport & Exercise Nutrition", "description": "Applied nutrition science for athletic performance and clinical/sports settings.", "category": "Masters" },
-  { "id": "msc-sport-psychology", "label": "MSc Sport & Exercise Psychology", "description": "Applied psychology for athletic performance, coaching and exercise behaviour change.", "category": "Masters" },
-  { "id": "phd-computer-science", "label": "PhD Computer Science", "description": "Original doctoral research in computing, AI or software systems, usually resulting in published papers and a thesis.", "category": "PhD" },
-  { "id": "phd-engineering", "label": "PhD Engineering", "description": "Original doctoral research across an engineering specialism, often funded by industry or research councils.", "category": "PhD" },
-  { "id": "phd-physics", "label": "PhD Physics", "description": "Original doctoral research into physical systems and phenomena, typically within a research group.", "category": "PhD" },
-  { "id": "phd-chemistry", "label": "PhD Chemistry", "description": "Original doctoral research in synthetic, analytical or physical chemistry.", "category": "PhD" },
-  { "id": "phd-mathematics", "label": "PhD Mathematics", "description": "Original doctoral research in pure or applied mathematics.", "category": "PhD" },
-  { "id": "phd-environmental-science", "label": "PhD Environmental Science", "description": "Original doctoral research into environmental systems, climate or sustainability.", "category": "PhD" },
-  { "id": "phd-biological-sciences", "label": "PhD Biological Sciences", "description": "Original doctoral research in biology, genetics or life sciences, often lab-based.", "category": "PhD" },
-  { "id": "phd-biomedical-science", "label": "PhD Biomedical Science", "description": "Original doctoral research into human disease, physiology or medical science.", "category": "PhD" },
-  { "id": "phd-public-health", "label": "PhD Public Health", "description": "Original doctoral research into population health, epidemiology or health policy.", "category": "PhD" },
-  { "id": "dclinpsy-clinical-psychology", "label": "DClinPsy (Doctorate in Clinical Psychology)", "description": "The professional doctorate required to practise as a Clinical Psychologist in the UK, combining clinical placements with research.", "category": "PhD" },
-  { "id": "phd-business-management", "label": "PhD Business & Management", "description": "Original doctoral research into organisations, strategy or markets.", "category": "PhD" },
-  { "id": "dba-business-administration", "label": "DBA (Doctor of Business Administration)", "description": "A practice-based doctorate for senior professionals researching real organisational problems alongside their career.", "category": "PhD" },
-  { "id": "phd-psychology", "label": "PhD Psychology", "description": "Original doctoral research into human behaviour and cognition, for careers in academia or research.", "category": "PhD" },
-  { "id": "phd-social-sciences", "label": "PhD Social Sciences", "description": "Original doctoral research into society, policy or human behaviour across the social sciences.", "category": "PhD" },
-  { "id": "phd-sociology", "label": "PhD Sociology", "description": "Original doctoral research into social structures, inequality and human communities.", "category": "PhD" },
-  { "id": "phd-criminology", "label": "PhD Criminology", "description": "Original doctoral research into crime, justice systems and criminal behaviour.", "category": "PhD" },
-  { "id": "phd-education", "label": "PhD Education", "description": "Original academic research into teaching, learning and education policy.", "category": "PhD" },
-  { "id": "phd-english-literature", "label": "PhD English Literature", "description": "Original doctoral research into literary texts, periods or critical theory.", "category": "PhD" },
-  { "id": "phd-history", "label": "PhD History", "description": "Original doctoral research into a historical period, region or theme, based on primary source research.", "category": "PhD" },
-  { "id": "edd-education", "label": "EdD (Doctor of Education)", "description": "A practice-based doctorate for education professionals researching their own institution or practice.", "category": "PhD" },
-  { "id": "engd-engineering", "label": "EngD (Doctorate in Engineering)", "description": "An industry-embedded doctorate combining applied engineering research with a sponsoring company.", "category": "PhD" },
-  { "id": "dprof-professional-studies", "label": "DProf (Doctor of Professional Studies)", "description": "A practice-based doctorate allowing experienced professionals to research issues from their own field of work.", "category": "PhD" },
-  { "id": "gdl-law-conversion", "label": "GDL (Graduate Diploma in Law)", "description": "Law conversion course covering the core legal subjects for non-law graduates moving into law.", "category": "Professional" },
-  { "id": "pgdl-law-conversion", "label": "PGDL (Postgraduate Diploma in Law)", "description": "The updated equivalent of the GDL, converting a non-law degree into the academic stage of legal training.", "category": "Professional" },
-  { "id": "ma-law-conversion", "label": "MA Law (Conversion)", "description": "A Master's-level law conversion route combining core legal subjects with postgraduate-level study.", "category": "Professional" },
-  { "id": "sqe-preparation", "label": "SQE Preparation Course", "description": "Preparation for the Solicitors Qualifying Examination, the current route to qualifying as a solicitor in England & Wales.", "category": "Professional" },
-  { "id": "bar-training-course", "label": "Bar Training Course", "description": "Vocational training for aspiring barristers, followed by pupillage at a barristers' chambers.", "category": "Professional" },
-  { "id": "pgce-primary", "label": "PGCE Primary", "description": "Postgraduate teacher training qualifying graduates to teach in primary schools.", "category": "Professional" },
-  { "id": "pgce-secondary", "label": "PGCE Secondary", "description": "Postgraduate teacher training qualifying graduates to teach a specialist subject in secondary schools.", "category": "Professional" },
-  { "id": "pgce-further-education", "label": "PGCE Further Education", "description": "Teacher training for teaching post-16 learners in colleges and further education settings.", "category": "Professional" },
-  { "id": "school-direct-teacher-training", "label": "School Direct", "description": "School-led teacher training with trainees based in a school from day one, leading to QTS (often with a PGCE).", "category": "Professional" },
-  { "id": "scitt-teacher-training", "label": "SCITT (School-Centred Initial Teacher Training)", "description": "Teacher training delivered by a group of schools, combining classroom practice with structured training.", "category": "Professional" },
-  { "id": "doctorate-counselling-psychology", "label": "Doctorate in Counselling Psychology", "description": "The professional doctorate required to practise as a Counselling Psychologist, combining therapy placements with research.", "category": "Professional" },
-  { "id": "msc-computing-conversion", "label": "MSc Computing (Conversion)", "description": "A computing conversion Master's specifically designed for graduates with no prior programming background.", "category": "Professional" },
-  { "id": "coding-bootcamp-software-development", "label": "Software Development Bootcamp", "description": "Intensive, project-based training in modern web/software development for a fast route into a junior developer role.", "category": "Professional" },
-  { "id": "cyber-security-bootcamp", "label": "Cyber Security Bootcamp", "description": "Intensive, hands-on training in security fundamentals, ethical hacking and threat response.", "category": "Professional" },
-  { "id": "acca-accounting", "label": "ACCA (Chartered Certified Accountant)", "description": "A globally recognised professional accounting qualification covering audit, tax and financial management.", "category": "Professional" },
-  { "id": "cima-management-accounting", "label": "CIMA (Chartered Institute of Management Accountants)", "description": "A professional qualification focused on management accounting, strategy and business finance.", "category": "Professional" },
-  { "id": "cfa-finance", "label": "CFA (Chartered Financial Analyst)", "description": "A globally recognised qualification in investment analysis and portfolio management.", "category": "Professional" },
-  { "id": "aat-professional-qualification", "label": "AAT Professional Qualification", "description": "A professional-level accounting and bookkeeping qualification, often a stepping stone toward ACCA/CIMA/ACA.", "category": "Professional" },
-  { "id": "icaew-aca", "label": "ICAEW ACA (Chartered Accountant)", "description": "The Chartered Accountant qualification from the ICAEW, combining exams with structured on-the-job training.", "category": "Professional" },
-  { "id": "cim-marketing", "label": "CIM Marketing Qualification", "description": "Professional marketing certification from the Chartered Institute of Marketing, studied alongside work.", "category": "Professional" },
-  { "id": "cipd-level-5-hr", "label": "CIPD Level 5 (Associate Diploma)", "description": "An intermediate professional HR/L&D qualification for those already working in a people-focused role.", "category": "Professional" },
-  { "id": "cipd-level-7-hr", "label": "CIPD Level 7 (Advanced Diploma)", "description": "The Chartered-level HR qualification, equivalent to a Master's, for senior HR and people-strategy roles.", "category": "Professional" },
-  { "id": "prince2-project-management", "label": "PRINCE2 Practitioner", "description": "A structured project management methodology certification widely used in UK business and government.", "category": "Professional" },
-  { "id": "agile-pmp-project-management", "label": "Agile / PMP Project Management", "description": "Agile certifications (e.g. Scrum Master) and the PMP (Project Management Professional) for leading complex projects.", "category": "Professional" },
-  { "id": "medicine-graduate-entry", "label": "Medicine (Graduate Entry)", "description": "An accelerated medical degree for graduates of another discipline moving into medicine.", "category": "Professional" },
-  { "id": "nursing-conversion", "label": "Nursing (Accelerated Graduate Entry)", "description": "An accelerated nursing qualification for graduates changing career into adult, mental health, children's or learning disability nursing.", "category": "Professional" },
-  { "id": "midwifery-graduate-entry", "label": "Midwifery (Graduate Entry)", "description": "An accelerated midwifery qualification for graduates, leading to registration with the NMC.", "category": "Professional" },
-  { "id": "occupational-therapy-pre-registration", "label": "MSc Occupational Therapy (Pre-registration)", "description": "A pre-registration Master's for graduates converting into occupational therapy, leading to HCPC registration.", "category": "Professional" },
-  { "id": "physiotherapy-pre-registration", "label": "MSc Physiotherapy (Pre-registration)", "description": "A pre-registration Master's for graduates converting into physiotherapy, leading to HCPC registration.", "category": "Professional" },
-  { "id": "march-part-2", "label": "MArch (Part 2 Architecture)", "description": "The second stage of UK architectural education, required before qualifying as an architect.", "category": "Professional" },
-  { "id": "march-part-3", "label": "Part 3 (Professional Practice in Architecture)", "description": "The final professional practice exam required to register as an architect with the ARB.", "category": "Professional" },
-  { "id": "rics-chartered-surveyor", "label": "RICS APC (Chartered Surveyor)", "description": "The Assessment of Professional Competence leading to chartered status with the Royal Institution of Chartered Surveyors.", "category": "Professional" },
-  { "id": "rtpi-town-planning", "label": "RTPI Accredited Planning Qualification", "description": "A Royal Town Planning Institute accredited qualification for chartered town planning status.", "category": "Professional" },
-  { "id": "ceng-chartered-engineer", "label": "CEng (Chartered Engineer)", "description": "Chartered status awarded by an engineering institution, recognising senior professional competence.", "category": "Professional" },
-  { "id": "cilex-legal-executive", "label": "CILEx (Chartered Legal Executive)", "description": "A work-based route to qualifying as a lawyer without a traditional law degree, via the Chartered Institute of Legal Executives.", "category": "Professional" },
-  { "id": "actuarial-science-bsc", "label": "Actuarial Science (BSc)", "description": "Study risk, statistics and financial mathematics as the standard route into actuarial work.", "category": "University" },
-  { "id": "ifoa-actuarial-exams", "label": "IFoA Actuarial Exams", "description": "The professional exams set by the Institute and Faculty of Actuaries, required to qualify as a Fellow.", "category": "Professional" },
-  { "id": "atpl-pilot-training", "label": "ATPL Pilot Training", "description": "Integrated Airline Transport Pilot Licence training - the fastest route to becoming a commercial airline pilot.", "category": "Professional" },
-  { "id": "nats-air-traffic-control", "label": "NATS Air Traffic Control Training", "description": "The NATS-run training programme for qualifying as an air traffic controller, no degree required.", "category": "Professional" },
-  { "id": "bar-training-course", "label": "Bar Training Course", "description": "Vocational training required after a law degree (or conversion) to qualify as a barrister in England & Wales.", "category": "Professional" },
-  { "id": "msc-ai-machine-learning", "label": "MSc AI / Machine Learning", "description": "Postgraduate study in artificial intelligence and machine learning for graduates in computing, maths or a related field.", "category": "Masters" },
-  { "id": "msc-data-science", "label": "MSc Data Science", "description": "Postgraduate study in statistics, programming and data analysis for graduates of a numerate discipline.", "category": "Masters" },
-  { "id": "msc-cyber-security", "label": "MSc Cyber Security", "description": "Postgraduate study in information security, threat analysis and secure systems design.", "category": "Masters" },
-  { "id": "msc-finance-financial-engineering", "label": "MSc Finance / Financial Engineering", "description": "Postgraduate study in quantitative finance, financial modelling and investment analysis.", "category": "Masters" },
-  { "id": "aws-solutions-architect", "label": "AWS Solutions Architect Certification", "description": "An Amazon Web Services certification demonstrating cloud architecture skills, widely recognised by employers.", "category": "Professional" },
-  { "id": "azure-solutions-architect", "label": "Azure Solutions Architect Certification", "description": "A Microsoft Azure certification demonstrating cloud architecture skills, widely recognised by employers.", "category": "Professional" },
-  { "id": "cissp-certification", "label": "CISSP Certification", "description": "A globally recognised information security certification, typically requiring several years of security experience.", "category": "Professional" },
-  { "id": "cism-certification", "label": "CISM Certification", "description": "A certification in information security management, aimed at those moving into security leadership roles.", "category": "Professional" }
+  {
+    "id": "gcse-maths",
+    "label": "GCSE Maths",
+    "description": "Build essential analytical and problem-solving skills.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-english",
+    "label": "GCSE English",
+    "description": "Develop strong reading, writing, and communication foundations.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-science-combined",
+    "label": "GCSE Science (Combined)",
+    "description": "Learn broad scientific principles across biology, chemistry and physics.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-biology",
+    "label": "GCSE Biology",
+    "description": "Study living organisms, ecosystems and biological processes.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-chemistry",
+    "label": "GCSE Chemistry",
+    "description": "Explore matter, reactions and chemical principles.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-physics",
+    "label": "GCSE Physics",
+    "description": "Understand forces, energy, waves and fundamental physical laws.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-history",
+    "label": "GCSE History",
+    "description": "Examine key events, cultures and developments from the past.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-geography",
+    "label": "GCSE Geography",
+    "description": "Learn about people, places, environments and global systems.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-religious-studies",
+    "label": "GCSE Religious Studies",
+    "description": "Explore belief systems, ethics and world religions.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-spanish",
+    "label": "GCSE Spanish",
+    "description": "Develop listening, speaking, reading and writing skills in Spanish.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-french",
+    "label": "GCSE French",
+    "description": "Build fluency in French through practical language learning.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-german",
+    "label": "GCSE German",
+    "description": "Study German language and culture for communication and travel.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-mandarin",
+    "label": "GCSE Mandarin",
+    "description": "Learn Mandarin Chinese fundamentals for speaking and reading.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-art-design",
+    "label": "GCSE Art & Design",
+    "description": "Explore creativity, visual media and artistic techniques.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-music",
+    "label": "GCSE Music",
+    "description": "Study performance, composition and music theory.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-drama",
+    "label": "GCSE Drama",
+    "description": "Develop acting, production and performance skills.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-media-studies",
+    "label": "GCSE Media Studies",
+    "description": "Analyse media, film and digital communication.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-design-technology",
+    "label": "GCSE Design & Technology",
+    "description": "Learn design, engineering and product development skills.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-computer-science",
+    "label": "GCSE Computer Science",
+    "description": "Understand computing, coding and digital systems.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-business-studies",
+    "label": "GCSE Business Studies",
+    "description": "Explore business operations, finance and enterprise concepts.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-economics",
+    "label": "GCSE Economics",
+    "description": "Learn how markets, money and the economy function.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-food-technology",
+    "label": "GCSE Food Technology",
+    "description": "Study nutrition, food science and practical cooking skills.",
+    "category": "GCSE"
+  },
+  {
+    "id": "gcse-pe",
+    "label": "GCSE Physical Education",
+    "description": "Develop sporting skills, fitness knowledge and healthy habits.",
+    "category": "GCSE"
+  },
+  {
+    "id": "nvq-plumbing",
+    "label": "NVQ Plumbing (Level 2/3)",
+    "description": "Learn pipework, water systems and plumbing installation skills.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-electrical-installation",
+    "label": "NVQ Electrical Installation (Level 2/3)",
+    "description": "Study electrical wiring, safety and building installation techniques.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-carpentry",
+    "label": "NVQ Carpentry (Level 2/3)",
+    "description": "Gain practical woodworking and joinery skills for construction.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-construction",
+    "label": "BTEC Construction (Level 3)",
+    "description": "Develop construction knowledge from planning to site delivery.",
+    "category": "Vocational"
+  },
+  {
+    "id": "bricklaying-apprenticeship",
+    "label": "Bricklaying Apprenticeship",
+    "description": "Train in brickwork, masonry and building structures on site.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-health-social-care",
+    "label": "NVQ Health & Social Care (Level 2/3)",
+    "description": "Study care practices, wellbeing and support for vulnerable people.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-early-years-educator",
+    "label": "NVQ Early Years Educator (Level 3)",
+    "description": "Learn childcare, development and classroom support skills.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-health-social-care",
+    "label": "BTEC Health & Social Care (Level 3)",
+    "description": "Explore health care, social services and person-centred support.",
+    "category": "Vocational"
+  },
+  {
+    "id": "healthcare-assistant-apprenticeship",
+    "label": "Healthcare Assistant Apprenticeship",
+    "description": "Gain hands-on experience supporting patients in health settings.",
+    "category": "Vocational"
+  },
+  {
+    "id": "dental-nursing-apprenticeship",
+    "label": "Dental Nursing Apprenticeship",
+    "description": "Train to support dentists and maintain patient care standards.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-it",
+    "label": "BTEC IT (Level 3)",
+    "description": "Develop practical IT skills for business and digital environments.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-computing",
+    "label": "BTEC Computing (Level 3)",
+    "description": "Study computing systems, programming and software development.",
+    "category": "Vocational"
+  },
+  {
+    "id": "cyber-security-apprenticeship",
+    "label": "Cyber Security Apprenticeship",
+    "description": "Learn how to protect systems and data from cyber threats.",
+    "category": "Vocational"
+  },
+  {
+    "id": "software-development-apprenticeship",
+    "label": "Software Development Apprenticeship",
+    "description": "Train in coding, development workflows and application delivery.",
+    "category": "Vocational"
+  },
+  {
+    "id": "network-engineer-apprenticeship",
+    "label": "Network Engineer Apprenticeship",
+    "description": "Gain skills in network design, installation and troubleshooting.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-business",
+    "label": "BTEC Business (Level 3)",
+    "description": "Study business strategy, finance and enterprise skills.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-business-administration",
+    "label": "NVQ Business Administration (Level 2/3)",
+    "description": "Learn administration, office systems and customer support.",
+    "category": "Vocational"
+  },
+  {
+    "id": "customer-service-apprenticeship",
+    "label": "Customer Service Apprenticeship",
+    "description": "Train in frontline service skills, communication and sales support.",
+    "category": "Vocational"
+  },
+  {
+    "id": "hr-apprenticeship",
+    "label": "HR Apprenticeship",
+    "description": "Study recruitment, staff support and workplace processes.",
+    "category": "Vocational"
+  },
+  {
+    "id": "accounting-apprenticeship-aat",
+    "label": "Accounting Apprenticeship (AAT)",
+    "description": "Learn bookkeeping, accounting principles and financial reporting.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-engineering",
+    "label": "BTEC Engineering (Level 3)",
+    "description": "Develop engineering principles for design and manufacturing.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-vehicle-maintenance",
+    "label": "NVQ Vehicle Maintenance (Level 2/3)",
+    "description": "Learn vehicle servicing, repair and maintenance techniques.",
+    "category": "Vocational"
+  },
+  {
+    "id": "mechanical-engineering-apprenticeship",
+    "label": "Mechanical Engineering Apprenticeship",
+    "description": "Train in mechanical systems, fabrication and engineering maintenance.",
+    "category": "Vocational"
+  },
+  {
+    "id": "electrical-engineering-apprenticeship",
+    "label": "Electrical Engineering Apprenticeship",
+    "description": "Study electrical systems, circuit design and industrial installation.",
+    "category": "Vocational"
+  },
+  {
+    "id": "aerospace-manufacturing-apprenticeship",
+    "label": "Aerospace Manufacturing Apprenticeship",
+    "description": "Gain skills in aerospace production, assembly and engineering.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-catering-professional-cookery",
+    "label": "NVQ Catering & Professional Cookery (Level 2/3)",
+    "description": "Learn kitchen skills, food service and catering operations.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-hospitality",
+    "label": "BTEC Hospitality (Level 3)",
+    "description": "Study customer service, events and hospitality management.",
+    "category": "Vocational"
+  },
+  {
+    "id": "chef-apprenticeship",
+    "label": "Chef Apprenticeship",
+    "description": "Train in culinary preparation, kitchen operations and food safety.",
+    "category": "Vocational"
+  },
+  {
+    "id": "hotel-management-apprenticeship",
+    "label": "Hotel Management Apprenticeship",
+    "description": "Develop skills in guest services, operations and hotel management.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-hairdressing",
+    "label": "NVQ Hairdressing (Level 2/3)",
+    "description": "Learn cutting, styling and salon hairdressing techniques.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-beauty-therapy",
+    "label": "NVQ Beauty Therapy (Level 2/3)",
+    "description": "Study beauty treatments, skincare and salon customer care.",
+    "category": "Vocational"
+  },
+  {
+    "id": "barbering-apprenticeship",
+    "label": "Barbering Apprenticeship",
+    "description": "Train in barbering, grooming and men's hair styling.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-sport",
+    "label": "BTEC Sport (Level 3)",
+    "description": "Study coaching, fitness and sports performance.",
+    "category": "Vocational"
+  },
+  {
+    "id": "personal-training",
+    "label": "Personal Training (Level 3)",
+    "description": "Learn fitness programming, coaching and health guidance.",
+    "category": "Vocational"
+  },
+  {
+    "id": "sports-coaching-apprenticeship",
+    "label": "Sports Coaching Apprenticeship",
+    "description": "Train in coaching practice, athlete development and sport delivery.",
+    "category": "Vocational"
+  },
+  {
+    "id": "leisure-management-apprenticeship",
+    "label": "Leisure Management Apprenticeship",
+    "description": "Develop operations and customer experience skills for leisure venues.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-performing-arts",
+    "label": "BTEC Performing Arts (Level 3)",
+    "description": "Study performance, production and stagecraft skills.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-media",
+    "label": "BTEC Media (Level 3)",
+    "description": "Learn media production, storytelling and digital communication.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-music",
+    "label": "BTEC Music (Level 3)",
+    "description": "Study music performance, composition and production.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-art-design",
+    "label": "BTEC Art & Design (Level 3)",
+    "description": "Develop visual arts, design thinking and creative practice.",
+    "category": "Vocational"
+  },
+  {
+    "id": "photography-apprenticeship",
+    "label": "Photography Apprenticeship",
+    "description": "Train in photography, editing and visual storytelling.",
+    "category": "Vocational"
+  },
+  {
+    "id": "nvq-land-based-studies",
+    "label": "NVQ Land-Based Studies (Level 2/3)",
+    "description": "Study land management, agriculture and environmental skills.",
+    "category": "Vocational"
+  },
+  {
+    "id": "horticulture-apprenticeship",
+    "label": "Horticulture Apprenticeship",
+    "description": "Gain practical experience in planting, gardening and land care.",
+    "category": "Vocational"
+  },
+  {
+    "id": "agriculture-apprenticeship",
+    "label": "Agriculture Apprenticeship",
+    "description": "Train in farming, crop production and animal husbandry.",
+    "category": "Vocational"
+  },
+  {
+    "id": "animal-care-apprenticeship",
+    "label": "Animal Care Apprenticeship",
+    "description": "Learn animal welfare, care and husbandry practices.",
+    "category": "Vocational"
+  },
+  {
+    "id": "btec-public-services",
+    "label": "BTEC Public Services (Level 3)",
+    "description": "Explore public sector roles, teamwork and civic responsibility.",
+    "category": "Vocational"
+  },
+  {
+    "id": "police-apprenticeship",
+    "label": "Police Apprenticeship",
+    "description": "Train in policing, community safety and law enforcement support.",
+    "category": "Vocational"
+  },
+  {
+    "id": "firefighter-apprenticeship",
+    "label": "Firefighter Apprenticeship",
+    "description": "Gain skills in fire response, rescue and safety operations.",
+    "category": "Vocational"
+  },
+  {
+    "id": "military-apprenticeship",
+    "label": "Military Apprenticeship",
+    "description": "Study leadership, discipline and public service skills.",
+    "category": "Vocational"
+  },
+  {
+    "id": "university-engineering",
+    "label": "University Engineering",
+    "description": "Prepare for technical roles through accredited engineering coursework.",
+    "category": "University"
+  },
+  {
+    "id": "computer-science-bsc",
+    "label": "Computer Science (BSc)",
+    "description": "Study computing fundamentals, algorithms and software systems.",
+    "category": "University"
+  },
+  {
+    "id": "software-engineering-bsc",
+    "label": "Software Engineering (BSc)",
+    "description": "Learn software development practices, architecture and project delivery.",
+    "category": "University"
+  },
+  {
+    "id": "cyber-security-bsc",
+    "label": "Cyber Security (BSc)",
+    "description": "Explore digital security, risk management and threat protection.",
+    "category": "University"
+  },
+  {
+    "id": "data-science-bsc",
+    "label": "Data Science (BSc)",
+    "description": "Analyse data, modelling and machine learning for real-world insights.",
+    "category": "University"
+  },
+  {
+    "id": "artificial-intelligence-bsc",
+    "label": "Artificial Intelligence (BSc)",
+    "description": "Study intelligent systems, machine learning and AI applications.",
+    "category": "University"
+  },
+  {
+    "id": "information-technology-bsc",
+    "label": "Information Technology (BSc)",
+    "description": "Develop IT skills for networks, systems and business technologies.",
+    "category": "University"
+  },
+  {
+    "id": "computer-forensics-bsc",
+    "label": "Computer Forensics (BSc)",
+    "description": "Learn digital investigation methods and cybercrime analysis.",
+    "category": "University"
+  },
+  {
+    "id": "web-development-bsc",
+    "label": "Web Development (BSc)",
+    "description": "Build websites, web apps and modern front-end/back-end solutions.",
+    "category": "University"
+  },
+  {
+    "id": "game-development-bsc",
+    "label": "Game Development (BSc)",
+    "description": "Study game design, programming and interactive media creation.",
+    "category": "University"
+  },
+  {
+    "id": "network-engineering-bsc",
+    "label": "Network Engineering (BSc)",
+    "description": "Understand network design, infrastructure and communications systems.",
+    "category": "University"
+  },
+  {
+    "id": "business-management-ba",
+    "label": "Business Management (BA)",
+    "description": "Learn leadership, strategy and organisational decision-making.",
+    "category": "University"
+  },
+  {
+    "id": "marketing-ba",
+    "label": "Marketing (BA)",
+    "description": "Study branding, customer insight and digital marketing campaigns.",
+    "category": "University"
+  },
+  {
+    "id": "finance-bsc",
+    "label": "Finance (BSc)",
+    "description": "Study financial markets, investment and corporate finance principles.",
+    "category": "University"
+  },
+  {
+    "id": "accounting-bsc",
+    "label": "Accounting (BSc)",
+    "description": "Learn accounting practice, reporting and financial analysis.",
+    "category": "University"
+  },
+  {
+    "id": "economics-bsc",
+    "label": "Economics (BSc)",
+    "description": "Explore economic theory, markets and global financial systems.",
+    "category": "University"
+  },
+  {
+    "id": "human-resource-management-ba",
+    "label": "Human Resource Management (BA)",
+    "description": "Study recruitment, training and organisational people practices.",
+    "category": "University"
+  },
+  {
+    "id": "international-business-ba",
+    "label": "International Business (BA)",
+    "description": "Learn global trade, cross-border strategy and business operations.",
+    "category": "University"
+  },
+  {
+    "id": "entrepreneurship-ba",
+    "label": "Entrepreneurship (BA)",
+    "description": "Develop skills to start businesses, innovation and growth planning.",
+    "category": "University"
+  },
+  {
+    "id": "supply-chain-management-ba",
+    "label": "Supply Chain Management (BA)",
+    "description": "Study logistics, procurement and efficient distribution networks.",
+    "category": "University"
+  },
+  {
+    "id": "project-management-bsc",
+    "label": "Project Management (BSc)",
+    "description": "Learn planning, delivery and control of complex projects.",
+    "category": "University"
+  },
+  {
+    "id": "law-llb",
+    "label": "Law (LLB)",
+    "description": "Study legal systems, case law and legal reasoning.",
+    "category": "University"
+  },
+  {
+    "id": "criminology-ba",
+    "label": "Criminology (BA)",
+    "description": "Explore crime, justice systems and social responses.",
+    "category": "University"
+  },
+  {
+    "id": "criminal-justice-ba",
+    "label": "Criminal Justice (BA)",
+    "description": "Study policing, courts and rehabilitation systems.",
+    "category": "University"
+  },
+  {
+    "id": "international-law-llb",
+    "label": "International Law (LLB)",
+    "description": "Learn cross-border legal frameworks and international treaties.",
+    "category": "University"
+  },
+  {
+    "id": "business-law-llb",
+    "label": "Business Law (LLB)",
+    "description": "Study corporate law, contracts and commercial regulation.",
+    "category": "University"
+  },
+  {
+    "id": "medicine-mbbs",
+    "label": "Medicine (MBBS)",
+    "description": "Train in clinical medicine, diagnosis and patient care.",
+    "category": "University"
+  },
+  {
+    "id": "nursing-adult-bsc",
+    "label": "Nursing (Adult) (BSc)",
+    "description": "Study adult nursing, care practice and clinical skills.",
+    "category": "University"
+  },
+  {
+    "id": "nursing-mental-health-bsc",
+    "label": "Nursing (Mental Health) (BSc)",
+    "description": "Learn mental health nursing and psychological care techniques.",
+    "category": "University"
+  },
+  {
+    "id": "nursing-children-bsc",
+    "label": "Nursing (Children) (BSc)",
+    "description": "Study paediatric nursing and child health care.",
+    "category": "University"
+  },
+  {
+    "id": "midwifery-bsc",
+    "label": "Midwifery (BSc)",
+    "description": "Train in maternity care, pregnancy and birth support.",
+    "category": "University"
+  },
+  {
+    "id": "pharmacy-mpharm",
+    "label": "Pharmacy (MPharm)",
+    "description": "Study medicines, patient safety and pharmaceutical science.",
+    "category": "University"
+  },
+  {
+    "id": "physiotherapy-bsc",
+    "label": "Physiotherapy (BSc)",
+    "description": "Learn movement, rehabilitation and physical therapy techniques.",
+    "category": "University"
+  },
+  {
+    "id": "occupational-therapy-bsc",
+    "label": "Occupational Therapy (BSc)",
+    "description": "Study helping people overcome daily living challenges.",
+    "category": "University"
+  },
+  {
+    "id": "dentistry-bds",
+    "label": "Dentistry (BDS)",
+    "description": "Train in dental care, oral health and clinical dentistry.",
+    "category": "University"
+  },
+  {
+    "id": "paramedic-science-bsc",
+    "label": "Paramedic Science (BSc)",
+    "description": "Learn emergency response, patient assessment and care.",
+    "category": "University"
+  },
+  {
+    "id": "radiography-diagnostic-bsc",
+    "label": "Radiography (Diagnostic) (BSc)",
+    "description": "Study imaging techniques and patient diagnostic support.",
+    "category": "University"
+  },
+  {
+    "id": "radiography-therapeutic-bsc",
+    "label": "Radiography (Therapeutic) (BSc)",
+    "description": "Learn therapeutic imaging and cancer treatment support.",
+    "category": "University"
+  },
+  {
+    "id": "speech-language-therapy-bsc",
+    "label": "Speech & Language Therapy (BSc)",
+    "description": "Study communication support and speech development therapy.",
+    "category": "University"
+  },
+  {
+    "id": "operating-department-practice-bsc",
+    "label": "Operating Department Practice (BSc)",
+    "description": "Learn perioperative care and surgical team support.",
+    "category": "University"
+  },
+  {
+    "id": "dietetics-bsc",
+    "label": "Dietetics (BSc)",
+    "description": "Study nutrition, diet planning and health promotion.",
+    "category": "University"
+  },
+  {
+    "id": "veterinary-medicine-bvetmed",
+    "label": "Veterinary Medicine (BVetMed)",
+    "description": "Train in animal health, diagnosis and veterinary care.",
+    "category": "University"
+  },
+  {
+    "id": "psychology-bsc",
+    "label": "Psychology (BSc)",
+    "description": "Study human behaviour, cognition and psychological science.",
+    "category": "University"
+  },
+  {
+    "id": "clinical-psychology-doctorate",
+    "label": "Clinical Psychology (Doctorate)",
+    "description": "Train in clinical assessment, therapy and mental healthcare.",
+    "category": "University"
+  },
+  {
+    "id": "counselling-ba",
+    "label": "Counselling (BA)",
+    "description": "Learn therapeutic listening, support and counselling techniques.",
+    "category": "University"
+  },
+  {
+    "id": "psychotherapy-bsc",
+    "label": "Psychotherapy (BSc)",
+    "description": "Study psychological therapies and patient wellbeing support.",
+    "category": "University"
+  },
+  {
+    "id": "mental-health-nursing-bsc",
+    "label": "Mental Health Nursing (BSc)",
+    "description": "Learn mental health care and psychiatric nursing practice.",
+    "category": "University"
+  },
+  {
+    "id": "biomedical-science-bsc",
+    "label": "Biomedical Science (BSc)",
+    "description": "Study biology, lab work and healthcare research techniques.",
+    "category": "University"
+  },
+  {
+    "id": "biochemistry-bsc",
+    "label": "Biochemistry (BSc)",
+    "description": "Study chemical processes in living organisms and labs.",
+    "category": "University"
+  },
+  {
+    "id": "microbiology-bsc",
+    "label": "Microbiology (BSc)",
+    "description": "Learn about microorganisms, infections and lab diagnostics.",
+    "category": "University"
+  },
+  {
+    "id": "forensic-science-bsc",
+    "label": "Forensic Science (BSc)",
+    "description": "Study crime scene analysis, evidence and scientific investigation.",
+    "category": "University"
+  },
+  {
+    "id": "environmental-science-bsc",
+    "label": "Environmental Science (BSc)",
+    "description": "Learn ecosystems, sustainability and environmental research.",
+    "category": "University"
+  },
+  {
+    "id": "marine-biology-bsc",
+    "label": "Marine Biology (BSc)",
+    "description": "Study ocean life, ecosystems and marine conservation.",
+    "category": "University"
+  },
+  {
+    "id": "astrophysics-bsc",
+    "label": "Astrophysics (BSc)",
+    "description": "Explore stars, galaxies and the physics of the universe.",
+    "category": "University"
+  },
+  {
+    "id": "mathematics-bsc",
+    "label": "Mathematics (BSc)",
+    "description": "Study pure and applied maths for scientific problem solving.",
+    "category": "University"
+  },
+  {
+    "id": "physics-bsc",
+    "label": "Physics (BSc)",
+    "description": "Learn physical laws, experimental methods and scientific analysis.",
+    "category": "University"
+  },
+  {
+    "id": "chemistry-bsc",
+    "label": "Chemistry (BSc)",
+    "description": "Study chemical theory, lab techniques and materials science.",
+    "category": "University"
+  },
+  {
+    "id": "biology-bsc",
+    "label": "Biology (BSc)",
+    "description": "Learn life sciences, ecology and biological research methods.",
+    "category": "University"
+  },
+  {
+    "id": "geology-bsc",
+    "label": "Geology (BSc)",
+    "description": "Study earth structures, rocks and geological processes.",
+    "category": "University"
+  },
+  {
+    "id": "meteorology-bsc",
+    "label": "Meteorology (BSc)",
+    "description": "Learn weather systems, climate and atmospheric science.",
+    "category": "University"
+  },
+  {
+    "id": "materials-science-bsc",
+    "label": "Materials Science (BSc)",
+    "description": "Study materials, nanostructures and engineering properties.",
+    "category": "University"
+  },
+  {
+    "id": "nanotechnology-bsc",
+    "label": "Nanotechnology (BSc)",
+    "description": "Explore nanoscale science and advanced technology applications.",
+    "category": "University"
+  },
+  {
+    "id": "civil-engineering-beng",
+    "label": "Civil Engineering (BEng)",
+    "description": "Study infrastructure design, construction and structural engineering.",
+    "category": "University"
+  },
+  {
+    "id": "mechanical-engineering-beng",
+    "label": "Mechanical Engineering (BEng)",
+    "description": "Learn mechanical systems, design and manufacturing processes.",
+    "category": "University"
+  },
+  {
+    "id": "electrical-engineering-beng",
+    "label": "Electrical Engineering (BEng)",
+    "description": "Study electrical systems, circuits and power engineering.",
+    "category": "University"
+  },
+  {
+    "id": "aerospace-engineering-beng",
+    "label": "Aerospace Engineering (BEng)",
+    "description": "Learn aircraft design, propulsion and aerospace systems.",
+    "category": "University"
+  },
+  {
+    "id": "chemical-engineering-beng",
+    "label": "Chemical Engineering (BEng)",
+    "description": "Study processes, materials and chemical plant engineering.",
+    "category": "University"
+  },
+  {
+    "id": "automotive-engineering-beng",
+    "label": "Automotive Engineering (BEng)",
+    "description": "Learn vehicle systems, design and automotive technology.",
+    "category": "University"
+  },
+  {
+    "id": "petroleum-engineering-beng",
+    "label": "Petroleum Engineering (BEng)",
+    "description": "Study oil, gas and energy extraction engineering.",
+    "category": "University"
+  },
+  {
+    "id": "nuclear-engineering-beng",
+    "label": "Nuclear Engineering (BEng)",
+    "description": "Learn nuclear systems, power generation and safety.",
+    "category": "University"
+  },
+  {
+    "id": "renewable-energy-engineering-beng",
+    "label": "Renewable Energy Engineering (BEng)",
+    "description": "Study sustainable energy systems and green engineering.",
+    "category": "University"
+  },
+  {
+    "id": "railway-engineering-beng",
+    "label": "Railway Engineering (BEng)",
+    "description": "Learn rail systems, signalling and rail infrastructure design.",
+    "category": "University"
+  },
+  {
+    "id": "mechatronics-beng",
+    "label": "Mechatronics (BEng)",
+    "description": "Study robotics, automation and integrated engineering systems.",
+    "category": "University"
+  },
+  {
+    "id": "robotics-beng",
+    "label": "Robotics (BEng)",
+    "description": "Learn robotic systems, control and autonomous technologies.",
+    "category": "University"
+  },
+  {
+    "id": "architecture-ba",
+    "label": "Architecture (BA)",
+    "description": "Study building design, planning and architectural practice.",
+    "category": "University"
+  },
+  {
+    "id": "interior-design-ba",
+    "label": "Interior Design (BA)",
+    "description": "Learn spatial design, interiors and human-centred environments.",
+    "category": "University"
+  },
+  {
+    "id": "product-design-ba",
+    "label": "Product Design (BA)",
+    "description": "Study product development, innovation and design thinking.",
+    "category": "University"
+  },
+  {
+    "id": "graphic-design-ba",
+    "label": "Graphic Design (BA)",
+    "description": "Learn visual communication, branding and digital design.",
+    "category": "University"
+  },
+  {
+    "id": "animation-ba",
+    "label": "Animation (BA)",
+    "description": "Study animation techniques, storytelling and motion design.",
+    "category": "University"
+  },
+  {
+    "id": "fashion-design-ba",
+    "label": "Fashion Design (BA)",
+    "description": "Learn clothing design, trend development and apparel creation.",
+    "category": "University"
+  },
+  {
+    "id": "urban-planning-ba",
+    "label": "Urban Planning (BA)",
+    "description": "Study city design, planning policy and urban systems.",
+    "category": "University"
+  },
+  {
+    "id": "landscape-architecture-ba",
+    "label": "Landscape Architecture (BA)",
+    "description": "Learn outdoor space design, landscapes and environmental planning.",
+    "category": "University"
+  },
+  {
+    "id": "film-production-ba",
+    "label": "Film Production (BA)",
+    "description": "Study filmmaking, production and visual storytelling.",
+    "category": "University"
+  },
+  {
+    "id": "music-production-ba",
+    "label": "Music Production (BA)",
+    "description": "Learn music creation, recording and audio production skills.",
+    "category": "University"
+  },
+  {
+    "id": "creative-writing-ba",
+    "label": "Creative Writing (BA)",
+    "description": "Study storytelling, writing craft and literary creation.",
+    "category": "University"
+  },
+  {
+    "id": "journalism-ba",
+    "label": "Journalism (BA)",
+    "description": "Learn news reporting, media ethics and storytelling skills.",
+    "category": "University"
+  },
+  {
+    "id": "photography-ba",
+    "label": "Photography (BA)",
+    "description": "Study photographic technique, composition and visual media.",
+    "category": "University"
+  },
+  {
+    "id": "theatre-performance-ba",
+    "label": "Theatre & Performance (BA)",
+    "description": "Learn acting, stagecraft and live performance skills.",
+    "category": "University"
+  },
+  {
+    "id": "dance-ba",
+    "label": "Dance (BA)",
+    "description": "Study dance technique, choreography and performance.",
+    "category": "University"
+  },
+  {
+    "id": "game-design-ba",
+    "label": "Game Design (BA)",
+    "description": "Study interactive design, gameplay and creative systems.",
+    "category": "University"
+  },
+  {
+    "id": "virtual-reality-development-bsc",
+    "label": "Virtual Reality Development (BSc)",
+    "description": "Learn immersive tech, VR applications and interaction design.",
+    "category": "University"
+  },
+  {
+    "id": "augmented-reality-development-bsc",
+    "label": "Augmented Reality Development (BSc)",
+    "description": "Study AR design, mixed reality and digital experiences.",
+    "category": "University"
+  },
+  {
+    "id": "education-studies-ba",
+    "label": "Education Studies (BA)",
+    "description": "Explore teaching theory, learning and educational systems.",
+    "category": "University"
+  },
+  {
+    "id": "primary-education-ba",
+    "label": "Primary Education (BA)",
+    "description": "Study teaching methods and child development for primary schools.",
+    "category": "University"
+  },
+  {
+    "id": "secondary-education-ba",
+    "label": "Secondary Education (BA)",
+    "description": "Learn secondary teaching practice and adolescent learning.",
+    "category": "University"
+  },
+  {
+    "id": "special-educational-needs-ba",
+    "label": "Special Educational Needs (BA)",
+    "description": "Study inclusive teaching for learners with additional needs.",
+    "category": "University"
+  },
+  {
+    "id": "early-childhood-education-ba",
+    "label": "Early Childhood Education (BA)",
+    "description": "Learn early years teaching and child development support.",
+    "category": "University"
+  },
+  {
+    "id": "tesol-tefl-ba",
+    "label": "TESOL / TEFL (BA)",
+    "description": "Study teaching English to speakers of other languages.",
+    "category": "University"
+  },
+  {
+    "id": "sociology-ba",
+    "label": "Sociology (BA)",
+    "description": "Explore society, culture and social behaviour.",
+    "category": "University"
+  },
+  {
+    "id": "social-work-ba",
+    "label": "Social Work (BA)",
+    "description": "Learn support practice, advocacy and community care.",
+    "category": "University"
+  },
+  {
+    "id": "youth-work-ba",
+    "label": "Youth Work (BA)",
+    "description": "Study youth support, community engagement and mentoring.",
+    "category": "University"
+  },
+  {
+    "id": "politics-ba",
+    "label": "Politics (BA)",
+    "description": "Learn political systems, policy and governance analysis.",
+    "category": "University"
+  },
+  {
+    "id": "international-relations-ba",
+    "label": "International Relations (BA)",
+    "description": "Study global politics, diplomacy and international affairs.",
+    "category": "University"
+  },
+  {
+    "id": "anthropology-ba",
+    "label": "Anthropology (BA)",
+    "description": "Explore human cultures, societies and behaviour.",
+    "category": "University"
+  },
+  {
+    "id": "archaeology-ba",
+    "label": "Archaeology (BA)",
+    "description": "Study ancient cultures, excavations and historical research.",
+    "category": "University"
+  },
+  {
+    "id": "development-studies-ba",
+    "label": "Development Studies (BA)",
+    "description": "Learn global development, poverty and social change.",
+    "category": "University"
+  },
+  {
+    "id": "gender-studies-ba",
+    "label": "Gender Studies (BA)",
+    "description": "Study gender, identity and social equality themes.",
+    "category": "University"
+  },
+  {
+    "id": "disability-studies-ba",
+    "label": "Disability Studies (BA)",
+    "description": "Explore disability rights, inclusion and social policy.",
+    "category": "University"
+  },
+  {
+    "id": "english-literature-ba",
+    "label": "English Literature (BA)",
+    "description": "Study literary texts, criticism and writing traditions.",
+    "category": "University"
+  },
+  {
+    "id": "history-ba",
+    "label": "History (BA)",
+    "description": "Explore historical periods, events and cultural change.",
+    "category": "University"
+  },
+  {
+    "id": "philosophy-ba",
+    "label": "Philosophy (BA)",
+    "description": "Study ethics, thought and philosophical ideas.",
+    "category": "University"
+  },
+  {
+    "id": "classical-studies-ba",
+    "label": "Classical Studies (BA)",
+    "description": "Learn ancient Greek and Roman culture and history.",
+    "category": "University"
+  },
+  {
+    "id": "medieval-studies-ba",
+    "label": "Medieval Studies (BA)",
+    "description": "Study medieval history, culture and society.",
+    "category": "University"
+  },
+  {
+    "id": "art-history-ba",
+    "label": "Art History (BA)",
+    "description": "Explore art movements, artists and cultural context.",
+    "category": "University"
+  },
+  {
+    "id": "linguistics-ba",
+    "label": "Linguistics (BA)",
+    "description": "Study language structure, meaning and communication.",
+    "category": "University"
+  },
+  {
+    "id": "comparative-literature-ba",
+    "label": "Comparative Literature (BA)",
+    "description": "Learn texts and literary traditions across cultures.",
+    "category": "University"
+  },
+  {
+    "id": "modern-languages-ba",
+    "label": "Modern Languages (BA)",
+    "description": "Study multiple languages and cross-cultural communication.",
+    "category": "University"
+  },
+  {
+    "id": "translation-interpreting-ba",
+    "label": "Translation & Interpreting (BA)",
+    "description": "Learn translation practice and interpreting skills.",
+    "category": "University"
+  },
+  {
+    "id": "english-language-ba",
+    "label": "English Language (BA)",
+    "description": "Study language use, structure and communication.",
+    "category": "University"
+  },
+  {
+    "id": "policing-criminal-investigation-bsc",
+    "label": "Policing & Criminal Investigation (BSc)",
+    "description": "Learn investigative techniques and policing practice.",
+    "category": "University"
+  },
+  {
+    "id": "fire-rescue-bsc",
+    "label": "Fire & Rescue (BSc)",
+    "description": "Study fire response, rescue operations and safety.",
+    "category": "University"
+  },
+  {
+    "id": "emergency-planning-bsc",
+    "label": "Emergency Planning (BSc)",
+    "description": "Learn crisis response, preparedness and recovery planning.",
+    "category": "University"
+  },
+  {
+    "id": "disaster-management-bsc",
+    "label": "Disaster Management (BSc)",
+    "description": "Study disaster response, risk reduction and resilience.",
+    "category": "University"
+  },
+  {
+    "id": "public-administration-ba",
+    "label": "Public Administration (BA)",
+    "description": "Learn public sector management and government operations.",
+    "category": "University"
+  },
+  {
+    "id": "local-government-management-ba",
+    "label": "Local Government Management (BA)",
+    "description": "Study local policy, services and community leadership.",
+    "category": "University"
+  },
+  {
+    "id": "hotel-hospitality-management-ba",
+    "label": "Hotel & Hospitality Management (BA)",
+    "description": "Learn hotel operations, service and hospitality business.",
+    "category": "University"
+  },
+  {
+    "id": "event-management-ba",
+    "label": "Event Management (BA)",
+    "description": "Study event planning, logistics and guest experience.",
+    "category": "University"
+  },
+  {
+    "id": "tourism-management-ba",
+    "label": "Tourism Management (BA)",
+    "description": "Learn tourism strategy, travel markets and hospitality.",
+    "category": "University"
+  },
+  {
+    "id": "culinary-arts-ba",
+    "label": "Culinary Arts (BA)",
+    "description": "Study culinary skills, food creativity and hospitality.",
+    "category": "University"
+  },
+  {
+    "id": "nutrition-food-science-bsc",
+    "label": "Nutrition & Food Science (BSc)",
+    "description": "Study nutrition, health and food science applications.",
+    "category": "University"
+  },
+  {
+    "id": "sports-science-bsc",
+    "label": "Sports Science (BSc)",
+    "description": "Learn exercise, performance and human physiology.",
+    "category": "University"
+  },
+  {
+    "id": "sports-therapy-bsc",
+    "label": "Sports Therapy (BSc)",
+    "description": "Study injury rehabilitation and sports healthcare.",
+    "category": "University"
+  },
+  {
+    "id": "exercise-physiology-bsc",
+    "label": "Exercise Physiology (BSc)",
+    "description": "Learn body systems, exercise response and fitness science.",
+    "category": "University"
+  },
+  {
+    "id": "coaching-sports-development-bsc",
+    "label": "Coaching & Sports Development (BSc)",
+    "description": "Study coaching practice, athlete development and sport programs.",
+    "category": "University"
+  },
+  {
+    "id": "alevel-mathematics",
+    "label": "A-Level Mathematics",
+    "description": "Advanced mathematical concepts for further study.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-biology",
+    "label": "A-Level Biology",
+    "description": "In-depth study of living organisms and systems.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-chemistry",
+    "label": "A-Level Chemistry",
+    "description": "Study of chemical principles and reactions.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-physics",
+    "label": "A-Level Physics",
+    "description": "Explore mechanics, energy, and modern physics.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-psychology",
+    "label": "A-Level Psychology",
+    "description": "Understanding behaviour and mental processes.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-economics",
+    "label": "A-Level Economics",
+    "description": "Micro and macroeconomics for analytical thinking.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-business-studies",
+    "label": "A-Level Business Studies",
+    "description": "Advanced business concepts and strategy.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-compsci",
+    "label": "A-Level Computer Science",
+    "description": "Algorithms, programming and computational theory.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-law",
+    "label": "A-Level Law",
+    "description": "Foundations of legal systems and reasoning.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-media",
+    "label": "A-Level Media Studies",
+    "description": "Analysis of media forms and production.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-english-lit",
+    "label": "A-Level English Literature",
+    "description": "Critical study of literary texts.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-english-language",
+    "label": "A-Level English Language",
+    "description": "Study language, communication and written expression.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-history",
+    "label": "A-Level History",
+    "description": "In-depth historical analysis and interpretation.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-geography",
+    "label": "A-Level Geography",
+    "description": "Physical and human geography concepts.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-politics",
+    "label": "A-Level Politics",
+    "description": "Study of political systems and theory.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-sociology",
+    "label": "A-Level Sociology",
+    "description": "Exploration of social structures and behaviour.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-art-design",
+    "label": "A-Level Art & Design",
+    "description": "Study visual arts, design principles and creative practice.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-photography",
+    "label": "A-Level Photography",
+    "description": "Learn photographic techniques, composition and visual storytelling.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-music-technology",
+    "label": "A-Level Music Technology",
+    "description": "Study music production, sound design and audio technology.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-drama-theatre",
+    "label": "A-Level Drama & Theatre",
+    "description": "Learn acting, performance and theatre production skills.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-physical-education",
+    "label": "A-Level Physical Education",
+    "description": "Study sport science, performance and physical training.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-modern-languages",
+    "label": "A-Level Modern Languages",
+    "description": "Learn advanced language skills and cultural study.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-philosophy",
+    "label": "A-Level Philosophy",
+    "description": "Study ethics, logic and philosophical thinking.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-religious-studies",
+    "label": "A-Level Religious Studies",
+    "description": "Explore religion, morality and ethical debates.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-classical-civilisation",
+    "label": "A-Level Classical Civilisation",
+    "description": "Study ancient Greece and Rome, culture and history.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-environmental-science",
+    "label": "A-Level Environmental Science",
+    "description": "Learn ecosystems, sustainability and environmental study.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-film-studies",
+    "label": "A-Level Film Studies",
+    "description": "Study film history, analysis and production techniques.",
+    "category": "A-Level"
+  },
+  {
+    "id": "alevel-graphic-communication",
+    "label": "A-Level Graphic Communication",
+    "description": "Learn design communication and visual media presentation.",
+    "category": "A-Level"
+  },
+  {
+    "id": "btec-applied-science",
+    "label": "BTEC Applied Science (Level 3)",
+    "description": "Study science in applied lab and industry contexts.",
+    "category": "A-Level"
+  },
+  {
+    "id": "btec-travel-tourism",
+    "label": "BTEC Travel & Tourism (Level 3)",
+    "description": "Learn travel industry operations, tourism and customer service.",
+    "category": "A-Level"
+  },
+  {
+    "id": "btec-forensic-science",
+    "label": "BTEC Forensic Science (Level 3)",
+    "description": "Study investigative science, evidence and forensic practice.",
+    "category": "A-Level"
+  },
+  {
+    "id": "tlevel-digital-production-design-development",
+    "label": "T-Level Digital Production, Design & Development",
+    "description": "Develop digital skills for software, media and product design roles.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-digital-business-services",
+    "label": "T-Level Digital Business Services",
+    "description": "Learn digital operations, business systems and technology support.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-digital-support-services",
+    "label": "T-Level Digital Support Services",
+    "description": "Develop IT support, customer service and technical troubleshooting skills.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-construction-design-surveying-planning",
+    "label": "T-Level Construction: Design, Surveying & Planning",
+    "description": "Study design, surveying and planning for construction projects.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-construction-building-services-engineering",
+    "label": "T-Level Construction: Building Services Engineering",
+    "description": "Learn building services systems and engineering for construction sites.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-construction-on-site-construction",
+    "label": "T-Level Construction: On-Site Construction",
+    "description": "Gain practical skills in on-site construction trades and site delivery.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-education-childcare",
+    "label": "T-Level Education & Childcare",
+    "description": "Study early years and childcare practice for education settings.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-health",
+    "label": "T-Level Health",
+    "description": "Explore health and social care skills for clinical and care environments.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-healthcare-science",
+    "label": "T-Level Healthcare Science",
+    "description": "Develop laboratory and healthcare science skills in medical settings.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-science",
+    "label": "T-Level Science",
+    "description": "Study scientific principles and laboratory techniques for science careers.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-engineering-manufacturing-design-development",
+    "label": "T-Level Engineering & Manufacturing: Design & Development",
+    "description": "Learn design and manufacturing skills for engineering and production roles.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-engineering-manufacturing-maintenance-installation-repair",
+    "label": "T-Level Engineering & Manufacturing: Maintenance, Installation & Repair",
+    "description": "Develop maintenance, installation and repair skills for engineering equipment.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-engineering-manufacturing-processing-control",
+    "label": "T-Level Engineering & Manufacturing: Processing & Control",
+    "description": "Study process engineering, control systems and industrial production techniques.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-finance",
+    "label": "T-Level Finance",
+    "description": "Learn finance, accounting and financial services processes.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-accounting",
+    "label": "T-Level Accounting",
+    "description": "Study accounting principles, bookkeeping and financial reporting.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-management-administration",
+    "label": "T-Level Management & Administration",
+    "description": "Develop administration, management and business support skills.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-legal-services",
+    "label": "T-Level Legal Services",
+    "description": "Learn legal support, administration and justice system fundamentals.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-agriculture-land-management-production",
+    "label": "T-Level Agriculture, Land Management & Production",
+    "description": "Study farming, land management and agricultural production skills.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-animal-care-management",
+    "label": "T-Level Animal Care & Management",
+    "description": "Learn animal care, welfare and management skills for animal settings.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-hairdressing-barbering-beauty-therapy",
+    "label": "T-Level Hairdressing, Barbering & Beauty Therapy",
+    "description": "Study salon, grooming and beauty therapy skills for the personal care sector.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-craft-design",
+    "label": "T-Level Craft & Design",
+    "description": "Learn craft, product design and creative making skills.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-media-broadcast-production",
+    "label": "T-Level Media, Broadcast & Production",
+    "description": "Study media production, broadcast technology and content creation.",
+    "category": "T-Level"
+  },
+  {
+    "id": "tlevel-catering",
+    "label": "T-Level Catering",
+    "description": "Learn catering, hospitality and food service skills for the hospitality sector.",
+    "category": "T-Level"
+  },
+  {
+    "id": "esol-entry-1",
+    "label": "ESOL Entry Level 1",
+    "description": "Begin English language learning for everyday communication.",
+    "category": "Refugee ESOL"
+  },
+  {
+    "id": "esol-entry-2",
+    "label": "ESOL Entry Level 2",
+    "description": "Build basic English skills for listening, speaking and reading.",
+    "category": "Refugee ESOL"
+  },
+  {
+    "id": "esol-entry-3",
+    "label": "ESOL Entry Level 3",
+    "description": "Develop confidence in English for study and work.",
+    "category": "Refugee ESOL"
+  },
+  {
+    "id": "esol-level-1",
+    "label": "ESOL Level 1",
+    "description": "Improve English with structured learning for interaction and writing.",
+    "category": "Refugee ESOL"
+  },
+  {
+    "id": "esol-level-2",
+    "label": "ESOL Level 2",
+    "description": "Gain stronger English skills to support progression into further study.",
+    "category": "Refugee ESOL"
+  },
+  {
+    "id": "ielts-preparation",
+    "label": "IELTS Preparation",
+    "description": "Prepare for the IELTS test with practice in reading, writing, speaking and listening.",
+    "category": "Refugee ESOL"
+  },
+  {
+    "id": "functional-skills-english",
+    "label": "Functional Skills English",
+    "description": "Develop practical English skills for work, study and daily life.",
+    "category": "Refugee ESOL"
+  },
+  {
+    "id": "academic-writing",
+    "label": "Academic Writing",
+    "description": "Learn essay writing, structure and research skills for study.",
+    "category": "Refugee ESOL"
+  },
+  {
+    "id": "conversation-pronunciation",
+    "label": "Conversation & Pronunciation",
+    "description": "Practice spoken English and build confidence in everyday conversations.",
+    "category": "Refugee ESOL"
+  },
+  {
+    "id": "functional-skills-maths-entry-1",
+    "label": "Functional Skills Maths Entry 1",
+    "description": "Start with basic maths skills for everyday tasks.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "functional-skills-maths-entry-2",
+    "label": "Functional Skills Maths Entry 2",
+    "description": "Develop practical maths skills for work and daily life.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "functional-skills-maths-level-1",
+    "label": "Functional Skills Maths Level 1",
+    "description": "Build maths confidence for study and employment.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "functional-skills-maths-level-2",
+    "label": "Functional Skills Maths Level 2",
+    "description": "Gain stronger maths skills for progression and exams.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "functional-skills-english-entry-1",
+    "label": "Functional Skills English Entry 1",
+    "description": "Learn basic English skills for reading and writing.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "functional-skills-english-entry-2",
+    "label": "Functional Skills English Entry 2",
+    "description": "Develop practical English for communication and study.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "functional-skills-english-level-1",
+    "label": "Functional Skills English Level 1",
+    "description": "Improve reading, writing and grammar for daily life.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "functional-skills-english-level-2",
+    "label": "Functional Skills English Level 2",
+    "description": "Strengthen English skills for work and further learning.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "functional-skills-ict",
+    "label": "Functional Skills ICT",
+    "description": "Learn essential digital skills for study and employment.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "gcse-maths-refugee",
+    "label": "GCSE Maths",
+    "description": "Build maths knowledge for progression in education and work.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "gcse-english-refugee",
+    "label": "GCSE English",
+    "description": "Develop strong English skills for study and communication.",
+    "category": "Refugee GCSE"
+  },
+  {
+    "id": "vocational-hospitality-catering",
+    "label": "Hospitality & Catering",
+    "description": "Learn practical service and food preparation skills for hospitality roles.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "vocational-cleaning-facilities",
+    "label": "Cleaning & Facilities Services",
+    "description": "Train for entry-level roles maintaining buildings and services.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "vocational-warehouse-logistics",
+    "label": "Warehouse & Logistics",
+    "description": "Develop skills for storage, delivery and supply chain roles.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "vocational-construction-labourer",
+    "label": "Construction Labourer",
+    "description": "Gain practical experience working on construction sites.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "vocational-care-worker",
+    "label": "Care Worker",
+    "description": "Learn person-centred care skills for support roles in health and social care.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "vocational-retail",
+    "label": "Retail",
+    "description": "Prepare for customer service roles in shops and retail environments.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "vocational-security-guard",
+    "label": "Security Guard",
+    "description": "Train for entry-level roles in protection and premises security.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "vocational-driving",
+    "label": "Driving (HGV, delivery)",
+    "description": "Learn the skills needed for driving, logistics and delivery roles.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "vocational-hairdressing",
+    "label": "Hairdressing",
+    "description": "Train in hair care, styling and salon customer service.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "vocational-beauty-therapy",
+    "label": "Beauty Therapy",
+    "description": "Study beauty and wellbeing treatments for salon roles.",
+    "category": "Refugee Vocational"
+  },
+  {
+    "id": "foundation-access-he-diploma",
+    "label": "Access to HE Diploma",
+    "description": "Study a recognised pathway for entry into higher education.",
+    "category": "Refugee Foundation"
+  },
+  {
+    "id": "foundation-international-year",
+    "label": "International Foundation Year",
+    "description": "Prepare for UK university studies through a tailored foundation course.",
+    "category": "Refugee Foundation"
+  },
+  {
+    "id": "foundation-pre-sessional-english",
+    "label": "Pre-Sessional English",
+    "description": "Improve academic English before starting university-level study.",
+    "category": "Refugee Foundation"
+  },
+  {
+    "id": "foundation-study-skills",
+    "label": "Study Skills",
+    "description": "Learn research, academic writing and independent study techniques.",
+    "category": "Refugee Foundation"
+  },
+  {
+    "id": "msc-computer-science",
+    "label": "MSc Computer Science",
+    "description": "Advanced study of algorithms, systems and software engineering, often used as a conversion route for non-CS graduates.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-data-science",
+    "label": "MSc Data Science",
+    "description": "Statistics, machine learning and data engineering for analytics and data science careers.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-artificial-intelligence",
+    "label": "MSc Artificial Intelligence",
+    "description": "Machine learning, neural networks and applied AI systems for research or industry roles.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-cyber-security",
+    "label": "MSc Cyber Security",
+    "description": "Security engineering, threat defence and digital forensics for a career in cyber security.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-software-engineering",
+    "label": "MSc Software Engineering",
+    "description": "Software design, architecture and engineering practice for building production systems at scale.",
+    "category": "Masters"
+  },
+  {
+    "id": "mba",
+    "label": "MBA (Master of Business Administration)",
+    "description": "General management, leadership and strategy for professionals moving into senior business roles.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-finance",
+    "label": "MSc Finance",
+    "description": "Financial markets, investment analysis and corporate finance for careers in banking and finance.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-marketing",
+    "label": "MSc Marketing",
+    "description": "Brand strategy, digital marketing and consumer behaviour for marketing leadership roles.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-human-resource-management",
+    "label": "MSc Human Resource Management",
+    "description": "People strategy, employment law and organisational development, often accredited by the CIPD.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-management",
+    "label": "MSc Management",
+    "description": "A general management conversion degree for graduates of any discipline moving into business roles.",
+    "category": "Masters"
+  },
+  {
+    "id": "ma-international-relations",
+    "label": "MA International Relations",
+    "description": "Global politics, diplomacy and policy analysis for roles in international business, consultancy and public affairs.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-nursing-advanced-practice",
+    "label": "MSc Advanced Nursing Practice",
+    "description": "Advanced clinical skills, prescribing and leadership for registered nurses progressing into advanced practice.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-public-health",
+    "label": "MSc Public Health",
+    "description": "Population health, epidemiology and health policy for careers in public health and research.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-psychology-conversion",
+    "label": "MSc Psychology (Conversion)",
+    "description": "British Psychological Society accredited conversion course for graduates without a psychology degree.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-healthcare-management",
+    "label": "MSc Healthcare Management",
+    "description": "NHS and healthcare systems, leadership and operations for management roles in health services.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-mechanical-engineering",
+    "label": "MSc Mechanical Engineering",
+    "description": "Advanced mechanical design, thermodynamics and manufacturing systems.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-electrical-engineering",
+    "label": "MSc Electrical Engineering",
+    "description": "Power systems, electronics and control engineering at postgraduate level.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-civil-engineering",
+    "label": "MSc Civil Engineering",
+    "description": "Structural, geotechnical and infrastructure engineering for chartership-track civil engineers.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-aerospace-engineering",
+    "label": "MSc Aerospace Engineering",
+    "description": "Aerodynamics, propulsion and aircraft systems design at postgraduate level.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-chemical-engineering",
+    "label": "MSc Chemical Engineering",
+    "description": "Process design, reaction engineering and industrial chemical systems.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-renewable-energy-engineering",
+    "label": "MSc Renewable Energy Engineering",
+    "description": "Wind, solar and grid-integration engineering for the low-carbon energy sector.",
+    "category": "Masters"
+  },
+  {
+    "id": "ma-education",
+    "label": "MA Education",
+    "description": "Curriculum, pedagogy and educational leadership for teachers and education professionals.",
+    "category": "Masters"
+  },
+  {
+    "id": "ma-social-work",
+    "label": "MA Social Work",
+    "description": "Social work theory and practice, including statutory placements, leading to professional registration.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-criminology",
+    "label": "MSc Criminology",
+    "description": "Crime, justice systems and offending behaviour for careers in policy, research or criminal justice.",
+    "category": "Masters"
+  },
+  {
+    "id": "ma-applied-linguistics-tesol",
+    "label": "MA Applied Linguistics & TESOL",
+    "description": "Language teaching methodology for careers teaching English as a foreign/second language.",
+    "category": "Masters"
+  },
+  {
+    "id": "ma-graphic-design",
+    "label": "MA Graphic Design",
+    "description": "Advanced visual communication, branding and design practice with a professional portfolio.",
+    "category": "Masters"
+  },
+  {
+    "id": "ma-photography",
+    "label": "MA Photography",
+    "description": "Advanced photographic practice, critical theory and a self-directed portfolio project.",
+    "category": "Masters"
+  },
+  {
+    "id": "ma-film-production",
+    "label": "MA Film Production",
+    "description": "Hands-on filmmaking, producing and post-production for the film and TV industry.",
+    "category": "Masters"
+  },
+  {
+    "id": "ma-creative-writing",
+    "label": "MA Creative Writing",
+    "description": "Workshop-based writing practice across fiction, poetry or scriptwriting with a final manuscript project.",
+    "category": "Masters"
+  },
+  {
+    "id": "llm-commercial-law",
+    "label": "LLM Commercial Law",
+    "description": "Advanced study of contract, corporate and commercial law for specialist legal practice.",
+    "category": "Masters"
+  },
+  {
+    "id": "llm-international-law",
+    "label": "LLM International Law",
+    "description": "Public and private international law for careers in international organisations, NGOs or global firms.",
+    "category": "Masters"
+  },
+  {
+    "id": "llm-cyber-law",
+    "label": "LLM Cyber & Technology Law",
+    "description": "Data protection, IP and technology regulation for lawyers specialising in the tech sector.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-sport-nutrition",
+    "label": "MSc Sport & Exercise Nutrition",
+    "description": "Applied nutrition science for athletic performance and clinical/sports settings.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-sport-psychology",
+    "label": "MSc Sport & Exercise Psychology",
+    "description": "Applied psychology for athletic performance, coaching and exercise behaviour change.",
+    "category": "Masters"
+  },
+  {
+    "id": "phd-computer-science",
+    "label": "PhD Computer Science",
+    "description": "Original doctoral research in computing, AI or software systems, usually resulting in published papers and a thesis.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-engineering",
+    "label": "PhD Engineering",
+    "description": "Original doctoral research across an engineering specialism, often funded by industry or research councils.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-physics",
+    "label": "PhD Physics",
+    "description": "Original doctoral research into physical systems and phenomena, typically within a research group.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-chemistry",
+    "label": "PhD Chemistry",
+    "description": "Original doctoral research in synthetic, analytical or physical chemistry.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-mathematics",
+    "label": "PhD Mathematics",
+    "description": "Original doctoral research in pure or applied mathematics.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-environmental-science",
+    "label": "PhD Environmental Science",
+    "description": "Original doctoral research into environmental systems, climate or sustainability.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-biological-sciences",
+    "label": "PhD Biological Sciences",
+    "description": "Original doctoral research in biology, genetics or life sciences, often lab-based.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-biomedical-science",
+    "label": "PhD Biomedical Science",
+    "description": "Original doctoral research into human disease, physiology or medical science.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-public-health",
+    "label": "PhD Public Health",
+    "description": "Original doctoral research into population health, epidemiology or health policy.",
+    "category": "PhD"
+  },
+  {
+    "id": "dclinpsy-clinical-psychology",
+    "label": "DClinPsy (Doctorate in Clinical Psychology)",
+    "description": "The professional doctorate required to practise as a Clinical Psychologist in the UK, combining clinical placements with research.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-business-management",
+    "label": "PhD Business & Management",
+    "description": "Original doctoral research into organisations, strategy or markets.",
+    "category": "PhD"
+  },
+  {
+    "id": "dba-business-administration",
+    "label": "DBA (Doctor of Business Administration)",
+    "description": "A practice-based doctorate for senior professionals researching real organisational problems alongside their career.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-psychology",
+    "label": "PhD Psychology",
+    "description": "Original doctoral research into human behaviour and cognition, for careers in academia or research.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-social-sciences",
+    "label": "PhD Social Sciences",
+    "description": "Original doctoral research into society, policy or human behaviour across the social sciences.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-sociology",
+    "label": "PhD Sociology",
+    "description": "Original doctoral research into social structures, inequality and human communities.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-criminology",
+    "label": "PhD Criminology",
+    "description": "Original doctoral research into crime, justice systems and criminal behaviour.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-education",
+    "label": "PhD Education",
+    "description": "Original academic research into teaching, learning and education policy.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-english-literature",
+    "label": "PhD English Literature",
+    "description": "Original doctoral research into literary texts, periods or critical theory.",
+    "category": "PhD"
+  },
+  {
+    "id": "phd-history",
+    "label": "PhD History",
+    "description": "Original doctoral research into a historical period, region or theme, based on primary source research.",
+    "category": "PhD"
+  },
+  {
+    "id": "edd-education",
+    "label": "EdD (Doctor of Education)",
+    "description": "A practice-based doctorate for education professionals researching their own institution or practice.",
+    "category": "PhD"
+  },
+  {
+    "id": "engd-engineering",
+    "label": "EngD (Doctorate in Engineering)",
+    "description": "An industry-embedded doctorate combining applied engineering research with a sponsoring company.",
+    "category": "PhD"
+  },
+  {
+    "id": "dprof-professional-studies",
+    "label": "DProf (Doctor of Professional Studies)",
+    "description": "A practice-based doctorate allowing experienced professionals to research issues from their own field of work.",
+    "category": "PhD"
+  },
+  {
+    "id": "gdl-law-conversion",
+    "label": "GDL (Graduate Diploma in Law)",
+    "description": "Law conversion course covering the core legal subjects for non-law graduates moving into law.",
+    "category": "Professional"
+  },
+  {
+    "id": "pgdl-law-conversion",
+    "label": "PGDL (Postgraduate Diploma in Law)",
+    "description": "The updated equivalent of the GDL, converting a non-law degree into the academic stage of legal training.",
+    "category": "Professional"
+  },
+  {
+    "id": "ma-law-conversion",
+    "label": "MA Law (Conversion)",
+    "description": "A Master's-level law conversion route combining core legal subjects with postgraduate-level study.",
+    "category": "Professional"
+  },
+  {
+    "id": "sqe-preparation",
+    "label": "SQE Preparation Course",
+    "description": "Preparation for the Solicitors Qualifying Examination, the current route to qualifying as a solicitor in England & Wales.",
+    "category": "Professional"
+  },
+  {
+    "id": "bar-training-course",
+    "label": "Bar Training Course",
+    "description": "Vocational training for aspiring barristers, followed by pupillage at a barristers' chambers.",
+    "category": "Professional"
+  },
+  {
+    "id": "pgce-primary",
+    "label": "PGCE Primary",
+    "description": "Postgraduate teacher training qualifying graduates to teach in primary schools.",
+    "category": "Professional"
+  },
+  {
+    "id": "pgce-secondary",
+    "label": "PGCE Secondary",
+    "description": "Postgraduate teacher training qualifying graduates to teach a specialist subject in secondary schools.",
+    "category": "Professional"
+  },
+  {
+    "id": "pgce-further-education",
+    "label": "PGCE Further Education",
+    "description": "Teacher training for teaching post-16 learners in colleges and further education settings.",
+    "category": "Professional"
+  },
+  {
+    "id": "school-direct-teacher-training",
+    "label": "School Direct",
+    "description": "School-led teacher training with trainees based in a school from day one, leading to QTS (often with a PGCE).",
+    "category": "Professional"
+  },
+  {
+    "id": "scitt-teacher-training",
+    "label": "SCITT (School-Centred Initial Teacher Training)",
+    "description": "Teacher training delivered by a group of schools, combining classroom practice with structured training.",
+    "category": "Professional"
+  },
+  {
+    "id": "doctorate-counselling-psychology",
+    "label": "Doctorate in Counselling Psychology",
+    "description": "The professional doctorate required to practise as a Counselling Psychologist, combining therapy placements with research.",
+    "category": "Professional"
+  },
+  {
+    "id": "msc-computing-conversion",
+    "label": "MSc Computing (Conversion)",
+    "description": "A computing conversion Master's specifically designed for graduates with no prior programming background.",
+    "category": "Professional"
+  },
+  {
+    "id": "coding-bootcamp-software-development",
+    "label": "Software Development Bootcamp",
+    "description": "Intensive, project-based training in modern web/software development for a fast route into a junior developer role.",
+    "category": "Professional"
+  },
+  {
+    "id": "cyber-security-bootcamp",
+    "label": "Cyber Security Bootcamp",
+    "description": "Intensive, hands-on training in security fundamentals, ethical hacking and threat response.",
+    "category": "Professional"
+  },
+  {
+    "id": "acca-accounting",
+    "label": "ACCA (Chartered Certified Accountant)",
+    "description": "A globally recognised professional accounting qualification covering audit, tax and financial management.",
+    "category": "Professional"
+  },
+  {
+    "id": "cima-management-accounting",
+    "label": "CIMA (Chartered Institute of Management Accountants)",
+    "description": "A professional qualification focused on management accounting, strategy and business finance.",
+    "category": "Professional"
+  },
+  {
+    "id": "cfa-finance",
+    "label": "CFA (Chartered Financial Analyst)",
+    "description": "A globally recognised qualification in investment analysis and portfolio management.",
+    "category": "Professional"
+  },
+  {
+    "id": "aat-professional-qualification",
+    "label": "AAT Professional Qualification",
+    "description": "A professional-level accounting and bookkeeping qualification, often a stepping stone toward ACCA/CIMA/ACA.",
+    "category": "Professional"
+  },
+  {
+    "id": "icaew-aca",
+    "label": "ICAEW ACA (Chartered Accountant)",
+    "description": "The Chartered Accountant qualification from the ICAEW, combining exams with structured on-the-job training.",
+    "category": "Professional"
+  },
+  {
+    "id": "cim-marketing",
+    "label": "CIM Marketing Qualification",
+    "description": "Professional marketing certification from the Chartered Institute of Marketing, studied alongside work.",
+    "category": "Professional"
+  },
+  {
+    "id": "cipd-level-5-hr",
+    "label": "CIPD Level 5 (Associate Diploma)",
+    "description": "An intermediate professional HR/L&D qualification for those already working in a people-focused role.",
+    "category": "Professional"
+  },
+  {
+    "id": "cipd-level-7-hr",
+    "label": "CIPD Level 7 (Advanced Diploma)",
+    "description": "The Chartered-level HR qualification, equivalent to a Master's, for senior HR and people-strategy roles.",
+    "category": "Professional"
+  },
+  {
+    "id": "prince2-project-management",
+    "label": "PRINCE2 Practitioner",
+    "description": "A structured project management methodology certification widely used in UK business and government.",
+    "category": "Professional"
+  },
+  {
+    "id": "agile-pmp-project-management",
+    "label": "Agile / PMP Project Management",
+    "description": "Agile certifications (e.g. Scrum Master) and the PMP (Project Management Professional) for leading complex projects.",
+    "category": "Professional"
+  },
+  {
+    "id": "medicine-graduate-entry",
+    "label": "Medicine (Graduate Entry)",
+    "description": "An accelerated medical degree for graduates of another discipline moving into medicine.",
+    "category": "Professional"
+  },
+  {
+    "id": "nursing-conversion",
+    "label": "Nursing (Accelerated Graduate Entry)",
+    "description": "An accelerated nursing qualification for graduates changing career into adult, mental health, children's or learning disability nursing.",
+    "category": "Professional"
+  },
+  {
+    "id": "midwifery-graduate-entry",
+    "label": "Midwifery (Graduate Entry)",
+    "description": "An accelerated midwifery qualification for graduates, leading to registration with the NMC.",
+    "category": "Professional"
+  },
+  {
+    "id": "occupational-therapy-pre-registration",
+    "label": "MSc Occupational Therapy (Pre-registration)",
+    "description": "A pre-registration Master's for graduates converting into occupational therapy, leading to HCPC registration.",
+    "category": "Professional"
+  },
+  {
+    "id": "physiotherapy-pre-registration",
+    "label": "MSc Physiotherapy (Pre-registration)",
+    "description": "A pre-registration Master's for graduates converting into physiotherapy, leading to HCPC registration.",
+    "category": "Professional"
+  },
+  {
+    "id": "march-part-2",
+    "label": "MArch (Part 2 Architecture)",
+    "description": "The second stage of UK architectural education, required before qualifying as an architect.",
+    "category": "Professional"
+  },
+  {
+    "id": "march-part-3",
+    "label": "Part 3 (Professional Practice in Architecture)",
+    "description": "The final professional practice exam required to register as an architect with the ARB.",
+    "category": "Professional"
+  },
+  {
+    "id": "rics-chartered-surveyor",
+    "label": "RICS APC (Chartered Surveyor)",
+    "description": "The Assessment of Professional Competence leading to chartered status with the Royal Institution of Chartered Surveyors.",
+    "category": "Professional"
+  },
+  {
+    "id": "rtpi-town-planning",
+    "label": "RTPI Accredited Planning Qualification",
+    "description": "A Royal Town Planning Institute accredited qualification for chartered town planning status.",
+    "category": "Professional"
+  },
+  {
+    "id": "ceng-chartered-engineer",
+    "label": "CEng (Chartered Engineer)",
+    "description": "Chartered status awarded by an engineering institution, recognising senior professional competence.",
+    "category": "Professional"
+  },
+  {
+    "id": "cilex-legal-executive",
+    "label": "CILEx (Chartered Legal Executive)",
+    "description": "A work-based route to qualifying as a lawyer without a traditional law degree, via the Chartered Institute of Legal Executives.",
+    "category": "Professional"
+  },
+  {
+    "id": "actuarial-science-bsc",
+    "label": "Actuarial Science (BSc)",
+    "description": "Study risk, statistics and financial mathematics as the standard route into actuarial work.",
+    "category": "University"
+  },
+  {
+    "id": "ifoa-actuarial-exams",
+    "label": "IFoA Actuarial Exams",
+    "description": "The professional exams set by the Institute and Faculty of Actuaries, required to qualify as a Fellow.",
+    "category": "Professional"
+  },
+  {
+    "id": "atpl-pilot-training",
+    "label": "ATPL Pilot Training",
+    "description": "Integrated Airline Transport Pilot Licence training - the fastest route to becoming a commercial airline pilot.",
+    "category": "Professional"
+  },
+  {
+    "id": "nats-air-traffic-control",
+    "label": "NATS Air Traffic Control Training",
+    "description": "The NATS-run training programme for qualifying as an air traffic controller, no degree required.",
+    "category": "Professional"
+  },
+  {
+    "id": "msc-ai-machine-learning",
+    "label": "MSc AI / Machine Learning",
+    "description": "Postgraduate study in artificial intelligence and machine learning for graduates in computing, maths or a related field.",
+    "category": "Masters"
+  },
+  {
+    "id": "msc-finance-financial-engineering",
+    "label": "MSc Finance / Financial Engineering",
+    "description": "Postgraduate study in quantitative finance, financial modelling and investment analysis.",
+    "category": "Masters"
+  },
+  {
+    "id": "aws-solutions-architect",
+    "label": "AWS Solutions Architect Certification",
+    "description": "An Amazon Web Services certification demonstrating cloud architecture skills, widely recognised by employers.",
+    "category": "Professional"
+  },
+  {
+    "id": "azure-solutions-architect",
+    "label": "Azure Solutions Architect Certification",
+    "description": "A Microsoft Azure certification demonstrating cloud architecture skills, widely recognised by employers.",
+    "category": "Professional"
+  },
+  {
+    "id": "cissp-certification",
+    "label": "CISSP Certification",
+    "description": "A globally recognised information security certification, typically requiring several years of security experience.",
+    "category": "Professional"
+  },
+  {
+    "id": "cism-certification",
+    "label": "CISM Certification",
+    "description": "A certification in information security management, aimed at those moving into security leadership roles.",
+    "category": "Professional"
+  }
 ]

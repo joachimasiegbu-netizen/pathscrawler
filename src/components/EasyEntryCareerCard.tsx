@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import { Clock, GraduationCap, Route } from 'lucide-react'
+import { Clock, GraduationCap } from 'lucide-react'
 import type { EasyEntryCareer } from '../utils/easyEntryCareers'
+import SavePathwayButton from './SavePathwayButton'
+import ShowFullPathwayButton from './ShowFullPathwayButton'
 
 interface EasyEntryCareerCardProps {
   entry: EasyEntryCareer
@@ -57,17 +59,10 @@ export default function EasyEntryCareerCard({ entry }: EasyEntryCareerCardProps)
         {whyEasy}
       </p>
 
-      <button
-        type="button"
-        onClick={(event) => {
-          event.stopPropagation()
-          navigate(`/backtrack/pathway/${career.id}`)
-        }}
-        className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700 transition-colors duration-150 hover:bg-emerald-100 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-400 dark:hover:bg-emerald-900"
-      >
-        <Route className="h-3.5 w-3.5" />
-        See the pathway
-      </button>
+      <div className="mt-3 flex gap-2">
+        <ShowFullPathwayButton career={career} className="flex-1" />
+        <SavePathwayButton careerId={career.id} className="flex-1" />
+      </div>
     </div>
   )
 }

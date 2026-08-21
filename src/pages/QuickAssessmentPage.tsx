@@ -12,7 +12,28 @@ import { usePathStore } from '../store/usePathStore'
 // exclusive with every other option in that question (like a "None of the
 // above" checkbox), and it deliberately maps to no roles in scoringMap, so
 // picking it applies no preference filter at all.
-const questions = [
+//
+// Explicitly typed rather than left to inference: none of the 3 remaining
+// questions (after removing the old work-style/priority/barriers ones)
+// happens to use subtitle/optional/multiSelect/description/isSkip, so
+// TypeScript would otherwise narrow the inferred array type to exclude
+// those fields entirely - and the render code below still reads all of
+// them generically, for whichever question (now or later) does use them.
+interface AssessmentOption {
+  id: string
+  label: string
+  description?: string
+  isSkip?: boolean
+}
+interface AssessmentQuestion {
+  id: string
+  question: string
+  subtitle?: string
+  optional?: boolean
+  multiSelect?: boolean
+  options: AssessmentOption[]
+}
+const questions: AssessmentQuestion[] = [
   {
     id: 'situation',
     question: 'What best describes your current situation?',
@@ -35,29 +56,6 @@ const questions = [
     ],
   },
   {
-    id: 'work-style',
-    question: 'What do you enjoy working with?',
-    subtitle: "Select all that apply, or skip if you're not sure.",
-    multiSelect: true,
-    options: [
-      { id: 'people', label: 'People', description: 'Helping, teaching, caring for others' },
-      { id: 'data', label: 'Data', description: 'Numbers, analysis, problem-solving' },
-      { id: 'hands-on', label: 'Things', description: 'Building, creating, working with your hands' },
-      { id: 'ideas', label: 'Ideas', description: 'Designing, writing, inventing' },
-      { id: 'not-sure', label: "I'm not sure yet", description: 'Show me everything', isSkip: true },
-    ],
-  },
-  {
-    id: 'priority',
-    question: "What's your biggest priority right now?",
-    options: [
-      { id: 'earn-quickly', label: 'Earn money quickly' },
-      { id: 'long-term', label: 'Long-term career growth' },
-      { id: 'flexible-hours', label: 'Flexible hours' },
-      { id: 'help-others', label: 'Help others' },
-    ],
-  },
-  {
     id: 'learning-style',
     question: 'How do you prefer to learn?',
     options: [
@@ -65,21 +63,6 @@ const questions = [
       { id: 'on-job', label: 'On-the-job training' },
       { id: 'online', label: 'Online/self-paced' },
       { id: 'mixed', label: 'Mix of all' },
-    ],
-  },
-  {
-    id: 'barriers',
-    question: "Any barriers you're facing?",
-    subtitle: 'Select all that apply.',
-    optional: true,
-    multiSelect: true,
-    options: [
-      { id: 'none', label: 'None', isSkip: true },
-      { id: 'childcare', label: 'Childcare' },
-      { id: 'disability', label: 'Disability' },
-      { id: 'financial', label: 'Financial' },
-      { id: 'confidence', label: 'Confidence' },
-      { id: 'language', label: 'Language' },
     ],
   },
 ]
@@ -104,7 +87,7 @@ const roleProfiles: Record<RoleKey, { name: string; description: string }> = {
     description: 'Ideal for hands-on, work-based learning and fast-entry vocational training.',
   },
   graduate: {
-    name: 'Graduate',
+    name: 'Undergraduate',
     description: 'Good for university-level study and early career progression.',
   },
   'career-changer': {
@@ -143,31 +126,11 @@ const scoringMap: Record<string, Record<string, RoleKey[]>> = {
     '26-40': ['career-changer', 'mature-learner'],
     '40-plus': ['mature-learner', 'career-changer'],
   },
-  'work-style': {
-    people: [],
-    data: ['apprentice', 'graduate'],
-    'hands-on': ['apprentice', 'career-changer'],
-    ideas: ['career-changer'],
-    'not-sure': [],
-  },
-  priority: {
-    'earn-quickly': ['apprentice', 'career-changer'],
-    'long-term': ['graduate', 'mature-learner'],
-    'flexible-hours': ['career-changer'],
-    'help-others': [],
-  },
   'learning-style': {
     classroom: ['student', 'graduate'],
     'on-job': ['apprentice', 'career-changer'],
     online: ['mature-learner'],
     mixed: ['career-changer', 'apprentice'],
-  },
-  barriers: {
-    none: [],
-    disability: ['disabled-learner'],
-    financial: ['apprentice', 'career-changer'],
-    confidence: [],
-    language: ['refugee-asylum-seeker'],
   },
 }
 
@@ -206,10 +169,7 @@ export default function QuickAssessmentPage() {
   const [answers, setAnswers] = useState<Record<string, string[]>>({
     situation: [],
     age: [],
-    'work-style': [],
-    priority: [],
     'learning-style': [],
-    barriers: [],
   })
   const [questionIndex, setQuestionIndex] = useState(0)
   const [selectedRoleId, setSelectedRoleId] = useState<string | null>(null)

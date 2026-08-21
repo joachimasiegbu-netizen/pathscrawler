@@ -38,7 +38,10 @@ export function entryBarrierWeight(career: Career): number {
 // UK skills-shortage areas (healthcare, trades, engineering, tech, hospitality
 // turnover, chronically understaffed public services) vs. famously
 // oversubscribed fields (creative/media, sport) vs. everything else.
-const HIGH_DEMAND_CATEGORIES = new Set([
+// Exported so JobMarketUkStatsPage can surface real PathScrawler careers
+// under its "occupations in demand" stats, rather than re-guessing which
+// categories count as high-demand in a second place.
+export const HIGH_DEMAND_CATEGORIES = new Set([
   'Healthcare & Medicine',
   'Construction & Trades',
   'Engineering & Manufacturing',

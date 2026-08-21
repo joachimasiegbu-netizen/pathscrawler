@@ -4,15 +4,18 @@ import subjectsData from '../data/subjects.json'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import Card from '../components/Card'
+import CompareButton from '../components/CompareButton'
+import CompareFloatingButton from '../components/CompareFloatingButton'
 import PageHeader from '../components/PageHeader'
-import ResultsCompareBar from '../components/ResultsCompareBar'
 import RevealSection from '../components/RevealSection'
+import SavePathwayButton from '../components/SavePathwayButton'
+import SelectableCareerCard from '../components/SelectableCareerCard'
+import ShowFullPathwayButton from '../components/ShowFullPathwayButton'
 import StaggerGrid from '../components/StaggerGrid'
-import { ArrowRight, GitCompare, Star } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { Star } from 'lucide-react'
+import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
-import { useCompareStore, MAX_COMPARE_CAREERS } from '../store/useCompareStore'
 
 interface MatchedCareer extends Career {
   matchedSubjectIds: string[]
@@ -31,6 +34,17 @@ const supportNeedTagMap: Record<string, string[]> = {
   'Modified duties': ['Disability Confident employer'],
 }
 
+// Almost every career lists these three as a baseline requirement (you
+// need GCSE Maths/English/Science for nearly any job, CAD Technician
+// included) - they're prerequisites, not signals of fit. Before this,
+// selecting ONLY these was enough to "match" literally any career that
+// happened to list one of them, which is most of them. Now a career only
+// counts as matched if at least one SPECIFIC subject (a real elective,
+// vocational course, T-Level, degree, ...) overlaps too - these three
+// still count toward relevance for ranking once a career has qualified,
+// just not enough to qualify it on their own.
+const GENERIC_BASELINE_SUBJECT_IDS = new Set(['gcse-maths', 'gcse-english', 'gcse-science-combined'])
+
 const badgeLabelMap: Record<string, string> = {
   'Remote friendly': 'Remote friendly',
   'Flexible hours': 'Flexible hours',
@@ -47,9 +61,6 @@ export default function ResultPage() {
   const selectedRole = usePathStore((state) => state.selectedRole)
   const supportNeeds = usePathStore((state) => state.supportNeeds)
   const highlightedCareerId = usePathStore((state) => state.highlightedCareerId)
-  const compareIds = useCompareStore((state) => state.selectedCompareCards)
-  const toggleCompare = useCompareStore((state) => state.toggle)
-  const [visibleCount, setVisibleCount] = useState(8)
 
   const isDisabledLearner = selectedRole === 'disabled-learner'
 
@@ -88,7 +99,13 @@ export default function ResultPage() {
           relevance: matchedSubjectIds.length + matchedTagCount,
         }
       })
-      .filter((career) => career.relevance > 0)
+      .filter((career) => {
+        if (career.relevance === 0) return false
+        // A real support-need tag match is its own valid signal, independent
+        // of subjects - don't require a specific subject on top of it too.
+        if (career.supportMatchCount > 0) return true
+        return career.matchedSubjectIds.some((subjectId) => !GENERIC_BASELINE_SUBJECT_IDS.has(subjectId))
+      })
       .sort((a, b) => {
         if (highlightedCareerId != null) {
           if (a.id === highlightedCareerId) return -1
@@ -102,8 +119,6 @@ export default function ResultPage() {
   }, [selectedSubjects, isDisabledLearner, supportTags, highlightedCareerId])
 
   const finalCareers = matches
-  const visibleCareers = finalCareers.slice(0, visibleCount)
-  const canShowMore = finalCareers.length > visibleCount
 
   return (
     <div className="space-y-8 pt-12">
@@ -116,16 +131,23 @@ export default function ResultPage() {
           title="Careers and skills that fit your selections."
           subtitle="Explore matching career areas and take the next step with confidence."
         />
+        {finalCareers.length > 0 ? (
+          <div className="mt-4">
+            <CompareButton disabled={finalCareers.length < 2} />
+          </div>
+        ) : null}
       </RevealSection>
 
       <RevealSection className="bg-white px-8 py-8 rounded-3xl shadow-soft dark:bg-slate-800">
         <StaggerGrid className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {visibleCareers.map((career) => {
+          {finalCareers.map((career) => {
             const isHighlighted = career.id === highlightedCareerId
-            const isCompared = compareIds.includes(career.id)
-            const compareLimitReached = !isCompared && compareIds.length >= MAX_COMPARE_CAREERS
             return (
-              <div key={career.id} className={isHighlighted ? 'rounded-xl ring-2 ring-orange ring-offset-2' : ''}>
+              <SelectableCareerCard
+                key={career.id}
+                careerId={career.id}
+                className={isHighlighted ? 'rounded-xl ring-2 ring-orange ring-offset-2' : ''}
+              >
                 <Card
                   title={career.title}
                   description={career.description}
@@ -170,45 +192,19 @@ export default function ResultPage() {
                       </ul>
                     </div>
 
-                    {/* Card action row - Explore (primary) left, Add to
-                        compare (outline) right. Both stopPropagation since
-                        the Card itself is also a whole-card link
-                        (onClick={() => navigate(...)} above) - without it,
-                        tapping either button would fire that navigation too. */}
-                    <div className="!mt-4 flex items-center justify-between gap-3 border-t border-slate-100 pt-4 dark:border-slate-700">
-                      <button
-                        type="button"
-                        onClick={(event) => {
-                          event.stopPropagation()
-                          navigate(`/career/${career.id}`)
-                        }}
-                        className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark"
-                      >
-                        Explore career
-                        <ArrowRight className="h-4 w-4" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={(event) => {
-                          event.stopPropagation()
-                          toggleCompare(career.id)
-                        }}
-                        disabled={compareLimitReached}
-                        title={compareLimitReached ? `You can compare up to ${MAX_COMPARE_CAREERS} careers at once` : undefined}
-                        aria-pressed={isCompared}
-                        className={`inline-flex items-center gap-1.5 rounded-xl border px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${
-                          isCompared
-                            ? 'border-primary bg-primary-soft/70 text-primary-dark dark:border-primary/60 dark:bg-primary/15 dark:text-primary-light'
-                            : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
-                        }`}
-                      >
-                        <GitCompare className="h-4 w-4" />
-                        {isCompared ? 'Added' : 'Add to compare'}
-                      </button>
+                    {/* Card action row - Show full pathway + Save pathway.
+                        The card itself is already a whole-card link to
+                        /career/:id (Card's own onClick above), and Compare
+                        is now handled at the page level (header
+                        CompareButton -> selection circles via
+                        SelectableCareerCard) rather than a per-card toggle. */}
+                    <div className="!mt-4 flex gap-2 border-t border-slate-100 pt-4 dark:border-slate-700">
+                      <ShowFullPathwayButton career={career} className="flex-1" />
+                      <SavePathwayButton careerId={career.id} className="flex-1" />
                     </div>
                   </div>
                 </Card>
-              </div>
+              </SelectableCareerCard>
             )
           })}
         </StaggerGrid>
@@ -219,16 +215,11 @@ export default function ResultPage() {
             {isDisabledLearner ? (
               <p className="mt-2 text-sm">Try adjusting your support options so we can find the best matches for you.</p>
             ) : (
-              <p className="mt-2 text-sm">Try selecting more subjects to see more matches.</p>
+              <p className="mt-2 text-sm">
+                Maths, English and combined Science are a baseline for almost every career, so they're not enough
+                on their own - try adding a more specific subject to see matches.
+              </p>
             )}
-          </div>
-        ) : null}
-
-        {canShowMore ? (
-          <div className="mt-6 flex justify-center">
-            <Button onClick={() => setVisibleCount((count) => count + 8)} className="w-full max-w-[220px]">
-              Show more
-            </Button>
           </div>
         ) : null}
       </RevealSection>
@@ -258,7 +249,7 @@ export default function ResultPage() {
         Back to subject selection
       </Button>
 
-      <ResultsCompareBar />
+      <CompareFloatingButton />
     </div>
   )
 }

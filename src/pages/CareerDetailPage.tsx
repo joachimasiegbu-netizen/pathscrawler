@@ -12,7 +12,7 @@ import {
   type LucideIcon,
   TrendingUp,
 } from 'lucide-react'
-import BackButton from '../components/BackButton'
+import BackButton, { canGoBackInApp } from '../components/BackButton'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import RevealSection from '../components/RevealSection'
@@ -250,8 +250,16 @@ export default function CareerDetailPage() {
       </RevealSection>
 
       <div className="flex flex-col gap-3 border-t border-slate-200 pt-6 dark:border-slate-800 sm:flex-row">
-        <Button onClick={() => navigate('/results')} className="w-full sm:w-auto">
-          Back to results
+        {/* Same page-they-came-from logic as the BackButton up top (see its
+            comment) - this duplicates the action for anyone who's scrolled
+            all the way down, so it needs the same real-history-first
+            behavior rather than the "/results" it used to always go to,
+            back when this page only had one possible origin. */}
+        <Button
+          onClick={() => (canGoBackInApp() ? navigate(-1) : navigate('/results'))}
+          className="w-full sm:w-auto"
+        >
+          Back to {referrer === 'highest-paying' ? 'Highest Paying Jobs' : referrer === 'roll' ? 'Roll a Job' : 'results'}
         </Button>
         {isDisabledLearner ? (
           <a

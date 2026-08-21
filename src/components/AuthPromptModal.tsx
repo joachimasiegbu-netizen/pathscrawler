@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Lock, X } from 'lucide-react'
@@ -6,20 +7,36 @@ import { usePathStore } from '../store/usePathStore'
 
 interface AuthPromptModalProps {
   onClose: () => void
+  /** Defaults to the original Binder copy so every existing call site keeps
+   * rendering exactly as before without passing these. */
+  title?: string
+  description?: string
 }
 
-// Shown instead of actually saving whenever "Add to Binder" is clicked
-// while signed out - the roll itself still happened (the result card stays
-// on screen underneath), only the save is blocked. "Continue Without
-// Saving" just closes this and leaves the result card as it was; it does
-// NOT fall back to saving anonymously anywhere (localStorage or otherwise) -
-// see useBinderStore's 'unauthenticated' AddCardResult, which this modal is
-// the UI response to.
-export default function AuthPromptModal({ onClose }: AuthPromptModalProps) {
+// Shown instead of actually saving whenever "Add to Binder" (or "Save
+// pathway" - see SavePathwayButton) is clicked while signed out - whatever
+// triggered this still happened (the result card / job card stays on
+// screen underneath), only the save is blocked. "Continue Without Saving"
+// just closes this and leaves things as they were; it does NOT fall back
+// to saving anonymously anywhere (localStorage or otherwise) - see
+// useBinderStore's / useSavedPathwaysStore's 'unauthenticated' result,
+// which this modal is the UI response to either way.
+export default function AuthPromptModal({
+  onClose,
+  title = 'Sign in to save careers to your Binder',
+  description = 'Create a free account to keep every career you roll and build up your collection over time.',
+}: AuthPromptModalProps) {
   const navigate = useNavigate()
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
 
-  return (
+  // Portalled to document.body - this now opens from SavePathwayButton
+  // instances deep inside StaggerGrid/Card, whose reveal-animation
+  // ancestors apply a CSS transform (framer-motion's y/opacity animation),
+  // which creates a new containing block for any `position: fixed`
+  // descendant - "cover the whole viewport" would otherwise become "cover
+  // the whole animated card" instead. Same fix as the other fixed-overlay
+  // bug found earlier in this app.
+  return createPortal(
     <div
       className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/70 px-4 py-6"
       onClick={onClose}
@@ -44,10 +61,8 @@ export default function AuthPromptModal({ onClose }: AuthPromptModalProps) {
           <Lock className="h-5 w-5" aria-hidden="true" />
         </div>
 
-        <h2 className="mt-4 text-lg font-bold text-slate-950 dark:text-slate-50">Sign in to save careers to your Binder</h2>
-        <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-          Create a free account to keep every career you roll and build up your collection over time.
-        </p>
+        <h2 className="mt-4 text-lg font-bold text-slate-950 dark:text-slate-50">{title}</h2>
+        <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{description}</p>
 
         <div className="mt-5 flex flex-col gap-2.5">
           <Button onClick={() => navigate('/login')} className="justify-center">
@@ -58,6 +73,7 @@ export default function AuthPromptModal({ onClose }: AuthPromptModalProps) {
           </Button>
         </div>
       </motion.div>
-    </div>
+    </div>,
+    document.body,
   )
 }

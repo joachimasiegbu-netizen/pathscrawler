@@ -22,11 +22,12 @@ export type AddCardResult = 'added' | 'duplicate' | 'full' | 'unauthenticated'
 
 export type ToggleSelectionResult = 'selected' | 'deselected' | 'max-reached'
 
-// This is a DIFFERENT feature from useCareerBoardStore ("My saved careers" -
-// a plain bookmark list used on the Spotlight/Easiest Jobs/Highest Paying
-// cards, no duplicates, no history). This store is specifically the Roll a
-// Job trading-card collection: every copy of every roll you choose to keep
-// is its own entry, duplicates included, capped at MAX_BINDER_SIZE per user.
+// This is a DIFFERENT feature from useSavedPathwaysStore ("My saved
+// pathways" - a plain bookmark list used on Results/Search/Career Changer/
+// Easiest Jobs/Highest Paying Jobs cards, no duplicates, no history). This
+// store is specifically the Roll a Job trading-card collection: every copy
+// of every roll you choose to keep is its own entry, duplicates included,
+// capped at MAX_BINDER_SIZE per user.
 //
 // The Binder is account-gated (see BinderAuthWall / MyBinderPage), so its
 // data is scoped per signed-in user rather than one shared localStorage
@@ -130,7 +131,7 @@ export const useBinderStore = create<BinderState>()(
     }),
     {
       // "pathscrawler-*" to match every other store's naming in this app
-      // (useCareerBoardStore, useCompareStore, useRollStore, ...).
+      // (useSavedPathwaysStore, useCompareStore, useRollStore, ...).
       name: 'pathscrawler-binder',
       version: 2,
       // v1 stored one flat `cards` array shared by every visitor to this

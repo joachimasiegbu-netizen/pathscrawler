@@ -24,6 +24,15 @@ export interface Career {
    * Trades Worker") use an average across that SOC group instead - see the
    * inline comment on each entry in demoCareers.js for its source. */
   employmentPercentage: number
+  /** Human-readable rarity string (e.g. "1 in every 43,000 workers"),
+   * preferred over computing "1 in every N" from employmentPercentage when
+   * present. Used for the ultra-rare heritage-craft/specialist careers
+   * whose headline counts are deliberately rounded, clean figures quoted
+   * by the trade bodies themselves (Heritage Crafts etc.), rather than a
+   * raw division that would print an oddly-precise number. Optional -
+   * absent on the original 111 careers, which fall back to the computed
+   * version. */
+  rarityLabel?: string
   category: string
   title: string
   salary: string
