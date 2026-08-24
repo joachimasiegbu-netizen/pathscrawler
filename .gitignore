@@ -1,3 +1,11 @@
 node_modules/
 dist/
 .claude/settings.local.json
+
+# Supabase project credentials (see .env.example) - the anon key is safe to
+# ship in the built client bundle (that's how Supabase's client-side auth
+# model works, gated by RLS policies instead), but .env.local is still kept
+# out of git so nobody has to think about which env file is "the real one"
+# when setting up a fresh checkout.
+.env
+.env.local

@@ -28,7 +28,13 @@ export default function NotFoundPage() {
   const navigate = useNavigate()
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-[#0a0e2a] px-6 py-16 text-center">
+    // Full-bleed breakout (same trick as Roll a Job/Leaderboard/the Mythic
+    // preview - see JobMarketRollPage.tsx) - every route otherwise renders
+    // inside MobileContainer's centered `mx-auto max-w-5xl` column, which
+    // left this page's dark backdrop capped at 1024px wide with the site's
+    // own light background showing on either side at wider viewports
+    // instead of the blue reaching the true edges.
+    <div className="relative left-1/2 flex min-h-screen w-screen -translate-x-1/2 flex-col items-center justify-center gap-8 bg-[#0a0e2a] px-6 py-16 text-center">
       <div className="notfound-scene relative h-[420px] w-full max-w-4xl overflow-hidden sm:h-[500px]">
         <StarField className="box-of-star1" />
         <StarField className="box-of-star2" />

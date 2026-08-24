@@ -16,7 +16,8 @@ const DOT_COLOR: Record<TierKey, string> = {
   rare: 'bg-purple-500',
   epic: 'bg-amber-500',
   legendary: 'bg-accent',
-  mythic: 'bg-amber-300',
+  mythic: 'bg-red-500',
+  celestial: 'bg-gradient-to-r from-slate-200 to-amber-300',
 }
 
 export default function BinderStatsPanel({ grouped }: BinderStatsPanelProps) {

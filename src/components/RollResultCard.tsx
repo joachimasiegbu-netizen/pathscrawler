@@ -1,17 +1,19 @@
 import { useRef, useState, type CSSProperties, type MouseEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
-import { Bookmark, BookmarkCheck, Check, Dices, Share2, X } from 'lucide-react'
+import { Bookmark, BookmarkCheck, Check, Dices, Info, Share2, X } from 'lucide-react'
 import type { Career } from '../data/demoCareers'
 import type { TierKey } from '../utils/careerTiers'
 import { getDisplayRarityN, getTierConfig } from '../utils/careerTiers'
 import { getTierStyle } from '../utils/tierStyles'
+import { formatSalaryRange } from '../utils/formatSalary'
 import { useAuthStore } from '../store/useAuthStore'
 import { useBinderStore } from '../store/useBinderStore'
 import { useRollStore } from '../store/useRollStore'
 import { usePathStore } from '../store/usePathStore'
 import AuthPromptModal from './AuthPromptModal'
 import CardParticles from './CardParticles'
+import RarityInfoModal from './RarityInfoModal'
 import Toast from './Toast'
 
 interface RollResultCardProps {
@@ -42,6 +44,7 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
   const currentUser = useAuthStore((state) => state.currentUser)
   const addCard = useBinderStore((state) => state.addCard)
   const [toast, setToast] = useState<string | null>(null)
+  const [showRarityInfo, setShowRarityInfo] = useState(false)
   // Sticks at true for the rest of this card's lifetime (a fresh roll is a
   // fresh RollResultCard instance - see JobMarketRollPage.tsx's
   // AnimatePresence, result always passes through null/unmount between
@@ -162,16 +165,6 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
       <div className="relative w-full max-w-md" style={{ perspective: reduceMotion ? undefined : 1000 }}>
         {style.particles !== 'none' && !reduceMotion ? <CardParticles kind={style.particles} /> : null}
 
-        {/* Floating tier badge - lives outside the card's own overflow-hidden
-            (several tier effects clip to the card bounds for their sweep/ring),
-            so "overlapping the border" doesn't get clipped away. */}
-        <span
-          className={`absolute -right-2 -top-3 z-20 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide shadow-lg ${style.badgeBg} ${style.badgeText}`}
-          style={{ boxShadow: `0 4px 16px -2px rgba(${style.glowRgb}, 0.6)` }}
-        >
-          {config.emoji} {config.label}
-        </span>
-
         <motion.div
           ref={cardRef}
           onClick={() => navigate(`/career/${career.id}`, { state: { from: 'roll' } })}
@@ -222,37 +215,28 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
             <X className="h-4 w-4" />
           </button>
 
-          <span
-            className={`relative z-10 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${
-              isMythic ? 'bg-white/10 text-slate-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300'
-            }`}
-          >
-            {career.category}
-          </span>
-
           <h2
-            className={`relative z-10 mt-3 text-3xl font-bold leading-tight ${isMythic ? 'text-white' : 'text-slate-950 dark:text-slate-50'}`}
+            className={`relative z-10 text-3xl font-bold leading-tight ${isMythic ? 'text-white' : 'text-slate-950 dark:text-slate-50'}`}
             style={{ textShadow: `0 2px 16px rgba(${style.glowRgb}, 0.35)` }}
           >
             {career.title}
           </h2>
-          <p className={`relative z-10 mt-1 text-2xl font-extrabold ${style.salaryTextClass}`}>{career.salary}</p>
+          <p className={`relative z-10 mt-1 text-2xl font-extrabold ${style.salaryTextClass}`}>{formatSalaryRange(career.salary)}</p>
 
           <p className={`relative z-10 mt-3 line-clamp-2 text-sm leading-6 ${isMythic ? 'text-slate-300' : 'text-slate-600 dark:text-slate-300'}`}>
             {career.description}
           </p>
 
           {isHighTier ? (
-            // Epic/Legendary/Mythic (by pay - see careerTiers.ts's
-            // getCareerTier) gets a badge of its own rather than the plain
-            // italic line below - "Mythic • 1 in 300" is the whole point of
-            // rolling one of these, not a footnote. The figure is
-            // getDisplayRarityN's floored value for ordinary high earners
-            // (a high-paying job that's actually common in real life gets
-            // bumped up to at least 1 in 300 so "Mythic" still feels rare),
-            // or the exact hand-sourced rarityLabel for the handful of
-            // ultra-rare heritage-craft careers that happen to also clear
-            // the pay bar.
+            // Epic/Legendary/Mythic (by real UK workforce rarity - see
+            // careerTiers.ts's getCareerTier) gets a badge of its own rather
+            // than the plain italic line below - "Mythic • 1 in 500" is the
+            // whole point of rolling one of these, not a footnote. The
+            // figure is getDisplayRarityN's real, unmodified value (no
+            // floor - a career only reaches Epic+ by genuinely being that
+            // rare in the first place now), or the exact hand-sourced
+            // rarityLabel for the handful of heritage-craft careers with
+            // one.
             <p
               className="relative z-10 mt-3 inline-flex items-center gap-1.5 rounded-full bg-amber-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-300 ring-1 ring-amber-400/40"
               style={{ boxShadow: '0 2px 12px -2px rgba(251, 191, 36, 0.35)' }}
@@ -261,17 +245,37 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
               {career.rarityLabel
                 ? career.rarityLabel.replace('1 in every ', '1 in ').replace(' workers', '')
                 : `1 in ${getDisplayRarityN(career).toLocaleString('en-GB')}`}
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation()
+                  setShowRarityInfo(true)
+                }}
+                aria-label="How we calculate rarity"
+                className="rounded-full text-amber-300/70 transition hover:text-amber-200"
+              >
+                <Info className="h-3.5 w-3.5" />
+              </button>
             </p>
           ) : (
-            <p className={`relative z-10 mt-3 text-xs font-medium italic ${isMythic ? 'text-amber-400/90' : style.badgeText}`}>
+            <p className={`relative z-10 mt-3 inline-flex items-center gap-1 text-xs font-medium italic ${isMythic ? 'text-red-500/90' : style.badgeText}`}>
               {/* A REAL fact, not the game's roll odds relabeled - actual UK
                   employment share (career.employmentPercentage, see
                   demoCareers.d.ts/demoCareers.js for the ONS SOC 2020 / DfE
                   Occupations in Demand 2024 source, one entry per career),
-                  converted to "1 in every N workers" - real figure here,
-                  no scarcity floor, since that only applies to the Epic+
-                  badge above. */}
+                  converted to "1 in every N workers". */}
               {career.rarityLabel ? `${career.rarityLabel}.` : `1 in every ${getDisplayRarityN(career).toLocaleString('en-GB')} workers.`}
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation()
+                  setShowRarityInfo(true)
+                }}
+                aria-label="How we calculate rarity"
+                className="not-italic opacity-70 transition hover:opacity-100"
+              >
+                <Info className="h-3.5 w-3.5" />
+              </button>
             </p>
           )}
 
@@ -314,6 +318,7 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
       </div>
       {toast ? <Toast message={toast} type="success" /> : null}
       {showAuthPrompt ? <AuthPromptModal onClose={() => setShowAuthPrompt(false)} /> : null}
+      {showRarityInfo ? <RarityInfoModal onClose={() => setShowRarityInfo(false)} /> : null}
     </>
   )
 }

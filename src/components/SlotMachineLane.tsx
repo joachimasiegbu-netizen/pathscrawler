@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { animate, motion, useMotionValue } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, type LucideIcon } from 'lucide-react'
 import demoCareers from '../data/demoCareers'
+import { getCareerIcon } from '../utils/careerIcons'
 import { getCareerTier, type TierKey } from '../utils/careerTiers'
 import { usePathStore } from '../store/usePathStore'
 
@@ -9,11 +10,16 @@ interface ReelItem {
   id: string
   title: string
   tier: TierKey
+  /** Computed once at build time (getCareerIcon needs title+category, and
+   * a ReelItem doesn't otherwise carry category) - shown INSTEAD of the
+   * title for sealed (Mythic/Celestial) cards, see ReelCard below. */
+  icon: LucideIcon
 }
 
 export interface SlotMachineTarget {
   title: string
   tier: TierKey
+  category: string
 }
 
 interface SlotMachineLaneProps {
@@ -81,17 +87,23 @@ const REEL_CARD_STYLE: Record<TierKey, { bg: string; text: string }> = {
   rare: { bg: 'bg-purple-500', text: 'text-white' },
   epic: { bg: 'bg-amber-400', text: 'text-slate-900' },
   legendary: { bg: 'bg-cyan-300', text: 'text-slate-900' },
-  mythic: { bg: 'bg-black', text: 'text-amber-400' },
+  mythic: { bg: 'bg-black', text: 'text-red-500' },
+  celestial: { bg: 'bg-white', text: 'text-slate-900' },
 }
 
 function randomReelItem(index: number): ReelItem {
   const career = demoCareers[Math.floor(Math.random() * demoCareers.length)]
-  return { id: `filler-${index}-${career.id}-${Math.random().toString(36).slice(2, 6)}`, title: career.title, tier: getCareerTier(career) }
+  return {
+    id: `filler-${index}-${career.id}-${Math.random().toString(36).slice(2, 6)}`,
+    title: career.title,
+    tier: getCareerTier(career),
+    icon: getCareerIcon(career),
+  }
 }
 
 function randomTarget(): SlotMachineTarget {
   const career = demoCareers[Math.floor(Math.random() * demoCareers.length)]
-  return { title: career.title, tier: getCareerTier(career) }
+  return { title: career.title, tier: getCareerTier(career), category: career.category }
 }
 
 // The winner (or, in idle mode, a random decorative placeholder) is always
@@ -102,14 +114,39 @@ function randomTarget(): SlotMachineTarget {
 // actually won. No per-roll "which angle do I need to land on" math, unlike
 // a reel where the winner could be at any position.
 function buildCylinderReel(target: SlotMachineTarget): ReelItem[] {
-  const winner: ReelItem = { id: `slot-0-${target.title}`, title: target.title, tier: target.tier }
+  const winner: ReelItem = { id: `slot-0-${target.title}`, title: target.title, tier: target.tier, icon: getCareerIcon(target) }
   const fillers = Array.from({ length: QUANTITY - 1 }, (_, index) => randomReelItem(index))
   return [winner, ...fillers]
+}
+
+// Mythic/Celestial stay sealed on the wheel itself - MythicRevealCard/
+// CelestialRevealCard's whole "floats, click to reveal" mechanic only
+// works as a surprise if the name was never readable a moment earlier
+// while it was still spinning past (true for a filler card glimpsed in
+// passing, and doubly true for the actual winner, which sits front-and-
+// center, fully readable, for the last second or so as the wheel
+// decelerates onto it). The tier's own card color still shows (that's not
+// "written" information, and losing it would make every sealed card look
+// identical mid-spin) - the title text is swapped for the career's own
+// icon (careerIcons.ts) instead, a visual hint without giving the actual
+// name away.
+const SEALED_TIERS = new Set<TierKey>(['mythic', 'celestial'])
+
+// Icon color for sealed cards specifically - NOT just style.text reused,
+// which would render Celestial's icon in text-slate-900 (near-black,
+// meant for regular title text on its white card) rather than the gold
+// this tier is meant to read as everywhere else in the app. Mythic's own
+// style.text (text-amber-400) already happens to be gold, so only
+// Celestial actually needs a different value here.
+const SEALED_ICON_COLOR: Partial<Record<TierKey, string>> = {
+  celestial: 'text-amber-500',
 }
 
 function ReelCard({ item, index }: { item: ReelItem; index: number }) {
   const style = REEL_CARD_STYLE[item.tier]
   const angle = ANGLE_STEP * index
+  const isSealed = SEALED_TIERS.has(item.tier)
+  const Icon = item.icon
   return (
     // backface-visibility hidden: without it, cards on the far side of the
     // cylinder (rotated past 90deg from the viewer) would render as
@@ -120,7 +157,11 @@ function ReelCard({ item, index }: { item: ReelItem; index: number }) {
       className={`absolute inset-0 flex items-center justify-center rounded-xl border-2 border-white/15 px-3 text-center shadow-lg [backface-visibility:hidden] ${style.bg}`}
       style={{ transform: `rotateY(${angle}deg) translateZ(${RADIUS}px)` }}
     >
-      <span className={`line-clamp-3 text-sm font-extrabold leading-tight sm:text-base ${style.text}`}>{item.title}</span>
+      {isSealed ? (
+        <Icon className={`h-10 w-10 ${SEALED_ICON_COLOR[item.tier] ?? style.text}`} aria-hidden="true" />
+      ) : (
+        <span className={`line-clamp-3 text-sm font-extrabold leading-tight sm:text-base ${style.text}`}>{item.title}</span>
+      )}
     </div>
   )
 }
@@ -170,18 +211,40 @@ export default function SlotMachineLane({ target, spinToken, onSpinComplete }: S
     // No target => idle decorative display, not an active roll - stay put.
     if (!target) return
 
+    // Target is RELATIVE to wherever rotateY currently sits, not a fixed
+    // absolute angle - "when i click before a transition or animation is
+    // done the next roll goes straight to the card reveal... rather than
+    // showing the rolling animation": this component is DESIGNED to stay
+    // mounted across rolls rather than always remounting fresh (see
+    // spinToken's own doc comment) - normally the cylinder's exit-fade
+    // (350ms, in JobMarketRollPage.tsx) finishes and removes it from the
+    // DOM before Roll Again is clicked again, so the NEXT roll does get a
+    // genuinely fresh instance (rotateY back at its initial 0) either way
+    // - but clicking fast enough to land inside that 350ms window means
+    // the SAME instance (same AnimatePresence key, still mid-exit) gets
+    // reused instead, rotateY and all. A fixed absolute target
+    // (-360*SPIN_ROTATIONS) is a no-op the second time round in that
+    // case - rotateY is ALREADY sitting there from the previous spin, so
+    // there's zero angular distance left to animate through, and the
+    // "spin" resolves with no visible motion at all. Computing the
+    // target off rotateY.get() at the moment each spin actually starts
+    // guarantees a full SPIN_ROTATIONS of real travel every time,
+    // reused instance or not - and since any past target was always a
+    // multiple of 360 itself, subtracting another full 360*N from it
+    // keeps landing on one too, so "index 0 faces the viewer at rest"
+    // still holds regardless of how much total rotation has piled up.
     if (reduceMotion) {
       // "Skip the spin, show the winner instantly" - jump straight there,
       // no multi-second rotation (the actual motion this setting cares
       // about).
-      rotateY.set(-360 * SPIN_ROTATIONS)
+      rotateY.set(rotateY.get() - 360 * SPIN_ROTATIONS)
       onSpinComplete()
       return
     }
 
     let cancelled = false
     setIsSpinning(true)
-    const controls = animate(rotateY, -360 * SPIN_ROTATIONS, { duration: SPIN_DURATION_S, ease: SPIN_EASE })
+    const controls = animate(rotateY, rotateY.get() - 360 * SPIN_ROTATIONS, { duration: SPIN_DURATION_S, ease: SPIN_EASE })
     controls.then(() => {
       if (cancelled) return
       setIsSpinning(false)

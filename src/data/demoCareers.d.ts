@@ -33,6 +33,16 @@ export interface Career {
    * absent on the original 111 careers, which fall back to the computed
    * version. */
   rarityLabel?: string
+  /** Hard-overrides careerTiers.ts's usual employmentPercentage-based tier
+   * math - used ONLY for the 4 Celestial careers (Prime Minister,
+   * President, Vice President, Royal Butler), whose real employment share
+   * is technically far rarer than even the Mythic cutoff, but which are
+   * deliberately kept OUT of the normal weighted roll pool entirely
+   * (see rollEngine.ts) rather than folded into it - Celestial is reserved
+   * for exactly these 4 named entries, never derived from data. Plain
+   * string literal (not TierKey) to avoid this file importing from
+   * careerTiers.ts, which itself imports Career from here. */
+  forcedTier?: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary' | 'mythic' | 'celestial'
   category: string
   title: string
   salary: string

@@ -46,6 +46,7 @@ function tierRank(tier: TierKey): number {
 export default function MyBinderPage() {
   const navigate = useNavigate()
   const currentUser = useAuthStore((state) => state.currentUser)
+  const isAuthLoading = useAuthStore((state) => state.isLoading)
   const cards = useMyBinderCards()
   const binderSelectionMode = useBinderStore((state) => state.binderSelectionMode)
   const selectedBinderCards = useBinderStore((state) => state.selectedBinderCards)
@@ -124,6 +125,15 @@ export default function MyBinderPage() {
   // signed out via useMyBinderCards), so this branch is safe to put after
   // them without breaking the rules of hooks. Signed-out visitors never see
   // the empty-binder state, the grid, or any binder chrome - just the wall.
+  //
+  // isAuthLoading guards the brief window while useAuthStore is still
+  // restoring a real Supabase session from storage on first load -
+  // currentUser reads null during that window too, so without this a
+  // signed-in visitor would see BinderAuthWall flash before their actual
+  // Binder appears a moment later.
+  if (isAuthLoading) {
+    return null
+  }
   if (!currentUser) {
     return <BinderAuthWall />
   }

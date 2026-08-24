@@ -12,19 +12,54 @@ export default function SignupPage() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  // Distinct from `error` - a real success outcome (the account was
+  // created), just one that isn't "you're signed in now" - shown instead
+  // of the form when the Supabase project has email confirmation turned on.
+  const [needsConfirmation, setNeedsConfirmation] = useState(false)
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
+    if (isSubmitting) return
     if (password !== confirmPassword) {
       setError('Passwords do not match.')
       return
     }
-    const result = signUp(email, password)
+    setIsSubmitting(true)
+    setError(null)
+    const result = await signUp(email, password)
+    setIsSubmitting(false)
     if (!result.success) {
       setError(result.error ?? 'Something went wrong.')
       return
     }
+    if (result.needsEmailConfirmation) {
+      setNeedsConfirmation(true)
+      return
+    }
     navigate('/')
+  }
+
+  if (needsConfirmation) {
+    return (
+      <div className="mx-auto w-full max-w-[430px] px-4 py-6 sm:px-0">
+        <div className="space-y-5 rounded-xl bg-white p-6 pt-12 text-center shadow-soft dark:bg-slate-800">
+          <div className="flex justify-center">
+            <Logo size="sm" />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold text-slate-950 dark:text-slate-50">Check your email</h1>
+            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+              We've sent a confirmation link to <span className="font-semibold">{email}</span>. Click it, then come
+              back and sign in.
+            </p>
+          </div>
+          <Button onClick={() => navigate('/login')} className="w-full justify-center">
+            Go to sign in
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -39,7 +74,7 @@ export default function SignupPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary-dark dark:text-primary-light">Get started</p>
           <h1 className="mt-3 text-2xl font-bold text-slate-950 dark:text-slate-50">Create an account</h1>
           <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-            This is a demo sign-up stored only in this browser - not a real account system yet.
+            Create your PathScrawler account.
           </p>
         </div>
 
@@ -47,10 +82,8 @@ export default function SignupPage() {
           <label className="block">
             <span className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">Email</span>
             <input
-              // text, not "email" - same reasoning as LoginPage.tsx: the mock
-              // backend accepts any non-empty string as an identifier, so the
-              // form shouldn't reject valid ones (e.g. plain usernames) that
-              // just aren't email-shaped.
+              // text, not "email" - same reasoning as LoginPage.tsx: Supabase
+              // Auth validates the address itself and returns a clear error.
               type="text"
               inputMode="email"
               required
@@ -85,8 +118,8 @@ export default function SignupPage() {
 
           {error ? <p className="text-sm font-medium text-red-600 dark:text-red-400">{error}</p> : null}
 
-          <Button type="submit" className="w-full justify-center">
-            Create account
+          <Button type="submit" disabled={isSubmitting} className="w-full justify-center">
+            {isSubmitting ? 'Creating account…' : 'Create account'}
           </Button>
         </form>
 

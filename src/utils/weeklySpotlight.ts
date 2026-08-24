@@ -1,20 +1,21 @@
 import demoCareers from '../data/demoCareers'
 import type { Career } from '../data/demoCareers'
-import { getRealRarityTier } from './careerTiers'
+import { getCareerTier } from './careerTiers'
 
 // No backend, so "weekly" is derived deterministically from the ISO week
 // number of the current date rather than fetched - it rotates once a week
 // on its own, with no stale-data risk and nothing to keep in sync.
 
 // Weekly Spotlight is restricted to Mythic-tier careers only - the rarest
-// jobs in the whole list by real UK employment share (getRealRarityTier,
-// under 0.06% - see careerTiers.ts), deliberately NOT the same tier Roll a
-// Job now grades by (getCareerTier, pay-based) - this stays about genuine
-// workforce scarcity so it keeps surfacing endangered crafts like Master
-// Thatcher regardless of what they pay. Filtered once at module load, not
-// per-call, since demoCareers is static - every getWeeklySpotlight() call
-// indexes into this same small pool instead of the full 118-career list.
-const mythicCareers = demoCareers.filter((career) => getRealRarityTier(career) === 'mythic')
+// jobs in the whole list by real UK employment share (getCareerTier, under
+// 0.06% - see careerTiers.ts). Roll a Job's own card color/pool uses this
+// exact same tier check now (pay no longer factors into tier at all), so
+// this keeps surfacing endangered crafts like Master Thatcher for the same
+// reason they're Mythic on a roll - genuine workforce scarcity, not a
+// separate rule. Filtered once at module load, not per-call, since
+// demoCareers is static - every getWeeklySpotlight() call indexes into
+// this same small pool instead of the full career list.
+const mythicCareers = demoCareers.filter((career) => getCareerTier(career) === 'mythic')
 
 function getIsoWeekNumber(date: Date): number {
   const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))

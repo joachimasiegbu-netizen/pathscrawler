@@ -67,7 +67,7 @@ export default function BinderCardTile({ entry, onClick, selectionMode = false, 
         {latest.title}
       </p>
 
-      <p className={`mt-1 text-[11px] font-semibold ${isMythic ? 'text-amber-400' : 'text-slate-500 dark:text-slate-400'}`}>{latest.salary}</p>
+      <p className={`mt-1 text-[11px] font-semibold ${isMythic ? 'text-red-500' : 'text-slate-500 dark:text-slate-400'}`}>{latest.salary}</p>
     </>
   )
 

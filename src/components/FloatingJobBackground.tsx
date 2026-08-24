@@ -1,5 +1,6 @@
 import { useMemo, type CSSProperties } from 'react'
 import demoCareers from '../data/demoCareers'
+import { getCareerTier } from '../utils/careerTiers'
 
 // Muted left-border accents cycling across the app's own brand/status
 // tokens - kept as plain color classes (no dark: variants) because the
@@ -40,11 +41,20 @@ function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
+// This background sits behind the whole Roll a Job page, including while
+// the slot lane is actively spinning - same "sealed until you actually get
+// it" reasoning as SlotMachineLane.tsx's own reel cards applies here too,
+// so Mythic/Celestial careers are excluded from the pool entirely rather
+// than shown-then-blanked (there's no per-card reveal moment to gate here,
+// so simplest correct fix is to just never draw one).
+const REVEAL_GATED_TIERS = new Set(['mythic', 'celestial'])
+
 function buildFloatingCards(): FloatingCard[] {
+  const eligibleCareers = demoCareers.filter((career) => !REVEAL_GATED_TIERS.has(getCareerTier(career)))
   const pool: typeof demoCareers = []
-  // Cycle through all careers, reshuffling as needed to fill TOTAL.
+  // Cycle through all eligible careers, reshuffling as needed to fill TOTAL.
   while (pool.length < TOTAL) {
-    const shuffled = [...demoCareers].sort(() => Math.random() - 0.5)
+    const shuffled = [...eligibleCareers].sort(() => Math.random() - 0.5)
     pool.push(...shuffled)
   }
 

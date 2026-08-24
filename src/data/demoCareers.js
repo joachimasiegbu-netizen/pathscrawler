@@ -10936,6 +10936,533 @@ const rawDemoCareers = [
       },
     ],
   },
+  // --- Celestial tier (ids 186-189) ---------------------------------------
+  // Exactly 4 careers, reserved for the tier above Mythic (see
+  // careerTiers.ts's forcedTier/getCareerTier) - never reachable through
+  // the normal weighted roll pool, only through Celestial's own dedicated
+  // roll chance. employmentPercentage is still filled in for schema
+  // consistency (100 * peopleInRole / 31,412,315, the same UK-workforce
+  // denominator every other career uses) but isn't what actually gets
+  // shown - rarityLabel below always wins for these 4, using each
+  // career's own headline figure as given (President/VP's is a
+  // global/US-population comparison, not the UK-workforce one the formula
+  // above would produce).
+  {
+    id: 186,
+    employmentPercentage: 0.0000031835, // 1 person nationally - see comment above
+    rarityLabel: '1 in every 31,412,315 workers',
+    forcedTier: 'celestial',
+    category: 'Public Services',
+    title: 'Prime Minister',
+    salary: '£174,039',
+    description:
+      "Head of government for the United Kingdom. Only one person holds this role at any time. Statutory entitlement is £174,711, but recent PMs have claimed the lower frozen amount - made up of the MP salary (£98,599) plus a PM ministerial salary (£75,440).",
+    requirements: [
+      'Elected as a Member of Parliament (MP)',
+      'Rise through Cabinet positions',
+      'Become leader of a major political party',
+      'Win a General Election',
+      'Realistically 15-30 years building a political career',
+    ],
+    dayToDay: [
+      'Chair Cabinet meetings and set government policy',
+      'Represent the UK at international summits',
+      "Answer to Parliament at Prime Minister's Questions",
+      'Make final decisions on national emergencies',
+    ],
+    whereToStudy: [
+      { name: 'UK Parliament', url: 'https://www.parliament.uk/get-involved/', description: 'How Parliament and government work' },
+    ],
+    progression: [
+      'Local council / party activism',
+      'Member of Parliament',
+      'Government minister / Cabinet',
+      'Party leader',
+      'Prime Minister',
+    ],
+    similarCareers: [187, 188],
+    matchedSubjects: [],
+    backtrackPathways: [],
+  },
+  {
+    id: 187,
+    employmentPercentage: 0.0000031835, // 1 person - see comment above (this career's own rarityLabel uses a different, global comparison)
+    rarityLabel: '1 in every 160,000,000 people',
+    forcedTier: 'celestial',
+    category: 'Public Services',
+    title: 'President',
+    // Plain "£Xk" like every other career's salary field, not the dual-
+    // currency string this used to hold - that made this the only salary
+    // badge in the whole app long enough to squeeze CareerDetailPage's
+    // "Similar careers" card layout down to a single-word-per-line column
+    // (confirmed via real rendered DOM measurements: a 145px-wide badge
+    // left only 73px for the title+description column). The USD figure
+    // moved into the description below instead, which has room to wrap.
+    salary: '£310k',
+    description:
+      'Head of state and government, paid $400,000 USD (~£310k) - the most powerful and rarest job on Earth. A US role, shown here as a global ultra-rare comparison rather than a UK pathway. Pay is topped up with a $50,000 expense account, $100,000 travel allowance and $19,000 entertainment budget.',
+    requirements: [
+      'Build a career as a Governor or Senator',
+      'Run a national presidential campaign',
+      'Win a national election',
+      'Realistically 20-40 years building a political career',
+    ],
+    dayToDay: [
+      'Set national policy and sign or veto legislation',
+      'Command the armed forces',
+      'Represent the country in international diplomacy',
+      'Respond to national emergencies',
+    ],
+    whereToStudy: [
+      { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
+    ],
+    progression: ['Local or state political office', 'Governor / Senator', 'National campaign', 'President'],
+    similarCareers: [186, 188],
+    matchedSubjects: [],
+    backtrackPathways: [],
+  },
+  {
+    id: 188,
+    employmentPercentage: 0.0000031835, // 1 person - see comment above (this career's own rarityLabel uses a different, global comparison)
+    rarityLabel: '1 in every 160,000,000 people',
+    forcedTier: 'celestial',
+    category: 'Public Services',
+    title: 'Vice President',
+    // Same fix as President above - plain "£Xk", USD figure moved into
+    // the description instead of living in the tight badge slot.
+    salary: '£182k',
+    description:
+      'One heartbeat away from the presidency, paid $235,100 USD (~£182k). Only one person holds this role at any time. A US role, shown here as a global ultra-rare comparison. Pay has been frozen since 2019 - the official rate is $253,100, but only $235,100 is currently payable.',
+    requirements: [
+      'Build a career in politics',
+      'Get selected as a running mate',
+      'Win a national election alongside the President',
+      'Realistically 15-30 years building a political career',
+    ],
+    dayToDay: [
+      'Deputise for the President when needed',
+      'Cast the deciding vote in a tied Senate',
+      'Represent the country at official events',
+      'Advise on policy and national security',
+    ],
+    whereToStudy: [
+      { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
+    ],
+    progression: ['Local or state political office', 'Governor / Senator', 'Selected as running mate', 'Vice President'],
+    similarCareers: [186, 187],
+    matchedSubjects: [],
+    backtrackPathways: [],
+  },
+  {
+    id: 189,
+    employmentPercentage: 0.0000159214, // ~5 people nationally - see comment above
+    rarityLabel: '1 in every 6,282,463 workers',
+    forcedTier: 'celestial',
+    category: 'Service & Hospitality',
+    title: 'Royal Butler',
+    salary: '£75,000 - £120,000+',
+    description:
+      'Serves the British monarch directly - fewer than 5 people in the entire country hold this role. Pay includes accommodation, meals and a pension; senior royal butlers with years of service sit at the top of the range, and those who move into private households after royal service can earn £100,000+.',
+    requirements: [
+      'Build a background in hospitality',
+      'Gain experience in private household service',
+      'Be appointed to the Royal Household',
+      'Realistically 10-20 years of hospitality experience',
+    ],
+    dayToDay: [
+      'Manage the household staff and daily schedule',
+      'Oversee formal dining and state occasions',
+      'Handle logistics for royal travel and events',
+      'Maintain absolute discretion',
+    ],
+    whereToStudy: [
+      { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
+    ],
+    progression: ['Hospitality / hotel service', 'Private household staff', 'Under-butler', 'Royal Butler'],
+    similarCareers: [164],
+    matchedSubjects: [],
+    backtrackPathways: [],
+  },
+
+  // 9 careers originally added to populate the Legendary tier, which came
+  // up completely EMPTY (0 real careers) under an EARLIER careerTiers.ts
+  // boundary table (Legendary = 1 in 50,001 - 100,000). That table has
+  // since been replaced with a wider one (Legendary = 1 in 80,001 -
+  // 500,000, see careerTiers.ts's own comment) - under the CURRENT
+  // boundaries, only 3 of these 9 still classify as Legendary (Stunt
+  // Performer, Coroner, Taxidermist - all ~1 in 89,749, comfortably
+  // inside the new band); the other 6 (Member of Parliament, Circuit
+  // Judge, Professional Jockey, Bomb Disposal Expert, Professional
+  // Boxer, Silversmith) now classify as Epic instead, since their real
+  // rarity (roughly 1 in 48,000-70,000) falls short of the new, much
+  // rarer Legendary floor. Their data wasn't changed for this - the
+  // employmentPercentage values below are unchanged, they just land
+  // differently against the new cutoff, same as any other career here.
+  // employmentPercentage below is each career's real UK headcount
+  // (peopleInRole) divided by the same ~31.4M UK workforce total the
+  // rest of this file (bar the heritage-craft block above, which uses a
+  // different ~34.5M denominator) is expressed against - not the DfE
+  // "Occupations in Demand" dataset, since roles this specific (650 MPs,
+  // 600 circuit judges, etc.) were never going to get their own
+  // SOC-coded row there either. rarityLabel carries the supplied "1 in
+  // N" figures verbatim (same reasoning as the heritage-craft block's
+  // own rarityLabel comment - a clean, quoted headline number, not
+  // always a razor-precise division of employmentPercentage).
+  {
+    id: 190,
+    employmentPercentage: 0.0020701, // 650 MPs of ~31.4M workforce - was nudged rarer to land in Legendary under an earlier boundary table; reverted to the true figure now that it lands Epic either way under the current one (see block comment above)
+    rarityLabel: '1 in every 48,327 workers',
+    category: 'Public Services',
+    title: 'Member of Parliament',
+    salary: '£91,346 - £120,000+ (with ministerial roles)',
+    description: 'Represents a constituency in the House of Commons, debates and votes on legislation, holds the government to account, and serves on committees. One of only 650 people in the entire country.',
+    requirements: [
+      'Selection as a parliamentary candidate by a political party',
+      'Run and win a constituency election campaign',
+      'Win a general election (or by-election) seat',
+      'Realistically 10-20 years building a political career',
+    ],
+    supportTags: [],
+    dayToDay: [
+      "Represent constituents' interests in the House of Commons",
+      'Debate and vote on proposed legislation',
+      'Sit on select committees scrutinising government departments',
+      'Hold constituency surgeries and casework for local residents',
+    ],
+    whereToStudy: [
+      { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
+    ],
+    progression: ['Backbench MP', 'Select Committee Chair', 'Junior Minister', 'Cabinet Minister', 'Prime Minister'],
+    similarCareers: [110, 106, 191],
+    matchedSubjects: ['gcse-english', 'alevel-politics', 'politics-ba', 'law-llb'],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Party & Campaign Route',
+        duration: '10-20 years',
+        cost: 'No formal course - built through party activism, council seats and campaign experience',
+        entryRequirements: 'Party membership and local activism, then selection as a candidate',
+        subjects: ['politics-ba', 'law-llb'],
+        description: 'Almost all MPs build a political career through party activism, local council seats or campaign work rather than a dedicated qualification - a degree in politics, law or PPE is common but not required.',
+      },
+    ],
+  },
+  {
+    id: 191,
+    employmentPercentage: 0.0019108, // 600 UK circuit judges of ~31.4M workforce
+    rarityLabel: '1 in every 52,354 workers',
+    category: 'Public Services',
+    title: 'Circuit Judge',
+    salary: '£150,000 - £180,000',
+    description: 'Sits in Crown and County Courts, presiding over serious criminal trials, complex civil cases, and appeals. Appointed by the Judicial Appointments Commission. One of roughly 600 in the UK.',
+    requirements: [
+      'Qualify as a solicitor or barrister',
+      '7+ years of post-qualification legal experience',
+      'Apply for judicial appointment through the Judicial Appointments Commission (JAC)',
+      'Realistically 15-25 years of legal practice before appointment',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Preside over Crown and County Court trials and appeals',
+      'Direct juries and rule on points of law',
+      'Sentence defendants in criminal cases',
+      'Manage complex civil case lists and hearings',
+    ],
+    whereToStudy: [
+      { name: 'Judicial Appointments Commission', url: 'https://www.judicialappointments.gov.uk', description: 'Official route and eligibility for judicial roles' },
+      { name: 'Law Society', url: 'https://www.lawsociety.org.uk', description: 'Qualifying as a solicitor in England and Wales' },
+    ],
+    progression: ['Solicitor / Barrister', 'Recorder', 'Circuit Judge', 'High Court Judge', 'Court of Appeal Judge'],
+    similarCareers: [110, 196, 190],
+    matchedSubjects: ['law-llb', 'gdl-law-conversion', 'sqe-preparation', 'alevel-law'],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'Legal Qualification Route',
+        duration: '15-25 years total (including PQE)',
+        cost: 'Law degree/GDL + SQE/Bar training, then years of practice - JAC appointment itself is free to apply',
+        entryRequirements: 'Law degree or GDL conversion, SQE or Bar training, then 7+ years PQE',
+        subjects: ['law-llb', 'gdl-law-conversion', 'sqe-preparation'],
+        description: 'Judicial appointment is only open to qualified, experienced solicitors and barristers - there is no direct entry route, so this always follows a full legal career first.',
+      },
+    ],
+  },
+  {
+    id: 192,
+    employmentPercentage: 0.0014331, // 450 UK professional jockeys of ~31.4M workforce
+    rarityLabel: '1 in every 69,805 workers',
+    category: 'Sport & Leisure',
+    title: 'Professional Jockey',
+    salary: '£20,000 - £150,000+ (prize money and retainers; top jockeys earn £1M+)',
+    description: 'Rides racehorses in flat or National Hunt (jump) racing. Must maintain strict weight limits, build relationships with trainers and owners, and make split-second tactical decisions at 40mph. Only ~450 licensed professional jockeys in the UK.',
+    requirements: [
+      'Complete a British Racing School apprenticeship',
+      'Obtain a British Horseracing Authority (BHA) licence',
+      'Build a track record of race rides and wins',
+      'Realistically 5-10 years to reach professional level',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Ride racehorses in flat or National Hunt (jump) races',
+      'Maintain strict weight and fitness through diet and training',
+      'Work with trainers and owners on race tactics',
+      'Make split-second decisions at racing speed',
+    ],
+    whereToStudy: [
+      { name: 'British Racing School', url: 'https://www.brs.org.uk', description: 'Official jockey apprenticeship and training route' },
+      { name: 'British Horseracing Authority', url: 'https://www.britishhorseracing.com', description: 'Licensing body for professional jockeys' },
+    ],
+    progression: ['Apprentice / Conditional Jockey', 'Professional Jockey', 'Senior Jockey', 'Champion Jockey'],
+    similarCareers: [151, 195],
+    matchedSubjects: ['gcse-pe', 'btec-sport', 'sports-coaching-apprenticeship', 'personal-training'],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Racing School Apprenticeship',
+        duration: '5-10 years',
+        cost: 'Low cost - trained through the British Racing School with a wage while riding out for a trainer',
+        entryRequirements: 'No formal qualifications - fitness, weight and horsemanship matter most',
+        subjects: ['gcse-pe', 'btec-sport'],
+        description: 'Only around 450 professional jockeys hold an active licence in the UK - strict weight limits and the physical risk of the sport keep numbers small.',
+      },
+    ],
+  },
+  {
+    id: 193,
+    employmentPercentage: 0.0011146, // 350 UK British Stunt Register members of ~31.4M workforce
+    rarityLabel: '1 in every 89,749 workers',
+    category: 'Creative & Media',
+    title: 'Stunt Performer',
+    salary: '£25,000 - £80,000+ (top performers earn £100,000+)',
+    description: 'Performs dangerous physical feats for film, television, and theatre - car chases, fights, falls from height, fire burns, and horse riding stunts. Only ~350 people are on the British Stunt Register. Rigorous physical standards and insurance requirements keep numbers tiny.',
+    requirements: [
+      'Register with the British Stunt Register',
+      'Demonstrate proven skill in 6+ disciplines (martial arts, gymnastics, horse riding, driving, diving, climbing)',
+      'Complete Joint Industry Stunt Committee (JISC) qualification',
+      'Realistically 5-15 years to build a working stunt career',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Perform choreographed fights, falls and car chases on set',
+      'Rehearse and safety-check stunt sequences with coordinators',
+      'Maintain fitness and skill across multiple physical disciplines',
+      'Wear protective rigging and fire-safety equipment for hazardous stunts',
+    ],
+    whereToStudy: [
+      { name: 'British Stunt Register', url: 'https://www.britishstuntregister.com', description: 'Official register and qualification route for UK stunt performers' },
+    ],
+    progression: ['Trainee', 'Stunt Performer', 'Stunt Coordinator', 'Second Unit Director'],
+    similarCareers: [151, 195],
+    matchedSubjects: ['gcse-pe', 'btec-performing-arts', 'btec-sport', 'theatre-performance-ba'],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'British Stunt Register Route',
+        duration: '5-15 years',
+        cost: 'Cost of building skills across multiple disciplines (martial arts, gymnastics, diving, climbing) before registering',
+        entryRequirements: 'Proven proficiency in 6+ physical disciplines, then JISC qualification',
+        subjects: ['gcse-pe', 'btec-sport'],
+        description: 'Only around 350 performers are on the British Stunt Register - rigorous physical standards and insurance requirements keep the register small.',
+      },
+    ],
+  },
+  {
+    id: 194,
+    employmentPercentage: 0.0012739, // 400 UK high-threat EOD operators of ~31.4M workforce
+    rarityLabel: '1 in every 78,531 workers',
+    category: 'Public Services',
+    title: 'Bomb Disposal Expert',
+    salary: '£35,000 - £55,000 (military) / £50,000 - £70,000 (civilian police)',
+    description: 'Identifies, assesses, and neutralises explosive devices - from World War II ordnance to modern terrorist IEDs. Works under extreme pressure where a single mistake is fatal. Only ~400 qualified operators serve across the Army and civilian police forces.',
+    requirements: [
+      'Join the British Army',
+      'Complete Ammunition Technician training with 11 EOD Regiment',
+      'Pass the High-Threat IED course',
+      'Realistically 8-12 years of operational experience before senior roles',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Identify and assess suspected explosive devices',
+      'Plan and carry out safe render-safe procedures',
+      'Operate remote-controlled disposal robots and equipment',
+      'Work under extreme time pressure where mistakes are fatal',
+    ],
+    whereToStudy: [
+      { name: 'British Army Careers', url: 'https://apply.army.mod.uk', description: 'Ammunition Technician and EOD training route' },
+    ],
+    progression: ['Ammunition Technician', 'High-Threat Operator', 'Team Leader', 'Senior Instructor'],
+    similarCareers: [147, 90, 106],
+    matchedSubjects: ['gcse-chemistry', 'gcse-maths', 'military-apprenticeship', 'mechanical-engineering-apprenticeship'],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Army EOD Route',
+        duration: '8-12 years',
+        cost: 'No cost - trained and paid throughout Army service',
+        entryRequirements: 'British Army service, then Ammunition Technician and High-Threat IED training',
+        subjects: ['gcse-chemistry', 'gcse-maths', 'military-apprenticeship'],
+        description: 'Only around 400 qualified high-threat operators serve across the Army and civilian police forces in the UK.',
+      },
+    ],
+  },
+  {
+    id: 195,
+    employmentPercentage: 0.0019108, // 600 UK licensed professional boxers of ~31.4M workforce
+    rarityLabel: '1 in every 52,354 workers',
+    category: 'Sport & Leisure',
+    title: 'Professional Boxer',
+    salary: '£15,000 - £50,000 (journeyman) / £100,000 - £10M+ (champions)',
+    description: 'Competes in sanctioned professional boxing matches, training full-time with strict diet, conditioning, and sparring regimes. Only ~600 hold active professional licences in the UK. The physical toll and financial uncertainty mean most never reach championship level.',
+    requirements: [
+      'Build an amateur boxing record',
+      'Obtain a professional licence from the British Boxing Board of Control (BBBofC)',
+      'Sign with a manager and promoter',
+      'Realistically 5-10 years to reach contender level',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Train full-time with strict diet, conditioning and sparring',
+      'Compete in sanctioned professional bouts',
+      'Manage weight cuts ahead of fight nights',
+      'Work with a manager and promoter on fight bookings',
+    ],
+    whereToStudy: [
+      { name: 'British Boxing Board of Control', url: 'https://www.bbbofc.com', description: 'Official licensing body for professional boxers in the UK' },
+    ],
+    progression: ['Novice Pro', 'Journeyman', 'Contender', 'Champion'],
+    similarCareers: [151, 192],
+    matchedSubjects: ['gcse-pe', 'btec-sport', 'sports-coaching-apprenticeship', 'sports-science-bsc'],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Amateur-to-Professional Route',
+        duration: '5-10 years',
+        cost: 'Amateur boxing is low-cost via clubs; turning professional requires a BBBofC licence, manager and promoter',
+        entryRequirements: 'Amateur boxing record, then professional licence application',
+        subjects: ['gcse-pe', 'btec-sport'],
+        description: 'Only around 600 boxers hold an active professional licence in the UK - most never reach championship level given the physical toll and financial uncertainty.',
+      },
+    ],
+  },
+  {
+    id: 196,
+    employmentPercentage: 0.0011146, // 350 UK coroners of all grades of ~31.4M workforce
+    rarityLabel: '1 in every 89,749 workers',
+    category: 'Public Services',
+    title: 'Coroner',
+    salary: '£90,000 - £130,000',
+    description: 'Independent judicial officer who investigates violent, unnatural, or sudden deaths. Determines the cause of death, holds inquests, and protects the legal interests of the deceased. England and Wales are divided into 77 coroner areas with roughly 350 coroners of all grades.',
+    requirements: [
+      'Qualify as a solicitor, barrister or doctor',
+      '5+ years of relevant professional experience',
+      'Judicial appointment by the Lord Chancellor',
+      'Realistically 15-25 years before appointment',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Investigate violent, unnatural or sudden deaths',
+      'Determine cause of death and hold inquests',
+      'Work with pathologists, police and medical examiners',
+      'Protect the legal interests of the deceased and their families',
+    ],
+    whereToStudy: [
+      { name: 'Judicial Appointments Commission', url: 'https://www.judicialappointments.gov.uk', description: 'Official route and eligibility for coroner appointments' },
+    ],
+    progression: ['Assistant Deputy Coroner', 'Deputy Coroner', 'Senior Coroner', 'Chief Coroner'],
+    similarCareers: [110, 191],
+    matchedSubjects: ['law-llb', 'gcse-biology', 'forensic-science-bsc', 'gdl-law-conversion'],
+    backtrackPathways: [
+      {
+        type: 'university',
+        name: 'Legal or Medical Qualification Route',
+        duration: '15-25 years total (including PQE)',
+        cost: 'Law or medical degree, then years of practice - JAC appointment itself is free to apply',
+        entryRequirements: 'Qualified solicitor, barrister or doctor with 5+ years experience',
+        subjects: ['law-llb', 'gcse-biology'],
+        description: 'England and Wales are divided into 77 coroner areas with roughly 350 coroners of all grades in total.',
+      },
+    ],
+  },
+  {
+    id: 197,
+    employmentPercentage: 0.0011146, // 350 UK Guild of Taxidermists active members of ~31.4M workforce
+    rarityLabel: '1 in every 89,749 workers',
+    category: 'Creative & Media',
+    title: 'Taxidermist',
+    salary: '£20,000 - £45,000',
+    description: 'Preserves and mounts animals for museums, private collections, education, and artistic display. Requires deep anatomical knowledge, sculpting skill, and artistic painting ability. The UK Guild of Taxidermists has roughly 350 active members - a dying craft with almost no new entrants.',
+    requirements: [
+      'No formal qualifications required',
+      'Apprenticeship with an established taxidermist, or specialist short courses',
+      'Strong anatomical knowledge and sculpting ability',
+      'Realistically 2-5 years to build professional skill',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Preserve and mount animals for museums, collections and education',
+      'Sculpt and rebuild forms to lifelike anatomical accuracy',
+      'Tan and prepare skins and hides',
+      'Paint and finish mounts for realistic colour and detail',
+    ],
+    whereToStudy: [
+      { name: 'UK Guild of Taxidermists', url: 'https://www.taxidermy.org.uk', description: 'Trade body, courses and training routes' },
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk', description: 'Endangered crafts directory and training routes' },
+    ],
+    progression: ['Trainee', 'Taxidermist', 'Senior Taxidermist', 'Museum Specialist'],
+    similarCareers: [125, 128],
+    matchedSubjects: ['gcse-art-design', 'gcse-biology', 'btec-art-design', 'tlevel-craft-design'],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship / Short Course Route',
+        duration: '2-5 years',
+        cost: 'Low-to-moderate - specialist short courses or direct apprenticeship with a working taxidermist',
+        entryRequirements: 'No formal qualifications required - artistic and anatomical aptitude matter most',
+        subjects: ['gcse-art-design', 'gcse-biology'],
+        description: 'The UK Guild of Taxidermists has roughly 350 active members - a dying craft with almost no new entrants.',
+      },
+    ],
+  },
+  {
+    id: 198,
+    employmentPercentage: 0.0012739, // fewer than 400 working UK silversmiths of ~31.4M workforce
+    rarityLabel: '1 in every 78,531 workers',
+    category: 'Construction & Trades',
+    title: 'Silversmith',
+    salary: '£22,000 - £40,000',
+    description: "Designs and crafts objects from silver - from cutlery and jewellery to ceremonial pieces and churchware. Uses traditional techniques like raising, planishing, soldering, and engraving. The Goldsmiths' Company estimates fewer than 400 working silversmiths remain in the UK, making it a critically endangered craft.",
+    requirements: [
+      'Traditional apprenticeship, or a degree in jewellery design and silversmithing',
+      'Skill in raising, planishing, soldering and engraving',
+      'Strong hand-eye coordination and patience',
+      'Realistically 3-5 years to reach working proficiency',
+    ],
+    supportTags: [],
+    dayToDay: [
+      'Design and craft silver cutlery, jewellery and ceremonial pieces',
+      'Raise and planish sheet silver into shape by hand',
+      'Solder, engrave and polish finished pieces',
+      'Restore and repair antique silverware',
+    ],
+    whereToStudy: [
+      { name: "The Goldsmiths' Company", url: 'https://www.thegoldsmiths.co.uk', description: 'Trade body, training and craft council for UK silversmiths' },
+      { name: 'Birmingham School of Jewellery', url: 'https://www.bcu.ac.uk/jewellery', description: 'Degree and short courses in jewellery and silversmithing' },
+    ],
+    progression: ['Apprentice', 'Silversmith', 'Senior Silversmith', 'Master Craftsperson'],
+    similarCareers: [128, 130, 133],
+    matchedSubjects: ['gcse-art-design', 'btec-art-design', 'product-design-ba', 'tlevel-craft-design'],
+    backtrackPathways: [
+      {
+        type: 'vocational',
+        name: 'Apprenticeship Route',
+        duration: '3-5 years',
+        cost: 'Low cost if trained on the job; a BA in jewellery/silversmithing costs standard university tuition',
+        entryRequirements: 'No formal qualifications required for apprenticeship - a foundation in art and design helps',
+        subjects: ['gcse-art-design', 'btec-art-design'],
+        description: "The Goldsmiths' Company estimates fewer than 400 working silversmiths remain in the UK, making it a critically endangered craft.",
+      },
+    ],
+  },
 ]
 // Normalize subject ids to match `subjects.json` ids and fix common typos
 const demoCareers = rawDemoCareers.map((career) => ({

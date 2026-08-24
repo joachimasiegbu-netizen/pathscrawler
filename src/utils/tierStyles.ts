@@ -39,10 +39,11 @@ export interface TierStyle {
 // Legendary uses the app's own `accent` brand token instead of a stock
 // cyan, since custom color tokens aren't touched by that override system
 // at all - nothing to fight. Mythic is intentionally theme-independent
-// (same near-black/gold look in light and dark) so it skips dark: entirely
-// - and stays gold rather than the brief's alternate "pulsing red", to
-// keep the identity it was already given in earlier passes (obsidian +
-// gold, not obsidian + red).
+// (same near-black/red look in light and dark) so it skips dark: entirely
+// - obsidian + red now, not the gold it launched with: an early brief had
+// floated "pulsing red" as an alternate and gold won out to keep an
+// identity already given in earlier passes, but a later request asked
+// for red directly, reversing that call.
 export const TIER_STYLES: Record<TierKey, TierStyle> = {
   common: {
     badgeBg: 'bg-emerald-100 dark:bg-emerald-950',
@@ -146,27 +147,57 @@ export const TIER_STYLES: Record<TierKey, TierStyle> = {
     flipBackClass: 'bg-gradient-to-br from-accent to-accent-dark text-white',
   },
   mythic: {
-    badgeBg: 'bg-amber-500/20',
-    badgeText: 'text-amber-400',
-    cardBorder: 'border-l-amber-500',
+    badgeBg: 'bg-red-600/20',
+    badgeText: 'text-red-500',
+    cardBorder: 'border-l-red-600',
     cardTint: 'bg-slate-950',
-    glow: 'shadow-2xl shadow-amber-500/60',
-    confettiColors: ['#0F172A', '#1E293B', '#F59E0B', '#FBBF24', '#FDE68A'],
+    glow: 'shadow-2xl shadow-red-600/60',
+    confettiColors: ['#0F172A', '#1E293B', '#DC2626', '#EF4444', '#FCA5A5'],
     confettiCount: 64,
     confettiDurationMs: 2200,
     shimmer: true,
     flashText: '🔥 MYTHIC ROLL!',
-    flashTextClass: 'text-amber-400',
+    flashTextClass: 'text-red-500',
     dramatic: true,
-    glowRgb: '245, 158, 11',
-    borderColorClass: 'border-amber-500',
-    salaryTextClass: 'bg-gradient-to-b from-amber-300 via-amber-500 to-amber-600 bg-clip-text text-transparent',
+    glowRgb: '220, 38, 38',
+    borderColorClass: 'border-red-600',
+    salaryTextClass: 'bg-gradient-to-b from-red-300 via-red-500 to-red-600 bg-clip-text text-transparent',
     effect: 'obsidian',
     particles: 'smoke',
-    // Black + gold, not a hue-matched gradient like the other tiers - keeps
-    // Mythic's already-established obsidian/gold identity (see the file
-    // banner comment above) instead of introducing a 7th color family.
-    flipBackClass: 'bg-gradient-to-br from-slate-900 to-black text-amber-300',
+    // Black + red, not a hue-matched gradient like the other tiers - keeps
+    // Mythic's own obsidian/red identity (see the file banner comment
+    // above) instead of introducing a 7th color family.
+    flipBackClass: 'bg-gradient-to-br from-slate-900 to-black text-red-400',
+  },
+  // Celestial - above Mythic, reserved for exactly 4 hand-picked careers
+  // (Prime Minister, President, Vice President, Royal Butler - see
+  // careerTiers.ts's getCareerTier/forcedTier). Silver/white + gold
+  // "starfield" identity, deliberately the inverse of Mythic's black+gold
+  // (bright/light rather than dark) so it reads as strictly above it, not
+  // a repeat. The live roll reveal (CelestialRevealCard.tsx) implements
+  // its own bespoke float/explode/starfield visuals and doesn't actually
+  // consult effect/particles/confettiColors below - this entry exists for
+  // every OTHER place a tier badge/card shows one (Binder tile, Compare,
+  // filter pills, Stats) once a Celestial card has been added to the Binder.
+  celestial: {
+    badgeBg: 'bg-gradient-to-r from-slate-200 via-white to-amber-100',
+    badgeText: 'text-slate-900',
+    cardBorder: 'border-l-amber-300',
+    cardTint: 'bg-slate-50',
+    glow: 'shadow-2xl shadow-slate-300/70',
+    confettiColors: ['#F1F5F9', '#FFFFFF', '#FBBF24', '#FDE68A', '#E2E8F0'],
+    confettiCount: 80,
+    confettiDurationMs: 2400,
+    shimmer: true,
+    flashText: '✨ CELESTIAL ROLL! ✨',
+    flashTextClass: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-amber-300',
+    dramatic: true,
+    glowRgb: '226, 232, 240',
+    borderColorClass: 'border-slate-200',
+    salaryTextClass: 'bg-gradient-to-b from-slate-100 via-amber-200 to-amber-400 bg-clip-text text-transparent',
+    effect: 'holographic',
+    particles: 'icy',
+    flipBackClass: 'bg-gradient-to-br from-slate-100 via-white to-amber-100 text-slate-900',
   },
 }
 

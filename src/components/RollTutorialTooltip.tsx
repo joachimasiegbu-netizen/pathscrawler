@@ -18,7 +18,7 @@ export default function RollTutorialTooltip({ onDismiss }: RollTutorialTooltipPr
         <X className="h-3.5 w-3.5" />
       </button>
       <p className="pr-4 text-xs font-medium leading-5 text-primary-dark dark:text-primary-light">
-        Tap ROLL! to discover a random career. Rarer jobs pay more but are harder to roll!
+        Tap ROLL! to discover a random career. The fewer people who actually hold a job in real life, the rarer it is to roll!
       </p>
     </div>
   )

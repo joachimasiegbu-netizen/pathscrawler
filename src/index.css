@@ -179,11 +179,13 @@ html.reduce-motion *::after {
   pointer-events: none;
 }
 
-/* Mythic tier - pulsing gold glow on top of whatever box-shadow the card's
-   own Tailwind classes set. */
+/* Mythic tier - pulsing red glow on top of whatever box-shadow the card's
+   own Tailwind classes set. Was gold - see tierStyles.ts's own comment on
+   TIER_STYLES.mythic for why (a "pulsing red" alternate was floated and
+   rejected early on, then asked for directly later, reversing that). */
 @keyframes mythic-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.35), 0 25px 60px -12px rgba(0, 0, 0, 0.5); }
-  50% { box-shadow: 0 0 50px 12px rgba(245, 158, 11, 0.45), 0 25px 60px -12px rgba(0, 0, 0, 0.6); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.35), 0 25px 60px -12px rgba(0, 0, 0, 0.5); }
+  50% { box-shadow: 0 0 50px 12px rgba(220, 38, 38, 0.45), 0 25px 60px -12px rgba(0, 0, 0, 0.6); }
 }
 .tier-mythic-pulse {
   animation: mythic-pulse 1.8s ease-in-out infinite;
@@ -705,12 +707,364 @@ html.dark-mode .binder-texture {
   mix-blend-mode: overlay;
 }
 
+/* Legendary reveal card (LegendaryRevealCard.tsx) - "do it the same as
+   mythic and celestial but dont put the cutscenes": same reveal-card
+   design as .mythic-reveal-card/.celestial-reveal-card below (idle-bob
+   icon that grows/rotates into the top-right corner on hover while the
+   title/category/etc slide in from off-card - the exact mechanic from
+   the original pasted product-card reference, `animation: none` swapped
+   in on hover so the plain transform can take over cleanly, same as
+   those two), re-themed in Legendary's own established cyan "accent"
+   identity (#06B6D4/#0E7490 - matches TIER_STYLES.legendary in
+   tierStyles.ts) instead of Mythic's red or Celestial's silver/gold -
+   but with NO 'intro'/'floating'/'exploding' phases before it: this
+   card always renders straight in its revealed state, no fullscreen
+   pre-roll animation and no "click to reveal" sealed-card gate like its
+   two rarer siblings have. tier-holographic (see its own rule further
+   up) is applied alongside this on the card itself for a shimmer sweep,
+   reusing Legendary's existing effect identity rather than inventing a
+   new one. */
+.legendary-reveal-card {
+  position: relative;
+  width: 300px;
+  height: 440px;
+  border-radius: 24px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 120ms ease-out;
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(6, 182, 212, 0.4);
+  animation: legendary-border-pulse 3s ease-in-out infinite;
+}
+.legendary-reveal-card:active {
+  transform: scale(0.97);
+}
+@keyframes legendary-border-pulse {
+  0%, 100% { box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(6, 182, 212, 0.4), 0 0 30px 2px rgba(6, 182, 212, 0.25); }
+  50% { box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(6, 182, 212, 0.7), 0 0 55px 8px rgba(6, 182, 212, 0.5); }
+}
+.legendary-reveal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 40px 8px rgba(6, 182, 212, 0.16);
+  z-index: 1;
+  pointer-events: none;
+}
+.legendary-reveal-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130px;
+  height: 130px;
+  transform: translate(-50%, -50%);
+  color: #0e7490;
+  filter: drop-shadow(0 6px 18px rgba(6, 182, 212, 0.45));
+  animation: legendary-icon-idle 2.2s ease-in-out infinite alternate;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 2;
+}
+@keyframes legendary-icon-idle {
+  from { top: 47%; }
+  to { top: 53%; }
+}
+.legendary-reveal-card:hover .legendary-reveal-icon {
+  top: 30%;
+  left: 78%;
+  width: 190px;
+  height: 190px;
+  animation: none;
+  transform: translate(-50%, -50%) rotate(12deg);
+  opacity: 0.85;
+}
+.legendary-reveal-info {
+  position: absolute;
+  top: 17%;
+  left: -95%;
+  z-index: 2;
+  max-width: 68%;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.6);
+  transition: left 0.3s ease-in;
+}
+.legendary-reveal-card:hover .legendary-reveal-info {
+  left: 26px;
+}
+
 /* Mythic - static obsidian "veins", layered under the existing
    .tier-mythic-pulse glow (see index.css above) rather than replacing it. */
 .tier-obsidian {
   background-image:
-    repeating-linear-gradient(115deg, transparent 0px, transparent 38px, rgba(245, 158, 11, 0.09) 39px, transparent 41px, transparent 88px),
-    repeating-linear-gradient(25deg, transparent 0px, transparent 58px, rgba(245, 158, 11, 0.07) 59px, transparent 61px, transparent 126px);
+    repeating-linear-gradient(115deg, transparent 0px, transparent 38px, rgba(220, 38, 38, 0.09) 39px, transparent 41px, transparent 88px),
+    repeating-linear-gradient(25deg, transparent 0px, transparent 58px, rgba(220, 38, 38, 0.07) 59px, transparent 61px, transparent 126px);
+}
+
+/* Celestial reveal (CelestialRevealCard.tsx) - the same float -> explode ->
+   reveal shape as Mythic below, re-themed silver/white/gold ("starfield")
+   instead of obsidian/gold, with its own shorter, brighter flash (200ms,
+   not 600ms) per the brief. */
+@keyframes celestial-float {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(226, 232, 240, 0.5), 0 30px 70px -15px rgba(0, 0, 0, 0.5); }
+  50% { transform: translateY(-16px); box-shadow: 0 0 80px 22px rgba(226, 232, 240, 0.65), 0 30px 70px -15px rgba(0, 0, 0, 0.6); }
+}
+.celestial-float-card {
+  animation: celestial-float 3.6s ease-in-out infinite;
+}
+
+@keyframes celestial-card-burst-out {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; filter: brightness(1); }
+  40% { transform: scale(1.2) rotate(2deg); opacity: 1; filter: brightness(2.6); }
+  100% { transform: scale(1.8) rotate(-3deg); opacity: 0; filter: brightness(4); }
+}
+.celestial-card-burst-out {
+  animation: celestial-card-burst-out 0.5s cubic-bezier(0.3, 0.6, 0.4, 1) forwards;
+}
+
+@keyframes celestial-explode-flash {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.celestial-explode-flash {
+  animation: celestial-explode-flash 0.2s ease-out forwards;
+}
+
+/* Starfield - small twinkling dots at fixed positions across the revealed
+   card, each on its own random delay so they don't blink in unison. Built
+   from radial-gradients (no image asset) layered as the card's own
+   ::before, sitting above the base silver gradient but below its content
+   (z-index handled by paint order - this pseudo-element comes first). */
+.celestial-reveal-card {
+  position: relative;
+  width: 300px;
+  height: 440px;
+  border-radius: 24px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 120ms ease-out;
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(226, 232, 240, 0.6), 0 0 50px 4px rgba(226, 232, 240, 0.5);
+  animation: celestial-border-pulse 3.5s ease-in-out infinite;
+}
+@keyframes celestial-border-pulse {
+  0%, 100% { box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(226, 232, 240, 0.6), 0 0 40px 2px rgba(226, 232, 240, 0.4); }
+  50% { box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(251, 191, 36, 0.7), 0 0 65px 10px rgba(251, 191, 36, 0.55); }
+}
+.celestial-reveal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 15% 20%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 40% 65%, #fff, transparent),
+    radial-gradient(2px 2px at 70% 30%, #fbbf24, transparent),
+    radial-gradient(1.5px 1.5px at 85% 75%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 25% 85%, #fbbf24, transparent),
+    radial-gradient(2px 2px at 60% 10%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 90% 45%, #fff, transparent);
+  animation: celestial-starfield-twinkle 2.6s ease-in-out infinite;
+}
+@keyframes celestial-starfield-twinkle {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Mythic reveal preview (MythicRevealPreviewPage.tsx) - an "over the top"
+   pre-reveal sequence pitched for Mythic specifically: the card doesn't
+   show its face immediately, it floats in place as a sealed card-back
+   until clicked, then bursts open into the real card. Three phases below:
+   floating idle -> explosion (flash/shake/burst-out, ~500-650ms) ->
+   revealed (the reference-CSS-driven hover card). Plain CSS `animation`
+   throughout (not framer-motion) so it all automatically goes still under
+   the existing reduce-motion rules above - the page also skips mounting
+   the flash/shake/confetti elements entirely when reduceMotion is on,
+   since those aren't real content to leave frozen mid-air. */
+@keyframes mythic-float {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.35), 0 30px 70px -15px rgba(0, 0, 0, 0.6); }
+  50% { transform: translateY(-16px); box-shadow: 0 0 70px 18px rgba(220, 38, 38, 0.5), 0 30px 70px -15px rgba(0, 0, 0, 0.7); }
+}
+.mythic-float-card {
+  animation: mythic-float 3.2s ease-in-out infinite;
+}
+
+@keyframes mythic-prompt-pulse {
+  0%, 100% { opacity: 0.65; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.07); }
+}
+.mythic-prompt-pulse {
+  animation: mythic-prompt-pulse 1.6s ease-in-out infinite;
+}
+
+/* Plays ONCE on click, replacing .mythic-float-card's infinite loop for
+   the brief moment before the floating card unmounts and the revealed
+   card takes its place. */
+@keyframes mythic-card-burst-out {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; filter: brightness(1); }
+  40% { transform: scale(1.18) rotate(-2deg); opacity: 1; filter: brightness(2.2); }
+  100% { transform: scale(1.7) rotate(3deg); opacity: 0; filter: brightness(3.5); }
+}
+.mythic-card-burst-out {
+  animation: mythic-card-burst-out 0.55s cubic-bezier(0.3, 0.6, 0.4, 1) forwards;
+}
+
+@keyframes mythic-explode-flash {
+  0% { opacity: 0; }
+  15% { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+.mythic-explode-flash {
+  animation: mythic-explode-flash 0.6s ease-out forwards;
+}
+
+@keyframes mythic-screen-shake {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  15% { transform: translate3d(-9px, 4px, 0) rotate(-0.6deg); }
+  30% { transform: translate3d(8px, -5px, 0) rotate(0.6deg); }
+  45% { transform: translate3d(-6px, 3px, 0) rotate(-0.3deg); }
+  60% { transform: translate3d(6px, -3px, 0); }
+  75% { transform: translate3d(-3px, 2px, 0); }
+  90% { transform: translate3d(2px, -1px, 0); }
+}
+.mythic-screen-shake {
+  animation: mythic-screen-shake 0.5s ease-in-out;
+}
+
+/* Revealed card - the reference design the brief supplied, re-themed from
+   its white-card/black-bar palette to this app's obsidian-and-red Mythic
+   identity (see .tier-obsidian above / TIER_STYLES.mythic in
+   tierStyles.ts - red now, gold at first) rather than reusing its literal
+   colors. Hover mechanics are ported near-directly: plain CSS :hover, no
+   JS state - the icon idle-bobs then grows/rotates into a corner, the
+   title+category slide in from off-card, and a red "Add to Binder" bar
+   slides up from the bottom edge, exactly like the reference's
+   image/text/::after. */
+.mythic-reveal-card {
+  position: relative;
+  width: 300px;
+  height: 440px;
+  border-radius: 24px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 120ms ease-out;
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(220, 38, 38, 0.35);
+}
+.mythic-reveal-card:active {
+  transform: scale(0.97);
+}
+.mythic-reveal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 40px 8px rgba(239, 68, 68, 0.18);
+  z-index: 1;
+  pointer-events: none;
+}
+.mythic-reveal-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130px;
+  height: 130px;
+  transform: translate(-50%, -50%);
+  color: #ef4444;
+  filter: drop-shadow(0 6px 18px rgba(239, 68, 68, 0.45));
+  animation: mythic-icon-idle 2.2s ease-in-out infinite alternate;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 2;
+}
+@keyframes mythic-icon-idle {
+  from { top: 47%; }
+  to { top: 53%; }
+}
+.mythic-reveal-card:hover .mythic-reveal-icon {
+  top: 30%;
+  left: 78%;
+  width: 190px;
+  height: 190px;
+  animation: none;
+  transform: translate(-50%, -50%) rotate(12deg);
+  opacity: 0.85;
+}
+
+/* Text sits in its own DOM position AFTER the icon (see
+   MythicRevealCard.tsx), so at equal z-index it already paints on top -
+   no background box behind it (removed one - read as a slapped-on panel
+   rather than text sitting naturally on the card), just a soft text-shadow
+   (inherited by every child element below) to keep it legible over the
+   icon's glow. Settles with real margin from the card's left edge on
+   hover, not flush against it. */
+.mythic-reveal-info {
+  position: absolute;
+  top: 17%;
+  left: -95%;
+  z-index: 2;
+  max-width: 68%;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.9);
+  transition: left 0.3s ease-in;
+}
+.mythic-reveal-card:hover .mythic-reveal-info {
+  left: 26px;
+}
+
+/* Celestial's own icon/info pair - same idle-bob -> grow+rotate-into-corner
+   / slide-in-text mechanic as Mythic's above, just re-themed gold-on-silver
+   instead of gold-on-obsidian, and the icon itself gets a slow shimmer
+   sweep (celestial-icon-shimmer) on top of the idle bob. */
+.celestial-reveal-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130px;
+  height: 130px;
+  transform: translate(-50%, -50%);
+  color: #d97706;
+  filter: drop-shadow(0 6px 18px rgba(217, 119, 6, 0.4));
+  animation: celestial-icon-idle 2.2s ease-in-out infinite alternate;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 2;
+}
+@keyframes celestial-icon-idle {
+  from { top: 47%; }
+  to { top: 53%; }
+}
+.celestial-reveal-card:hover .celestial-reveal-icon {
+  top: 30%;
+  left: 78%;
+  width: 190px;
+  height: 190px;
+  animation: none;
+  transform: translate(-50%, -50%) rotate(12deg);
+  opacity: 0.85;
+}
+
+.celestial-reveal-info {
+  position: absolute;
+  top: 17%;
+  left: -95%;
+  z-index: 2;
+  max-width: 68%;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.75), 0 1px 3px rgba(255, 255, 255, 0.6);
+  transition: left 0.3s ease-in;
+}
+.celestial-reveal-card:hover .celestial-reveal-info {
+  left: 26px;
+}
+
+/* Shimmering silver/gold text - a slow diagonal light sweep across a
+   gradient-filled title, subtler than the confetti/flash moment so it
+   reads as "precious metal catching the light" while just sitting there. */
+.celestial-shimmer-text {
+  background: linear-gradient(110deg, #78716c 20%, #fbbf24 40%, #ffffff 50%, #fbbf24 60%, #78716c 80%);
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: celestial-text-shimmer 3.5s linear infinite;
+}
+@keyframes celestial-text-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -50% 0; }
 }
 
 /* One-shot glow pulse on card arrival - distinct from the continuous
@@ -1090,4 +1444,2406 @@ html.dark-mode .binder-texture {
   background-color: #fbfdfa;
   border-radius: 0 30px 0 0;
   border-bottom: 10px solid #b0cfe4;
+}
+
+/* ============================================================
+   Celestial orbital reveal (CelestialOrbitalReveal.tsx) - the
+   Celestial-tier pre-reveal animation. Scrapped the earlier two-core
+   approach/spiral/merge version entirely (kept fighting its own
+   positioning) in favor of the original single 7-ring orbital core,
+   centered, running its own animation - simpler, and there's no
+   second core left to keep clear of, so every ring's peak "flare" and
+   the pulse-ring's peak size are back to their original, more
+   dramatic scale instead of the crossing-avoidance caps that version
+   needed.
+
+   Timeline: the core fades/scales in (0-0.6s), runs its own orbit/
+   pulse/particle animations at their natural pace for a few seconds,
+   then a fixed timer (not tied to the ring system's own internal cycle
+   - see .core-system below) fires a large explosion plus a screen
+   shake (applied to this component's own root, which is portalled to
+   document.body and covers the full viewport - shaking it reads as
+   the whole screen shaking without reaching outside this component to
+   do it). That internal cycle (corCoreMasterCycle/corOrbitMaster1-7/
+   etc) was originally 22s, tuned for a much longer-lived reveal - once
+   the sealed card started appearing sooner (revealing "as it explodes"
+   rather than waiting for the blast to fully finish), the orbital core
+   's own on-screen window shrank to only a few seconds, landing
+   entirely inside this cycle's own long "settled, holding" stretch
+   (roughly 8%-58% of it - no ring-tilt change during that whole span,
+   see corOrbitMaster1 etc below) - it read as static even though the
+   small per-ring orbit-objects were still independently spinning the
+   whole time (confirmed via getComputedStyle diffing, not assumed).
+   Shortened to 5s so a real, visibly dynamic slice of the cycle - not
+   just its long hold - actually plays out within whatever short window
+   the core gets before the blast cuts it off. */
+.celestial-orbital-reveal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  cursor: pointer;
+  /* Warm-white core light diffusing out into a pale, cool sky, dimming
+     only gently toward the edges - dramatically lighter than the navy-
+     to-black version this replaced, for an "opening onto heaven" feel.
+     Every stop still stays a hair below pure white/full saturation so
+     .core-rays (the one part of the core deliberately kept bright
+     white rather than recolored gold below) still reads as a distinct
+     bright accent rather than vanishing into a flat white field. */
+  background: radial-gradient(ellipse 90% 70% at 50% 50%, #fdf8ee 0%, #dfe3f2 50%, #9a9dc2 100%);
+}
+
+.celestial-orbital-reveal * {
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+}
+
+:root {
+  /* 20% bigger than the original 2.84/1.51 pair (2.84*1.2=3.408,
+     1.51*1.2=1.812) per request. */
+  --cor-loader-scale: 3.41;
+}
+@media (max-width: 640px) {
+  :root { --cor-loader-scale: 1.81; }
+}
+
+.cor-shake {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: corScreenShake 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) 1 12s;
+}
+@keyframes corScreenShake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-18px, 8px) rotate(-0.8deg); }
+  20% { transform: translate(16px, -14px) rotate(0.7deg); }
+  30% { transform: translate(-14px, 14px) rotate(-0.6deg); }
+  40% { transform: translate(18px, -8px) rotate(0.7deg); }
+  50% { transform: translate(-12px, 10px) rotate(-0.4deg); }
+  60% { transform: translate(12px, -10px) rotate(0.4deg); }
+  70% { transform: translate(-8px, 6px) rotate(-0.25deg); }
+  80% { transform: translate(8px, -6px) rotate(0.25deg); }
+  90% { transform: translate(-3px, 3px) rotate(-0.1deg); }
+}
+
+/* Night-sky backdrop, first 4s of the speeder act's 7s (then 3s of day)
+   - "going Mythic to Celestial", so this act itself opens dark like
+   Mythic's own reveal before brightening into Celestial's pale/angelic
+   daytime look partway through, rather than starting there. Now a real
+   reuse of Mythic's own dread-buildup - literally the same global
+   classes (.mythic-starfield/.mythic-stars-N/.mythic-moon/
+   .mythic-meteor/.mythic-dread-pulse, unmodified) rendered fresh inside
+   this wrapper (see CelestialOrbitalReveal.tsx), not a duplicate copy -
+   they're already component-agnostic classes in this same stylesheet.
+   Deliberately excludes two pieces of Mythic's own markup: .mythic-
+   dread-shake (the screen-shake wrapper - "without the shake") and
+   .mythic-flash-black/blast/thunder (Mythic's own climax, which this
+   reveal has no use for - Celestial has its own separate blast later).
+   Every one of Mythic's own keyframes here already finishes at or
+   before its 3.9s longest leg (star scroll) - comfortably inside this
+   wrapper's own 4s window - so nothing needed retiming, just cutting
+   .mythic-dread-shake/-flash-black/blast/thunder out of what's
+   rendered. Sits UNDER .cor-speeder-stage in paint order (rendered
+   first in the JSX) so the ship and its streaks stay on top of it, and
+   fades out around the act's own midpoint - revealing .celestial-
+   orbital-reveal's own permanent pale gradient underneath, which the
+   orbital core (see .cor-intro below) already uses - rather than
+   fading out at the very end like .cor-speeder-stage does; the ship
+   keeps flying, unbothered, through both halves. */
+.cor-night-sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  animation: corNightSkyFade 7s ease-in-out 1 forwards;
+}
+@keyframes corNightSkyFade {
+  0% { opacity: 0; }
+  3% { opacity: 1; }
+  55% { opacity: 1; }
+  59% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Visual companion to thunder.mp3 (which plays 0-T_DAY, see
+   CelestialOrbitalReveal.tsx) - explicitly NOT a lightning-bolt shape
+   per request ("not as bolts... just flashes in the sky"), so this is
+   a soft red glow washing across the whole sky rather than a jagged
+   bolt graphic - like distant/heat lightning where you see the sky
+   light up but no bolt itself. A radial gradient (brightest a bit
+   above center, fading out toward the edges) whose opacity flickers
+   in three irregular double-flash clusters across the 4s window
+   (~0.24-0.6s, ~1.36-1.84s, ~2.72-3.08s) rather than one steady pulse -
+   real lightning flickers unevenly, not on a metronome - finishing
+   before T_DAY (4s) so it's gone by the same beat the storm sound
+   cuts out on. */
+.cor-thunder-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 90% 70% at 50% 35%, rgba(200, 20, 20, 0.55) 0%, rgba(130, 10, 10, 0.22) 45%, transparent 75%);
+  opacity: 0;
+  animation: corThunderFlashes 4s linear 1 forwards;
+}
+@keyframes corThunderFlashes {
+  0%, 6%, 15%, 34%, 46%, 68%, 77%, 100% { opacity: 0; }
+  8% { opacity: 0.9; }
+  10% { opacity: 0.2; }
+  12% { opacity: 0.6; }
+  36% { opacity: 0.75; }
+  39% { opacity: 0.15; }
+  42% { opacity: 0.5; }
+  70% { opacity: 0.95; }
+  73% { opacity: 0.25; }
+}
+
+/* Speeder warp-in - the reveal's whole first act, 0-7s, before handing
+   off to the orbital core (see .cor-intro's own 7s animation-delay
+   below). A well-known CSS-only "X-wing"-style loader (pasted in
+   verbatim: .loader/.base/.face/.longfazers and their keyframes are the
+   original snippet, untouched) turned fully vertical rather than its
+   native left-to-right orientation by rotating the WHOLE stage -90deg
+   as one rigid unit, rather than hand-editing every horizontal
+   translate/left keyframe inside it - the loader's own small internal
+   jitter and the longfazers' streak lines rotate right along with it,
+   reading as speed lines rushing downward past a ship rocketing
+   straight up. .cor-speeder-stage is sized in vmax (not 100%) so a
+   square at least as big as the viewport's larger dimension still
+   fully covers the screen once rotated, regardless of aspect ratio -
+   sizing it off the viewport's own width/height (100%) would leave the
+   rotated footprint's corners short on a non-square screen. Visible for
+   effectively the whole 7s act (fades in over its first ~0.2s, holds,
+   fades out only in its last ~0.3s) - it flies through BOTH halves of
+   this act (see .cor-night-sky below for the night-then-day split
+   behind it), fading out right as the orbital core fades in for a clean
+   handoff. The original snippet's own colors (#000 throughout) are kept
+   as-is, but with a soft white glow added (see the .loader filter
+   below, not part of the original snippet) - flying through a dark
+   night sky for the first half of this act, a flat black silhouette
+   with no glow would nearly vanish against it; the glow keeps it
+   readable against both the night and the later pale/angelic day sky
+   without needing two different ship colors. */
+.cor-speeder-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vmax;
+  height: 100vmax;
+  pointer-events: none;
+  /* translate+rotate only - constant for the whole act, never animated,
+     so this box (and the .cor-speeder-zoom overlay below sharing its
+     exact footprint) stays perfectly centered/oriented throughout. Only
+     opacity is keyframed now - see .cor-speeder-zoom for the push-in
+     itself, split out onto its own element so it can pivot around the
+     ship's .face instead of this box's own center. */
+  transform: translate(-50%, -50%) rotate(-90deg);
+  animation: corSpeederLife 7s ease-in-out 1 forwards;
+}
+@keyframes corSpeederLife {
+  0% { opacity: 0; }
+  3% { opacity: 1; }
+  96% { opacity: 1; }
+  100% { opacity: 0; }
+}
+/* Exactly overlays .cor-speeder-stage (inset:0 on a box with no
+   padding/border) so .loader/.longfazers inside it lay out identically
+   to before (position:absolute on them still resolves against
+   .cor-speeder-stage - a position:absolute/static box like this one
+   doesn't intercept that unless it turns out to need position:relative,
+   which it doesn't here) - this element exists purely to carry its OWN
+   scale-only transform+origin, isolated from the parent's fixed
+   translate/rotate above.
+   Holds at 1x through the whole 4s night stretch (0-57% = 0-4s), then a
+   camera push-in toward the ship's own .face (the cockpit piece) once
+   day breaks - a step up each second (5s/6s/7s = 71%/86%/100%) rather
+   than one flat ramp, ending at its largest right as this stage fades
+   out and hands off to the orbital core. transform-origin used to be
+   left at its default (this box's own center) - measured live
+   (getBoundingClientRect on .face vs. this box's center, at scale=1, a
+   1280x800 viewport) that .face actually sits well off that default
+   center (up and slightly left of it, not "close enough" as originally
+   assumed), so the push-in was visibly zooming toward the ship's tail/
+   thruster end instead - inverted the stage's own rotate(-90deg) to
+   solve for the local point that maps onto .face's measured screen
+   position, and pinned transform-origin there instead so scaling now
+   pivots on the cockpit specifically. */
+.cor-speeder-zoom {
+  position: absolute;
+  inset: 0;
+  transform-origin: 59.9% 47.9%;
+  animation: corSpeederZoom 7s ease-in-out 1 forwards;
+}
+@keyframes corSpeederZoom {
+  0% { transform: scale(1); }
+  57% { transform: scale(1); }
+  71% { transform: scale(1.4); }
+  86% { transform: scale(1.8); }
+  96% { transform: scale(2.1); }
+  100% { transform: scale(2.4); }
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  margin-left: -50px;
+  left: 50%;
+  animation: speeder 0.4s linear infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.85));
+}
+.loader > span {
+  height: 5px;
+  width: 35px;
+  background: #000;
+  position: absolute;
+  top: -19px;
+  left: 60px;
+  border-radius: 2px 10px 1px 0;
+}
+/* Not part of the original pasted snippet - .base needs to anchor at
+   the same origin point .loader > span uses (see CelestialOrbitalReveal
+   .tsx for why .base is a <div> rather than also matching that rule via
+   being a span itself: the wing triangle inside it would otherwise
+   still collide with .loader > span > span:nth-child(1-4) below). */
+.loader > .base {
+  position: absolute;
+  top: -19px;
+  left: 60px;
+}
+.base span {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-right: 100px solid #000;
+  border-bottom: 6px solid transparent;
+}
+.base span:before {
+  content: "";
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  background: #000;
+  position: absolute;
+  right: -110px;
+  top: -16px;
+}
+.base span:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 0 solid transparent;
+  border-right: 55px solid #000;
+  border-bottom: 16px solid transparent;
+  top: -16px;
+  right: -98px;
+}
+.face {
+  position: absolute;
+  height: 12px;
+  width: 20px;
+  background: #000;
+  border-radius: 20px 20px 0 0;
+  transform: rotate(-40deg);
+  right: -125px;
+  top: -15px;
+}
+.face:after {
+  content: "";
+  height: 12px;
+  width: 12px;
+  background: #000;
+  right: 4px;
+  top: 7px;
+  position: absolute;
+  transform: rotate(40deg);
+  transform-origin: 50% 50%;
+  border-radius: 0 0 0 2px;
+}
+.loader > span > span:nth-child(1),
+.loader > span > span:nth-child(2),
+.loader > span > span:nth-child(3),
+.loader > span > span:nth-child(4) {
+  width: 30px;
+  height: 1px;
+  background: #000;
+  position: absolute;
+  animation: fazer1 0.2s linear infinite;
+}
+.loader > span > span:nth-child(2) {
+  top: 3px;
+  animation: fazer2 0.4s linear infinite;
+}
+.loader > span > span:nth-child(3) {
+  top: 1px;
+  animation: fazer3 0.4s linear infinite;
+  animation-delay: -1s;
+}
+.loader > span > span:nth-child(4) {
+  top: 4px;
+  animation: fazer4 1s linear infinite;
+  animation-delay: -1s;
+}
+@keyframes fazer1 {
+  0% { left: 0; }
+  100% { left: -80px; opacity: 0; }
+}
+@keyframes fazer2 {
+  0% { left: 0; }
+  100% { left: -100px; opacity: 0; }
+}
+@keyframes fazer3 {
+  0% { left: 0; }
+  100% { left: -50px; opacity: 0; }
+}
+@keyframes fazer4 {
+  0% { left: 0; }
+  100% { left: -150px; opacity: 0; }
+}
+@keyframes speeder {
+  0% { transform: translate(2px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -3px) rotate(-1deg); }
+  20% { transform: translate(-2px, 0px) rotate(1deg); }
+  30% { transform: translate(1px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 3px) rotate(-1deg); }
+  60% { transform: translate(-1px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-2px, -1px) rotate(1deg); }
+  90% { transform: translate(2px, 1px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+.longfazers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.longfazers span {
+  position: absolute;
+  height: 2px;
+  width: 20%;
+  background: #000;
+}
+.longfazers span:nth-child(1) {
+  top: 20%;
+  animation: lf 0.6s linear infinite;
+  animation-delay: -5s;
+}
+.longfazers span:nth-child(2) {
+  top: 40%;
+  animation: lf2 0.8s linear infinite;
+  animation-delay: -1s;
+}
+.longfazers span:nth-child(3) {
+  top: 60%;
+  animation: lf3 0.6s linear infinite;
+}
+.longfazers span:nth-child(4) {
+  top: 80%;
+  animation: lf4 0.5s linear infinite;
+  animation-delay: -3s;
+}
+@keyframes lf {
+  0% { left: 200%; }
+  100% { left: -200%; opacity: 0; }
+}
+@keyframes lf2 {
+  0% { left: 200%; }
+  100% { left: -200%; opacity: 0; }
+}
+@keyframes lf3 {
+  0% { left: 200%; }
+  100% { left: -100%; opacity: 0; }
+}
+@keyframes lf4 {
+  0% { left: 200%; }
+  100% { left: -100%; opacity: 0; }
+}
+
+.cor-intro {
+  opacity: 0;
+  transform: scale(0.7);
+  /* Held at this rest state (opacity:0, unscaled down) for the whole 7s
+     speeder act above (night-then-day, .cor-night-sky/
+     .cor-speeder-stage) until it finishes and fades out. */
+  animation: corIntroIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 1 forwards 7s;
+}
+@keyframes corIntroIn {
+  0% { opacity: 0; transform: scale(0.7); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.orbital-core {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 800px;
+  transform-style: preserve-3d;
+  transform: scale(var(--cor-loader-scale));
+  /* Fades out fast once the explosion starts, same beat the blast
+     elements below fire on. */
+  animation: corCoreFadeOut 0.5s ease-in 1 forwards 12.2s;
+}
+@keyframes corCoreFadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.celestial-orbital-reveal .core-system {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: corCoreMasterCycle 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Sun-like core: a warm-white (not gold) corona and a faint slowly
+   spinning ray pattern layered under the original core rings/glow,
+   plus the original core-halo shifted from its icy blue tint toward
+   the same warm white for a consistent "small sun" read. */
+.celestial-orbital-reveal .core-rays {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  /* mix-blend-mode: screen used to sit here, additively brightening
+     against the old near-black backdrop - against the new pale/white
+     background screen-blended content washes straight out to nothing
+     (screen against a white backdrop always resolves to white), so
+     this is now a plain opaque color instead. Same fix applied to
+     every other cor-* element below that used to carry mix-blend-mode:
+     screen. Deliberately kept bright white (not gold, unlike the rest
+     of the orbital core/rings below) per explicit request - the rays
+     are their own distinct element. */
+  background: repeating-conic-gradient(rgba(255, 255, 255, 0.55) 0deg 4deg, transparent 4deg 22.5deg);
+  opacity: 0.7;
+  animation: corRaysSpin 16s linear infinite;
+}
+@keyframes corRaysSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.celestial-orbital-reveal .core-corona {
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 210, 100, 0.55) 0%, rgba(255, 190, 70, 0.22) 45%, rgba(255, 190, 70, 0) 78%);
+  filter: blur(1px);
+  animation: corCoronaPulse 4s ease-in-out infinite alternate;
+}
+@keyframes corCoronaPulse {
+  0% { transform: scale(0.85); opacity: 0.65; }
+  100% { transform: scale(1.3); opacity: 1; }
+}
+
+.celestial-orbital-reveal .core-micro-center {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: #ffd966;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(255, 205, 80, 1);
+  animation: corCorePulse 3.73s ease-in-out infinite alternate;
+}
+.celestial-orbital-reveal .core-inner-glow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 110, 0.95) 0%, rgba(255, 215, 110, 0) 70%);
+  animation: corCoreBreathe 2.41s ease-in-out infinite alternate;
+}
+.celestial-orbital-reveal .core-thin-ring {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgba(255, 205, 80, 0.7);
+  border-radius: 50%;
+  animation: corRingRotate 4.12s linear infinite;
+}
+.celestial-orbital-reveal .core-secondary-ring {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1px dashed rgba(255, 200, 110, 0.5);
+  border-radius: 50%;
+  animation: corRingRotateReverse 6.28s linear infinite;
+}
+.celestial-orbital-reveal .core-outer-ring {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 205, 80, 0.18);
+  border-top-color: rgba(255, 205, 80, 0.55);
+  border-radius: 50%;
+  animation: corRingRotate 9.14s linear infinite;
+}
+.celestial-orbital-reveal .core-halo {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 205, 90, 0.3) 0%, rgba(255, 205, 90, 0) 75%);
+  animation: corCoreFluctuate 5.18s ease-in-out infinite alternate;
+}
+
+.celestial-orbital-reveal .pulse-system {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.celestial-orbital-reveal .pulse-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 205, 80, 0.85);
+  opacity: 0;
+  width: 4px;
+  height: 4px;
+}
+.celestial-orbital-reveal .pulse-ring-1 { animation: corShockwavePulse 5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite; }
+.celestial-orbital-reveal .pulse-ring-2 { animation: corShockwavePulse 5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 0.18s; }
+.celestial-orbital-reveal .pulse-ring-3 { animation: corShockwavePulse 5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 0.36s; }
+
+.celestial-orbital-reveal .orbit-system {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.celestial-orbital-reveal .orbit-path {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  pointer-events: none;
+  /* The brighter/glowier ring pass - a real blurred glow, not just a
+     brighter border color. */
+  box-shadow: 0 0 14px 1px rgba(255, 205, 80, 0.3);
+}
+.celestial-orbital-reveal .orbit-object-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.celestial-orbital-reveal .orbit-object {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.celestial-orbital-reveal .orbit-1 {
+  width: 90px;
+  height: 90px;
+  transform: rotateX(68deg) rotateY(12deg) rotateZ(0deg);
+  animation: corOrbitMaster1 5s ease-in-out infinite;
+}
+.celestial-orbital-reveal .orbit-1 .orbit-path {
+  border: 1.5px solid rgba(255, 205, 80, 0.75);
+  background: radial-gradient(circle, transparent 60%, rgba(255, 205, 80, 0.08) 100%);
+}
+.celestial-orbital-reveal .orbit-1 .orbit-object-wrapper { animation: corSpinCW 3.73s linear infinite; }
+.celestial-orbital-reveal .orbit-1 .obj-circle {
+  width: 4px;
+  height: 4px;
+  background-color: #ffd966;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #ffd966;
+}
+.celestial-orbital-reveal .orbit-1 .object-trail {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 18px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 205, 80, 0.5), transparent);
+  transform-origin: left center;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.celestial-orbital-reveal .orbit-2 {
+  width: 114px;
+  height: 114px;
+  transform: rotateX(58deg) rotateY(-28deg) rotateZ(25deg);
+  animation: corOrbitMaster2 5s ease-in-out infinite;
+}
+.celestial-orbital-reveal .orbit-2 .orbit-path {
+  border: 1.5px solid rgba(255, 210, 120, 0.55);
+  -webkit-mask: conic-gradient(from 45deg, rgba(0, 0, 0, 0.8) 0deg, transparent 180deg, rgba(0, 0, 0, 0.8) 360deg);
+          mask: conic-gradient(from 45deg, rgba(0, 0, 0, 0.8) 0deg, transparent 180deg, rgba(0, 0, 0, 0.8) 360deg);
+}
+.celestial-orbital-reveal .orbit-2 .orbit-object-wrapper { animation: corSpinCCW 5.18s linear infinite; }
+.celestial-orbital-reveal .orbit-2 .obj-ring {
+  width: 5px;
+  height: 5px;
+  border: 1px solid rgba(255, 205, 80, 0.95);
+  border-radius: 50%;
+  animation: corKeepUpright 5.18s linear infinite;
+}
+
+.celestial-orbital-reveal .orbit-3 {
+  width: 54px;
+  height: 54px;
+  transform: rotateX(76deg) rotateY(38deg) rotateZ(-15deg);
+  animation: corOrbitMaster3 5s ease-in-out infinite;
+}
+.celestial-orbital-reveal .orbit-3 .orbit-path { border: 1.5px dashed rgba(255, 205, 80, 0.75); }
+.celestial-orbital-reveal .orbit-3 .orbit-object-wrapper { animation: corSpinCW 2.31s linear infinite; }
+.celestial-orbital-reveal .orbit-3 .obj-bright-point {
+  width: 3px;
+  height: 3px;
+  background-color: #ffe9a8;
+  border-radius: 50%;
+  box-shadow: 0 0 6px 1px #ffc95c;
+}
+
+.celestial-orbital-reveal .orbit-4 {
+  width: 132px;
+  height: 132px;
+  transform: rotateX(42deg) rotateY(-52deg) rotateZ(40deg);
+  animation: corOrbitMaster4 5s ease-in-out infinite;
+}
+.celestial-orbital-reveal .orbit-4 .orbit-path { border: 1.5px solid rgba(255, 205, 80, 0.45); }
+.celestial-orbital-reveal .orbit-4 .orbit-object-wrapper { animation: corSpinCCW 9.26s linear infinite; }
+.celestial-orbital-reveal .orbit-4 .obj-diamond {
+  width: 4px;
+  height: 4px;
+  background-color: rgba(255, 220, 140, 0.9);
+  transform: translate(-50%, -50%) rotate(45deg);
+  box-shadow: 0 0 3px rgba(255, 205, 80, 0.6);
+}
+
+.celestial-orbital-reveal .orbit-5 {
+  width: 102px;
+  height: 102px;
+  transform: rotateX(62deg) rotateY(65deg) rotateZ(-45deg);
+  animation: corOrbitMaster5 5s ease-in-out infinite;
+}
+.celestial-orbital-reveal .orbit-5 .orbit-path {
+  border: 1.5px solid rgba(255, 205, 80, 0.5);
+  border-left-color: rgba(255, 205, 80, 0.85);
+}
+.celestial-orbital-reveal .orbit-5 .orbit-object-wrapper { animation: corSpinCCW 7.87s linear infinite; }
+.celestial-orbital-reveal .orbit-5 .obj-line {
+  width: 6px;
+  height: 1px;
+  background-color: #ffd966;
+  box-shadow: 0 0 4px rgba(255, 205, 80, 0.85);
+  animation: corSelfRotate 3.1s linear infinite;
+}
+
+.celestial-orbital-reveal .orbit-6 {
+  width: 122px;
+  height: 122px;
+  transform: rotateX(84deg) rotateY(-78deg) rotateZ(10deg);
+  animation: corOrbitMaster6 5s ease-in-out infinite;
+}
+.celestial-orbital-reveal .orbit-6 .orbit-path {
+  border: 1.5px solid rgba(255, 200, 110, 0.35);
+  border-top: 1.5px solid rgba(255, 205, 80, 0.7);
+}
+.celestial-orbital-reveal .orbit-6 .orbit-object-wrapper { animation: corSpinCW 11.13s linear infinite; }
+.celestial-orbital-reveal .orbit-6 .obj-square {
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 220, 140, 0.92);
+  animation: corKeepUpright 11.13s linear infinite;
+}
+
+.celestial-orbital-reveal .orbit-7 {
+  width: 138px;
+  height: 120px;
+  transform: rotateX(48deg) rotateY(22deg) rotateZ(-65deg) skewX(8deg);
+  animation: corOrbitMaster7 5s ease-in-out infinite;
+}
+.celestial-orbital-reveal .orbit-7 .orbit-path {
+  border: 2px solid rgba(255, 205, 80, 0.5);
+  border-style: double;
+}
+.celestial-orbital-reveal .orbit-7 .orbit-object-wrapper { animation: corSpinCCW 13.62s linear infinite; }
+.celestial-orbital-reveal .orbit-7 .obj-fragment {
+  width: 5px;
+  height: 4px;
+  background-color: rgba(255, 220, 140, 0.88);
+  clip-path: polygon(0% 0%, 100% 20%, 80% 100%, 10% 70%);
+  animation: corSelfRotate 4.5s linear infinite reverse;
+}
+
+.celestial-orbital-reveal .particle-system { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+.celestial-orbital-reveal .particle {
+  position: absolute;
+  background-color: rgba(255, 205, 80, 0.75);
+  border-radius: 50%;
+  animation: corParticleFloat 6s ease-in-out infinite alternate;
+}
+.celestial-orbital-reveal .p1 { width: 1.5px; height: 1.5px; top: 22%; left: 30%; animation-delay: 0.2s; opacity: 0.4; }
+.celestial-orbital-reveal .p2 { width: 2px; height: 2px; top: 75%; left: 20%; animation-delay: 1.1s; opacity: 0.6; }
+.celestial-orbital-reveal .p3 { width: 1px; height: 1px; top: 15%; left: 70%; animation-delay: 0.7s; opacity: 0.3; }
+.celestial-orbital-reveal .p4 { width: 2px; height: 2px; top: 80%; left: 75%; animation-delay: 2.3s; opacity: 0.5; }
+.celestial-orbital-reveal .p5 { width: 1.5px; height: 1.5px; top: 45%; left: 12%; animation-delay: 1.8s; opacity: 0.6; }
+.celestial-orbital-reveal .p6 { width: 1px; height: 1px; top: 50%; left: 88%; animation-delay: 3.1s; opacity: 0.4; }
+.celestial-orbital-reveal .p7 { width: 2.5px; height: 2.5px; top: 32%; left: 82%; animation-delay: 0.4s; opacity: 0.7; box-shadow: 0 0 3px #ffcf6b; }
+.celestial-orbital-reveal .p8 { width: 1px; height: 1px; top: 68%; left: 35%; animation-delay: 2.9s; opacity: 0.3; }
+.celestial-orbital-reveal .p9 { width: 1.5px; height: 1.5px; top: 88%; left: 45%; animation-delay: 1.4s; opacity: 0.5; }
+.celestial-orbital-reveal .p10 { width: 2px; height: 2px; top: 10%; left: 48%; animation-delay: 3.5s; opacity: 0.6; }
+.celestial-orbital-reveal .p11 { width: 1px; height: 1px; top: 38%; left: 25%; animation-delay: 0.9s; opacity: 0.4; }
+.celestial-orbital-reveal .p12 { width: 1.5px; height: 1.5px; top: 62%; left: 78%; animation-delay: 2.1s; opacity: 0.5; }
+.celestial-orbital-reveal .p13 { width: 2px; height: 2px; top: 28%; left: 60%; animation-delay: 1.6s; opacity: 0.3; }
+.celestial-orbital-reveal .p14 { width: 1px; height: 1px; top: 72%; left: 58%; animation-delay: 3.8s; opacity: 0.4; }
+.celestial-orbital-reveal .p15 { width: 2px; height: 2px; top: 55%; left: 18%; animation-delay: 2.7s; opacity: 0.6; }
+
+.celestial-orbital-reveal .energy-fragments { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+.celestial-orbital-reveal .energy-fragment {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 215, 130, 0.92);
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 195, 90, 0.85);
+}
+.celestial-orbital-reveal .ef1 { top: 50%; left: 50%; animation: corEnergyMotion1 5s ease-in-out infinite; }
+.celestial-orbital-reveal .ef2 { top: 50%; left: 50%; animation: corEnergyMotion2 5s ease-in-out infinite; }
+.celestial-orbital-reveal .ef3 { top: 50%; left: 50%; animation: corEnergyMotion3 5s ease-in-out infinite; }
+
+@keyframes corSpinCW { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes corSpinCCW { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+@keyframes corSelfRotate { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes corKeepUpright { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+
+@keyframes corCorePulse {
+  0% { transform: scale(0.85); opacity: 0.7; }
+  100% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 14px 3px rgba(255, 205, 80, 1); }
+}
+@keyframes corCoreBreathe {
+  0% { transform: scale(0.9); opacity: 0.4; }
+  100% { transform: scale(1.4); opacity: 0.9; }
+}
+@keyframes corCoreFluctuate {
+  0% { transform: scale(0.8) rotate(0deg); opacity: 0.2; }
+  50% { opacity: 0.6; }
+  100% { transform: scale(1.2) rotate(180deg); opacity: 0.3; }
+}
+@keyframes corRingRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes corRingRotateReverse { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+@keyframes corParticleFloat {
+  0% { transform: translate(0, 0) scale(0.8); }
+  50% { transform: translate(3px, -4px) scale(1.2); }
+  100% { transform: translate(-2px, 3px) scale(0.9); }
+}
+@keyframes corShockwavePulse {
+  0% { width: 4px; height: 4px; opacity: 0; border-width: 2px; }
+  85% { opacity: 0; }
+  86% { width: 6px; height: 6px; opacity: 1; border-color: rgba(255, 210, 90, 1); border-width: 2px; }
+  92% { width: 130px; height: 130px; opacity: 0.4; border-color: rgba(255, 180, 60, 0.6); border-width: 1px; }
+  96% { width: 170px; height: 170px; opacity: 0; border-width: 0.5px; }
+  100% { width: 4px; height: 4px; opacity: 0; }
+}
+@keyframes corCoreMasterCycle {
+  0% { transform: scale(0.3); opacity: 0.2; }
+  6% { transform: scale(1); opacity: 1; }
+  58% { transform: scale(1); filter: brightness(1); }
+  64% { transform: scale(1.15); filter: brightness(1.4); }
+  68% { transform: scale(0.95); filter: brightness(1.1); }
+  74% { transform: scale(1.3); filter: brightness(1.8); }
+  80% { transform: scale(0.15); filter: brightness(0.5); opacity: 0.9; }
+  84% { transform: scale(0.05); filter: brightness(0.2); opacity: 0.3; }
+  85.5% { transform: scale(0); opacity: 0; }
+  86% { transform: scale(2.2); filter: brightness(2.5); opacity: 1; }
+  90% { transform: scale(0.9); filter: brightness(1.2); opacity: 0.9; }
+  95% { transform: scale(1); filter: brightness(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes corOrbitMaster1 {
+  0% { transform: rotateX(68deg) rotateY(12deg) rotateZ(0deg) scale(0.2); opacity: 0; }
+  8% { transform: rotateX(68deg) rotateY(12deg) rotateZ(0deg) scale(1); opacity: 1; }
+  58% { transform: rotateX(68deg) rotateY(12deg) rotateZ(0deg) scale(1); opacity: 1; }
+  64% { transform: rotateX(68deg) rotateY(12deg) rotateZ(0deg) scale(1.05); }
+  68% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+  74% { transform: rotateX(30deg) rotateY(40deg) rotateZ(90deg) scale(1.1); opacity: 0.9; }
+  81% { transform: rotateX(68deg) rotateY(12deg) rotateZ(180deg) scale(0.15); opacity: 0.3; }
+  85% { transform: scale(0); opacity: 0; }
+  88% { transform: rotateX(68deg) rotateY(12deg) rotateZ(0deg) scale(1.3); opacity: 0.6; }
+  94% { transform: rotateX(68deg) rotateY(12deg) rotateZ(0deg) scale(0.98); opacity: 1; }
+  100% { transform: rotateX(68deg) rotateY(12deg) rotateZ(0deg) scale(1); opacity: 1; }
+}
+@keyframes corOrbitMaster2 {
+  0% { transform: rotateX(58deg) rotateY(-28deg) rotateZ(25deg) scale(0); opacity: 0; }
+  11% { transform: rotateX(58deg) rotateY(-28deg) rotateZ(25deg) scale(1); opacity: 0.85; }
+  58% { transform: rotateX(58deg) rotateY(-28deg) rotateZ(25deg) scale(1); opacity: 0.85; }
+  64% { transform: rotateX(58deg) rotateY(-28deg) rotateZ(25deg) scale(1.08); }
+  68% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+  75% { transform: rotateX(-50deg) rotateY(20deg) rotateZ(-45deg) scale(0.8); opacity: 1; }
+  82% { transform: rotateX(58deg) rotateY(-28deg) rotateZ(90deg) scale(0.1); opacity: 0.2; }
+  85% { transform: scale(0); opacity: 0; }
+  89% { transform: rotateX(58deg) rotateY(-28deg) rotateZ(25deg) scale(1.25); opacity: 0.5; }
+  95% { transform: rotateX(58deg) rotateY(-28deg) rotateZ(25deg) scale(1); opacity: 0.85; }
+  100% { transform: rotateX(58deg) rotateY(-28deg) rotateZ(25deg) scale(1); opacity: 0.85; }
+}
+@keyframes corOrbitMaster3 {
+  0% { transform: rotateX(76deg) rotateY(38deg) rotateZ(-15deg) scale(0); opacity: 0; }
+  6% { transform: rotateX(76deg) rotateY(38deg) rotateZ(-15deg) scale(1); opacity: 1; }
+  58% { transform: rotateX(76deg) rotateY(38deg) rotateZ(-15deg) scale(1); opacity: 1; }
+  64% { transform: rotateX(76deg) rotateY(38deg) rotateZ(-15deg) scale(1.1); }
+  68% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+  73% { transform: rotateX(80deg) rotateY(-10deg) rotateZ(30deg) scale(1.2); }
+  80% { transform: rotateX(76deg) rotateY(38deg) rotateZ(0deg) scale(0.08); opacity: 0.4; }
+  85% { transform: scale(0); opacity: 0; }
+  87% { transform: rotateX(76deg) rotateY(38deg) rotateZ(-15deg) scale(1.4); opacity: 0.8; }
+  92% { transform: rotateX(76deg) rotateY(38deg) rotateZ(-15deg) scale(0.95); opacity: 1; }
+  100% { transform: rotateX(76deg) rotateY(38deg) rotateZ(-15deg) scale(1); opacity: 1; }
+}
+@keyframes corOrbitMaster4 {
+  0% { transform: rotateX(42deg) rotateY(-52deg) rotateZ(40deg) scale(0); opacity: 0; }
+  14% { transform: rotateX(42deg) rotateY(-52deg) rotateZ(40deg) scale(1); opacity: 0.7; }
+  58% { transform: rotateX(42deg) rotateY(-52deg) rotateZ(40deg) scale(1); opacity: 0.7; }
+  64% { transform: rotateX(42deg) rotateY(-52deg) rotateZ(40deg) scale(1.04); }
+  68% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+  76% { transform: rotateX(-20deg) rotateY(-80deg) rotateZ(10deg) scale(0.7); opacity: 0.9; }
+  83% { transform: rotateX(42deg) rotateY(-52deg) rotateZ(0deg) scale(0.05); opacity: 0.1; }
+  85% { transform: scale(0); opacity: 0; }
+  90% { transform: rotateX(42deg) rotateY(-52deg) rotateZ(40deg) scale(1.2); opacity: 0.4; }
+  96% { transform: rotateX(42deg) rotateY(-52deg) rotateZ(40deg) scale(1); opacity: 0.7; }
+  100% { transform: rotateX(42deg) rotateY(-52deg) rotateZ(40deg) scale(1); opacity: 0.7; }
+}
+@keyframes corOrbitMaster5 {
+  0% { transform: rotateX(62deg) rotateY(65deg) rotateZ(-45deg) scale(0); opacity: 0; }
+  10% { transform: rotateX(62deg) rotateY(65deg) rotateZ(-45deg) scale(1); opacity: 0.8; }
+  58% { transform: rotateX(62deg) rotateY(65deg) rotateZ(-45deg) scale(1); opacity: 0.8; }
+  64% { transform: rotateX(62deg) rotateY(65deg) rotateZ(-45deg) scale(1.06); }
+  68% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+  74% { transform: rotateX(45deg) rotateY(20deg) rotateZ(-90deg) scale(1.15); }
+  81% { transform: rotateX(62deg) rotateY(65deg) rotateZ(0deg) scale(0.12); opacity: 0.2; }
+  85% { transform: scale(0); opacity: 0; }
+  88.5% { transform: rotateX(62deg) rotateY(65deg) rotateZ(-45deg) scale(1.35); opacity: 0.6; }
+  94.5% { transform: rotateX(62deg) rotateY(65deg) rotateZ(-45deg) scale(1); opacity: 0.8; }
+  100% { transform: rotateX(62deg) rotateY(65deg) rotateZ(-45deg) scale(1); opacity: 0.8; }
+}
+@keyframes corOrbitMaster6 {
+  0% { transform: rotateX(84deg) rotateY(-78deg) rotateZ(10deg) scale(0); opacity: 0; }
+  16% { transform: rotateX(84deg) rotateY(-78deg) rotateZ(10deg) scale(1); opacity: 0.65; }
+  58% { transform: rotateX(84deg) rotateY(-78deg) rotateZ(10deg) scale(1); opacity: 0.65; }
+  64% { transform: rotateX(84deg) rotateY(-78deg) rotateZ(10deg) scale(1.05); }
+  68% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+  77% { transform: rotateX(-70deg) rotateY(40deg) rotateZ(-30deg) scale(0.65); opacity: 0.85; }
+  83.5% { transform: rotateX(84deg) rotateY(-78deg) rotateZ(0deg) scale(0.04); opacity: 0.1; }
+  85% { transform: scale(0); opacity: 0; }
+  91% { transform: rotateX(84deg) rotateY(-78deg) rotateZ(10deg) scale(1.18); opacity: 0.35; }
+  97% { transform: rotateX(84deg) rotateY(-78deg) rotateZ(10deg) scale(1); opacity: 0.65; }
+  100% { transform: rotateX(84deg) rotateY(-78deg) rotateZ(10deg) scale(1); opacity: 0.65; }
+}
+@keyframes corOrbitMaster7 {
+  0% { transform: rotateX(48deg) rotateY(22deg) rotateZ(-65deg) skewX(8deg) scale(0); opacity: 0; }
+  18% { transform: rotateX(48deg) rotateY(22deg) rotateZ(-65deg) skewX(8deg) scale(1); opacity: 0.75; }
+  58% { transform: rotateX(48deg) rotateY(22deg) rotateZ(-65deg) skewX(8deg) scale(1); opacity: 0.75; }
+  64% { transform: rotateX(48deg) rotateY(22deg) rotateZ(-65deg) skewX(8deg) scale(1.08); }
+  68% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+  75% { transform: rotateX(30deg) rotateY(-60deg) rotateZ(45deg) skewX(0deg) scale(1.1); }
+  82% { transform: rotateX(48deg) rotateY(22deg) rotateZ(0deg) skewX(0deg) scale(0.07); opacity: 0.2; }
+  85% { transform: scale(0); opacity: 0; }
+  91.5% { transform: rotateX(48deg) rotateY(22deg) rotateZ(-65deg) skewX(8deg) scale(1.22); opacity: 0.45; }
+  97.5% { transform: rotateX(48deg) rotateY(22deg) rotateZ(-65deg) skewX(8deg) scale(1); opacity: 0.75; }
+  100% { transform: rotateX(48deg) rotateY(22deg) rotateZ(-65deg) skewX(8deg) scale(1); opacity: 0.75; }
+}
+
+@keyframes corEnergyMotion1 {
+  0% { transform: translate(-50%, -50%) translate(-35px, -20px) scale(0.8); opacity: 0.3; }
+  30% { transform: translate(-50%, -50%) translate(-45px, 25px) scale(1.1); opacity: 0.8; }
+  58% { transform: translate(-50%, -50%) translate(-25px, -38px) scale(0.9); opacity: 0.6; }
+  68% { transform: translate(-50%, -50%) translate(-15px, -10px) scale(1.3); opacity: 1; }
+  80% { transform: translate(-50%, -50%) translate(-2px, -2px) scale(0.3); opacity: 0.9; }
+  85% { transform: translate(-50%, -50%) translate(0, 0) scale(0); opacity: 0; }
+  87% { transform: translate(-50%, -50%) translate(-65px, -45px) scale(1.6); opacity: 1; }
+  95% { transform: translate(-50%, -50%) translate(-38px, -22px) scale(0.9); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) translate(-35px, -20px) scale(0.8); opacity: 0.3; }
+}
+@keyframes corEnergyMotion2 {
+  0% { transform: translate(-50%, -50%) translate(40px, 15px) scale(1); opacity: 0.5; }
+  35% { transform: translate(-50%, -50%) translate(20px, -40px) scale(0.7); opacity: 0.4; }
+  58% { transform: translate(-50%, -50%) translate(48px, 10px) scale(1.2); opacity: 0.9; }
+  68% { transform: translate(-50%, -50%) translate(12px, 8px) scale(1.4); opacity: 1; }
+  81% { transform: translate(-50%, -50%) translate(1px, 1px) scale(0.2); opacity: 0.8; }
+  85% { transform: translate(-50%, -50%) translate(0, 0) scale(0); opacity: 0; }
+  87.5% { transform: translate(-50%, -50%) translate(55px, 50px) scale(1.5); opacity: 1; }
+  96% { transform: translate(-50%, -50%) translate(42px, 18px) scale(1); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) translate(40px, 15px) scale(1); opacity: 0.5; }
+}
+@keyframes corEnergyMotion3 {
+  0% { transform: translate(-50%, -50%) translate(10px, -45px) scale(0.6); opacity: 0.4; }
+  25% { transform: translate(-50%, -50%) translate(-30px, 35px) scale(1); opacity: 0.7; }
+  58% { transform: translate(-50%, -50%) translate(15px, 42px) scale(0.8); opacity: 0.5; }
+  68% { transform: translate(-50%, -50%) translate(8px, -12px) scale(1.2); opacity: 0.95; }
+  82% { transform: translate(-50%, -50%) translate(0px, -1px) scale(0.4); opacity: 0.7; }
+  85% { transform: translate(-50%, -50%) translate(0, 0) scale(0); opacity: 0; }
+  88% { transform: translate(-50%, -50%) translate(10px, -65px) scale(1.7); opacity: 1; }
+  94% { transform: translate(-50%, -50%) translate(12px, -48px) scale(0.7); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) translate(10px, -45px) scale(0.6); opacity: 0.4; }
+}
+
+/* The impact, 5.7s in (see the +1.5s speeder-offset note up near
+   .cor-intro). Deliberately no ring outlines any more - the two crisp
+   expanding-border rings this used to fire (.cor-blast-ring/-ring-2)
+   read as flat concentric circles rather than an explosion (same
+   complaint independently raised about Mythic's blast - see that
+   section's own history), so they're gone entirely along with their
+   corBlastRing keyframe; the bloom below is a bright core flash and
+   160 .cor-spark particles (bumped up from an initial 100 - "bigger
+   explosion, more particles") do the work of "covers the screen", not
+   a smooth circle, travelling up to ~950px out. Each spark also gets
+   its own animation-delay (not just its own --a/--d), generated
+   per-particle rather than shared - sharing one delay across all
+   particles was the actual root cause of an earlier "ring of dots" bug
+   (everything at the same fraction of its journey at any instant
+   traces a circle regardless of how much distance/angle varies) - see
+   nth-child rules below. Paired with .cor-shake above. */
+.cor-blast { position: absolute; inset: 0; pointer-events: none; }
+.cor-blast-bloom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  /* Deliberately much more saturated/darker than the recolor pass
+     above (rgba(255,210,90,..)-style pale gold) - against this
+     reveal's new pale background, that pale a gold has almost no
+     luminance contrast and all but disappeared (caught via screenshot,
+     not assumed - the whole blast read as a faint smudge). A hot
+     amber-orange core reads clearly instead. */
+  background: radial-gradient(circle, #fffbea 0%, #ffb020 20%, rgba(230, 140, 10, 0.9) 50%, rgba(230, 140, 10, 0) 100%);
+  opacity: 0;
+  animation: corBlastBloom 1.2s ease-out 1 forwards 12.2s;
+}
+@keyframes corBlastBloom {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+  10% { opacity: 1; transform: translate(-50%, -50%) scale(2.4); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(28); }
+}
+.cor-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  /* Same contrast fix as .cor-blast-bloom above - a saturated
+     amber-orange with a fully-opaque glow, not the pale gold used
+     elsewhere in this reveal, so these dots read clearly at a distance
+     against the pale background instead of washing out. Sized up
+     again (9px -> 13px) plus the particle count below (100 -> 160) and
+     travel distance (up to 700px -> up to 950px) per "bigger explosion,
+     more particles" feedback. */
+  background: #f5a623;
+  box-shadow: 0 0 20px 6px rgba(235, 150, 10, 1);
+  opacity: 0;
+  animation: corSparkBurst 1.9s cubic-bezier(0.2, 0.8, 0.3, 1) 1 forwards 12.2s;
+}
+@keyframes corSparkBurst {
+  0% { opacity: 0; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
+  8% { opacity: 1; }
+  60% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(calc(cos(var(--a)) * var(--d)), calc(sin(var(--a)) * var(--d))) scale(0.15); }
+}
+/* .cor-blast-bloom is this wrapper's first child, so the Nth .cor-spark
+   (0-indexed) is DOM position N+2, not N+1 - these nth-child selectors
+   have to match that real position or they silently target nothing (or
+   the wrong spark). Each rule below sets ONLY animation-delay as a
+   longhand on top of the shorthand's baseline 4.2s - a longhand on a
+   more specific selector overrides just that one sub-property without
+   needing to repeat duration/timing-function/fill-mode. */
+.cor-spark:nth-child(2) { --a: -0.2deg; --d: 537px; animation-delay: 12.137s; }
+.cor-spark:nth-child(3) { --a: 1.9deg; --d: 858px; animation-delay: 11.928s; }
+.cor-spark:nth-child(4) { --a: 4.3deg; --d: 930px; animation-delay: 12.051s; }
+.cor-spark:nth-child(5) { --a: 5.9deg; --d: 375px; animation-delay: 11.960s; }
+.cor-spark:nth-child(6) { --a: 9.1deg; --d: 813px; animation-delay: 12.521s; }
+.cor-spark:nth-child(7) { --a: 11.8deg; --d: 285px; animation-delay: 12.371s; }
+.cor-spark:nth-child(8) { --a: 14.1deg; --d: 606px; animation-delay: 12.539s; }
+.cor-spark:nth-child(9) { --a: 15.3deg; --d: 789px; animation-delay: 12.264s; }
+.cor-spark:nth-child(10) { --a: 17.7deg; --d: 298px; animation-delay: 11.853s; }
+.cor-spark:nth-child(11) { --a: 19.7deg; --d: 439px; animation-delay: 12.185s; }
+.cor-spark:nth-child(12) { --a: 22.6deg; --d: 645px; animation-delay: 12.086s; }
+.cor-spark:nth-child(13) { --a: 24.4deg; --d: 351px; animation-delay: 11.978s; }
+.cor-spark:nth-child(14) { --a: 26.8deg; --d: 642px; animation-delay: 12.250s; }
+.cor-spark:nth-child(15) { --a: 28.7deg; --d: 481px; animation-delay: 12.235s; }
+.cor-spark:nth-child(16) { --a: 31.5deg; --d: 724px; animation-delay: 12.467s; }
+.cor-spark:nth-child(17) { --a: 33.1deg; --d: 291px; animation-delay: 11.960s; }
+.cor-spark:nth-child(18) { --a: 35.6deg; --d: 862px; animation-delay: 12.184s; }
+.cor-spark:nth-child(19) { --a: 38.8deg; --d: 741px; animation-delay: 12.059s; }
+.cor-spark:nth-child(20) { --a: 40.3deg; --d: 254px; animation-delay: 11.980s; }
+.cor-spark:nth-child(21) { --a: 42.9deg; --d: 327px; animation-delay: 12.454s; }
+.cor-spark:nth-child(22) { --a: 45.4deg; --d: 849px; animation-delay: 11.909s; }
+.cor-spark:nth-child(23) { --a: 47.3deg; --d: 269px; animation-delay: 11.925s; }
+.cor-spark:nth-child(24) { --a: 48.7deg; --d: 881px; animation-delay: 12.541s; }
+.cor-spark:nth-child(25) { --a: 50.9deg; --d: 710px; animation-delay: 12.099s; }
+.cor-spark:nth-child(26) { --a: 53.7deg; --d: 463px; animation-delay: 12.285s; }
+.cor-spark:nth-child(27) { --a: 56.6deg; --d: 620px; animation-delay: 12.190s; }
+.cor-spark:nth-child(28) { --a: 58.5deg; --d: 360px; animation-delay: 12.227s; }
+.cor-spark:nth-child(29) { --a: 60.8deg; --d: 947px; animation-delay: 12.003s; }
+.cor-spark:nth-child(30) { --a: 63.9deg; --d: 331px; animation-delay: 12.545s; }
+.cor-spark:nth-child(31) { --a: 65.4deg; --d: 942px; animation-delay: 12.106s; }
+.cor-spark:nth-child(32) { --a: 66.9deg; --d: 470px; animation-delay: 12.269s; }
+.cor-spark:nth-child(33) { --a: 70.4deg; --d: 756px; animation-delay: 11.975s; }
+.cor-spark:nth-child(34) { --a: 72.3deg; --d: 473px; animation-delay: 12.347s; }
+.cor-spark:nth-child(35) { --a: 73.8deg; --d: 531px; animation-delay: 12.036s; }
+.cor-spark:nth-child(36) { --a: 76.2deg; --d: 727px; animation-delay: 12.483s; }
+.cor-spark:nth-child(37) { --a: 79.6deg; --d: 787px; animation-delay: 11.887s; }
+.cor-spark:nth-child(38) { --a: 81.6deg; --d: 608px; animation-delay: 12.133s; }
+.cor-spark:nth-child(39) { --a: 83.7deg; --d: 437px; animation-delay: 12.230s; }
+.cor-spark:nth-child(40) { --a: 84.8deg; --d: 383px; animation-delay: 11.915s; }
+.cor-spark:nth-child(41) { --a: 88.0deg; --d: 421px; animation-delay: 12.011s; }
+.cor-spark:nth-child(42) { --a: 90.4deg; --d: 432px; animation-delay: 11.926s; }
+.cor-spark:nth-child(43) { --a: 93.1deg; --d: 760px; animation-delay: 12.002s; }
+.cor-spark:nth-child(44) { --a: 94.5deg; --d: 554px; animation-delay: 12.075s; }
+.cor-spark:nth-child(45) { --a: 96.1deg; --d: 294px; animation-delay: 12.236s; }
+.cor-spark:nth-child(46) { --a: 99.8deg; --d: 474px; animation-delay: 12.250s; }
+.cor-spark:nth-child(47) { --a: 100.9deg; --d: 896px; animation-delay: 12.027s; }
+.cor-spark:nth-child(48) { --a: 103.9deg; --d: 924px; animation-delay: 12.045s; }
+.cor-spark:nth-child(49) { --a: 106.5deg; --d: 769px; animation-delay: 12.342s; }
+.cor-spark:nth-child(50) { --a: 108.7deg; --d: 572px; animation-delay: 12.047s; }
+.cor-spark:nth-child(51) { --a: 110.1deg; --d: 323px; animation-delay: 11.945s; }
+.cor-spark:nth-child(52) { --a: 112.3deg; --d: 389px; animation-delay: 12.390s; }
+.cor-spark:nth-child(53) { --a: 114.6deg; --d: 485px; animation-delay: 11.986s; }
+.cor-spark:nth-child(54) { --a: 116.6deg; --d: 473px; animation-delay: 12.408s; }
+.cor-spark:nth-child(55) { --a: 119.9deg; --d: 879px; animation-delay: 12.050s; }
+.cor-spark:nth-child(56) { --a: 121.9deg; --d: 874px; animation-delay: 12.533s; }
+.cor-spark:nth-child(57) { --a: 124.4deg; --d: 793px; animation-delay: 11.921s; }
+.cor-spark:nth-child(58) { --a: 126.9deg; --d: 288px; animation-delay: 11.951s; }
+.cor-spark:nth-child(59) { --a: 127.4deg; --d: 318px; animation-delay: 11.996s; }
+.cor-spark:nth-child(60) { --a: 130.1deg; --d: 849px; animation-delay: 12.072s; }
+.cor-spark:nth-child(61) { --a: 133.4deg; --d: 537px; animation-delay: 12.092s; }
+.cor-spark:nth-child(62) { --a: 135.5deg; --d: 732px; animation-delay: 11.901s; }
+.cor-spark:nth-child(63) { --a: 137.1deg; --d: 519px; animation-delay: 12.237s; }
+.cor-spark:nth-child(64) { --a: 138.9deg; --d: 837px; animation-delay: 11.979s; }
+.cor-spark:nth-child(65) { --a: 141.9deg; --d: 288px; animation-delay: 12.109s; }
+.cor-spark:nth-child(66) { --a: 143.5deg; --d: 541px; animation-delay: 12.292s; }
+.cor-spark:nth-child(67) { --a: 147.1deg; --d: 444px; animation-delay: 12.160s; }
+.cor-spark:nth-child(68) { --a: 148.5deg; --d: 942px; animation-delay: 11.919s; }
+.cor-spark:nth-child(69) { --a: 150.7deg; --d: 784px; animation-delay: 12.312s; }
+.cor-spark:nth-child(70) { --a: 152.3deg; --d: 690px; animation-delay: 11.972s; }
+.cor-spark:nth-child(71) { --a: 154.6deg; --d: 331px; animation-delay: 12.289s; }
+.cor-spark:nth-child(72) { --a: 156.8deg; --d: 544px; animation-delay: 12.095s; }
+.cor-spark:nth-child(73) { --a: 160.5deg; --d: 402px; animation-delay: 12.240s; }
+.cor-spark:nth-child(74) { --a: 162.8deg; --d: 526px; animation-delay: 12.445s; }
+.cor-spark:nth-child(75) { --a: 164.1deg; --d: 756px; animation-delay: 12.455s; }
+.cor-spark:nth-child(76) { --a: 166.3deg; --d: 385px; animation-delay: 12.476s; }
+.cor-spark:nth-child(77) { --a: 169.3deg; --d: 772px; animation-delay: 12.049s; }
+.cor-spark:nth-child(78) { --a: 170.9deg; --d: 726px; animation-delay: 11.967s; }
+.cor-spark:nth-child(79) { --a: 173.2deg; --d: 572px; animation-delay: 12.128s; }
+.cor-spark:nth-child(80) { --a: 174.6deg; --d: 660px; animation-delay: 12.044s; }
+.cor-spark:nth-child(81) { --a: 177.6deg; --d: 755px; animation-delay: 12.526s; }
+.cor-spark:nth-child(82) { --a: 180.6deg; --d: 640px; animation-delay: 12.487s; }
+.cor-spark:nth-child(83) { --a: 182.8deg; --d: 710px; animation-delay: 12.431s; }
+.cor-spark:nth-child(84) { --a: 184.4deg; --d: 778px; animation-delay: 12.219s; }
+.cor-spark:nth-child(85) { --a: 187.2deg; --d: 773px; animation-delay: 11.955s; }
+.cor-spark:nth-child(86) { --a: 188.4deg; --d: 536px; animation-delay: 12.487s; }
+.cor-spark:nth-child(87) { --a: 190.6deg; --d: 387px; animation-delay: 12.274s; }
+.cor-spark:nth-child(88) { --a: 193.7deg; --d: 640px; animation-delay: 12.444s; }
+.cor-spark:nth-child(89) { --a: 195.0deg; --d: 811px; animation-delay: 12.312s; }
+.cor-spark:nth-child(90) { --a: 197.8deg; --d: 271px; animation-delay: 12.203s; }
+.cor-spark:nth-child(91) { --a: 199.4deg; --d: 796px; animation-delay: 12.215s; }
+.cor-spark:nth-child(92) { --a: 201.9deg; --d: 291px; animation-delay: 11.861s; }
+.cor-spark:nth-child(93) { --a: 205.5deg; --d: 645px; animation-delay: 12.292s; }
+.cor-spark:nth-child(94) { --a: 206.6deg; --d: 391px; animation-delay: 12.531s; }
+.cor-spark:nth-child(95) { --a: 209.5deg; --d: 550px; animation-delay: 12.276s; }
+.cor-spark:nth-child(96) { --a: 210.8deg; --d: 899px; animation-delay: 11.963s; }
+.cor-spark:nth-child(97) { --a: 214.2deg; --d: 558px; animation-delay: 11.939s; }
+.cor-spark:nth-child(98) { --a: 216.1deg; --d: 320px; animation-delay: 12.129s; }
+.cor-spark:nth-child(99) { --a: 217.4deg; --d: 607px; animation-delay: 11.854s; }
+.cor-spark:nth-child(100) { --a: 220.5deg; --d: 810px; animation-delay: 12.440s; }
+.cor-spark:nth-child(101) { --a: 223.6deg; --d: 334px; animation-delay: 12.418s; }
+.cor-spark:nth-child(102) { --a: 224.1deg; --d: 791px; animation-delay: 12.059s; }
+.cor-spark:nth-child(103) { --a: 227.7deg; --d: 571px; animation-delay: 12.140s; }
+.cor-spark:nth-child(104) { --a: 229.0deg; --d: 579px; animation-delay: 12.289s; }
+.cor-spark:nth-child(105) { --a: 232.4deg; --d: 778px; animation-delay: 12.331s; }
+.cor-spark:nth-child(106) { --a: 233.3deg; --d: 337px; animation-delay: 11.868s; }
+.cor-spark:nth-child(107) { --a: 237.1deg; --d: 564px; animation-delay: 11.855s; }
+.cor-spark:nth-child(108) { --a: 238.4deg; --d: 351px; animation-delay: 12.323s; }
+.cor-spark:nth-child(109) { --a: 240.3deg; --d: 623px; animation-delay: 12.142s; }
+.cor-spark:nth-child(110) { --a: 243.4deg; --d: 447px; animation-delay: 12.244s; }
+.cor-spark:nth-child(111) { --a: 245.8deg; --d: 334px; animation-delay: 12.027s; }
+.cor-spark:nth-child(112) { --a: 247.5deg; --d: 817px; animation-delay: 12.444s; }
+.cor-spark:nth-child(113) { --a: 249.8deg; --d: 311px; animation-delay: 12.372s; }
+.cor-spark:nth-child(114) { --a: 252.6deg; --d: 418px; animation-delay: 12.515s; }
+.cor-spark:nth-child(115) { --a: 255.0deg; --d: 373px; animation-delay: 12.132s; }
+.cor-spark:nth-child(116) { --a: 256.1deg; --d: 444px; animation-delay: 12.261s; }
+.cor-spark:nth-child(117) { --a: 258.4deg; --d: 741px; animation-delay: 11.983s; }
+.cor-spark:nth-child(118) { --a: 261.4deg; --d: 903px; animation-delay: 12.115s; }
+.cor-spark:nth-child(119) { --a: 263.3deg; --d: 717px; animation-delay: 12.327s; }
+.cor-spark:nth-child(120) { --a: 265.5deg; --d: 439px; animation-delay: 12.335s; }
+.cor-spark:nth-child(121) { --a: 268.5deg; --d: 942px; animation-delay: 12.183s; }
+.cor-spark:nth-child(122) { --a: 269.2deg; --d: 615px; animation-delay: 12.140s; }
+.cor-spark:nth-child(123) { --a: 272.5deg; --d: 923px; animation-delay: 12.281s; }
+.cor-spark:nth-child(124) { --a: 273.9deg; --d: 564px; animation-delay: 12.252s; }
+.cor-spark:nth-child(125) { --a: 276.0deg; --d: 378px; animation-delay: 11.909s; }
+.cor-spark:nth-child(126) { --a: 278.2deg; --d: 605px; animation-delay: 12.441s; }
+.cor-spark:nth-child(127) { --a: 281.3deg; --d: 755px; animation-delay: 12.548s; }
+.cor-spark:nth-child(128) { --a: 283.9deg; --d: 731px; animation-delay: 12.040s; }
+.cor-spark:nth-child(129) { --a: 286.5deg; --d: 570px; animation-delay: 12.380s; }
+.cor-spark:nth-child(130) { --a: 288.7deg; --d: 318px; animation-delay: 12.188s; }
+.cor-spark:nth-child(131) { --a: 290.4deg; --d: 796px; animation-delay: 12.417s; }
+.cor-spark:nth-child(132) { --a: 293.4deg; --d: 672px; animation-delay: 12.014s; }
+.cor-spark:nth-child(133) { --a: 294.8deg; --d: 768px; animation-delay: 12.358s; }
+.cor-spark:nth-child(134) { --a: 297.0deg; --d: 876px; animation-delay: 12.379s; }
+.cor-spark:nth-child(135) { --a: 298.5deg; --d: 522px; animation-delay: 12.262s; }
+.cor-spark:nth-child(136) { --a: 301.3deg; --d: 869px; animation-delay: 12.224s; }
+.cor-spark:nth-child(137) { --a: 303.7deg; --d: 906px; animation-delay: 11.992s; }
+.cor-spark:nth-child(138) { --a: 306.6deg; --d: 923px; animation-delay: 12.081s; }
+.cor-spark:nth-child(139) { --a: 307.5deg; --d: 920px; animation-delay: 12.195s; }
+.cor-spark:nth-child(140) { --a: 310.8deg; --d: 441px; animation-delay: 12.050s; }
+.cor-spark:nth-child(141) { --a: 312.0deg; --d: 653px; animation-delay: 12.513s; }
+.cor-spark:nth-child(142) { --a: 315.3deg; --d: 454px; animation-delay: 12.488s; }
+.cor-spark:nth-child(143) { --a: 316.4deg; --d: 392px; animation-delay: 12.046s; }
+.cor-spark:nth-child(144) { --a: 319.4deg; --d: 653px; animation-delay: 12.395s; }
+.cor-spark:nth-child(145) { --a: 322.3deg; --d: 554px; animation-delay: 11.923s; }
+.cor-spark:nth-child(146) { --a: 323.6deg; --d: 666px; animation-delay: 12.073s; }
+.cor-spark:nth-child(147) { --a: 327.1deg; --d: 368px; animation-delay: 12.378s; }
+.cor-spark:nth-child(148) { --a: 328.9deg; --d: 468px; animation-delay: 11.920s; }
+.cor-spark:nth-child(149) { --a: 331.4deg; --d: 267px; animation-delay: 11.974s; }
+.cor-spark:nth-child(150) { --a: 333.0deg; --d: 580px; animation-delay: 12.506s; }
+.cor-spark:nth-child(151) { --a: 334.5deg; --d: 677px; animation-delay: 12.305s; }
+.cor-spark:nth-child(152) { --a: 338.4deg; --d: 740px; animation-delay: 12.059s; }
+.cor-spark:nth-child(153) { --a: 339.3deg; --d: 747px; animation-delay: 12.487s; }
+.cor-spark:nth-child(154) { --a: 342.4deg; --d: 722px; animation-delay: 12.059s; }
+.cor-spark:nth-child(155) { --a: 344.3deg; --d: 420px; animation-delay: 11.917s; }
+.cor-spark:nth-child(156) { --a: 346.8deg; --d: 893px; animation-delay: 11.894s; }
+.cor-spark:nth-child(157) { --a: 349.4deg; --d: 482px; animation-delay: 12.027s; }
+.cor-spark:nth-child(158) { --a: 351.2deg; --d: 679px; animation-delay: 12.226s; }
+.cor-spark:nth-child(159) { --a: 354.0deg; --d: 561px; animation-delay: 12.542s; }
+.cor-spark:nth-child(160) { --a: 356.2deg; --d: 872px; animation-delay: 11.952s; }
+.cor-spark:nth-child(161) { --a: 358.3deg; --d: 473px; animation-delay: 12.369s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .celestial-orbital-reveal * {
+    animation: none !important;
+  }
+  .cor-night-sky { display: none; }
+  .cor-speeder-stage { display: none; }
+  .cor-intro { opacity: 1; transform: scale(1); }
+  .orbital-core { opacity: 1; }
+  .cor-blast-bloom, .cor-spark { display: none; }
+}
+
+/* ============================================================
+   Mythic starfield (MythicStarfieldReveal.tsx) - a standalone pre-reveal
+   intro now, not a persistent backdrop behind the card (the card doesn't
+   exist on screen until this finishes and hands off - see that
+   component). Two reference snippets combined: three parallax
+   box-shadow star layers (each an exact, hand-supplied list of star
+   coordinates, not generated - a 1px/2px/3px layer at 50s/100s/150s
+   scroll speeds for depth) plus a moon and three meteor streaks from a
+   second snippet. Renamed off the originals' #id selectors to scoped
+   classes (ids can't repeat if this ever renders twice) and off their
+   generic keyframe names (animStar/shoot) to mythic-prefixed ones, to
+   stay clear of anything else in this file. The ::after on each star
+   layer is a **verbatim duplicate** of that layer's own box-shadow
+   list, shifted down 2000px - that's what lets the 2000px vertical
+   scroll loop seamlessly with no visible seam or reset-jump, not an
+   oversight.
+
+   Retinted dark and unsettling rather than a pretty night sky per a
+   later request: near-black background instead of the original navy
+   gradient, dimmed stars fading up out of the dark instead of full
+   brightness, a blood moon, ember-colored meteors, plus a growing
+   crimson "dread" pulse (see .mythic-dread-pulse below) that builds for
+   ~3.3s before a hard cut to black and a 0.6s screen shake, followed by
+   a thunder crack and then a watching eye with a sweeping red ray (see
+   .mythic-eye-stage further down) before the sealed card appears.
+   .mythic-starfield itself
+   is position:absolute now, not fixed - it's nested inside
+   .mythic-dread-shake, which gets a transform at the climax, and a
+   fixed descendant of a transformed ancestor repositions against THAT
+   ancestor instead of the viewport, which read as a jarring jump right
+   as the shake started. */
+.mythic-starfield {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, #0a0000 0%, #000000 75%);
+}
+
+.mythic-stars-1,
+.mythic-stars-2,
+.mythic-stars-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  /* Base state before the fade-in below kicks in - each layer's own more
+     specific rule sets the real `animation` (scroll + this fade, both
+     in one list; a second `animation` declaration wouldn't add to this
+     one, it would replace it, so the fade can't live only here). */
+  opacity: 0;
+}
+
+.mythic-stars-1 {
+  width: 2px;
+  height: 2px;
+  /* Anchor shifted up-left by exactly this layer's own max drift
+     (mythicStarScroll1's 100% stop: translate(230px, 640px), see below)
+     instead of the shared rule's top:0/left:0 - without this, the field
+     (a fixed ~2000px/4000px-tall dot cloud, positioned from its own
+     top-left corner) starts flush with the viewport's top-left corner
+     and only ever drifts FURTHER right/down from there, so the
+     top-left corner is exposed more and more as the loop progresses,
+     worst exactly at the 100% keyframe - and because this loop is only
+     3.9s while the zoom/finale window is 5.2s-7.2s, that window mostly
+     lands in the back half of a cycle (highest drift), which is why
+     the gap reads as "when the zoom happens" specifically even though
+     the field/drift itself has nothing to do with the zoom. Shifting
+     the static anchor by -230px/-640px means the field starts already
+     overlapping past the top-left corner and drifts back to exactly
+     flush (not past it) by 100%, so that corner is covered at every
+     point in the loop instead of only at 0%. */
+  top: -640px;
+  left: -230px;
+  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.9));
+  /* mythicStarScroll1 was "1 forwards" - played its 3.9s scroll once and
+     then held frozen at the fully-scrolled-away end position, which
+     pushed every dot in this layer out of the visible frame for the
+     rest of the reveal - fine for the original ~7s duration this act
+     used to run, but with the finale extending it to 7.8s (and the
+     dramatic zoom landing right in that now-much-longer dead stretch),
+     the sky just goes empty partway through, reading as "the
+     background breaks" when zooming per request. infinite keeps it
+     scrolling/repopulating (via this layer's own ::after duplicate,
+     offset 2000px, exactly the mechanism that duplicate exists for)
+     instead of finishing and staying blank. */
+  animation: mythicStarScroll1 3.9s ease-in infinite, mythicStarsFadeIn 0.1s ease-out 1 forwards;
+  box-shadow: 501px 811px #fff, 1450px 1324px #fff, 1093px 1780px #fff, 1469px 678px #fff, 904px 741px #fff, 1160px 781px #fff, 1841px 1962px #fff, 1630px 1667px #fff, 1788px 676px #fff, 367px 1734px #fff, 1343px 156px #fff, 1283px 1142px #fff, 1062px 378px #fff, 1395px 467px #fff, 1017px 1891px #fff, 137px 1114px #fff, 1767px 1403px #fff, 1543px 11px #fff, 1078px 181px #fff, 1189px 1574px #fff, 1697px 1551px #fff, 439px 472px #fff, 1491px 677px #fff, 1364px 599px #fff, 34px 382px #fff, 1221px 1584px #fff, 1266px 1499px #fff, 169px 1907px #fff, 1219px 1125px #fff, 659px 18px #fff, 1731px 1959px #fff, 332px 1216px #fff, 1913px 788px #fff, 80px 712px #fff, 326px 1605px #fff, 574px 1502px #fff, 473px 1653px #fff, 404px 975px #fff, 322px 1797px #fff, 425px 1321px #fff, 1121px 1797px #fff, 731px 647px #fff, 891px 1584px #fff, 1523px 109px #fff, 1379px 244px #fff, 865px 1064px #fff, 493px 956px #fff, 624px 1380px #fff, 440px 619px #fff, 1630px 767px #fff, 955px 1196px #fff, 62px 729px #fff, 126px 946px #fff, 1256px 896px #fff, 1444px 256px #fff, 661px 1628px #fff, 1078px 1716px #fff, 300px 737px #fff, 1734px 413px #fff, 1296px 129px #fff, 1771px 1678px #fff, 977px 1764px #fff, 1879px 549px #fff, 665px 1531px #fff, 89px 701px #fff, 1084px 1183px #fff, 1597px 1576px #fff, 1354px 1774px #fff, 554px 1471px #fff, 1469px 287px #fff, 887px 106px #fff, 1962px 766px #fff, 638px 805px #fff, 1651px 741px #fff, 1517px 1826px #fff, 24px 1152px #fff, 507px 558px #fff, 1262px 652px #fff, 246px 1048px #fff, 1077px 421px #fff, 1866px 1847px #fff, 1986px 1561px #fff, 704px 632px #fff, 1991px 1875px #fff, 1227px 395px #fff, 45px 1116px #fff, 247px 786px #fff, 890px 607px #fff, 787px 1235px #fff, 557px 524px #fff, 1582px 1285px #fff, 1725px 1366px #fff, 952px 747px #fff, 251px 458px #fff, 1500px 1250px #fff, 1999px 1734px #fff, 1336px 1955px #fff, 1705px 1464px #fff, 728px 697px #fff, 594px 510px #fff, 1345px 1990px #fff, 1919px 1803px #fff, 1117px 966px #fff, 1629px 97px #fff, 1046px 1196px #fff, 810px 1092px #fff, 722px 976px #fff, 406px 18px #fff, 1665px 1860px #fff, 1758px 1628px #fff, 1183px 463px #fff, 564px 239px #fff, 13px 1767px #fff, 1482px 1472px #fff, 1700px 347px #fff, 1362px 244px #fff, 1141px 1708px #fff, 22px 885px #fff, 374px 1309px #fff, 1034px 1037px #fff, 1725px 1086px #fff, 1343px 1921px #fff, 596px 903px #fff, 1061px 478px #fff, 18px 1409px #fff, 729px 1364px #fff, 264px 911px #fff, 677px 1442px #fff, 123px 33px #fff, 1303px 646px #fff, 1945px 792px #fff, 1305px 938px #fff, 918px 1536px #fff, 620px 948px #fff, 183px 646px #fff, 695px 687px #fff, 881px 272px #fff, 1521px 1212px #fff, 1423px 1022px #fff, 1545px 1271px #fff, 1393px 348px #fff, 685px 1910px #fff, 1446px 856px #fff, 73px 1201px #fff, 736px 999px #fff, 673px 796px #fff, 469px 850px #fff, 1912px 142px #fff, 1278px 664px #fff, 184px 1990px #fff, 1173px 1312px #fff, 782px 1879px #fff, 323px 1035px #fff, 611px 908px #fff, 565px 1449px #fff, 748px 1713px #fff, 1047px 490px #fff, 1040px 1872px #fff, 1818px 1659px #fff, 1806px 1327px #fff, 386px 575px #fff, 1550px 463px #fff, 148px 687px #fff, 651px 1683px #fff, 1588px 1194px #fff, 1831px 2px #fff, 581px 876px #fff, 1396px 1743px #fff, 1212px 1810px #fff, 421px 1920px #fff, 658px 1461px #fff, 1859px 1809px #fff, 1456px 388px #fff, 186px 1627px #fff, 1528px 1145px #fff, 171px 97px #fff, 674px 1072px #fff, 676px 1052px #fff, 1165px 1131px #fff, 1088px 781px #fff, 1231px 948px #fff, 330px 257px #fff, 426px 1046px #fff, 549px 652px #fff, 1338px 74px #fff, 1749px 364px #fff, 931px 369px #fff, 383px 1428px #fff, 1558px 389px #fff, 927px 133px #fff, 234px 1888px #fff, 1785px 1617px #fff, 556px 643px #fff, 401px 275px #fff, 406px 1644px #fff, 1253px 1852px #fff, 1599px 883px #fff, 744px 1721px #fff, 524px 1297px #fff, 1226px 1177px #fff, 1679px 55px #fff, 874px 1811px #fff, 838px 790px #fff, 1241px 430px #fff, 1676px 652px #fff, 1191px 568px #fff, 53px 1990px #fff, 1163px 237px #fff, 61px 223px #fff, 592px 456px #fff, 1844px 271px #fff, 1324px 1488px #fff, 1373px 717px #fff, 1822px 709px #fff, 1464px 941px #fff, 1445px 1118px #fff, 991px 1414px #fff, 1964px 1076px #fff, 108px 172px #fff, 641px 1722px #fff, 1539px 427px #fff, 1697px 45px #fff, 1301px 1353px #fff, 1060px 329px #fff, 967px 1396px #fff, 493px 301px #fff, 1228px 1406px #fff, 1211px 1653px #fff, 444px 1822px #fff, 1746px 353px #fff, 1449px 381px #fff, 671px 887px #fff, 650px 138px #fff, 30px 1839px #fff, 1094px 1405px #fff, 273px 796px #fff, 1618px 1964px #fff, 1045px 1849px #fff, 1472px 1155px #fff, 1529px 1312px #fff, 728px 448px #fff, 44px 1908px #fff, 691px 818px #fff, 254px 293px #fff, 1981px 1133px #fff, 1307px 375px #fff, 196px 316px #fff, 1241px 1975px #fff, 1138px 1706px #fff, 1769px 463px #fff, 1768px 1428px #fff, 1730px 590px #fff, 1780px 523px #fff, 1862px 1526px #fff, 1613px 909px #fff, 1266px 1781px #fff, 470px 352px #fff, 699px 1682px #fff, 1002px 614px #fff, 1209px 133px #fff, 1842px 518px #fff, 1422px 1836px #fff, 1720px 1901px #fff, 470px 1788px #fff, 1355px 1387px #fff, 146px 1162px #fff, 933px 80px #fff, 681px 1063px #fff, 313px 1341px #fff, 740px 1498px #fff, 168px 1014px #fff, 345px 1355px #fff, 1498px 1562px #fff, 1626px 1358px #fff, 890px 403px #fff, 663px 562px #fff, 1481px 168px #fff, 22px 719px #fff, 774px 1041px #fff, 1899px 829px #fff, 430px 158px #fff, 430px 361px #fff, 1592px 1334px #fff, 224px 323px #fff, 1639px 1131px #fff, 7px 271px #fff, 1646px 1514px #fff, 1605px 1444px #fff, 1820px 1665px #fff, 1549px 1641px #fff, 1609px 1377px #fff, 486px 1098px #fff, 229px 613px #fff, 542px 1694px #fff, 318px 256px #fff, 1861px 918px #fff, 889px 892px #fff, 442px 1524px #fff, 19px 422px #fff, 1935px 1908px #fff, 828px 109px #fff, 862px 1248px #fff, 1275px 560px #fff, 906px 63px #fff, 337px 1605px #fff, 1691px 918px #fff, 1414px 679px #fff, 1726px 749px #fff, 1540px 1149px #fff, 1337px 1466px #fff, 446px 430px #fff, 676px 1616px #fff, 840px 326px #fff, 976px 977px #fff, 1840px 642px #fff, 1273px 804px #fff, 1071px 928px #fff, 1292px 1675px #fff, 29px 1148px #fff, 1585px 135px #fff, 1007px 563px #fff, 1035px 78px #fff, 1174px 574px #fff, 120px 1304px #fff, 845px 1292px #fff, 861px 540px #fff, 234px 232px #fff, 1940px 1367px #fff, 759px 639px #fff, 1775px 1381px #fff, 906px 372px #fff, 1104px 1165px #fff, 1524px 911px #fff, 1882px 330px #fff, 1389px 700px #fff, 300px 1629px #fff, 220px 1614px #fff, 563px 140px #fff, 1611px 1586px #fff, 793px 1316px #fff, 325px 1070px #fff, 1722px 1462px #fff, 1406px 1120px #fff, 1169px 1768px #fff, 1956px 1053px #fff, 959px 1587px #fff, 585px 1566px #fff, 370px 204px #fff, 1606px 1416px #fff, 443px 1606px #fff, 1499px 1102px #fff, 1943px 105px #fff, 1121px 1594px #fff, 1512px 32px #fff, 871px 1425px #fff, 433px 100px #fff, 294px 1471px #fff, 1688px 1755px #fff, 1666px 591px #fff, 1034px 300px #fff, 734px 1178px #fff, 1342px 313px #fff, 1616px 1590px #fff, 1763px 1472px #fff, 632px 1935px #fff, 1708px 872px #fff, 1871px 915px #fff, 1829px 1020px #fff, 1599px 578px #fff, 42px 585px #fff, 1163px 1382px #fff, 1744px 1272px #fff, 984px 1426px #fff, 1786px 1584px #fff, 1813px 379px #fff, 1867px 1127px #fff, 97px 567px #fff, 626px 988px #fff, 1178px 79px #fff, 1703px 211px #fff, 961px 1785px #fff, 110px 975px #fff, 953px 1941px #fff, 1027px 1790px #fff, 1665px 107px #fff, 11px 964px #fff, 1718px 1147px #fff, 21px 1728px #fff, 1358px 1922px #fff, 872px 65px #fff, 1191px 1635px #fff, 762px 681px #fff, 1519px 1033px #fff, 906px 566px #fff, 1074px 657px #fff, 1093px 415px #fff, 51px 198px #fff, 1075px 1418px #fff, 1547px 1070px #fff, 225px 920px #fff, 850px 1974px #fff, 981px 595px #fff, 1425px 131px #fff, 460px 917px #fff, 56px 495px #fff, 714px 428px #fff, 920px 493px #fff, 470px 1521px #fff, 532px 821px #fff, 1905px 71px #fff, 883px 1501px #fff, 294px 196px #fff, 381px 1999px #fff, 332px 793px #fff, 1246px 408px #fff, 233px 149px #fff, 315px 231px #fff, 1594px 1302px #fff, 696px 1585px #fff, 791px 136px #fff, 479px 199px #fff, 1627px 1413px #fff, 1824px 924px #fff, 1631px 342px #fff, 1251px 1151px #fff, 284px 1781px #fff, 497px 1052px #fff, 204px 1161px #fff, 646px 1499px #fff, 1762px 558px #fff, 854px 1833px #fff, 883px 945px #fff, 44px 982px #fff, 1101px 834px #fff, 515px 1748px #fff, 1578px 1435px #fff, 819px 1258px #fff, 776px 670px #fff, 115px 385px #fff, 1478px 434px #fff, 885px 20px #fff, 192px 1513px #fff, 78px 1129px #fff, 1774px 1105px #fff, 955px 1149px #fff, 1817px 1929px #fff, 1106px 1832px #fff, 1107px 1997px #fff, 94px 23px #fff, 243px 982px #fff, 43px 1972px #fff, 1798px 673px #fff, 1131px 1589px #fff, 841px 14px #fff, 826px 345px #fff, 687px 56px #fff, 1084px 32px #fff, 1887px 1878px #fff, 153px 526px #fff, 1828px 253px #fff, 1947px 1105px #fff, 886px 700px #fff, 1307px 1723px #fff, 1274px 651px #fff, 1530px 837px #fff, 1699px 1637px #fff, 1703px 1331px #fff, 1929px 1557px #fff, 1763px 737px #fff, 1118px 1680px #fff, 1545px 692px #fff, 1462px 1092px #fff, 208px 1667px #fff, 1393px 859px #fff, 186px 1794px #fff, 351px 1199px #fff, 642px 1995px #fff, 1061px 1726px #fff, 1708px 115px #fff, 1233px 1305px #fff, 637px 1786px #fff, 1730px 603px #fff, 75px 1240px #fff, 1704px 1326px #fff, 584px 346px #fff, 438px 1554px #fff, 561px 513px #fff, 1382px 225px #fff, 467px 1674px #fff, 1403px 815px #fff, 1546px 1835px #fff, 127px 1119px #fff, 276px 591px #fff, 688px 1458px #fff, 765px 646px #fff, 474px 984px #fff, 171px 361px #fff, 94px 1480px #fff, 1962px 1666px #fff, 909px 1037px #fff, 1725px 222px #fff, 253px 1355px #fff, 1892px 1901px #fff, 275px 1847px #fff, 28px 1184px #fff, 1725px 1382px #fff, 882px 647px #fff, 1935px 1046px #fff, 10px 344px #fff, 292px 1328px #fff, 127px 1352px #fff, 752px 929px #fff, 1589px 384px #fff, 284px 1829px #fff, 381px 820px #fff, 1229px 1125px #fff, 777px 429px #fff, 1811px 1499px #fff, 1573px 287px #fff, 295px 756px #fff, 389px 616px #fff, 781px 41px #fff, 1092px 333px #fff, 794px 1588px #fff, 386px 1847px #fff, 1802px 710px #fff, 662px 60px #fff, 640px 264px #fff, 463px 746px #fff, 1859px 799px #fff, 763px 37px #fff, 639px 396px #fff, 357px 1071px #fff, 1190px 1430px #fff, 1814px 257px #fff, 1382px 235px #fff, 606px 1304px #fff, 1939px 1470px #fff, 1124px 349px #fff, 307px 1567px #fff, 310px 1323px #fff, 1145px 922px #fff, 1196px 1922px #fff, 1647px 544px #fff, 788px 1337px #fff, 257px 632px #fff, 1413px 414px #fff, 590px 620px #fff, 582px 794px #fff, 1702px 1481px #fff, 1055px 53px #fff, 157px 346px #fff, 50px 1901px #fff, 1038px 1369px #fff, 796px 1941px #fff, 215px 194px #fff, 1567px 1538px #fff, 367px 800px #fff, 1044px 489px #fff, 1109px 1712px #fff, 524px 327px #fff, 525px 1252px #fff, 1475px 1240px #fff, 529px 436px #fff, 795px 834px #fff, 122px 1371px #fff, 79px 482px #fff, 520px 1249px #fff, 336px 1878px #fff, 188px 944px #fff, 325px 1259px #fff, 1491px 1942px #fff, 620px 1054px #fff, 1606px 1153px #fff, 1448px 502px #fff, 53px 1381px #fff, 107px 1670px #fff, 1380px 618px #fff, 967px 1557px #fff, 1116px 1722px #fff, 1174px 1044px #fff, 1805px 717px #fff, 663px 394px #fff, 1848px 1007px #fff, 389px 802px #fff, 49px 392px #fff, 1650px 852px #fff, 1678px 1012px #fff, 335px 1009px #fff, 1818px 1631px #fff, 1568px 742px #fff, 1162px 1991px #fff, 52px 1190px #fff, 1401px 928px #fff, 119px 1549px #fff, 537px 1529px #fff, 2px 1709px #fff, 122px 387px #fff, 543px 2px #fff, 27px 1971px #fff, 507px 1377px #fff, 1362px 1080px #fff, 1031px 1544px #fff, 1631px 1174px #fff, 1603px 312px #fff, 1626px 1422px #fff, 1430px 615px #fff, 1958px 1431px #fff, 1946px 1412px #fff, 1848px 247px #fff, 984px 1808px #fff, 1396px 225px #fff, 319px 717px #fff, 1252px 875px #fff, 1619px 156px #fff, 951px 1971px #fff, 386px 355px #fff, 1406px 1151px #fff, 273px 1538px #fff, 844px 1570px #fff, 947px 151px #fff, 1363px 525px #fff, 209px 307px #fff, 1923px 1718px #fff, 993px 1741px #fff, 1513px 353px #fff, 1353px 61px #fff, 664px 352px #fff, 1382px 359px #fff, 1487px 1707px #fff, 657px 1045px #fff, 1107px 490px #fff, 1834px 1176px #fff, 837px 1438px #fff, 1947px 448px #fff, 1196px 333px #fff, 151px 555px #fff, 18px 992px #fff, 458px 748px #fff, 1801px 890px #fff, 1093px 1012px #fff, 315px 1101px #fff, 194px 323px #fff, 754px 292px #fff, 1737px 7px #fff, 40px 840px #fff, 1170px 805px #fff, 176px 1753px #fff, 805px 1148px #fff, 1578px 1271px #fff, 367px 1494px #fff, 363px 1111px #fff, 1955px 243px #fff, 1451px 1093px #fff, 375px 617px #fff, 1223px 720px #fff, 1178px 13px #fff, 1456px 865px #fff, 1440px 49px #fff, 186px 1569px #fff, 320px 1853px #fff, 300px 539px #fff, 1559px 509px #fff, 1985px 1108px #fff, 1588px 828px #fff, 525px 1432px #fff, 831px 363px #fff, 141px 281px #fff, 1319px 402px #fff, 40px 456px #fff, 1955px 478px #fff, 1758px 818px #fff, 1924px 688px #fff, 1030px 953px #fff, 1982px 210px #fff, 917px 1401px #fff, 1051px 1837px #fff, 1045px 463px #fff, 1744px 573px #fff, 529px 1530px #fff, 542px 469px #fff, 1982px 324px #fff, 1902px 1422px #fff, 1968px 782px #fff, 1666px 1561px #fff, 955px 304px #fff, 323px 778px #fff, 272px 443px #fff, 485px 581px #fff, 1353px 1058px #fff, 1257px 131px #fff, 434px 98px #fff, 1587px 1953px #fff, 1749px 68px #fff, 1984px 839px #fff, 1518px 183px #fff, 1071px 855px #fff, 1662px 1994px #fff, 1111px 106px #fff, 1954px 838px #fff;
+}
+.mythic-stars-1::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  /* filter isn't inherited - needs its own copy of the parent's glow
+     (see .mythic-stars-1 above) or this tail half of the scroll loop
+     would look dimmer than the head half once it scrolls into view. */
+  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.9));
+  background: transparent;
+  box-shadow: 501px 811px #fff, 1450px 1324px #fff, 1093px 1780px #fff, 1469px 678px #fff, 904px 741px #fff, 1160px 781px #fff, 1841px 1962px #fff, 1630px 1667px #fff, 1788px 676px #fff, 367px 1734px #fff, 1343px 156px #fff, 1283px 1142px #fff, 1062px 378px #fff, 1395px 467px #fff, 1017px 1891px #fff, 137px 1114px #fff, 1767px 1403px #fff, 1543px 11px #fff, 1078px 181px #fff, 1189px 1574px #fff, 1697px 1551px #fff, 439px 472px #fff, 1491px 677px #fff, 1364px 599px #fff, 34px 382px #fff, 1221px 1584px #fff, 1266px 1499px #fff, 169px 1907px #fff, 1219px 1125px #fff, 659px 18px #fff, 1731px 1959px #fff, 332px 1216px #fff, 1913px 788px #fff, 80px 712px #fff, 326px 1605px #fff, 574px 1502px #fff, 473px 1653px #fff, 404px 975px #fff, 322px 1797px #fff, 425px 1321px #fff, 1121px 1797px #fff, 731px 647px #fff, 891px 1584px #fff, 1523px 109px #fff, 1379px 244px #fff, 865px 1064px #fff, 493px 956px #fff, 624px 1380px #fff, 440px 619px #fff, 1630px 767px #fff, 955px 1196px #fff, 62px 729px #fff, 126px 946px #fff, 1256px 896px #fff, 1444px 256px #fff, 661px 1628px #fff, 1078px 1716px #fff, 300px 737px #fff, 1734px 413px #fff, 1296px 129px #fff, 1771px 1678px #fff, 977px 1764px #fff, 1879px 549px #fff, 665px 1531px #fff, 89px 701px #fff, 1084px 1183px #fff, 1597px 1576px #fff, 1354px 1774px #fff, 554px 1471px #fff, 1469px 287px #fff, 887px 106px #fff, 1962px 766px #fff, 638px 805px #fff, 1651px 741px #fff, 1517px 1826px #fff, 24px 1152px #fff, 507px 558px #fff, 1262px 652px #fff, 246px 1048px #fff, 1077px 421px #fff, 1866px 1847px #fff, 1986px 1561px #fff, 704px 632px #fff, 1991px 1875px #fff, 1227px 395px #fff, 45px 1116px #fff, 247px 786px #fff, 890px 607px #fff, 787px 1235px #fff, 557px 524px #fff, 1582px 1285px #fff, 1725px 1366px #fff, 952px 747px #fff, 251px 458px #fff, 1500px 1250px #fff, 1999px 1734px #fff, 1336px 1955px #fff, 1705px 1464px #fff, 728px 697px #fff, 594px 510px #fff, 1345px 1990px #fff, 1919px 1803px #fff, 1117px 966px #fff, 1629px 97px #fff, 1046px 1196px #fff, 810px 1092px #fff, 722px 976px #fff, 406px 18px #fff, 1665px 1860px #fff, 1758px 1628px #fff, 1183px 463px #fff, 564px 239px #fff, 13px 1767px #fff, 1482px 1472px #fff, 1700px 347px #fff, 1362px 244px #fff, 1141px 1708px #fff, 22px 885px #fff, 374px 1309px #fff, 1034px 1037px #fff, 1725px 1086px #fff, 1343px 1921px #fff, 596px 903px #fff, 1061px 478px #fff, 18px 1409px #fff, 729px 1364px #fff, 264px 911px #fff, 677px 1442px #fff, 123px 33px #fff, 1303px 646px #fff, 1945px 792px #fff, 1305px 938px #fff, 918px 1536px #fff, 620px 948px #fff, 183px 646px #fff, 695px 687px #fff, 881px 272px #fff, 1521px 1212px #fff, 1423px 1022px #fff, 1545px 1271px #fff, 1393px 348px #fff, 685px 1910px #fff, 1446px 856px #fff, 73px 1201px #fff, 736px 999px #fff, 673px 796px #fff, 469px 850px #fff, 1912px 142px #fff, 1278px 664px #fff, 184px 1990px #fff, 1173px 1312px #fff, 782px 1879px #fff, 323px 1035px #fff, 611px 908px #fff, 565px 1449px #fff, 748px 1713px #fff, 1047px 490px #fff, 1040px 1872px #fff, 1818px 1659px #fff, 1806px 1327px #fff, 386px 575px #fff, 1550px 463px #fff, 148px 687px #fff, 651px 1683px #fff, 1588px 1194px #fff, 1831px 2px #fff, 581px 876px #fff, 1396px 1743px #fff, 1212px 1810px #fff, 421px 1920px #fff, 658px 1461px #fff, 1859px 1809px #fff, 1456px 388px #fff, 186px 1627px #fff, 1528px 1145px #fff, 171px 97px #fff, 674px 1072px #fff, 676px 1052px #fff, 1165px 1131px #fff, 1088px 781px #fff, 1231px 948px #fff, 330px 257px #fff, 426px 1046px #fff, 549px 652px #fff, 1338px 74px #fff, 1749px 364px #fff, 931px 369px #fff, 383px 1428px #fff, 1558px 389px #fff, 927px 133px #fff, 234px 1888px #fff, 1785px 1617px #fff, 556px 643px #fff, 401px 275px #fff, 406px 1644px #fff, 1253px 1852px #fff, 1599px 883px #fff, 744px 1721px #fff, 524px 1297px #fff, 1226px 1177px #fff, 1679px 55px #fff, 874px 1811px #fff, 838px 790px #fff, 1241px 430px #fff, 1676px 652px #fff, 1191px 568px #fff, 53px 1990px #fff, 1163px 237px #fff, 61px 223px #fff, 592px 456px #fff, 1844px 271px #fff, 1324px 1488px #fff, 1373px 717px #fff, 1822px 709px #fff, 1464px 941px #fff, 1445px 1118px #fff, 991px 1414px #fff, 1964px 1076px #fff, 108px 172px #fff, 641px 1722px #fff, 1539px 427px #fff, 1697px 45px #fff, 1301px 1353px #fff, 1060px 329px #fff, 967px 1396px #fff, 493px 301px #fff, 1228px 1406px #fff, 1211px 1653px #fff, 444px 1822px #fff, 1746px 353px #fff, 1449px 381px #fff, 671px 887px #fff, 650px 138px #fff, 30px 1839px #fff, 1094px 1405px #fff, 273px 796px #fff, 1618px 1964px #fff, 1045px 1849px #fff, 1472px 1155px #fff, 1529px 1312px #fff, 728px 448px #fff, 44px 1908px #fff, 691px 818px #fff, 254px 293px #fff, 1981px 1133px #fff, 1307px 375px #fff, 196px 316px #fff, 1241px 1975px #fff, 1138px 1706px #fff, 1769px 463px #fff, 1768px 1428px #fff, 1730px 590px #fff, 1780px 523px #fff, 1862px 1526px #fff, 1613px 909px #fff, 1266px 1781px #fff, 470px 352px #fff, 699px 1682px #fff, 1002px 614px #fff, 1209px 133px #fff, 1842px 518px #fff, 1422px 1836px #fff, 1720px 1901px #fff, 470px 1788px #fff, 1355px 1387px #fff, 146px 1162px #fff, 933px 80px #fff, 681px 1063px #fff, 313px 1341px #fff, 740px 1498px #fff, 168px 1014px #fff, 345px 1355px #fff, 1498px 1562px #fff, 1626px 1358px #fff, 890px 403px #fff, 663px 562px #fff, 1481px 168px #fff, 22px 719px #fff, 774px 1041px #fff, 1899px 829px #fff, 430px 158px #fff, 430px 361px #fff, 1592px 1334px #fff, 224px 323px #fff, 1639px 1131px #fff, 7px 271px #fff, 1646px 1514px #fff, 1605px 1444px #fff, 1820px 1665px #fff, 1549px 1641px #fff, 1609px 1377px #fff, 486px 1098px #fff, 229px 613px #fff, 542px 1694px #fff, 318px 256px #fff, 1861px 918px #fff, 889px 892px #fff, 442px 1524px #fff, 19px 422px #fff, 1935px 1908px #fff, 828px 109px #fff, 862px 1248px #fff, 1275px 560px #fff, 906px 63px #fff, 337px 1605px #fff, 1691px 918px #fff, 1414px 679px #fff, 1726px 749px #fff, 1540px 1149px #fff, 1337px 1466px #fff, 446px 430px #fff, 676px 1616px #fff, 840px 326px #fff, 976px 977px #fff, 1840px 642px #fff, 1273px 804px #fff, 1071px 928px #fff, 1292px 1675px #fff, 29px 1148px #fff, 1585px 135px #fff, 1007px 563px #fff, 1035px 78px #fff, 1174px 574px #fff, 120px 1304px #fff, 845px 1292px #fff, 861px 540px #fff, 234px 232px #fff, 1940px 1367px #fff, 759px 639px #fff, 1775px 1381px #fff, 906px 372px #fff, 1104px 1165px #fff, 1524px 911px #fff, 1882px 330px #fff, 1389px 700px #fff, 300px 1629px #fff, 220px 1614px #fff, 563px 140px #fff, 1611px 1586px #fff, 793px 1316px #fff, 325px 1070px #fff, 1722px 1462px #fff, 1406px 1120px #fff, 1169px 1768px #fff, 1956px 1053px #fff, 959px 1587px #fff, 585px 1566px #fff, 370px 204px #fff, 1606px 1416px #fff, 443px 1606px #fff, 1499px 1102px #fff, 1943px 105px #fff, 1121px 1594px #fff, 1512px 32px #fff, 871px 1425px #fff, 433px 100px #fff, 294px 1471px #fff, 1688px 1755px #fff, 1666px 591px #fff, 1034px 300px #fff, 734px 1178px #fff, 1342px 313px #fff, 1616px 1590px #fff, 1763px 1472px #fff, 632px 1935px #fff, 1708px 872px #fff, 1871px 915px #fff, 1829px 1020px #fff, 1599px 578px #fff, 42px 585px #fff, 1163px 1382px #fff, 1744px 1272px #fff, 984px 1426px #fff, 1786px 1584px #fff, 1813px 379px #fff, 1867px 1127px #fff, 97px 567px #fff, 626px 988px #fff, 1178px 79px #fff, 1703px 211px #fff, 961px 1785px #fff, 110px 975px #fff, 953px 1941px #fff, 1027px 1790px #fff, 1665px 107px #fff, 11px 964px #fff, 1718px 1147px #fff, 21px 1728px #fff, 1358px 1922px #fff, 872px 65px #fff, 1191px 1635px #fff, 762px 681px #fff, 1519px 1033px #fff, 906px 566px #fff, 1074px 657px #fff, 1093px 415px #fff, 51px 198px #fff, 1075px 1418px #fff, 1547px 1070px #fff, 225px 920px #fff, 850px 1974px #fff, 981px 595px #fff, 1425px 131px #fff, 460px 917px #fff, 56px 495px #fff, 714px 428px #fff, 920px 493px #fff, 470px 1521px #fff, 532px 821px #fff, 1905px 71px #fff, 883px 1501px #fff, 294px 196px #fff, 381px 1999px #fff, 332px 793px #fff, 1246px 408px #fff, 233px 149px #fff, 315px 231px #fff, 1594px 1302px #fff, 696px 1585px #fff, 791px 136px #fff, 479px 199px #fff, 1627px 1413px #fff, 1824px 924px #fff, 1631px 342px #fff, 1251px 1151px #fff, 284px 1781px #fff, 497px 1052px #fff, 204px 1161px #fff, 646px 1499px #fff, 1762px 558px #fff, 854px 1833px #fff, 883px 945px #fff, 44px 982px #fff, 1101px 834px #fff, 515px 1748px #fff, 1578px 1435px #fff, 819px 1258px #fff, 776px 670px #fff, 115px 385px #fff, 1478px 434px #fff, 885px 20px #fff, 192px 1513px #fff, 78px 1129px #fff, 1774px 1105px #fff, 955px 1149px #fff, 1817px 1929px #fff, 1106px 1832px #fff, 1107px 1997px #fff, 94px 23px #fff, 243px 982px #fff, 43px 1972px #fff, 1798px 673px #fff, 1131px 1589px #fff, 841px 14px #fff, 826px 345px #fff, 687px 56px #fff, 1084px 32px #fff, 1887px 1878px #fff, 153px 526px #fff, 1828px 253px #fff, 1947px 1105px #fff, 886px 700px #fff, 1307px 1723px #fff, 1274px 651px #fff, 1530px 837px #fff, 1699px 1637px #fff, 1703px 1331px #fff, 1929px 1557px #fff, 1763px 737px #fff, 1118px 1680px #fff, 1545px 692px #fff, 1462px 1092px #fff, 208px 1667px #fff, 1393px 859px #fff, 186px 1794px #fff, 351px 1199px #fff, 642px 1995px #fff, 1061px 1726px #fff, 1708px 115px #fff, 1233px 1305px #fff, 637px 1786px #fff, 1730px 603px #fff, 75px 1240px #fff, 1704px 1326px #fff, 584px 346px #fff, 438px 1554px #fff, 561px 513px #fff, 1382px 225px #fff, 467px 1674px #fff, 1403px 815px #fff, 1546px 1835px #fff, 127px 1119px #fff, 276px 591px #fff, 688px 1458px #fff, 765px 646px #fff, 474px 984px #fff, 171px 361px #fff, 94px 1480px #fff, 1962px 1666px #fff, 909px 1037px #fff, 1725px 222px #fff, 253px 1355px #fff, 1892px 1901px #fff, 275px 1847px #fff, 28px 1184px #fff, 1725px 1382px #fff, 882px 647px #fff, 1935px 1046px #fff, 10px 344px #fff, 292px 1328px #fff, 127px 1352px #fff, 752px 929px #fff, 1589px 384px #fff, 284px 1829px #fff, 381px 820px #fff, 1229px 1125px #fff, 777px 429px #fff, 1811px 1499px #fff, 1573px 287px #fff, 295px 756px #fff, 389px 616px #fff, 781px 41px #fff, 1092px 333px #fff, 794px 1588px #fff, 386px 1847px #fff, 1802px 710px #fff, 662px 60px #fff, 640px 264px #fff, 463px 746px #fff, 1859px 799px #fff, 763px 37px #fff, 639px 396px #fff, 357px 1071px #fff, 1190px 1430px #fff, 1814px 257px #fff, 1382px 235px #fff, 606px 1304px #fff, 1939px 1470px #fff, 1124px 349px #fff, 307px 1567px #fff, 310px 1323px #fff, 1145px 922px #fff, 1196px 1922px #fff, 1647px 544px #fff, 788px 1337px #fff, 257px 632px #fff, 1413px 414px #fff, 590px 620px #fff, 582px 794px #fff, 1702px 1481px #fff, 1055px 53px #fff, 157px 346px #fff, 50px 1901px #fff, 1038px 1369px #fff, 796px 1941px #fff, 215px 194px #fff, 1567px 1538px #fff, 367px 800px #fff, 1044px 489px #fff, 1109px 1712px #fff, 524px 327px #fff, 525px 1252px #fff, 1475px 1240px #fff, 529px 436px #fff, 795px 834px #fff, 122px 1371px #fff, 79px 482px #fff, 520px 1249px #fff, 336px 1878px #fff, 188px 944px #fff, 325px 1259px #fff, 1491px 1942px #fff, 620px 1054px #fff, 1606px 1153px #fff, 1448px 502px #fff, 53px 1381px #fff, 107px 1670px #fff, 1380px 618px #fff, 967px 1557px #fff, 1116px 1722px #fff, 1174px 1044px #fff, 1805px 717px #fff, 663px 394px #fff, 1848px 1007px #fff, 389px 802px #fff, 49px 392px #fff, 1650px 852px #fff, 1678px 1012px #fff, 335px 1009px #fff, 1818px 1631px #fff, 1568px 742px #fff, 1162px 1991px #fff, 52px 1190px #fff, 1401px 928px #fff, 119px 1549px #fff, 537px 1529px #fff, 2px 1709px #fff, 122px 387px #fff, 543px 2px #fff, 27px 1971px #fff, 507px 1377px #fff, 1362px 1080px #fff, 1031px 1544px #fff, 1631px 1174px #fff, 1603px 312px #fff, 1626px 1422px #fff, 1430px 615px #fff, 1958px 1431px #fff, 1946px 1412px #fff, 1848px 247px #fff, 984px 1808px #fff, 1396px 225px #fff, 319px 717px #fff, 1252px 875px #fff, 1619px 156px #fff, 951px 1971px #fff, 386px 355px #fff, 1406px 1151px #fff, 273px 1538px #fff, 844px 1570px #fff, 947px 151px #fff, 1363px 525px #fff, 209px 307px #fff, 1923px 1718px #fff, 993px 1741px #fff, 1513px 353px #fff, 1353px 61px #fff, 664px 352px #fff, 1382px 359px #fff, 1487px 1707px #fff, 657px 1045px #fff, 1107px 490px #fff, 1834px 1176px #fff, 837px 1438px #fff, 1947px 448px #fff, 1196px 333px #fff, 151px 555px #fff, 18px 992px #fff, 458px 748px #fff, 1801px 890px #fff, 1093px 1012px #fff, 315px 1101px #fff, 194px 323px #fff, 754px 292px #fff, 1737px 7px #fff, 40px 840px #fff, 1170px 805px #fff, 176px 1753px #fff, 805px 1148px #fff, 1578px 1271px #fff, 367px 1494px #fff, 363px 1111px #fff, 1955px 243px #fff, 1451px 1093px #fff, 375px 617px #fff, 1223px 720px #fff, 1178px 13px #fff, 1456px 865px #fff, 1440px 49px #fff, 186px 1569px #fff, 320px 1853px #fff, 300px 539px #fff, 1559px 509px #fff, 1985px 1108px #fff, 1588px 828px #fff, 525px 1432px #fff, 831px 363px #fff, 141px 281px #fff, 1319px 402px #fff, 40px 456px #fff, 1955px 478px #fff, 1758px 818px #fff, 1924px 688px #fff, 1030px 953px #fff, 1982px 210px #fff, 917px 1401px #fff, 1051px 1837px #fff, 1045px 463px #fff, 1744px 573px #fff, 529px 1530px #fff, 542px 469px #fff, 1982px 324px #fff, 1902px 1422px #fff, 1968px 782px #fff, 1666px 1561px #fff, 955px 304px #fff, 323px 778px #fff, 272px 443px #fff, 485px 581px #fff, 1353px 1058px #fff, 1257px 131px #fff, 434px 98px #fff, 1587px 1953px #fff, 1749px 68px #fff, 1984px 839px #fff, 1518px 183px #fff, 1071px 855px #fff, 1662px 1994px #fff, 1111px 106px #fff, 1954px 838px #fff;
+}
+
+.mythic-stars-2 {
+  width: 3px;
+  height: 3px;
+  /* Same corner-gap fix as .mythic-stars-1 above, this layer's own
+     mythicStarScroll2 100% stop (156px, 436px). */
+  top: -436px;
+  left: -156px;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+  animation: mythicStarScroll2 3.9s ease-in infinite, mythicStarsFadeIn 0.1s ease-out 1 forwards;
+  box-shadow: 1925px 1320px #fff, 693px 1778px #fff, 1016px 711px #fff, 1171px 563px #fff, 661px 1919px #fff, 1610px 44px #fff, 1275px 140px #fff, 1208px 1802px #fff, 1473px 1587px #fff, 11px 1117px #fff, 853px 1757px #fff, 1149px 937px #fff, 1353px 428px #fff, 270px 279px #fff, 258px 1404px #fff, 417px 1188px #fff, 286px 561px #fff, 393px 1765px #fff, 147px 881px #fff, 666px 1097px #fff, 1425px 1278px #fff, 806px 156px #fff, 1252px 561px #fff, 218px 52px #fff, 1371px 1980px #fff, 171px 745px #fff, 1424px 89px #fff, 137px 244px #fff, 939px 1922px #fff, 137px 1080px #fff, 1757px 50px #fff, 904px 536px #fff, 1938px 1001px #fff, 1172px 440px #fff, 72px 1475px #fff, 102px 121px #fff, 804px 1671px #fff, 1314px 270px #fff, 440px 1341px #fff, 1216px 511px #fff, 1061px 1523px #fff, 97px 274px #fff, 704px 1318px #fff, 52px 1872px #fff, 1962px 296px #fff, 111px 289px #fff, 1157px 1236px #fff, 1347px 1451px #fff, 820px 286px #fff, 1389px 1169px #fff, 644px 841px #fff, 1286px 522px #fff, 955px 659px #fff, 428px 1805px #fff, 237px 557px #fff, 1689px 1058px #fff, 636px 1882px #fff, 1349px 1664px #fff, 1548px 432px #fff, 1841px 504px #fff, 302px 252px #fff, 827px 1765px #fff, 620px 123px #fff, 207px 748px #fff, 1454px 1234px #fff, 1967px 1790px #fff, 542px 33px #fff, 742px 1214px #fff, 255px 1402px #fff, 74px 1772px #fff, 699px 475px #fff, 980px 1253px #fff, 534px 1676px #fff, 909px 202px #fff, 1498px 1251px #fff, 1796px 120px #fff, 1409px 1263px #fff, 1627px 995px #fff, 969px 710px #fff, 1674px 676px #fff, 1832px 759px #fff, 1623px 563px #fff, 251px 1790px #fff, 96px 1688px #fff, 886px 239px #fff, 778px 150px #fff, 1767px 430px #fff, 765px 1259px #fff, 1189px 877px #fff, 444px 1629px #fff, 1560px 324px #fff, 1952px 1097px #fff, 712px 1173px #fff, 541px 911px #fff, 827px 1420px #fff, 1233px 285px #fff, 784px 546px #fff, 645px 285px #fff, 1273px 1255px #fff, 1821px 174px #fff, 221px 1795px #fff, 1004px 456px #fff, 1298px 941px #fff, 274px 387px #fff, 174px 376px #fff, 1491px 258px #fff, 1489px 1946px #fff, 1134px 1382px #fff, 1289px 1145px #fff, 464px 358px #fff, 1249px 1842px #fff, 1665px 831px #fff, 1982px 84px #fff, 541px 774px #fff, 1994px 523px #fff, 762px 1644px #fff, 1730px 867px #fff, 1951px 1287px #fff, 911px 1691px #fff, 1454px 725px #fff, 1287px 1940px #fff, 70px 564px #fff, 1980px 638px #fff, 1674px 1774px #fff, 1720px 116px #fff, 1747px 182px #fff, 1040px 450px #fff, 1795px 375px #fff, 857px 1471px #fff, 1326px 1730px #fff, 915px 274px #fff, 1224px 358px #fff, 1808px 60px #fff, 43px 1870px #fff, 1810px 1536px #fff, 1564px 1719px #fff, 731px 1388px #fff, 1953px 1967px #fff, 1744px 1119px #fff, 794px 1384px #fff, 959px 714px #fff, 18px 1932px #fff, 1358px 1437px #fff, 355px 939px #fff, 1355px 1648px #fff, 608px 719px #fff, 383px 758px #fff, 1164px 1681px #fff, 1045px 253px #fff, 424px 1279px #fff, 1899px 359px #fff, 379px 488px #fff, 214px 465px #fff, 179px 905px #fff, 830px 1993px #fff, 448px 1077px #fff, 1880px 1354px #fff, 1973px 347px #fff, 745px 1025px #fff, 788px 1007px #fff, 1377px 883px #fff, 6px 290px #fff, 1312px 407px #fff, 1398px 622px #fff, 1405px 339px #fff, 1198px 1709px #fff, 988px 1226px #fff, 87px 1459px #fff, 1113px 1698px #fff, 997px 732px #fff, 708px 331px #fff, 1876px 1112px #fff, 1729px 1797px #fff, 719px 703px #fff, 1295px 522px #fff, 758px 1061px #fff, 1309px 1014px #fff, 1327px 1365px #fff, 854px 1317px #fff, 531px 1001px #fff, 1751px 1040px #fff, 1354px 190px #fff, 800px 1538px #fff, 88px 1455px #fff, 668px 39px #fff, 1379px 41px #fff, 892px 524px #fff, 54px 649px #fff, 1289px 730px #fff, 727px 488px #fff, 181px 842px #fff, 1230px 64px #fff, 3px 857px #fff, 292px 1201px #fff, 1343px 673px #fff, 1096px 1412px #fff, 1520px 292px #fff, 104px 1683px #fff, 934px 1387px #fff, 314px 739px #fff;
+}
+.mythic-stars-2::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  left: 0;
+  width: 3px;
+  height: 3px;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+  background: transparent;
+  box-shadow: 1925px 1320px #fff, 693px 1778px #fff, 1016px 711px #fff, 1171px 563px #fff, 661px 1919px #fff, 1610px 44px #fff, 1275px 140px #fff, 1208px 1802px #fff, 1473px 1587px #fff, 11px 1117px #fff, 853px 1757px #fff, 1149px 937px #fff, 1353px 428px #fff, 270px 279px #fff, 258px 1404px #fff, 417px 1188px #fff, 286px 561px #fff, 393px 1765px #fff, 147px 881px #fff, 666px 1097px #fff, 1425px 1278px #fff, 806px 156px #fff, 1252px 561px #fff, 218px 52px #fff, 1371px 1980px #fff, 171px 745px #fff, 1424px 89px #fff, 137px 244px #fff, 939px 1922px #fff, 137px 1080px #fff, 1757px 50px #fff, 904px 536px #fff, 1938px 1001px #fff, 1172px 440px #fff, 72px 1475px #fff, 102px 121px #fff, 804px 1671px #fff, 1314px 270px #fff, 440px 1341px #fff, 1216px 511px #fff, 1061px 1523px #fff, 97px 274px #fff, 704px 1318px #fff, 52px 1872px #fff, 1962px 296px #fff, 111px 289px #fff, 1157px 1236px #fff, 1347px 1451px #fff, 820px 286px #fff, 1389px 1169px #fff, 644px 841px #fff, 1286px 522px #fff, 955px 659px #fff, 428px 1805px #fff, 237px 557px #fff, 1689px 1058px #fff, 636px 1882px #fff, 1349px 1664px #fff, 1548px 432px #fff, 1841px 504px #fff, 302px 252px #fff, 827px 1765px #fff, 620px 123px #fff, 207px 748px #fff, 1454px 1234px #fff, 1967px 1790px #fff, 542px 33px #fff, 742px 1214px #fff, 255px 1402px #fff, 74px 1772px #fff, 699px 475px #fff, 980px 1253px #fff, 534px 1676px #fff, 909px 202px #fff, 1498px 1251px #fff, 1796px 120px #fff, 1409px 1263px #fff, 1627px 995px #fff, 969px 710px #fff, 1674px 676px #fff, 1832px 759px #fff, 1623px 563px #fff, 251px 1790px #fff, 96px 1688px #fff, 886px 239px #fff, 778px 150px #fff, 1767px 430px #fff, 765px 1259px #fff, 1189px 877px #fff, 444px 1629px #fff, 1560px 324px #fff, 1952px 1097px #fff, 712px 1173px #fff, 541px 911px #fff, 827px 1420px #fff, 1233px 285px #fff, 784px 546px #fff, 645px 285px #fff, 1273px 1255px #fff, 1821px 174px #fff, 221px 1795px #fff, 1004px 456px #fff, 1298px 941px #fff, 274px 387px #fff, 174px 376px #fff, 1491px 258px #fff, 1489px 1946px #fff, 1134px 1382px #fff, 1289px 1145px #fff, 464px 358px #fff, 1249px 1842px #fff, 1665px 831px #fff, 1982px 84px #fff, 541px 774px #fff, 1994px 523px #fff, 762px 1644px #fff, 1730px 867px #fff, 1951px 1287px #fff, 911px 1691px #fff, 1454px 725px #fff, 1287px 1940px #fff, 70px 564px #fff, 1980px 638px #fff, 1674px 1774px #fff, 1720px 116px #fff, 1747px 182px #fff, 1040px 450px #fff, 1795px 375px #fff, 857px 1471px #fff, 1326px 1730px #fff, 915px 274px #fff, 1224px 358px #fff, 1808px 60px #fff, 43px 1870px #fff, 1810px 1536px #fff, 1564px 1719px #fff, 731px 1388px #fff, 1953px 1967px #fff, 1744px 1119px #fff, 794px 1384px #fff, 959px 714px #fff, 18px 1932px #fff, 1358px 1437px #fff, 355px 939px #fff, 1355px 1648px #fff, 608px 719px #fff, 383px 758px #fff, 1164px 1681px #fff, 1045px 253px #fff, 424px 1279px #fff, 1899px 359px #fff, 379px 488px #fff, 214px 465px #fff, 179px 905px #fff, 830px 1993px #fff, 448px 1077px #fff, 1880px 1354px #fff, 1973px 347px #fff, 745px 1025px #fff, 788px 1007px #fff, 1377px 883px #fff, 6px 290px #fff, 1312px 407px #fff, 1398px 622px #fff, 1405px 339px #fff, 1198px 1709px #fff, 988px 1226px #fff, 87px 1459px #fff, 1113px 1698px #fff, 997px 732px #fff, 708px 331px #fff, 1876px 1112px #fff, 1729px 1797px #fff, 719px 703px #fff, 1295px 522px #fff, 758px 1061px #fff, 1309px 1014px #fff, 1327px 1365px #fff, 854px 1317px #fff, 531px 1001px #fff, 1751px 1040px #fff, 1354px 190px #fff, 800px 1538px #fff, 88px 1455px #fff, 668px 39px #fff, 1379px 41px #fff, 892px 524px #fff, 54px 649px #fff, 1289px 730px #fff, 727px 488px #fff, 181px 842px #fff, 1230px 64px #fff, 3px 857px #fff, 292px 1201px #fff, 1343px 673px #fff, 1096px 1412px #fff, 1520px 292px #fff, 104px 1683px #fff, 934px 1387px #fff, 314px 739px #fff;
+}
+
+.mythic-stars-3 {
+  width: 4px;
+  height: 4px;
+  /* Same corner-gap fix as .mythic-stars-1 above, this layer's own
+     mythicStarScroll3 100% stop (94px, 264px). */
+  top: -264px;
+  left: -94px;
+  filter: drop-shadow(0 0 2.5px rgba(255, 255, 255, 0.9));
+  animation: mythicStarScroll3 3.9s ease-in infinite, mythicStarsFadeIn 0.1s ease-out 1 forwards;
+  box-shadow: 200px 981px #fff, 1731px 521px #fff, 132px 1039px #fff, 1888px 1547px #fff, 899px 1226px #fff, 1887px 580px #fff, 1548px 1092px #fff, 1626px 689px #fff, 254px 1072px #fff, 1684px 1211px #fff, 672px 1267px #fff, 939px 668px #fff, 1969px 645px #fff, 1126px 983px #fff, 457px 568px #fff, 476px 876px #fff, 829px 1896px #fff, 1364px 1846px #fff, 1507px 1120px #fff, 936px 1948px #fff, 1833px 832px #fff, 1424px 285px #fff, 1377px 1596px #fff, 432px 153px #fff, 1348px 1410px #fff, 1529px 954px #fff, 1102px 387px #fff, 264px 297px #fff, 811px 977px #fff, 1931px 673px #fff, 1734px 978px #fff, 1772px 1567px #fff, 1197px 1400px #fff, 764px 282px #fff, 1103px 822px #fff, 872px 1803px #fff, 1057px 1763px #fff, 52px 1299px #fff, 1312px 1236px #fff, 235px 1082px #fff, 299px 1086px #fff, 1017px 1602px #fff, 1950px 626px #fff, 1306px 132px #fff, 1358px 1618px #fff, 1873px 1718px #fff, 1447px 940px #fff, 1888px 1195px #fff, 1704px 1765px #fff, 872px 1357px #fff, 1555px 1120px #fff, 250px 1415px #fff, 450px 415px #fff, 492px 901px #fff, 170px 1641px #fff, 56px 1129px #fff, 627px 1514px #fff, 1221px 500px #fff, 324px 1895px #fff, 1397px 1775px #fff, 1966px 598px #fff, 1550px 763px #fff, 326px 1605px #fff, 261px 969px #fff, 890px 281px #fff, 736px 544px #fff, 589px 1262px #fff, 1581px 368px #fff, 1900px 1132px #fff, 1914px 585px #fff, 1864px 1517px #fff, 241px 217px #fff, 859px 787px #fff, 996px 1729px #fff, 741px 121px #fff, 418px 414px #fff, 142px 967px #fff, 387px 896px #fff, 703px 562px #fff, 968px 1136px #fff, 1682px 332px #fff, 1287px 846px #fff, 256px 1427px #fff, 1885px 432px #fff, 1739px 1458px #fff, 345px 1769px #fff, 1140px 1612px #fff, 192px 1921px #fff, 920px 471px #fff, 834px 881px #fff, 917px 1803px #fff, 466px 1266px #fff, 483px 1108px #fff, 689px 986px #fff, 1279px 786px #fff, 458px 910px #fff, 1250px 870px #fff, 785px 1654px #fff, 1543px 1757px #fff, 287px 1272px #fff;
+}
+.mythic-stars-3::after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  filter: drop-shadow(0 0 2.5px rgba(255, 255, 255, 0.9));
+  background: transparent;
+  box-shadow: 200px 981px #fff, 1731px 521px #fff, 132px 1039px #fff, 1888px 1547px #fff, 899px 1226px #fff, 1887px 580px #fff, 1548px 1092px #fff, 1626px 689px #fff, 254px 1072px #fff, 1684px 1211px #fff, 672px 1267px #fff, 939px 668px #fff, 1969px 645px #fff, 1126px 983px #fff, 457px 568px #fff, 476px 876px #fff, 829px 1896px #fff, 1364px 1846px #fff, 1507px 1120px #fff, 936px 1948px #fff, 1833px 832px #fff, 1424px 285px #fff, 1377px 1596px #fff, 432px 153px #fff, 1348px 1410px #fff, 1529px 954px #fff, 1102px 387px #fff, 264px 297px #fff, 811px 977px #fff, 1931px 673px #fff, 1734px 978px #fff, 1772px 1567px #fff, 1197px 1400px #fff, 764px 282px #fff, 1103px 822px #fff, 872px 1803px #fff, 1057px 1763px #fff, 52px 1299px #fff, 1312px 1236px #fff, 235px 1082px #fff, 299px 1086px #fff, 1017px 1602px #fff, 1950px 626px #fff, 1306px 132px #fff, 1358px 1618px #fff, 1873px 1718px #fff, 1447px 940px #fff, 1888px 1195px #fff, 1704px 1765px #fff, 872px 1357px #fff, 1555px 1120px #fff, 250px 1415px #fff, 450px 415px #fff, 492px 901px #fff, 170px 1641px #fff, 56px 1129px #fff, 627px 1514px #fff, 1221px 500px #fff, 324px 1895px #fff, 1397px 1775px #fff, 1966px 598px #fff, 1550px 763px #fff, 326px 1605px #fff, 261px 969px #fff, 890px 281px #fff, 736px 544px #fff, 589px 1262px #fff, 1581px 368px #fff, 1900px 1132px #fff, 1914px 585px #fff, 1864px 1517px #fff, 241px 217px #fff, 859px 787px #fff, 996px 1729px #fff, 741px 121px #fff, 418px 414px #fff, 142px 967px #fff, 387px 896px #fff, 703px 562px #fff, 968px 1136px #fff, 1682px 332px #fff, 1287px 846px #fff, 256px 1427px #fff, 1885px 432px #fff, 1739px 1458px #fff, 345px 1769px #fff, 1140px 1612px #fff, 192px 1921px #fff, 920px 471px #fff, 834px 881px #fff, 917px 1803px #fff, 466px 1266px #fff, 483px 1108px #fff, 689px 986px #fff, 1279px 786px #fff, 458px 910px #fff, 1250px 870px #fff, 785px 1654px #fff, 1543px 1757px #fff, 287px 1272px #fff;
+}
+
+.mythic-moon {
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 0;
+  /* Gray, not the original blood-red (#7a1010) - per request. Recolored
+     here on the BASE rule only, not mythicBloodMoonPulse itself (which
+     still exists, drop-shadow'd red, for .cor-night-sky .mythic-moon -
+     Celestial's own reuse of this same moon further down reads it
+     verbatim, and that compound selector always wins on specificity
+     regardless of what this base rule's own `animation` says, so
+     swapping THIS rule to a separate mythicMoonPulseGray keyframe below
+     can't leak into or break Celestial's copy). */
+  box-shadow: 12px 12px 0 0 #9ca3af;
+  filter: drop-shadow(0 0 15px rgba(156, 163, 175, 0.55));
+  z-index: 1;
+  /* mythicMoonHide, last in the list and delayed to T_SHAKE (3.3s, see
+     MythicStarfieldReveal.tsx), wins the opacity property from that
+     moment on ("later in the list wins for that property" - same
+     mechanic used throughout this reveal) - the moon vanishes right as
+     the shake hits and stays gone (forwards) rather than reappearing. */
+  animation: mythicDreadFadeIn 1.4s ease-out 1 0.3s forwards, mythicMoonPulseGray 3s ease-in-out 1.7s infinite,
+    mythicMoonHide 0.3s ease-in 1 3.3s forwards;
+}
+@keyframes mythicMoonPulseGray {
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(156, 163, 175, 0.55)); }
+  50% { filter: drop-shadow(0 0 28px rgba(203, 208, 214, 0.85)); }
+}
+@keyframes mythicMoonHide {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+/* Celestial-only touch, not part of Mythic's own reveal - the moon
+   sinks downward over this act's 4s night stretch as the speeder ship
+   (.cor-speeder-stage) rises, a deliberate visual counterpoint (ship
+   up, moon down) rather than the still, only-pulsing moon Mythic uses.
+   264px, not a round 240/260 - 10% faster than its original 240px/4s
+   descent per request, same 4s window so it's still moving the whole
+   night stretch (not finishing early and just sitting still for the
+   tail end). Scoped to .cor-night-sky specifically (not the base
+   .mythic-moon rule above) so Mythic's own reveal is untouched - the
+   shorthand has to repeat the other two animations too, since a second
+   `animation` declaration replaces the whole list rather than adding
+   to it. */
+.cor-night-sky .mythic-moon {
+  /* corMoonFadeOut is new, last in the list so it wins `opacity` from
+     3s onward ("later in the list wins for that property", same
+     mechanic mythicMoonHide uses on the base .mythic-moon rule above) -
+     "the moon should only appear for 3 seconds then fade away". */
+  animation: mythicDreadFadeIn 1.4s ease-out 1 0.3s forwards,
+    mythicBloodMoonPulse 3s ease-in-out 1.7s infinite,
+    corMoonDescend 4s linear 1 forwards,
+    corMoonFadeOut 0.5s ease-in 1 forwards 3s;
+}
+@keyframes corMoonDescend {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(264px); }
+}
+@keyframes corMoonFadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.mythic-meteor {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #ff4d1a;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(255, 77, 26, 0.6);
+  opacity: 0;
+  pointer-events: none;
+}
+.mythic-meteor::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, #ff4d1a, transparent);
+}
+.mythic-meteor-1 { top: 10%; left: 110%; animation: mythicMeteorShoot 8s linear infinite; }
+.mythic-meteor-2 { top: 30%; left: 110%; animation: mythicMeteorShoot 12s linear infinite 4s; }
+.mythic-meteor-3 { top: 50%; left: 110%; animation: mythicMeteorShoot 10s linear infinite 2s; }
+
+/* Was a slow, constant-speed infinite upward drift (linear, 50s/100s/150s
+   per 2000px loop across the three layers). Replaced with a one-shot
+   accelerating fall-and-drift, timed to finish exactly when the blast
+   fires (T_EXPLODE, 3.9s, in MythicStarfieldReveal.tsx) - each layer's
+   own keyframes below share this shape (small movement early, most of
+   it in the last ~25%) but scale the total distance down further back
+   (mythicStarScroll1 moves the most/fastest, 3 the least), preserving
+   the same parallax-depth read the old infinite loop had. Direction
+   flipped too - down-and-right now, not up, so it reads as things
+   streaming past/falling toward the blast rather than a gentle drift. */
+@keyframes mythicStarScroll1 {
+  0% { transform: translate(0, 0); }
+  55% { transform: translate(14px, 38px); }
+  78% { transform: translate(50px, 140px); }
+  92% { transform: translate(130px, 360px); }
+  100% { transform: translate(230px, 640px); }
+}
+@keyframes mythicStarScroll2 {
+  0% { transform: translate(0, 0); }
+  55% { transform: translate(9px, 26px); }
+  78% { transform: translate(34px, 96px); }
+  92% { transform: translate(88px, 246px); }
+  100% { transform: translate(156px, 436px); }
+}
+@keyframes mythicStarScroll3 {
+  0% { transform: translate(0, 0); }
+  55% { transform: translate(5px, 15px); }
+  78% { transform: translate(20px, 58px); }
+  92% { transform: translate(53px, 148px); }
+  100% { transform: translate(94px, 264px); }
+}
+
+@keyframes mythicMeteorShoot {
+  0% { transform: translateX(0) translateY(0) rotate(-35deg); opacity: 0; }
+  5% { opacity: 1; }
+  15% { transform: translateX(-1500px) translateY(1000px) rotate(-35deg); opacity: 0; }
+  100% { transform: translateX(-1500px) translateY(1000px) rotate(-35deg); opacity: 0; }
+}
+
+@keyframes mythicStarsFadeIn {
+  /* Was 0.45, then 0.8 - now maxed at 1 ("pop out more"). Duration also
+     cut from 1.4s (plus a 0.3s delay before that even started) down to
+     a near-instant 0.1s with no delay at all, on each star layer's own
+     animation shorthand - "make sure the stars are already bright from
+     the beginning of the animation" rather than gradually fading in
+     over what worked out to ~1.7s before. */
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes mythicDreadFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes mythicBloodMoonPulse {
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.55)); }
+  50% { filter: drop-shadow(0 0 28px rgba(178, 0, 0, 0.85)); }
+}
+
+/* ============================================================
+   Mythic dread climax (MythicStarfieldReveal.tsx) - the outer shell
+   around .mythic-starfield above, plus the growing crimson pulse and
+   the hard cut to black/red/shake at the end of the 4.5s intro. See
+   that component's own comment for why .mythic-starfield-reveal is
+   fixed but .mythic-dread-shake (its direct child, which gets the
+   shake transform) and everything inside it is only ever absolute.
+   ================================================================ */
+.mythic-starfield-reveal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  background: #000;
+  cursor: default;
+}
+.mythic-dread-shake {
+  position: absolute;
+  inset: 0;
+  /* mythicExplodeShake is new - a second, harder shake timed to the
+     explosion itself (7.2s), on top of the existing dread shake at
+     3.3s (the two windows don't overlap - 3.3-3.9s vs 7.2-7.65s - so
+     there's no "later wins" conflict to worry about, just two separate
+     beats). Per "make the explosion more dramatic" - the blast itself
+     never actually shook the screen before, only the earlier jump-
+     scare moment did. */
+  animation: mythicDreadShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) 1 3.3s,
+    mythicExplodeShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) 1 forwards 7.2s;
+}
+
+.mythic-dread-pulse {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.4) 0%, rgba(139, 0, 0, 0) 62%);
+  opacity: 0;
+  animation:
+    mythicDreadGrow 3.3s ease-in 1 forwards,
+    mythicDreadPulse 1.6s ease-in-out 1.7s infinite;
+}
+@keyframes mythicDreadGrow {
+  0% { opacity: 0; }
+  100% { opacity: 0.85; }
+}
+@keyframes mythicDreadPulse {
+  0%, 100% { transform: scale(0.92); }
+  50% { transform: scale(1.1); }
+}
+
+.mythic-flash-black {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  animation: mythicFlashBlack 0.2s ease-in 1 3.3s forwards;
+}
+@keyframes mythicFlashBlack {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* Eye + red spotlight ray - replaces the old particle-burst explosion
+   above per request. Started life as a much bigger pasted "Orwellian Big
+   Brother TV" loader snippet (a visible black box with a border, a
+   caption underneath, a blinking eyelid, scan-lines/static/glitch chrome)
+   - stripped down to just the eye and its sweeping red ray, everything
+   else dropped, per "remove the text and the box so just the eye and the
+   red ray, keep the animation too". .mythic-eye-stage is new (not part
+   of the original snippet) - it's what actually times this to the
+   reveal: visible from t=0 (a near-instant fade, just to avoid a hard
+   pop on mount) rather than fading in at 4.7s like it originally did,
+   per "make the eye appear from the beginning", plus a scale-up that
+   steps at each second (0%,1s,2s...7s=TOTAL_MS) rather than one flat
+   ramp, ending at its most zoomed-in right as the reveal hands off -
+   same "step each second" shape as CelestialOrbitalReveal's own
+   speeder push-in. transform-origin is 50% 29.3%, not the default 50%
+   50% - the eye itself sits at top:30% within .orwellian-loader's
+   280x280 frame (translate(-50%,-60%) on top of that - computed out,
+   its true center lands at 29.3% down, not the frame's own 50%
+   center), so scaling around the default center would have zoomed
+   toward empty space below the eye rather than the eye itself - same
+   geometry gotcha CelestialOrbitalReveal's own .cor-speeder-zoom
+   comment describes fixing for the ship's .face, just solved here by
+   moving transform-origin directly rather than splitting into a
+   second element, since there's no rotation on this element to
+   interact with the off-center origin (translate(-50%,-50%) below,
+   which centers the whole stage on the viewport, is unaffected by
+   transform-origin either way - only scale() is origin-dependent). The
+   eye/pupil/spotlight rules and their keyframes below are the pasted
+   snippet's originals, otherwise untouched - and since they're
+   continuous infinite loops (not one-shot reveal animations), they
+   just run from t=0 independently of this stage's own fade/zoom;
+   unlike a one-shot animation, an infinite loop never "finishes and
+   freezes", so there's no need to re-anchor its own delay the way
+   CelestialOrbitalReveal's .cor-rings-stage comment describes for that
+   gotcha - being caught mid-cycle is fine here. */
+.mythic-eye-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Explicit size, matching what this box already auto-computed to
+     when .orwellian-loader (280x280) was its only child - needed now
+     that .spotlight moved to be a direct child of THIS element instead
+     of nested inside .orwellian-loader (see .spotlight's own comment
+     for why: it used to get clipped to that 280px-tall box by its
+     overflow:hidden, capping it at ~280px on screen regardless of
+     whatever height was actually set, no matter how large). Pinning
+     this box's own size explicitly keeps .spotlight's top:30%/left:50%
+     resolving to the exact same pixel position as before the move -
+     same 280x280 reference, just supplied directly instead of
+     inherited from the loader's own size. */
+  width: 280px;
+  height: 280px;
+  transform-origin: 50% 29.3%;
+  opacity: 0;
+  /* mythicEyeGlitch is new - a brief digital-glitch flicker (hue/
+     saturation/contrast, snapping via steps() same as the pupil's own
+     stutter above, not eased) right as the stare locks in at 4.2s, per
+     "make like a glitch transition to make the stare sudden and
+     scary". Targets `filter`, not `transform` - mythicEyeZoom already
+     owns transform on this element for the whole 7.2s (holding flat at
+     scale(1.8) by this point), and a second transform-driving
+     animation here would have overridden that hold instead of
+     composing with it, same conflict avoided elsewhere in this file.
+     Kept modest (partial hue/brightness shifts, not full-contrast
+     black/white swings) and brief (a handful of snaps in 0.35s) -
+     stronger version of this kind of flicker was pulled earlier this
+     session for photosensitive-epilepsy risk (see the impact-frame
+     history above), so this stays well short of that. */
+  animation: mythicEyeStageIn 0.15s ease-out 1 forwards, mythicEyeZoom 7.2s ease-in-out 1 forwards, mythicEyeGlitch 0.35s steps(1, end) 1 forwards 4.2s;
+}
+@keyframes mythicEyeGlitch {
+  0%, 100% { filter: none; }
+  14% { filter: hue-rotate(40deg) saturate(1.8) brightness(1.3); }
+  28% { filter: none; }
+  42% { filter: hue-rotate(-30deg) brightness(0.7) contrast(1.4); }
+  57% { filter: none; }
+  71% { filter: hue-rotate(20deg) saturate(1.5); }
+  85% { filter: none; }
+}
+@keyframes mythicEyeStageIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes mythicEyeZoom {
+  /* Stops advancing at the 4th second (55.6% of this 7.2s animation) per
+     request - holds flat at that scale the rest of the way instead of
+     continuing to grow through 5s/6s/7s like it originally did.
+     translateY carries an extra +58px on every stop, not just -50% -
+     "center the eye in the screen": top:50%/left:50%/translate(-50%,
+     -50%) alone centers this BOX's own geometric center on the
+     viewport, but the eye itself sits at 29.3% down within the box
+     (see transform-origin below and .mythic-eye-stage's own comment),
+     58px above that box-center (29.3% of 50%... i.e. (50%-29.3%) of
+     280px = 57.96px) - so without this offset the eye ends up sitting
+     58px above true viewport-center, not centered at all. This +58px
+     is a constant shift, unaffected by whatever the current scale is
+     (translate's own percentage/px contribution doesn't change with
+     scale - only transform-origin's pivot behavior does), so it holds
+     correctly across every step here, not just at rest. */
+  0% { transform: translate(-50%, calc(-50% + 58px)) scale(1); }
+  13.9% { transform: translate(-50%, calc(-50% + 58px)) scale(1.15); }
+  27.8% { transform: translate(-50%, calc(-50% + 58px)) scale(1.3); }
+  41.7% { transform: translate(-50%, calc(-50% + 58px)) scale(1.5); }
+  /* Holds at 1.8 from 4s (55.6%) through 5.2s (72.2%, where the last-2s
+     sequence starts) - then resumes, ramping hard through 6.2s (86.1%)
+     and 7.2s/TOTAL_MS (100%) into a much bigger close-up per "zoom in
+     alot until the eye is really upclose throughout those 2 seconds". */
+  55.6%, 72.2% { transform: translate(-50%, calc(-50% + 58px)) scale(1.8); }
+  86.1% { transform: translate(-50%, calc(-50% + 58px)) scale(3.5); }
+  100% { transform: translate(-50%, calc(-50% + 58px)) scale(6.5); }
+}
+/* New wrapper (not part of the original snippet) around .orwellian-
+   loader, purely to carry a shake JITTER during the reveal's last 2s
+   per "make the eye shake alot" - it can't just be another animation
+   on .mythic-eye-stage itself: that element's `transform` is already
+   fully owned by mythicEyeZoom above (translate+scale), and a second
+   transform-driving animation on the SAME element would override that
+   instead of composing with it, same conflict avoided everywhere else
+   in this file. Nesting it one level deeper means the jitter's own
+   small translate and the parent's translate+scale compose naturally
+   instead (ordinary nested-transform behavior, no conflict) - and
+   because it's INSIDE the scaled stage, the jitter's own small pixel
+   amplitude gets visually amplified by whatever the outer zoom's
+   current scale is too (up to 6.5x by the very end), not fixed at a
+   flat few pixels regardless of zoom level. */
+.mythic-eye-jitter {
+  animation: mythicEyeJitter 0.15s linear infinite 5.2s;
+}
+@keyframes mythicEyeJitter {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(4px, -3px); }
+  40% { transform: translate(-5px, 3px); }
+  60% { transform: translate(3px, 4px); }
+  80% { transform: translate(-4px, -4px); }
+}
+.mythic-eye-stage .orwellian-loader {
+  width: 280px;
+  height: 280px;
+  /* Was background-color:#000 + border:10px solid #333 (the visible
+     black box) - both dropped, but the border is kept at the same 10px
+     WIDTH, just transparent, rather than removed outright: the
+     eye/pupil/spotlight below use top/left PERCENTAGES that resolve
+     against this box's own padding-box, and deleting the border
+     property entirely (with box-sizing:border-box) would grow that
+     reference box by 20px and quietly nudge every percentage-based
+     position - nothing about the actual composition should change,
+     only its visible chrome. */
+  border: 10px solid transparent;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.mythic-eye-stage .eye {
+  width: 160px;
+  height: 60px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  /* mythicEyeTurnRed is new - the whole eye (not just the pupil, which
+     is already fully red by 4s via mythicPupilRedden) turns red too,
+     stepping each second across the reveal's last 2s (5.2s-7.2s) per
+     request. Targets background-color, a property none of this
+     element's other animations touch, so it layers on cleanly with no
+     override conflict. */
+  animation: pulse 2s infinite, eye-glow 4s infinite, mythicEyeTurnRed 2s linear 1 forwards 5.2s;
+  overflow: hidden;
+  z-index: 10;
+}
+@keyframes mythicEyeTurnRed {
+  0% { background-color: #fff; }
+  50% { background-color: #ff8080; }
+  100% { background-color: #ff0000; }
+}
+.mythic-eye-stage .pupil {
+  /* Was 50px base (growing to 78px via mythicPupilRedden below) - "make
+     the pupil smaller" - scaled the whole arc down by the same ~0.64
+     ratio (32/50) rather than just this resting size, so it stays
+     proportionally the same shape as it grows/reddens, just smaller
+     throughout instead of ending up back at the old size once fully
+     red. */
+  width: 32px;
+  height: 32px;
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  /* top/left stay fixed at 50%/50% always - which direction the pupil
+     actually looks is controlled entirely by the Y component of
+     whichever animation currently owns `transform` below (translate()'s
+     percentages are relative to the PUPIL'S OWN size, so a smaller
+     upward shift than -50% leaves more of it hanging below center,
+     reading as looking down; a full -50% shift is dead-center, reading
+     as looking straight at the viewer). Keeping the anchor point itself
+     constant and only ever changing the transform is what makes the
+     down-look clean rather than the earlier clipped-looking bug this
+     replaced (top:33% with no Y-compensation at all, overflowing
+     asymmetrically and unpredictably as the pupil grew - see
+     look-diagonal's own comment for the full story on that). */
+  top: 50%;
+  left: 50%;
+  /* Was -20% - "place it lower": less-negative Y means less upward
+     compensation off the -50% (dead-center) reference, so the pupil
+     sits lower, hanging further below center - see look-diagonal's own
+     comment below for this same value, which is what's actually in
+     effect once that animation kicks in (immediately, no delay). */
+  transform: translate(-50%, -5%);
+  /* look-diagonal is the original pasted sweep, still running the whole
+     time - it's what makes the eye look DOWN for the whole reveal up
+     until the last 3s (its own Y stays at -20%, a downward gaze, not
+     -50%/centered - see that rule's own comment). mythicPupilRedden is
+     new - widens and reddens the pupil in step with the eye-stage's own
+     per-second zoom (same 7.2s duration, same 0/1s/2s/3s/4s stops),
+     settling on fully red and holding by 4s, per "as you zoom in make
+     the iris... go wider and redder until the pupil is completely red".
+     mythicPupilCenter is also new - stops the down-look sweep and
+     snaps the pupil to dead-center (Y: -50%) 3s before the reveal
+     (TOTAL_MS=7.2s, so 4.2s here) via a glitchy stutter, per "make it
+     look at the user only in the last 3 seconds, before that it should
+     look down" plus the later "make like a glitch transition... sudden
+     and scary" request. It only covers that 0.3s snap, though -
+     mythicPupilCenterSweep picks up right after (4.5s) and keeps the
+     pupil swaying left/right for the rest of the reveal instead of
+     leaving it frozen there, per "make the eye move left and right u
+     made it static" - same swaying mechanic AND same full amplitude as
+     look-diagonal/spotlight-sweep-diagonal (-40%/-60%, +/-15deg - was
+     a much smaller +/-8deg/-43%/-57% the first time, which read as
+     basically static next to the ray's own full-size swing; "move like
+     in the code i gave u... find the place where the pupil or the iris
+     moves in line with the ray" - this now matches that original
+     amplitude exactly), just centered (Y: -50%, still reading as
+     facing the viewer) rather than look-diagonal's down-biased Y.
+     Listed in this order (look-diagonal, then mythicPupilCenter, then
+     mythicPupilCenterSweep) so each later one wins for `transform`
+     once its own delay/duration window activates, same "later
+     animation in the list overrides the earlier one for that property"
+     mechanism used for the ray's own grow-then-remove sequence below. */
+  animation: look-diagonal 4s infinite ease-in-out, mythicPupilRedden 7.2s linear 1 forwards, mythicPupilCenter 0.3s steps(1, end) 1 forwards 4.2s, mythicPupilCenterSweep 4s ease-in-out infinite 4.5s;
+}
+@keyframes mythicPupilCenterSweep {
+  0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+  25% { transform: translate(-40%, -50%) rotate(-15deg); }
+  75% { transform: translate(-60%, -50%) rotate(15deg); }
+}
+@keyframes mythicPupilRedden {
+  /* Scaled down from the original 50/56/63/70/78px arc by the same
+     ~0.64 ratio as the base rule above - same growth shape, smaller
+     throughout. */
+  0% { width: 32px; height: 32px; background-color: #000; }
+  13.9% { width: 36px; height: 36px; background-color: #1a0000; }
+  27.8% { width: 40px; height: 40px; background-color: #4d0000; }
+  41.7% { width: 45px; height: 45px; background-color: #900000; }
+  55.6%, 100% { width: 50px; height: 50px; background-color: #ff0000; }
+}
+@keyframes mythicPupilCenter {
+  /* Glitchy stutter instead of one smooth ease into place, per "make
+     like a glitch transition to make the stare sudden and scary" -
+     steps(1,end) above makes every segment a hard snap (no
+     interpolation at all, same mechanism .mythic-thunder-sky's own
+     flicker uses), and the jittery near-center positions in between
+     read as the gaze fighting its way to center rather than drifting
+     there smoothly, landing hard on dead-center at the end and holding. */
+  0% { transform: translate(-58%, -34%) rotate(4deg); }
+  20% { transform: translate(-43%, -58%) rotate(-3deg); }
+  40% { transform: translate(-54%, -40%) rotate(2deg); }
+  60% { transform: translate(-47%, -55%) rotate(-2deg); }
+  80% { transform: translate(-52%, -46%) rotate(1deg); }
+  100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+.mythic-eye-stage .pupil::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Was 30px (0.6x the old 50px pupil) - same ratio of the new 32px
+     pupil above, so this red glow stays proportional to the smaller
+     pupil instead of nearly swallowing it. */
+  width: 19px;
+  height: 19px;
+  background: radial-gradient(circle, rgb(255, 0, 0) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.7;
+}
+.mythic-eye-stage .spotlight {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 188px;
+  /* 100vh, not a fixed px height - "let the ray reach all the way to
+     the bottom of the screen". Also why this moved to be a direct
+     child of .mythic-eye-stage (see the JSX) instead of nested inside
+     .orwellian-loader like .eye/.pupil still are: that
+     loader box is only 280px tall with overflow:hidden, which was
+     silently CLIPPING the ray to ~280px on screen this whole time
+     regardless of whatever height was actually set here (400px, 676px,
+     none of it mattered past that boundary) - moving it out from under
+     that box's own clipping is what actually lets a tall height show.
+     100vh comfortably reaches the bottom of the viewport even before
+     accounting for .mythic-eye-stage's own zoom (which scales this
+     right along with it, stretching it further still, not less). */
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(255, 0, 0, 0.8), transparent);
+  filter: blur(8px);
+  transform-origin: top;
+  /* Tapered into a cone (thin at the eye, wide at the bottom) per
+     request, rather than the uniform-width rectangle this was -
+     clip-path percentages stay relative to whatever width the ray
+     currently has, so this taper holds correctly across all of
+     mythicRayGrow's steps without needing its own separate keyframes.
+     .spotlight::after (the glow overlay) does NOT inherit this - a
+     parent's clip-path doesn't clip its own pseudo-elements the way
+     overflow:hidden would, so that rule carries an identical copy of
+     this same clip-path (see its own comment - this was a real bug,
+     caught live: an untapered rectangular patch of that glow was
+     visibly bleeding out past the cone). */
+  clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+  /* mythicRayGrow is new (not part of the original snippet) - the ray
+     WIDENS right as the screen shake hits (.mythic-dread-shake's own
+     animation-delay is 3.3s, same beat) per request, then holds at
+     that bigger size. Height isn't part of this animation at all
+     anymore - it's a constant 100vh from the start now (see above),
+     not something that grows in. Targets width, not transform,
+     specifically so it doesn't fight mythicRaySweep's own transform
+     animation - two animations both driving `transform` on the same
+     element don't compose/multiply, the later one in the list just
+     overrides the earlier one's contribution for that property, which
+     would have broken the sweep motion. Width has been through a few
+     passes: 47 -> 61 (+30% at the shake) -> 79 (+30% again) -> 94
+     (doubled) -> 188/316 (doubled again, per "increase the ray again
+     by 100" - see mythicRayGrow's own comment). mythicRayRemove fades
+     the ray out 3s before the reveal (4.2s) per request - the eye
+     stops projecting the ray and just stares instead. */
+  animation: mythicRaySweep 4s infinite ease-in-out, mythicRayGrow 0.3s ease-out 1 forwards 3.3s, mythicRayRemove 0.3s ease-in 1 forwards 4.2s;
+}
+@keyframes mythicRayRemove {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes mythicRayGrow {
+  /* Width-only now (height is a constant 100vh on the base rule above,
+     not animated) - doubled again per "increase the ray again by 100":
+     94 -> 188 base, 158 -> 316 grown target, same 30% growth-at-the-
+     shake proportion as before, just at the new 2x width scale. */
+  0% { width: 188px; }
+  100% { width: 316px; }
+}
+.mythic-eye-stage .spotlight::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  filter: blur(5px);
+  /* Needs its OWN copy of .spotlight's clip-path, not inherited from
+     it - a parent's clip-path does NOT automatically clip its
+     pseudo-elements the way overflow:hidden would (confirmed live: a
+     rectangular, untapered patch of this glow was visibly bleeding out
+     past the cone shape, not assumed). Without this, this pseudo stays
+     a plain untapered rectangle laid over the properly-clipped cone. */
+  clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+}
+@keyframes look-diagonal {
+  /* Y is -5% at every stop (was -20%, pushed lower still per "place it
+     lower"), not -50% - a deliberate downward gaze bias
+     (per "before that it should look down"), not the vertical centering
+     -50% would give (see .pupil's own comment above and
+     mythicPupilCenter below for where -50%/centered actually happens,
+     the last 3s only). translateY was entirely ABSENT from every stop
+     here in the original pasted snippet (translateX-only) - added it
+     for exactly this reason, so this keyframe can carry a controlled,
+     deliberate Y bias instead of silently dropping to whatever `top`
+     alone worked out to (which is what produced the earlier accidental,
+     clipped-looking "facing down" bug, before this was made intentional
+     and clean).
+     X used to be the original pasted percentages (-40%/-50%/-60%,
+     still true of rotation here, untouched) - but percentages resolve
+     against the PUPIL'S OWN width, and after "make the pupil smaller"
+     shrank that to 32-50px, +/-10% of it is only +/-3-5px, basically
+     imperceptible - screenshots taken right after that resize showed
+     the pupil sitting near-static while the ray (.mythic-eye-stage
+     .spotlight, see mythicRaySweep's own comment for its matching fix)
+     visibly leaned side to side, reading as disconnected rather than
+     "moving with the laser". Switched to a fixed +/-10px nudge instead
+     - a pupil-size-independent amount, tuned to actually read as
+     synchronized motion against the ray rather than scaling down to
+     nothing every time the pupil itself gets smaller. */
+  0%, 100% { transform: translate(-50%, -5%) rotate(0deg); }
+  25% { transform: translate(calc(-50% + 10px), -5%) rotate(-15deg); }
+  75% { transform: translate(calc(-50% - 10px), -5%) rotate(15deg); }
+}
+/* Was spotlight-sweep-diagonal (a literal copy of look-diagonal's own
+   X-sweep percentages, -40%/-50%/-60%) - looked fine when this ray was
+   still close to the pupil's own size (its ORIGINAL 47px width vs the
+   pupil's 50px), but the ray's own width has since grown to 188-316px
+   (see mythicRayGrow's history above) while the pupil stayed ~50-78px.
+   A shared PERCENTAGE swing on boxes that different in size stops
+   producing matching on-screen movement: -40%/-60% of a 300px-wide ray
+   is a ~19-32px absolute shift, several times bigger than the ~5-8px
+   the pupil actually travels (-40%/-60% of its own much smaller
+   width) - caught live in a screenshot ("the position of the eye and
+   then the laser its completely mismatched"): the ray's attachment
+   point was visibly swinging far past wherever the pupil actually was.
+   Rotation was never the problem (same keyframe %, same +/-15deg,
+   same 4s/no-delay timing as look-diagonal - already perfectly synced,
+   and doing most of the actual "sweep" reading anyway, since rotating
+   around transform-origin:top swings this ray's own 100vh length by a
+   lot even from a nearly-fixed pivot). Only the translateX component
+   needed fixing - switched from a percentage of this element's own
+   (now large) width to a small fixed pixel nudge instead, sized to
+   roughly match the pupil's own actual travel distance rather than a
+   percentage of a completely unrelated box - so the ray's top stays
+   anchored close to wherever the pupil actually is, at every width
+   mythicRayGrow ever sets, while the swing still reads clearly via
+   rotation alone. */
+@keyframes mythicRaySweep {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  25% { transform: translateX(calc(-50% + 6px)) rotate(-15deg); }
+  75% { transform: translateX(calc(-50% - 6px)) rotate(15deg); }
+}
+
+/* Celestial's own watching eye (CelestialOrbitalReveal.tsx) - was a
+   reuse of Mythic's own .mythic-eye-stage descendant rules (.eye/
+   .pupil/.spotlight above), sharing them by giving the wrapper both
+   classes. That put the pupil and the ray on two DIFFERENT motion
+   curves though: Mythic's .pupil uses look-diagonal, which carries a
+   translateY(-20%) baked into every stop (a deliberate fix, added
+   earlier this session, for a pupil-clipping bug that only shows up
+   once the pupil grows large via mythicPupilRedden and gets zoomed in
+   up to 6.5x - neither of which ever happens here), while .spotlight
+   at the time still used the original snippet's own X/rotate-only
+   curve (since replaced by mythicRaySweep above, for a related but
+   separate amplitude mismatch - see its own comment) - different
+   curves is exactly why a screenshot showed them tracking apart ("the
+   position of the eye and then the laser its completely mismatched").
+   Rebuilt below as a fully separate,
+   self-contained copy instead - scoped entirely under .cor-eye-descend
+   so it can't be affected by, or accidentally affect, Mythic's own
+   instance - using the values from the ORIGINAL pasted Orwellian-loader
+   snippet exactly (top:33%/translate(-50%,-50%) pupil, a modest 47x200
+   spotlight, no width-growth/taper/redden/center-lock additions, none
+   of which this brief 3.5s pass needs anyway - those were all Mythic-
+   specific embellishments for its own much longer, zoomed-in climax).
+   Pupil and spotlight both animate off the exact same keyframe
+   (corEyeSweep, a copy of the original look-diagonal/spotlight-sweep-
+   diagonal shape - the two were textually identical in the pasted
+   snippet before look-diagonal got its Mythic-only Y fix) so they move
+   together by construction - one shared curve driving both, not two
+   separately-tuned ones that can drift apart. */
+.cor-eye-descend {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 280px;
+  opacity: 0;
+  animation: corEyeDescend 3.5s ease-in-out 1 forwards;
+}
+@keyframes corEyeDescend {
+  /* Sweeps the whole stage from just above the top edge down through
+     dead center - where the speeder ship sits, fixed, for this whole
+     act (see CelestialOrbitalReveal.tsx's own comment on why it's the
+     EYE that moves, not the ship) - at the halfway point, and on to
+     just above the bottom edge. */
+  0% { opacity: 0; transform: translate(-50%, calc(-50% - 42vh)); }
+  8% { opacity: 1; }
+  50% { transform: translate(-50%, -50%); }
+  88% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, calc(-50% + 42vh)); }
+}
+.cor-eye-descend .orwellian-loader {
+  width: 280px;
+  height: 280px;
+  border: 10px solid transparent;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.cor-eye-descend .eye {
+  width: 160px;
+  height: 60px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  animation: pulse 2s infinite, eye-glow 4s infinite;
+  overflow: hidden;
+  z-index: 10;
+}
+.cor-eye-descend .pupil {
+  width: 50px;
+  height: 50px;
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 33%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: corEyeSweep 4s infinite ease-in-out;
+}
+.cor-eye-descend .pupil::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, rgb(255, 0, 0) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.7;
+}
+.cor-eye-descend .spotlight {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 47px;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(255, 0, 0, 0.8), transparent);
+  filter: blur(8px);
+  transform-origin: top;
+  animation: corEyeSweep 4s infinite ease-in-out;
+}
+.cor-eye-descend .spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  filter: blur(5px);
+}
+/* Copy of the original pasted snippet's look-diagonal/spotlight-sweep-
+   diagonal shape (X-translate + rotate only, no Y) - not a reuse of
+   either global keyframe, specifically so this can never be affected by
+   any future Mythic-only tuning of look-diagonal (or vice versa). */
+@keyframes corEyeSweep {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  25% { transform: translateX(-40%) rotate(-15deg); }
+  75% { transform: translateX(-60%) rotate(15deg); }
+}
+@media (max-width: 480px) {
+  .cor-eye-descend .orwellian-loader { width: 240px; height: 240px; }
+  .cor-eye-descend .eye { width: 140px; height: 50px; }
+  .cor-eye-descend .pupil { width: 40px; height: 40px; }
+  .cor-eye-descend .spotlight { width: 40px; height: 160px; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -60%) scale(1); }
+  50% { transform: translate(-50%, -60%) scale(1.05); }
+}
+@keyframes eye-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
+}
+@media (max-width: 480px) {
+  .mythic-eye-stage .orwellian-loader { width: 240px; height: 240px; }
+  .mythic-eye-stage .eye { width: 140px; height: 50px; }
+  .mythic-eye-stage .pupil { width: 26px; height: 26px; }
+  .mythic-eye-stage .spotlight { width: 40px; height: 160px; }
+}
+
+/* Final explosion - the reveal climax, right as the last-2s red/zoom/
+   shake sequence completes (7.2s, same beat TOTAL_MS in
+   MythicStarfieldReveal.tsx used to fire onComplete at - that constant
+   moved out further so this actually gets time to register before the
+   component unmounts, same "reveal the card while the blast is still
+   expanding" pattern used elsewhere in this file). A mix of particles
+   AND circle-style elements per request, not just one or the other -
+   .mythic-eye-explode-bloom is a filled circle flash, the three
+   -ring/-ring-2/-ring-3 are hollow expanding circle OUTLINES (staggered
+   slightly so they read as a cascade, not one pulse), and the 50
+   -explode-spark particles are the flying-debris half of the mix.
+   Positioned at THIS level (a direct child of .mythic-dread-shake, a
+   sibling of .mythic-eye-stage, not nested inside it) specifically so
+   none of it inherits .mythic-eye-stage's own zoom (up to 6.5x by
+   this point) - nesting it in there would have blown the whole burst
+   up to an enormous, distorted size along with the eye.
+   Scaled up across the board per "make the explosion more dramatic...
+   bigger than the eye" - the eye's own STAGE box (not just the white
+   oval inside it) tops out at 280px * 6.5 scale = 1820px right at this
+   same moment, so the old bloom (max 20px * 45 = 900px diameter) was
+   actually SMALLER than the eye by the time it fired, not bigger.
+   Bloom now reaches 20px * 110 = 2200px, comfortably past that 1820px
+   mark and past most viewport widths outright (a full whites-out-the-
+   screen moment, not a contained burst next to the eye); rings/sparks
+   scaled up to match so the whole burst reads as one consistently
+   bigger event, not just a bigger center flash next to same-size
+   debris. Durations lengthened slightly alongside the bigger scale
+   (TOTAL_MS pushed out to match) so the extra distance doesn't just
+   read as "faster", it reads as "bigger". */
+.mythic-eye-explode-bloom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #ffb347 18%, #ff2b2b 35%, #8b0000 60%, transparent 100%);
+  opacity: 0;
+  animation: mythicEyeExplodeBloom 0.85s ease-out 1 forwards 7.2s;
+}
+@keyframes mythicEyeExplodeBloom {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  10% { opacity: 1; transform: translate(-50%, -50%) scale(6); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(110); }
+}
+.mythic-eye-explode-ring,
+.mythic-eye-explode-ring-2,
+.mythic-eye-explode-ring-3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 60, 60, 0.9);
+  opacity: 0;
+  animation: mythicEyeExplodeRing 0.95s ease-out 1 forwards;
+}
+.mythic-eye-explode-ring { animation-delay: 7.2s; }
+.mythic-eye-explode-ring-2 { animation-delay: 7.32s; }
+.mythic-eye-explode-ring-3 { animation-delay: 7.44s; }
+@keyframes mythicEyeExplodeRing {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  15% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(85); }
+}
+.mythic-eye-explode-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff4444;
+  box-shadow: 0 0 12px 4px rgba(220, 38, 38, 0.9);
+  opacity: 0;
+  animation: mythicEyeExplodeSpark 1.5s cubic-bezier(0.2, 0.8, 0.3, 1) 1 forwards 7.2s;
+}
+@keyframes mythicEyeExplodeSpark {
+  /* --d (each spark's own travel distance, set per nth-child below) is
+     multiplied by 1.8 here rather than rewritten on all 50 individual
+     rules - stretches every spark's flight distance by the same factor
+     without touching the generated per-spark values. */
+  0% { opacity: 0; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
+  8% { opacity: 1; }
+  60% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(calc(cos(var(--a)) * var(--d) * 1.8), calc(sin(var(--a)) * var(--d) * 1.8)) scale(0.15); }
+}
+.mythic-eye-explode-spark:nth-child(1) { --a: -0.7deg; --d: 546px; animation-delay: 7.173s; }
+.mythic-eye-explode-spark:nth-child(2) { --a: 6.1deg; --d: 821px; animation-delay: 7.083s; }
+.mythic-eye-explode-spark:nth-child(3) { --a: 13.6deg; --d: 883px; animation-delay: 7.136s; }
+.mythic-eye-explode-spark:nth-child(4) { --a: 18.9deg; --d: 407px; animation-delay: 7.097s; }
+.mythic-eye-explode-spark:nth-child(5) { --a: 29.2deg; --d: 783px; animation-delay: 7.337s; }
+.mythic-eye-explode-spark:nth-child(6) { --a: 37.7deg; --d: 330px; animation-delay: 7.273s; }
+.mythic-eye-explode-spark:nth-child(7) { --a: 45.2deg; --d: 605px; animation-delay: 7.345s; }
+.mythic-eye-explode-spark:nth-child(8) { --a: 48.9deg; --d: 762px; animation-delay: 7.227s; }
+.mythic-eye-explode-spark:nth-child(9) { --a: 56.5deg; --d: 341px; animation-delay: 7.051s; }
+.mythic-eye-explode-spark:nth-child(10) { --a: 63.1deg; --d: 462px; animation-delay: 7.193s; }
+.mythic-eye-explode-spark:nth-child(11) { --a: 72.2deg; --d: 638px; animation-delay: 7.151s; }
+.mythic-eye-explode-spark:nth-child(12) { --a: 78.0deg; --d: 386px; animation-delay: 7.105s; }
+.mythic-eye-explode-spark:nth-child(13) { --a: 85.6deg; --d: 636px; animation-delay: 7.222s; }
+.mythic-eye-explode-spark:nth-child(14) { --a: 91.9deg; --d: 498px; animation-delay: 7.215s; }
+.mythic-eye-explode-spark:nth-child(15) { --a: 100.8deg; --d: 706px; animation-delay: 7.315s; }
+.mythic-eye-explode-spark:nth-child(16) { --a: 105.9deg; --d: 335px; animation-delay: 7.097s; }
+.mythic-eye-explode-spark:nth-child(17) { --a: 114.0deg; --d: 824px; animation-delay: 7.193s; }
+.mythic-eye-explode-spark:nth-child(18) { --a: 124.0deg; --d: 721px; animation-delay: 7.139s; }
+.mythic-eye-explode-spark:nth-child(19) { --a: 129.0deg; --d: 303px; animation-delay: 7.106s; }
+.mythic-eye-explode-spark:nth-child(20) { --a: 137.4deg; --d: 366px; animation-delay: 7.309s; }
+.mythic-eye-explode-spark:nth-child(21) { --a: 145.1deg; --d: 814px; animation-delay: 7.075s; }
+.mythic-eye-explode-spark:nth-child(22) { --a: 151.3deg; --d: 316px; animation-delay: 7.082s; }
+.mythic-eye-explode-spark:nth-child(23) { --a: 155.8deg; --d: 841px; animation-delay: 7.346s; }
+.mythic-eye-explode-spark:nth-child(24) { --a: 162.8deg; --d: 694px; animation-delay: 7.157s; }
+.mythic-eye-explode-spark:nth-child(25) { --a: 171.9deg; --d: 483px; animation-delay: 7.236s; }
+.mythic-eye-explode-spark:nth-child(26) { --a: 181.3deg; --d: 617px; animation-delay: 7.196s; }
+.mythic-eye-explode-spark:nth-child(27) { --a: 187.1deg; --d: 394px; animation-delay: 7.211s; }
+.mythic-eye-explode-spark:nth-child(28) { --a: 194.5deg; --d: 898px; animation-delay: 7.116s; }
+.mythic-eye-explode-spark:nth-child(29) { --a: 204.4deg; --d: 370px; animation-delay: 7.348s; }
+.mythic-eye-explode-spark:nth-child(30) { --a: 209.2deg; --d: 893px; animation-delay: 7.160s; }
+.mythic-eye-explode-spark:nth-child(31) { --a: 214.0deg; --d: 489px; animation-delay: 7.230s; }
+.mythic-eye-explode-spark:nth-child(32) { --a: 225.4deg; --d: 734px; animation-delay: 7.104s; }
+.mythic-eye-explode-spark:nth-child(33) { --a: 231.2deg; --d: 491px; animation-delay: 7.263s; }
+.mythic-eye-explode-spark:nth-child(34) { --a: 236.2deg; --d: 541px; animation-delay: 7.130s; }
+.mythic-eye-explode-spark:nth-child(35) { --a: 243.9deg; --d: 709px; animation-delay: 7.321s; }
+.mythic-eye-explode-spark:nth-child(36) { --a: 254.8deg; --d: 760px; animation-delay: 7.066s; }
+.mythic-eye-explode-spark:nth-child(37) { --a: 261.2deg; --d: 607px; animation-delay: 7.171s; }
+.mythic-eye-explode-spark:nth-child(38) { --a: 267.8deg; --d: 460px; animation-delay: 7.213s; }
+.mythic-eye-explode-spark:nth-child(39) { --a: 271.4deg; --d: 414px; animation-delay: 7.078s; }
+.mythic-eye-explode-spark:nth-child(40) { --a: 281.5deg; --d: 447px; animation-delay: 7.119s; }
+.mythic-eye-explode-spark:nth-child(41) { --a: 289.2deg; --d: 456px; animation-delay: 7.082s; }
+.mythic-eye-explode-spark:nth-child(42) { --a: 298.0deg; --d: 737px; animation-delay: 7.115s; }
+.mythic-eye-explode-spark:nth-child(43) { --a: 302.3deg; --d: 560px; animation-delay: 7.146s; }
+.mythic-eye-explode-spark:nth-child(44) { --a: 307.4deg; --d: 338px; animation-delay: 7.216s; }
+.mythic-eye-explode-spark:nth-child(45) { --a: 319.3deg; --d: 492px; animation-delay: 7.222s; }
+.mythic-eye-explode-spark:nth-child(46) { --a: 323.0deg; --d: 854px; animation-delay: 7.126s; }
+.mythic-eye-explode-spark:nth-child(47) { --a: 332.4deg; --d: 878px; animation-delay: 7.133s; }
+.mythic-eye-explode-spark:nth-child(48) { --a: 340.8deg; --d: 745px; animation-delay: 7.261s; }
+.mythic-eye-explode-spark:nth-child(49) { --a: 347.8deg; --d: 576px; animation-delay: 7.135s; }
+.mythic-eye-explode-spark:nth-child(50) { --a: 352.4deg; --d: 363px; animation-delay: 7.091s; }
+
+/* Thunder - strikes at 3.9s, right as the shake settles and BEFORE the
+   blast now (T_THUNDER in MythicStarfieldReveal.tsx, which also fires
+   the thunder sound at that same instant; the blast is at 4.7s - the
+   two were swapped so the storm strikes first and the explosion reads
+   as its payoff, not the reverse). .mythic-thunder-sky washes the whole
+   screen faintly red so the strike reads as lighting up the sky;
+   .mythic-lightning-bolt is the main strike, a real jagged bolt shape
+   (clip-path polygon, not just a glow) so there's an actual bolt to see,
+   not only ambient light - narrowed from an original 90px down to 22px
+   ("way thinner" - a bolt that wide read as a slab, not lightning).
+   -2/-3 are smaller, dimmer echoes off to the sides reusing the exact
+   same polygon (a distant strike is still bolt-shaped, just fainter and
+   shorter), each on its own slightly staggered flicker so the three
+   don't strike in the same identical instant. */
+.mythic-thunder-sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Brighter per request - opacity is already maxed at 1 during this
+     element's own peak flicker frames, so the boost has to come from
+     the gradient's own color stops instead: was rgba(255,210,210,0.9)/
+     rgba(180,10,10,0.5). */
+  background: radial-gradient(circle at 60% 25%, rgba(255, 235, 235, 1) 0%, rgba(210, 10, 10, 0.65) 35%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0;
+  mix-blend-mode: screen;
+  animation: mythicThunderFlicker 1s steps(1, end) 1 forwards 3.9s;
+}
+.mythic-lightning-bolt,
+.mythic-lightning-bolt-2,
+.mythic-lightning-bolt-3 {
+  position: absolute;
+  top: -8%;
+  background: linear-gradient(180deg, #ffffff 0%, #ff3b3b 50%, #7a0000 100%);
+  clip-path: polygon(58% 0%, 25% 42%, 45% 42%, 8% 100%, 62% 40%, 40% 40%, 58% 0%);
+  opacity: 0;
+  pointer-events: none;
+}
+.mythic-lightning-bolt {
+  left: 56%;
+  width: 22px;
+  height: 75%;
+  /* Brighter per request - was drop-shadow(...14px rgba(255,40,40,.95))
+     drop-shadow(...30px rgba(255,40,40,.5)). */
+  filter: drop-shadow(0 0 18px rgba(255, 60, 60, 1)) drop-shadow(0 0 40px rgba(255, 60, 60, 0.7));
+  transform: rotate(6deg);
+  animation: mythicThunderFlicker 1s steps(1, end) 1 forwards 3.9s;
+}
+.mythic-lightning-bolt-2 {
+  left: 12%;
+  width: 12px;
+  height: 42%;
+  filter: drop-shadow(0 0 9px rgba(255, 60, 60, 0.85));
+  transform: rotate(-10deg);
+  animation: mythicThunderFlicker 1s steps(1, end) 1 forwards 3.98s;
+}
+.mythic-lightning-bolt-3 {
+  left: 83%;
+  width: 10px;
+  height: 34%;
+  filter: drop-shadow(0 0 8px rgba(255, 60, 60, 0.75));
+  transform: rotate(11deg);
+  animation: mythicThunderFlicker 1s steps(1, end) 1 forwards 4.06s;
+}
+@keyframes mythicThunderFlicker {
+  0%, 100% { opacity: 0; }
+  3% { opacity: 1; }
+  9% { opacity: 0.15; }
+  14% { opacity: 1; }
+  22% { opacity: 0; }
+  38% { opacity: 0.7; }
+  50% { opacity: 0; }
+}
+
+@keyframes mythicDreadShake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-16px, 8px) rotate(-0.7deg); }
+  20% { transform: translate(14px, -12px) rotate(0.6deg); }
+  30% { transform: translate(-12px, 12px) rotate(-0.5deg); }
+  40% { transform: translate(16px, -8px) rotate(0.6deg); }
+  50% { transform: translate(-10px, 10px) rotate(-0.4deg); }
+  60% { transform: translate(10px, -10px) rotate(0.4deg); }
+  70% { transform: translate(-6px, 5px) rotate(-0.2deg); }
+  80% { transform: translate(6px, -5px) rotate(0.2deg); }
+  90% { transform: translate(-2px, 2px) rotate(-0.1deg); }
+}
+/* Harder/faster than mythicDreadShake above - a sharper, punchier hit to
+   match the blast rather than a slow-building dread tremor. */
+@keyframes mythicExplodeShake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  12% { transform: translate(-22px, 12px) rotate(-1.1deg); }
+  25% { transform: translate(20px, -16px) rotate(1deg); }
+  38% { transform: translate(-18px, 16px) rotate(-0.8deg); }
+  51% { transform: translate(16px, -12px) rotate(0.7deg); }
+  64% { transform: translate(-10px, 9px) rotate(-0.4deg); }
+  77% { transform: translate(7px, -6px) rotate(0.3deg); }
+  90% { transform: translate(-3px, 2px) rotate(-0.1deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mythic-stars-1,
+  .mythic-stars-2,
+  .mythic-stars-3,
+  .mythic-meteor,
+  .mythic-moon,
+  .mythic-dread-shake,
+  .mythic-dread-pulse,
+  .mythic-flash-black,
+  .mythic-eye-stage,
+  .mythic-eye-jitter,
+  .mythic-eye-stage .eye,
+  .mythic-eye-stage .pupil,
+  .mythic-eye-stage .spotlight,
+  .cor-eye-descend,
+  .cor-eye-descend .eye,
+  .cor-eye-descend .pupil,
+  .cor-eye-descend .spotlight,
+  .mythic-eye-explode-bloom,
+  .mythic-eye-explode-ring,
+  .mythic-eye-explode-ring-2,
+  .mythic-eye-explode-ring-3,
+  .mythic-eye-explode-spark,
+  .mythic-thunder-sky,
+  .mythic-lightning-bolt,
+  .mythic-lightning-bolt-2,
+  .mythic-lightning-bolt-3 {
+    animation: none !important;
+  }
+  .mythic-meteor,
+  .mythic-eye-stage,
+  .cor-eye-descend,
+  .mythic-eye-explode-bloom,
+  .mythic-eye-explode-ring,
+  .mythic-eye-explode-ring-2,
+  .mythic-eye-explode-ring-3,
+  .mythic-eye-explode-spark,
+  .mythic-thunder-sky,
+  .mythic-lightning-bolt,
+  .mythic-lightning-bolt-2,
+  .mythic-lightning-bolt-3 {
+    display: none;
+  }
 }

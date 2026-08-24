@@ -27,6 +27,7 @@ function formatDate(timestamp: number): string {
 export default function MyPathwaysPage() {
   const navigate = useNavigate()
   const currentUser = useAuthStore((state) => state.currentUser)
+  const isAuthLoading = useAuthStore((state) => state.isLoading)
   const savedPathways = useMySavedPathways()
 
   const cards = useMemo(
@@ -37,6 +38,12 @@ export default function MyPathwaysPage() {
     [savedPathways],
   )
 
+  // Same session-restore guard as MyBinderPage.tsx - avoids a false
+  // "signed out" flash while useAuthStore is still restoring a real
+  // Supabase session from storage on first load.
+  if (isAuthLoading) {
+    return null
+  }
   if (!currentUser) {
     return <PathwaysAuthWall />
   }

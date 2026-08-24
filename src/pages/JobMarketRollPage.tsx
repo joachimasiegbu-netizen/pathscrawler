@@ -1,19 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Dices } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import ConfettiBurst from '../components/ConfettiBurst'
 import FloatingJobBackground from '../components/FloatingJobBackground'
+import CelestialRevealCard from '../components/CelestialRevealCard'
 import FloatingRollEmbers from '../components/FloatingRollEmbers'
+import LegendaryRevealCard from '../components/LegendaryRevealCard'
+import MythicRevealCard from '../components/MythicRevealCard'
 import RollResultCard from '../components/RollResultCard'
 import RollStatsPanel from '../components/RollStatsPanel'
 import RollTutorialTooltip from '../components/RollTutorialTooltip'
 import SlotMachineLane from '../components/SlotMachineLane'
 import demoCareers from '../data/demoCareers'
 import { getOddsForCareer, rollForCareer, type RollOutcome } from '../utils/rollEngine'
+import { playSound, preloadSounds, stopAllSounds, TIER_SOUNDS } from '../utils/sound'
 import { getTierStyle } from '../utils/tierStyles'
 import { usePathStore } from '../store/usePathStore'
+import { recordRoll as recordLeaderboardRoll } from '../store/useLeaderboardStore'
 import { useRollStore } from '../store/useRollStore'
 
 // The cylinder (SlotMachineLane.tsx) is visible for two states only: idle
@@ -32,6 +37,7 @@ import { useRollStore } from '../store/useRollStore'
 // No sound: silent is fine per the brief. No loading spinner: demoCareers.js
 // is a static bundled import, never actually async.
 export default function JobMarketRollPage() {
+  const navigate = useNavigate()
   const [isSpinning, setIsSpinning] = useState(false)
   const [pendingOutcome, setPendingOutcome] = useState<RollOutcome | null>(null)
   const [showCylinder, setShowCylinder] = useState(true)
@@ -54,6 +60,18 @@ export default function JobMarketRollPage() {
   const hasSeenRollTutorial = useRollStore((state) => state.hasSeenRollTutorial)
   const dismissTutorial = useRollStore((state) => state.dismissTutorial)
   const timeouts = useRef<number[]>([])
+  // Synchronous re-entry guard for handleRoll, separate from isSpinning
+  // state below - "make it so it only registers 1 click instead of a
+  // bunch" (a grinding player mashing Roll/Roll Again repeatedly).
+  // isSpinning alone isn't enough: React state updates are async/batched,
+  // so two clicks that both fire before the FIRST click's setIsSpinning
+  // (true) has actually re-rendered can both still read the OLD isSpinning
+  // (false) from their own stale closures and both slip past that guard,
+  // firing two rolls from what should read as one. A ref mutates
+  // immediately and is shared across every closure that captured it
+  // (however stale), so the second click's check always sees the first
+  // click's write, even within the same tick.
+  const isRollingRef = useRef(false)
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 639px)').matches)
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -62,6 +80,16 @@ export default function JobMarketRollPage() {
     const onChange = () => setIsMobile(query.matches)
     query.addEventListener('change', onChange)
     return () => query.removeEventListener('change', onChange)
+  }, [])
+
+  // Fetch/decode every roll sound the moment this page mounts, well before
+  // anyone can click Roll - a cold `new Audio(src).play()` on the actual
+  // click has to fetch+decode first, which is a real, noticeable lag on
+  // the very first play. Just a .load() each (no playback attempt), so
+  // this isn't subject to autoplay-policy blocking the way an unprompted
+  // .play() would be.
+  useEffect(() => {
+    preloadSounds(['/sounds/roll-click.mp3', '/sounds/card-burst.mp3', ...Object.values(TIER_SOUNDS)])
   }, [])
 
   useEffect(() => {
@@ -97,6 +125,12 @@ export default function JobMarketRollPage() {
   // immediately, under reduce-motion) - this is the moment the roll
   // becomes "official": recorded, celebrated, and revealed.
   const finishRoll = (outcome: RollOutcome) => {
+    // Releases isRollingRef's guard (see its own comment) the moment a
+    // roll is actually done landing, same lifecycle isSpinning already
+    // follows just below - Roll Again becomes clickable again right as
+    // the result appears, and this makes sure a click on it actually
+    // registers instead of still being blocked by the previous roll.
+    isRollingRef.current = false
     setIsSpinning(false)
     setPendingOutcome(null)
     setResult(outcome)
@@ -104,6 +138,33 @@ export default function JobMarketRollPage() {
     // (AnimatePresence fades it out below) so only the result card remains.
     setShowCylinder(false)
     recordRoll(outcome.career.id, outcome.tier)
+    // Fire-and-forget - this is a real network write to Supabase now (see
+    // useLeaderboardStore.ts), not a synchronous local store update. Errors
+    // are logged inside recordLeaderboardRoll itself rather than surfaced
+    // here; a failed leaderboard write shouldn't interrupt the roll reveal
+    // the player is actually watching. Signed-out rolls no-op inside it.
+    void recordLeaderboardRoll(outcome.career, outcome.tier)
+
+    // The tier's own win stinger plays the moment the roll actually lands
+    // (right here) for every tier except Mythic and Celestial - it marks
+    // the instant you HAVE one, independent of whether/when you click to
+    // open the sealed card. card-burst.mp3 is a separate sound gated on
+    // that click instead (see MythicRevealCard/CelestialRevealCard's own
+    // reveal()), not this one. Both Mythic's and Celestial's stingers
+    // moved later, each into its own reveal sequence instead: Mythic's
+    // fires once its sealed card actually appears on screen
+    // (MythicRevealCard.tsx, right after MythicStarfieldReveal's dread/
+    // explosion intro hands off); Celestial's fires when its own orbital
+    // core act begins (CelestialOrbitalReveal.tsx, T_RINGS_END - after
+    // the speeder and rings-tunnel acts, not at land time).
+    if (outcome.tier !== 'mythic' && outcome.tier !== 'celestial') playSound(TIER_SOUNDS[outcome.tier])
+
+    // Mythic and Celestial each get their own dedicated float -> explode ->
+    // reveal sequence (MythicRevealCard/CelestialRevealCard, rendered below
+    // instead of RollResultCard for these tiers) - their VISUAL celebration
+    // (confetti/flash-text/screen-darken) still waits for the click, so
+    // none of that should fire here too or it'd double up.
+    if (outcome.tier === 'mythic' || outcome.tier === 'celestial') return
 
     const style = getTierStyle(outcome.tier)
     setShowConfetti(true)
@@ -116,19 +177,39 @@ export default function JobMarketRollPage() {
       setShowMythicOverlay(true)
       after(2400, () => setShowMythicOverlay(false))
     }
-    // Epic+ (Epic, Legendary, Mythic) gets an extra beat of drama on top of
-    // confetti/flash-text - a brief camera-flash across the whole screen
-    // right as the card lands, gated separately from style.dramatic (which
-    // is Mythic-only, the sustained darken overlay) since this is a much
-    // shorter, additive effect that Epic/Legendary should get too.
-    if (outcome.tier === 'epic' || outcome.tier === 'legendary' || outcome.tier === 'mythic') {
+    // Epic/Legendary get an extra beat of drama on top of confetti/flash-
+    // text - a brief camera-flash across the whole screen right as the
+    // card lands. Mythic and Celestial would normally join this list (it's
+    // additive to style.dramatic's sustained darken overlay, not a
+    // replacement for it) but the early return above already sends both
+    // down their own click-triggered celebration instead, so neither can
+    // actually reach this line - excluded here rather than listed and
+    // unreachable.
+    if (outcome.tier === 'epic' || outcome.tier === 'legendary') {
       setShowEpicFlash(true)
       after(450, () => setShowEpicFlash(false))
     }
   }
 
   const handleRoll = () => {
-    if (isSpinning) return
+    // isRollingRef first, synchronously, before anything else - see its
+    // own declaration comment for why isSpinning alone can't fully cover
+    // a rapid-click burst. Both checked together (belt-and-suspenders,
+    // not strictly redundant): the ref only exists to bridge the narrow
+    // window before isSpinning's own state update has actually
+    // re-rendered - once it has, isSpinning alone would already be
+    // enough, but there's no simple way to release the ref right at that
+    // exact moment, so it just stays held for the ref's whole lifecycle
+    // (released in finishRoll below, same as isSpinning).
+    if (isRollingRef.current || isSpinning) return
+    isRollingRef.current = true
+    // "when they click out all sound is cut immediately" - stops
+    // whatever the PREVIOUS roll left playing (a stinger, thunder, the
+    // explosion boom, the rain bed, ...) before this new roll's own
+    // sounds start, so a grinding player spamming Roll Again never hears
+    // two rolls' worth of audio overlapping.
+    stopAllSounds()
+    playSound('/sounds/roll-click.mp3')
     setResult(null)
     setShowConfetti(false)
     setShowFlashText(false)
@@ -155,6 +236,11 @@ export default function JobMarketRollPage() {
   }
 
   const dismiss = () => {
+    // "when they click out all sound is cut immediately" - same reasoning
+    // as handleRoll's own call to this: closing a card mid-sound (a
+    // stinger still ringing, etc.) shouldn't let it keep playing once the
+    // card itself is gone.
+    stopAllSounds()
     setResult(null)
     setShowConfetti(false)
     setShowFlashText(false)
@@ -171,13 +257,17 @@ export default function JobMarketRollPage() {
   // Escape discards; Space/Enter rolls (or rolls again if a card's open).
   // Suppressed when focus already sits on some other interactive element
   // (it handles its own Enter/Space natively - firing this too would
-  // double-trigger it).
+  // double-trigger it). Escape is a no-op for Mythic/Celestial/Legendary
+  // specifically - same reasoning as their cards dropping their close
+  // buttons (see MythicRevealCard.tsx/CelestialRevealCard.tsx/
+  // LegendaryRevealCard.tsx) - a stray Escape shouldn't be able to lose or
+  // cut short a pull that rare.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const active = document.activeElement
       const focusIsElsewhere = active instanceof HTMLElement && active !== document.body && active.matches('button, a, input, textarea, select, [tabindex]')
       if (event.key === 'Escape') {
-        if (result) {
+        if (result && result.tier !== 'mythic' && result.tier !== 'celestial' && result.tier !== 'legendary') {
           event.preventDefault()
           dismiss()
         }
@@ -268,7 +358,19 @@ export default function JobMarketRollPage() {
       <motion.div
         initial={reduceMotion ? undefined : { opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 0.3, ease: 'easeOut' } }}
-        className="dark-mode relative left-1/2 w-screen min-h-screen -translate-x-1/2 flex flex-col overflow-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900 via-slate-900 to-black"
+        // No background here anymore - MobileContainer.tsx's own
+        // forceDarkBg gradient (bg-fixed, viewport-anchored) already
+        // paints this exact same gradient behind everything, header
+        // included. This div CAN'T reliably paint its own bg-fixed copy on
+        // top of that and have the two align: -translate-x-1/2 just below
+        // is a `transform`, and per the CSS spec, `background-attachment:
+        // fixed` reverts to normal scroll/element-anchored behavior on any
+        // element that has its own transform - confirmed via a real
+        // rendered screenshot showing a hard seam right at this div's own
+        // top edge, not eyeballed. Leaving this transparent and relying
+        // entirely on the one correctly-fixed layer underneath is what
+        // actually gets a seamless result, not two competing gradients.
+        className="dark-mode relative left-1/2 w-screen min-h-screen -translate-x-1/2 flex flex-col overflow-hidden"
       >
       <FloatingJobBackground dimmed={isSpinning || result !== null} />
       {!reduceMotion ? <FloatingRollEmbers /> : null}
@@ -370,7 +472,11 @@ export default function JobMarketRollPage() {
               />
 
               <SlotMachineLane
-                target={pendingOutcome ? { title: pendingOutcome.career.title, tier: pendingOutcome.tier } : null}
+                target={
+                  pendingOutcome
+                    ? { title: pendingOutcome.career.title, tier: pendingOutcome.tier, category: pendingOutcome.career.category }
+                    : null
+                }
                 spinToken={rollId}
                 onSpinComplete={handleSpinComplete}
               />
@@ -392,12 +498,36 @@ export default function JobMarketRollPage() {
         <AnimatePresence mode="wait">
           {result ? (
             <motion.div key="result" {...cardEntranceMotionProps} className="mt-6 w-full max-w-md px-4 sm:px-0">
-              <RollResultCard
-                career={result.career}
-                tier={result.tier}
-                onDismiss={dismiss}
-                onRollAgain={handleRoll}
-              />
+              {/* key={rollId} on every branch below - without it, two
+                  consecutive rolls landing the SAME tier (very much what
+                  a player grinding for Mythic/Celestial is doing) render
+                  the same component type in the same tree position, so
+                  React treats the second one as a PROP UPDATE to the
+                  first instance rather than a fresh mount. For
+                  Mythic/Celestial/Legendary specifically, that meant
+                  their own internal `phase` state (already sitting at
+                  'revealed' from the previous pull) never reset, so the
+                  entire intro/floating/exploding cutscene silently got
+                  skipped on the very next matching roll - "the next roll
+                  shouldn't be skipped". rollId already exists and bumps
+                  once per handleRoll() call, so it's a ready-made value
+                  that's guaranteed to differ between any two rolls,
+                  same-tier repeat or not. */}
+              {result.tier === 'celestial' ? (
+                <CelestialRevealCard key={rollId} career={result.career} onRollAgain={handleRoll} />
+              ) : result.tier === 'mythic' ? (
+                <MythicRevealCard key={rollId} career={result.career} onRollAgain={handleRoll} />
+              ) : result.tier === 'legendary' ? (
+                <LegendaryRevealCard key={rollId} career={result.career} onRollAgain={handleRoll} />
+              ) : (
+                <RollResultCard
+                  key={rollId}
+                  career={result.career}
+                  tier={result.tier}
+                  onDismiss={dismiss}
+                  onRollAgain={handleRoll}
+                />
+              )}
             </motion.div>
           ) : (
             <motion.div key="controls" {...resultMotionProps} className="mt-6 flex w-full flex-col items-center gap-6 px-4 sm:px-0">

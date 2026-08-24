@@ -1,121 +1,120 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { isSupabaseConfigured, supabase } from '../lib/supabaseClient'
 
-// PROTOTYPE AUTH - not secure, not cross-device.
-// Accounts and sessions live entirely in this browser's localStorage. There is
-// no server, so signing up on one device/browser does not carry over to
-// another. This exists so the sign-in/sign-up UX can be built and demoed now;
-// swapping in a real provider (e.g. Supabase Auth) later means replacing the
-// three functions below with real network calls - the rest of the app only
-// ever talks to this store's interface (currentUser/signUp/signIn/signOut).
+// REAL AUTH NOW - this used to be a from-scratch mock (accounts/passwords
+// hashed and stored directly in this browser's localStorage, no server at
+// all). It's now a thin wrapper around Supabase Auth: the actual account
+// list, password hashing, and session JWT all live server-side in the
+// Supabase project (see .env.example for how this app is pointed at one),
+// not in this file. This is what makes the leaderboard (useLeaderboardStore)
+// genuinely global now - `currentUser.id` is a real, stable auth.users.id
+// every device agrees on, not a per-browser crypto.randomUUID().
+//
+// One consequence worth knowing: any account created under the OLD mock
+// system, and any Binder card / saved pathway stored against one of those
+// old fake ids, is now orphaned - a real Supabase user gets a completely
+// different id, so there's nothing to migrate onto. Same call made for
+// every previous breaking storage change in this app (useBinderStore's
+// v1->v2 migration, useRollStore's pity-system removal): dropped rather
+// than guessing at how to carry stale data forward.
 
-interface MockUser {
+export interface MockUser {
   id: string
   email: string
-}
-
-interface StoredAccount extends MockUser {
-  passwordHash: string
-}
-
-const ACCOUNTS_KEY = 'pathscrawler-mock-accounts'
-
-// Not cryptographically secure - just avoids storing raw plaintext passwords
-// in an obviously-readable form. Do not reuse this pattern for anything real.
-function hashPassword(password: string): string {
-  let hash = 0
-  for (let i = 0; i < password.length; i += 1) {
-    hash = (hash << 5) - hash + password.charCodeAt(i)
-    hash |= 0
-  }
-  return `h${hash}`
-}
-
-function readAccounts(): StoredAccount[] {
-  try {
-    const raw = localStorage.getItem(ACCOUNTS_KEY)
-    return raw ? (JSON.parse(raw) as StoredAccount[]) : []
-  } catch {
-    return []
-  }
-}
-
-function writeAccounts(accounts: StoredAccount[]) {
-  localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts))
-}
-
-// DEV CONVENIENCE ONLY - seeds a fixed devuser/devword account into this
-// browser's mock account list the first time the app loads, so it's always
-// available at /login without going through Sign Up first. Gated on
-// import.meta.env.DEV, which Vite statically replaces with `false` in
-// production builds - this whole block (and the known credential) is dead
-// code and gets tree-shaken out of what actually ships/deploys. Idempotent:
-// only inserts the account if it isn't already there, so it survives across
-// dev-server restarts without duplicating or resetting it.
-if (import.meta.env.DEV) {
-  const accounts = readAccounts()
-  if (!accounts.some((account) => account.email === 'devuser')) {
-    writeAccounts([...accounts, { id: 'dev-account', email: 'devuser', passwordHash: hashPassword('devword') }])
-  }
 }
 
 interface AuthResult {
   success: boolean
   error?: string
+  /** true when signUp succeeded but Supabase is holding the account for
+   * email confirmation - there's no session yet, so `currentUser` is still
+   * null and the caller shouldn't navigate anywhere as if signed in. */
+  needsEmailConfirmation?: boolean
 }
 
 interface AuthState {
   currentUser: MockUser | null
-  // Mirrors `currentUser !== null` as an explicit field (rather than making
-  // callers repeat that null-check everywhere) - kept in lockstep with
-  // currentUser in every action below, never set independently.
   isAuthenticated: boolean
   /** Alias for currentUser - some call sites (e.g. binder gating) read this name. */
   user: MockUser | null
-  signUp: (email: string, password: string) => AuthResult
-  signIn: (email: string, password: string) => AuthResult
-  signOut: () => void
+  /** False until the very first getSession() round trip resolves - lets a
+   * route guard (BinderAuthWall etc.) avoid a false "you're signed out"
+   * flash while a real, valid session is still being restored from
+   * Supabase's own storage on page load. */
+  isLoading: boolean
+  signUp: (email: string, password: string) => Promise<AuthResult>
+  signIn: (email: string, password: string) => Promise<AuthResult>
+  signOut: () => Promise<void>
 }
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      currentUser: null,
-      isAuthenticated: false,
-      user: null,
-      signUp: (email, password) => {
-        const normalizedEmail = email.trim().toLowerCase()
-        if (!normalizedEmail || !password) {
-          return { success: false, error: 'Enter an email and password.' }
-        }
-        if (password.length < 6) {
-          return { success: false, error: 'Password must be at least 6 characters.' }
-        }
-        const accounts = readAccounts()
-        if (accounts.some((account) => account.email === normalizedEmail)) {
-          return { success: false, error: 'An account with that email already exists.' }
-        }
-        const user: MockUser = { id: crypto.randomUUID(), email: normalizedEmail }
-        accounts.push({ ...user, passwordHash: hashPassword(password) })
-        writeAccounts(accounts)
-        set({ currentUser: user, user, isAuthenticated: true })
-        return { success: true }
-      },
-      signIn: (email, password) => {
-        const normalizedEmail = email.trim().toLowerCase()
-        const accounts = readAccounts()
-        const account = accounts.find((item) => item.email === normalizedEmail)
-        if (!account || account.passwordHash !== hashPassword(password)) {
-          return { success: false, error: 'Incorrect email or password.' }
-        }
-        const user: MockUser = { id: account.id, email: account.email }
-        set({ currentUser: user, user, isAuthenticated: true })
-        return { success: true }
-      },
-      signOut: () => set({ currentUser: null, user: null, isAuthenticated: false }),
-    }),
-    {
-      name: 'pathscrawler-auth-session',
+function toMockUser(user: { id: string; email?: string | null } | null | undefined): MockUser | null {
+  if (!user) return null
+  return { id: user.id, email: user.email ?? '' }
+}
+
+const NOT_CONFIGURED_ERROR = 'Sign-in is not set up yet - this app is missing its Supabase configuration.'
+
+export const useAuthStore = create<AuthState>()((set) => {
+  // Hydrate from whatever session Supabase's own persisted storage already
+  // has (survives a refresh), then keep currentUser in lockstep with every
+  // future auth event (sign in, sign out, token refresh, and - importantly -
+  // a session restored on load) via onAuthStateChange, which fires once
+  // immediately with the current state AND on every change after that. No
+  // separate zustand/persist middleware here on purpose - Supabase's own
+  // client already durably persists the real session; this store just
+  // mirrors it into reactive app state.
+  if (isSupabaseConfigured && supabase) {
+    supabase.auth.onAuthStateChange((_event, session) => {
+      const user = toMockUser(session?.user)
+      set({ currentUser: user, user, isAuthenticated: user !== null, isLoading: false })
+    })
+  }
+
+  return {
+    currentUser: null,
+    isAuthenticated: false,
+    user: null,
+    isLoading: isSupabaseConfigured,
+
+    signUp: async (email, password) => {
+      if (!isSupabaseConfigured || !supabase) return { success: false, error: NOT_CONFIGURED_ERROR }
+      const normalizedEmail = email.trim().toLowerCase()
+      if (!normalizedEmail || !password) return { success: false, error: 'Enter an email and password.' }
+      if (password.length < 6) return { success: false, error: 'Password must be at least 6 characters.' }
+
+      const { data, error } = await supabase.auth.signUp({ email: normalizedEmail, password })
+      if (error) return { success: false, error: error.message }
+
+      // A session comes back immediately when the project has email
+      // confirmation turned off; when it's on, Supabase creates the account
+      // but withholds the session until the confirmation link is clicked -
+      // that's a real, different outcome the UI needs to show differently
+      // (not an error, but not "you're in" either).
+      if (!data.session) {
+        return { success: true, needsEmailConfirmation: true }
+      }
+      const user = toMockUser(data.session.user)
+      set({ currentUser: user, user, isAuthenticated: true, isLoading: false })
+      return { success: true }
     },
-  ),
-)
+
+    signIn: async (email, password) => {
+      if (!isSupabaseConfigured || !supabase) return { success: false, error: NOT_CONFIGURED_ERROR }
+      const normalizedEmail = email.trim().toLowerCase()
+      const { data, error } = await supabase.auth.signInWithPassword({ email: normalizedEmail, password })
+      if (error) return { success: false, error: error.message }
+      const user = toMockUser(data.user)
+      set({ currentUser: user, user, isAuthenticated: true, isLoading: false })
+      return { success: true }
+    },
+
+    signOut: async () => {
+      if (!isSupabaseConfigured || !supabase) {
+        set({ currentUser: null, user: null, isAuthenticated: false })
+        return
+      }
+      await supabase.auth.signOut()
+      set({ currentUser: null, user: null, isAuthenticated: false })
+    },
+  }
+})

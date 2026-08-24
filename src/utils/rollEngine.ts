@@ -10,18 +10,18 @@ interface WeightedEntry {
 }
 
 // Two-stage selection: which TIER comes up is controlled by TIERS[].targetShare
-// (the section 8 distribution target - Common ~40%, ..., Mythic ~0.5%);
+// (the section 8 distribution target - Common ~58%, ..., Mythic 0.2% - see
+// careerTiers.ts's TIERS array for the exact current numbers);
 // which CAREER wins within that tier is controlled by its rollWeight (the
-// section 1-4 real-world-odds factors). A single flat sum across all 111
-// careers using only the section 1 point values was tried first and
+// section 1-4 real-world-odds factors). A single flat sum across every
+// career using only the section 1 point values was tried first and
 // rejected: those factors don't have anywhere near enough dynamic range to
-// offset how many careers this app now has sitting in the Legendary salary
-// band (20, thanks to the senior/executive careers added for the Highest
-// Paying page) - a flat sum put Legendary at ~12-13% of rolls, five times
-// the ~2-3% target, no matter how the per-career weights were tuned. Tier
-// picked first, career picked within it, hits the target distribution by
-// construction while still keeping "realistic odds" as the tie-breaker for
-// which specific career you get inside that tier.
+// hit the target tier distribution on their own, no matter how the
+// per-career weights were tuned - some tiers ended up several times over
+// their target share. Tier picked first, career picked within it, hits the
+// target distribution by construction while still keeping "realistic
+// odds" as the tie-breaker for which specific career you get inside that
+// tier.
 let cachedPools: Record<TierKey, WeightedEntry[]> | null = null
 let cachedTotalWeight = 0
 
@@ -59,7 +59,28 @@ function weightedPick(entries: WeightedEntry[], weightOf: (entry: WeightedEntry)
   return entries[entries.length - 1]
 }
 
+// TEMPORARY, FOR REVIEW ONLY - set to a TierKey to force every roll to
+// that tier (bypassing the weighted odds below entirely) so a specific
+// tier's reveal can be reviewed on demand instead of waiting on real
+// odds; null restores normal weighted selection. Reset to null once
+// review is done - do not ship with this set.
+const DEBUG_FORCE_TIER: TierKey | null = null
+// TEMPORARY, FOR REVIEW ONLY - "also make it 50/50 to get any card now i
+// wantto review all the cards": picks uniformly at random among all 7
+// tiers (~1 in 7 each) instead of TIERS[].targetShare below, so every
+// tier's card design/animation is a few rolls away instead of hundreds -
+// the real weighted odds (Common ~55%, Celestial ~0.1%) would take far
+// too many rolls to surface everything for a review pass. This ALSO
+// sidesteps TIERS[] currently having every share zeroed except celestial
+// (see that array's own comment - a separate, still-unresolved leftover
+// from testing Celestial's reveal) - pickTier() below never reads that
+// broken array while this is on. Reset to false once review is done -
+// do not ship with this set (same as DEBUG_FORCE_TIER above).
+const DEBUG_UNIFORM_TIERS = false
+
 function pickTier(shareOf: (tier: TierKey) => number = (tier) => TIERS.find((t) => t.key === tier)!.targetShare): TierKey {
+  if (DEBUG_FORCE_TIER) return DEBUG_FORCE_TIER
+  if (DEBUG_UNIFORM_TIERS) return TIERS[Math.floor(Math.random() * TIERS.length)].key
   const total = TIERS.reduce((sum, tier) => sum + shareOf(tier.key), 0)
   let roll = Math.random() * total
   for (const tier of TIERS) {
@@ -73,8 +94,8 @@ function pickFromTier(pools: Record<TierKey, WeightedEntry[]>, tier: TierKey): W
   const pool = pools[tier]
   if (pool.length > 0) return weightedPick(pool)
   // Empty pool safety net (shouldn't happen with the current data, but a
-  // salary re-shuffle could empty one out): walk outward to the nearest
-  // non-empty tier rather than failing the roll.
+  // change to the employment-percentage cutoffs could empty one out): walk
+  // outward to the nearest non-empty tier rather than failing the roll.
   const index = TIERS.findIndex((t) => t.key === tier)
   for (let offset = 1; offset < TIERS.length; offset++) {
     for (const candidate of [index - offset, index + offset]) {
@@ -89,12 +110,11 @@ function pickFromTier(pools: Record<TierKey, WeightedEntry[]>, tier: TierKey): W
 // Cap on how often Common can dominate, checked against a real running
 // lifetime tally (see useRollStore's lifetimeTierCounts) rather than any
 // shown history list - needs a minimum sample before it can kick in at all
-// so an unlucky start doesn't look "corrected". Set ~10 points above
-// Common's own 55% target (same headroom the old 50% cap gave the
-// previous 40% target) so this stays a genuine safety net against bad
-// luck rather than a drag that fights the target itself - it was doing
-// exactly that at the old 50% cap, capping observed Common at ~50% instead
-// of the intended 55% (caught by re-simulating after this rebalance).
+// so an unlucky start doesn't look "corrected". Common's own target moved
+// to 57.57% when Epic/Legendary/Mythic were pushed rarer (see careerTiers.ts's
+// TIERS comment) - still comfortably under this 65% cap (~7 points of
+// headroom), so it stays a genuine safety net against bad luck rather than
+// a drag that fights the target itself.
 const COMMON_CAP_SHARE = 0.65
 const MIN_ROLLS_BEFORE_CAP = 10
 

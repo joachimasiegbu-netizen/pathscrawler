@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { BookOpen, FolderClock, GitCompare, LogIn, LogOut, Settings2, TrendingUp, X } from 'lucide-react'
+import { BookOpen, FolderClock, GitCompare, LogIn, LogOut, Settings2, TrendingUp, Trophy, X } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useCompareStore } from './store/useCompareStore'
@@ -23,6 +23,8 @@ import JobMarketAiEndangeredJobsPage from './pages/JobMarketAiEndangeredJobsPage
 import JobMarketEasiestPage from './pages/JobMarketEasiestPage'
 import JobMarketHighestPayingPage from './pages/JobMarketHighestPayingPage'
 import JobMarketRollPage from './pages/JobMarketRollPage'
+import LeaderboardPage from './pages/LeaderboardPage'
+import MythicRevealPreviewPage from './pages/MythicRevealPreviewPage'
 import MyBinderPage from './pages/MyBinderPage'
 import BinderComparePage from './pages/BinderComparePage'
 import LoadingPage from './pages/LoadingPage'
@@ -71,7 +73,13 @@ function App() {
   // exists on its own because the page itself needs the dark "game mode"
   // styling below regardless of how you got there, but it no longer needs
   // to be excluded from Job Market's "am I active" check.
-  const isRollActive = location.pathname === '/job-market/roll'
+  // Leaderboard and the Mythic reveal preview both reuse Roll a Job's same
+  // full-bleed dark "game mode" shell (see LeaderboardPage.tsx /
+  // MythicRevealPreviewPage.tsx), so they need the exact same header/shell
+  // forcing below or they get the light-strip-above-a-dark-page gap the
+  // comment just below this describes.
+  const isRollActive =
+    location.pathname === '/job-market/roll' || location.pathname === '/leaderboard' || location.pathname === '/preview/mythic-reveal'
   const isJobMarketActive = location.pathname.startsWith('/job-market')
   // isRollActive forces the dark look here too, not just accessibilitySettings.darkMode -
   // Roll a Job is a fixed "game mode" dark page (JobMarketRollPage.tsx)
@@ -305,6 +313,17 @@ function App() {
                       <button
                         type="button"
                         onClick={() => {
+                          navigate('/leaderboard')
+                          setShowAccountMenu(false)
+                        }}
+                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-700"
+                      >
+                        <Trophy className="h-4 w-4" />
+                        Leaderboard
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
                           signOut()
                           setShowAccountMenu(false)
                         }}
@@ -402,6 +421,8 @@ function App() {
           <Route path="/job-market/easiest" element={<JobMarketEasiestPage />} />
           <Route path="/job-market/highest-paying" element={<JobMarketHighestPayingPage />} />
           <Route path="/job-market/roll" element={<JobMarketRollPage />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
+          <Route path="/preview/mythic-reveal" element={<MythicRevealPreviewPage />} />
           <Route path="/binder" element={<MyBinderPage />} />
           <Route path="/binder/compare" element={<BinderComparePage />} />
           <Route path="*" element={<NotFoundPage />} />

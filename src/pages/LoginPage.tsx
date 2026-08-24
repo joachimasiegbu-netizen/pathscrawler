@@ -11,10 +11,15 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    const result = signIn(email, password)
+    if (isSubmitting) return
+    setIsSubmitting(true)
+    setError(null)
+    const result = await signIn(email, password)
+    setIsSubmitting(false)
     if (!result.success) {
       setError(result.error ?? 'Something went wrong.')
       return
@@ -34,7 +39,7 @@ export default function LoginPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary-dark dark:text-primary-light">Welcome back</p>
           <h1 className="mt-3 text-2xl font-bold text-slate-950 dark:text-slate-50">Sign in</h1>
           <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-            This is a demo sign-in stored only in this browser - not a real account system yet.
+            Sign in to your PathScrawler account.
           </p>
         </div>
 
@@ -42,11 +47,10 @@ export default function LoginPage() {
           <label className="block">
             <span className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">Email</span>
             <input
-              // text, not "email" - the mock backend (useAuthStore) accepts
-              // any non-empty string as an identifier, not just email-shaped
-              // ones (e.g. the seeded "devuser" dev account) - type="email"
-              // would block that at the browser's own validation step before
-              // it ever reaches signIn().
+              // text, not "email" - Supabase Auth itself validates and
+              // returns a clear error for a malformed address, so this
+              // doesn't need the browser's own type="email" gate in front
+              // of it too.
               type="text"
               inputMode="email"
               required
@@ -70,8 +74,8 @@ export default function LoginPage() {
 
           {error ? <p className="text-sm font-medium text-red-600 dark:text-red-400">{error}</p> : null}
 
-          <Button type="submit" className="w-full justify-center">
-            Sign in
+          <Button type="submit" disabled={isSubmitting} className="w-full justify-center">
+            {isSubmitting ? 'Signing in…' : 'Sign in'}
           </Button>
         </form>
 
