@@ -42,12 +42,13 @@ export default function RollOddsDropdown() {
       {open ? (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          {/* Centered under the button again - it now lives next to the
-              Roll button itself (JobMarketRollPage.tsx), centered in a
-              narrow column rather than pinned to the true screen edge, so
-              right-0 (a leftover from when it briefly WAS at the edge)
-              would sit oddly offset instead of anchored under it. */}
-          <div className="absolute left-1/2 top-full z-50 mt-2 w-[min(88vw,300px)] -translate-x-1/2 rounded-2xl border border-white/10 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-xl">
+          {/* right-0, not centered - this trigger sits on the right side
+              of its own row (Job Market left / See real odds right,
+              JobMarketRollPage.tsx), so a panel centered under it would
+              overflow off that row's own right edge. Anchoring the
+              panel's right edge to the button's keeps it fully
+              contained instead. */}
+          <div className="absolute right-0 top-full z-50 mt-2 w-[min(88vw,300px)] rounded-2xl border border-white/10 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-xl">
             <ul className="space-y-1.5 text-sm">
               {TIERS.map((tier) => (
                 <li key={tier.key} className="flex items-center justify-between text-white/80">

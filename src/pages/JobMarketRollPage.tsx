@@ -394,15 +394,16 @@ export default function JobMarketRollPage() {
         // actually gets a seamless result, not two competing gradients.
         className="dark-mode relative left-1/2 w-screen min-h-screen -translate-x-1/2 flex flex-col overflow-hidden"
       >
-      {/* Just Job Market up here now, alone - a back button sitting near
-          the top is the one part of this that's a normal, expected
-          convention everywhere else in the app too, not "banner-like" on
-          its own. See real odds moved down to live next to the actual
-          Roll button instead (its own comment down there) - pairing the
-          two together up here is what kept reading as a second top
-          banner regardless of how the row itself was styled/narrowed. */}
-      <div className="relative z-10 px-4 pt-3 sm:px-6">
+      {/* Job Market's own position copied directly from CareerDetailPage.tsx
+          - the exact page a rolled career takes you to - which wraps its
+          BackButton in `mx-auto w-full max-w-3xl px-4 py-6 sm:px-6`. Same
+          max-w-3xl here (was max-w-2xl, a guessed value) instead of another
+          made-up width. See real odds still shares the row on the right,
+          per the earlier explicit answer to keep it paired with Job
+          Market rather than separate. */}
+      <div className="relative z-10 mx-auto flex w-full max-w-3xl items-center justify-between px-4 pt-3 sm:px-6">
         <BackButton to="/job-market" label="Job Market" />
+        {!isSpinning ? <RollOddsDropdown /> : null}
       </div>
 
       <FloatingJobBackground dimmed={isSpinning || result !== null} />
@@ -591,14 +592,6 @@ export default function JobMarketRollPage() {
                   </p>
                 </div>
               </button>
-
-              {/* Lives right next to the actual Roll action now, not up in
-                  a top row - moved down here per explicit request ("put my
-                  buttons in a reasonable place that isn't the top
-                  banner"), and it fits the context better this way too:
-                  checking the real odds is naturally a "right before I
-                  roll" thing, not a header-level concern. */}
-              {!isSpinning ? <RollOddsDropdown /> : null}
 
               {!hasSeenRollTutorial && !isSpinning ? <RollTutorialTooltip onDismiss={dismissTutorial} /> : null}
             </motion.div>
