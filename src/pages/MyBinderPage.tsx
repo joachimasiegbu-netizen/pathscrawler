@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { BookOpen, Check, Dices, GitCompare, Share2, X } from 'lucide-react'
+import { BookOpen, Check, Dices, GitCompare, Share2, Trash2, X } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import BinderAuthWall from '../components/BinderAuthWall'
 import BinderCardTile from '../components/BinderCardTile'
@@ -53,6 +53,7 @@ export default function MyBinderPage() {
   const enterSelectionMode = useBinderStore((state) => state.enterSelectionMode)
   const exitSelectionMode = useBinderStore((state) => state.exitSelectionMode)
   const toggleBinderSelection = useBinderStore((state) => state.toggleBinderSelection)
+  const clearBinder = useBinderStore((state) => state.clearBinder)
   const [activeTab, setActiveTab] = useState<TabKey>('all')
   const [sort, setSort] = useState<SortKey>('newest')
   const [search, setSearch] = useState('')
@@ -95,6 +96,21 @@ export default function MyBinderPage() {
     if (result === 'max-reached') {
       flashToast('You can only compare up to 3 careers at once')
     }
+  }
+
+  // window.confirm rather than a custom modal - this app has no reusable
+  // confirm-dialog component anywhere else, and a native confirm is the
+  // simplest honest gate for a single destructive action that's otherwise
+  // one plain click away (unlike Roll a Job's leaderboard, this collection
+  // lives entirely in this browser's localStorage - clearBinder() below is
+  // the real, permanent deletion itself, not a request to some server).
+  const handleClearBinder = () => {
+    const count = cards.length
+    if (!window.confirm(`Clear your binder? This permanently deletes all ${count} card${count === 1 ? '' : 's'} you've collected - it can't be undone.`)) {
+      return
+    }
+    clearBinder()
+    flashToast('Binder cleared')
   }
 
   const handleShare = async () => {
@@ -272,6 +288,25 @@ export default function MyBinderPage() {
                       Compare
                     </button>
                   )}
+
+                  {/* Pushed to the far end of the row (ml-auto) and styled
+                      in the app's error color, not slate like its
+                      neighbors - deliberately reads as the odd one out
+                      among Share/Compare, since it's the only button here
+                      that permanently deletes something. Gated by
+                      window.confirm (handleClearBinder above), not a
+                      second click of this same button - a "click again to
+                      confirm" pattern is one accidental double-click away
+                      from wiping the whole collection with no dialog at
+                      all. */}
+                  <button
+                    type="button"
+                    onClick={handleClearBinder}
+                    className="ml-auto inline-flex items-center gap-1.5 rounded-xl border border-error/30 bg-error/5 px-3.5 py-2 text-sm font-semibold text-error transition hover:border-error/50 hover:bg-error/10 dark:border-error/40 dark:bg-error/10 dark:hover:bg-error/20"
+                  >
+                    <Trash2 className="h-4 w-4 shrink-0" />
+                    Clear binder
+                  </button>
                 </div>
 
                 {visible.length === 0 ? (

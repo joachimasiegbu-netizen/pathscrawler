@@ -4477,6 +4477,10 @@ const rawDemoCareers = [
   },
   {
     id: 71,
+    // Final Generation title (titles.ts) - matches this app's own existing
+    // aiEndangeredJobs.ts list (see demoCareers.d.ts's comment on this
+    // field), not a separate/independent judgment call.
+    aiEndangered: true,
     employmentPercentage: 0.1231, // SOC 4152: Data entry administrators
     category: 'Business & Finance',
     title: 'Data Entry Clerk',
@@ -4666,6 +4670,7 @@ const rawDemoCareers = [
   },
   {
     id: 74,
+    aiEndangered: true, // Final Generation title - see demoCareers.d.ts
     employmentPercentage: 1.2388, // SOC 4122: Book-keepers, payroll managers and wages clerks
     category: 'Business & Finance',
     title: 'Bookkeeper',
@@ -4731,6 +4736,7 @@ const rawDemoCareers = [
   },
   {
     id: 75,
+    aiEndangered: true, // Final Generation title - see demoCareers.d.ts
     employmentPercentage: 0.3227, // SOC 7211: Call and contact centre occupations
     category: 'Business & Finance',
     title: 'Customer Service Advisor',
@@ -5888,6 +5894,7 @@ const rawDemoCareers = [
   },
   {
     id: 95,
+    aiEndangered: true, // matches aiEndangeredJobs.ts's canonical list - Final Generation title, see demoCareers.d.ts
     employmentPercentage: 0.3112, // estimated from SOC 41xx group average: Generic administrative assistant not in this dataset - Administrative occupations (SOC 41xx) average
     category: 'Business & Finance',
     title: 'Administrative Assistant',
@@ -8206,6 +8213,7 @@ const rawDemoCareers = [
   // than it is.
   {
     id: 135,
+    aiEndangered: true, // Final Generation title - see demoCareers.d.ts
     employmentPercentage: 0.1433, // ~45,000 UK telephone salespersons (SOC 7113) - estimate, no single confirmed ONS headcount for this unit group
     category: 'Business & Finance',
     title: 'Telesales Representative',
@@ -8265,6 +8273,7 @@ const rawDemoCareers = [
   },
   {
     id: 136,
+    aiEndangered: true, // matches aiEndangeredJobs.ts's canonical list - Final Generation title, see demoCareers.d.ts
     employmentPercentage: 0.1656, // ~52,000 UK travel agency employees (IBISWorld, Travel Agencies UK industry employment, 2024/2025)
     category: 'Service & Hospitality',
     title: 'Travel Agent',
@@ -8319,6 +8328,7 @@ const rawDemoCareers = [
   },
   {
     id: 137,
+    aiEndangered: true, // matches aiEndangeredJobs.ts's canonical list - Final Generation title, see demoCareers.d.ts
     employmentPercentage: 0.2866, // ~90,000 estimated UK entry-level/junior developers - a subset of SOC 2136's total (see Software Developer, id 1), not a separate SOC code
     category: 'Technology & Digital',
     title: 'Junior Software Developer',
@@ -8377,6 +8387,7 @@ const rawDemoCareers = [
   },
   {
     id: 138,
+    aiEndangered: true, // Final Generation title - see demoCareers.d.ts
     employmentPercentage: 0.1433, // ~45,000 UK legal secretaries (SOC 4212) - estimate, paralegal work folded in rather than a separate entry
     category: 'Business & Finance',
     title: 'Legal Secretary / Paralegal',
@@ -8432,6 +8443,7 @@ const rawDemoCareers = [
   },
   {
     id: 139,
+    aiEndangered: true, // Final Generation title - see demoCareers.d.ts
     employmentPercentage: 0.0892, // ~28,000 UK translation & interpretation employees (Statista, translation and interpretation activities, 2019) - SOC 3412 "Authors, writers and translators" is a broader group average
     category: 'Creative & Media',
     title: 'Translator',

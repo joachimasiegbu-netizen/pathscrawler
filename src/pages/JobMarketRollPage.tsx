@@ -9,6 +9,7 @@ import CelestialRevealCard from '../components/CelestialRevealCard'
 import FloatingRollEmbers from '../components/FloatingRollEmbers'
 import LegendaryRevealCard from '../components/LegendaryRevealCard'
 import MythicRevealCard from '../components/MythicRevealCard'
+import RollOddsDropdown from '../components/RollOddsDropdown'
 import RollResultCard from '../components/RollResultCard'
 import RollStatsPanel from '../components/RollStatsPanel'
 import RollTutorialTooltip from '../components/RollTutorialTooltip'
@@ -20,6 +21,7 @@ import { getTierStyle } from '../utils/tierStyles'
 import { usePathStore } from '../store/usePathStore'
 import { recordRoll as recordLeaderboardRoll } from '../store/useLeaderboardStore'
 import { useRollStore } from '../store/useRollStore'
+import { useTitleProgressStore } from '../store/useTitleProgressStore'
 
 // The cylinder (SlotMachineLane.tsx) is visible for two states only: idle
 // (before the first roll, static/decorative) and actively spinning. The
@@ -57,6 +59,7 @@ export default function JobMarketRollPage() {
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
   const getRollContext = useRollStore((state) => state.getRollContext)
   const recordRoll = useRollStore((state) => state.recordRoll)
+  const setActiveResultCareerId = useRollStore((state) => state.setActiveResultCareerId)
   const hasSeenRollTutorial = useRollStore((state) => state.hasSeenRollTutorial)
   const dismissTutorial = useRollStore((state) => state.dismissTutorial)
   const timeouts = useRef<number[]>([])
@@ -117,6 +120,33 @@ export default function JobMarketRollPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Restore whatever card was open before navigating away - clicking a
+  // reveal card goes to /career/:id (RollResultCard.tsx etc.), which
+  // unmounts this whole page; pressing Back then remounts it fresh, and
+  // without this, `result` (plain local state) would just be gone,
+  // dropping the player back at the idle Roll button having lost the
+  // career they just rolled, with no way to Add it to their Binder.
+  // activeResultCareerId (useRollStore) is set the moment a real roll
+  // lands (finishRoll below) and cleared on dismiss/reset - reusing the
+  // exact same "rebuild a RollOutcome from just a career id" approach the
+  // shared-link effect above already does, not a second one. Skips
+  // entirely if a shared-link `?career=` is also present - that one wins
+  // (it's an explicit, more specific request than "whatever was open
+  // last"), same as it already does today. Runs once on mount only, same
+  // as the shared-link effect.
+  useEffect(() => {
+    if (searchParams.get('career')) return
+    const careerId = useRollStore.getState().activeResultCareerId
+    if (!careerId) return
+    const career = demoCareers.find((item) => item.id === careerId)
+    if (!career) return
+    const odds = getOddsForCareer(career)
+    if (!odds) return
+    setResult({ career, tier: odds.tier, rollWeight: odds.rollWeight, totalWeight: odds.totalWeight, oddsDenominator: odds.oddsDenominator })
+    setShowCylinder(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const after = (ms: number, fn: () => void) => {
     timeouts.current.push(window.setTimeout(fn, ms))
   }
@@ -137,6 +167,9 @@ export default function JobMarketRollPage() {
     // The cylinder's job is done the moment the winner lands - hide it
     // (AnimatePresence fades it out below) so only the result card remains.
     setShowCylinder(false)
+    // Persisted so this exact card survives a click-through to its career
+    // detail page and back - see the restore-on-mount effect above.
+    setActiveResultCareerId(outcome.career.id)
     recordRoll(outcome.career.id, outcome.tier)
     // Fire-and-forget - this is a real network write to Supabase now (see
     // useLeaderboardStore.ts), not a synchronous local store update. Errors
@@ -144,6 +177,10 @@ export default function JobMarketRollPage() {
     // here; a failed leaderboard write shouldn't interrupt the roll reveal
     // the player is actually watching. Signed-out rolls no-op inside it.
     void recordLeaderboardRoll(outcome.career, outcome.tier)
+    // Titles (RollStandingPanel.tsx) - a third, separate write path at this
+    // same call site, same reasoning as recordLeaderboardRoll above: its
+    // own store, its own account-scoped no-op-while-signed-out guard.
+    useTitleProgressStore.getState().recordRoll(outcome.career, outcome.tier)
 
     // The tier's own win stinger plays the moment the roll actually lands
     // (right here) for every tier except Mythic and Celestial - it marks
@@ -209,7 +246,9 @@ export default function JobMarketRollPage() {
     // sounds start, so a grinding player spamming Roll Again never hears
     // two rolls' worth of audio overlapping.
     stopAllSounds()
-    playSound('/sounds/roll-click.mp3')
+    // startAtSec 0.5: skips the file's own ~0.5s near-silent lead-in
+    // before the actual click hits, per explicit request.
+    playSound('/sounds/roll-click.mp3', undefined, 0.5)
     setResult(null)
     setShowConfetti(false)
     setShowFlashText(false)
@@ -246,6 +285,10 @@ export default function JobMarketRollPage() {
     setShowFlashText(false)
     setShowMythicOverlay(false)
     setShowEpicFlash(false)
+    // The player explicitly closed this card - it's no longer "the thing
+    // to restore" if they come back later (see the restore-on-mount
+    // effect above), unlike navigating away via a career-detail click.
+    setActiveResultCareerId(null)
     // Back to the idle cylinder (no target - see SlotMachineLane, this
     // renders the static decorative display rather than spinning) rather
     // than a bare Roll button, same as the very first page load.
@@ -305,30 +348,9 @@ export default function JobMarketRollPage() {
       }
 
   return (
-    // Fragment, not a single root div: the Back button needs to sit in the
-    // NORMAL (non-full-bleed) `mx-auto max-w-5xl` column every route renders
-    // inside (see MobileContainer.tsx) - the same column the shared header
-    // (App.tsx)'s logo sits in - so its left edge lines up with the logo's.
-    // It used to be nested inside the full-bleed div below instead, whose
-    // own independent px-4 padding (relative to the true viewport edge, not
-    // this centered column) put it ~190px further left than the logo at
-    // wide viewports - confirmed via real rendered getBoundingClientRect()
-    // on both, not eyeballed. (A same-row vertical pull via negative margin
-    // was tried too, but it visually collided with the logo/nav row itself
-    // - a few px lower, left-aligned with it, reads as "belongs to the
-    // header" without literally overlapping it.)
+    // Fragment, not a single root div - the full-bleed page div below is a
+    // sibling of anything that shouldn't also stretch edge-to-edge.
     <>
-      {/* dark-mode: same "game mode" scoping trick as the header (App.tsx) -
-          BackButton had no dark: variant of its own to begin with (fixed:
-          it does now), and even with one, this div sat outside any
-          .dark-mode ancestor, so nothing here was picking it up regardless
-          of the site's real toggle - confirmed via a real rendered
-          screenshot showing near-invisible dark-on-dark text, not
-          eyeballed. */}
-      <div className="dark-mode px-4 pt-3 sm:px-6">
-        <BackButton to="/job-market" label="Job Market" />
-      </div>
-
       {/* left-1/2 w-screen -translate-x-1/2 is the standard full-bleed
           breakout: every route in this app renders inside a shared
           `mx-auto max-w-5xl` wrapper, which would otherwise confine this
@@ -372,6 +394,17 @@ export default function JobMarketRollPage() {
         // actually gets a seamless result, not two competing gradients.
         className="dark-mode relative left-1/2 w-screen min-h-screen -translate-x-1/2 flex flex-col overflow-hidden"
       >
+      {/* Just Job Market up here now, alone - a back button sitting near
+          the top is the one part of this that's a normal, expected
+          convention everywhere else in the app too, not "banner-like" on
+          its own. See real odds moved down to live next to the actual
+          Roll button instead (its own comment down there) - pairing the
+          two together up here is what kept reading as a second top
+          banner regardless of how the row itself was styled/narrowed. */}
+      <div className="relative z-10 px-4 pt-3 sm:px-6">
+        <BackButton to="/job-market" label="Job Market" />
+      </div>
+
       <FloatingJobBackground dimmed={isSpinning || result !== null} />
       {!reduceMotion ? <FloatingRollEmbers /> : null}
 
@@ -425,15 +458,8 @@ export default function JobMarketRollPage() {
           ) : null}
         </AnimatePresence>
 
-        {/* "Above the cylinder" decoration - only while the cylinder itself
-            is showing (idle or spinning), gone the instant a result lands
-            alongside it. */}
-        {showCylinder ? (
-          <div className="mb-3 flex flex-col items-center gap-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-200/70">🎲 Roll for a random career</p>
-            <div className="h-px w-20 bg-gradient-to-r from-transparent via-indigo-400/50 to-transparent" />
-          </div>
-        ) : null}
+        {/* "Above the cylinder" decoration (the "Roll for a random career"
+            label + divider) removed entirely per explicit request. */}
 
         {/* Cylinder only exists in the DOM for "idle, before a roll" and
             "actively spinning" - the instant a result lands, showCylinder
@@ -540,20 +566,39 @@ export default function JobMarketRollPage() {
                 // pointer-events-none keeps its layout space reserved so
                 // nothing else jumps around when it disappears/reappears,
                 // and stops it being clicked (or tabbed to) mid-spin.
-                // roll-button: idle breathing glow (index.css). tier-shimmer:
-                // reuses the same diagonal light-sweep effect Epic+ result
-                // cards get (index.css, previously unused as a standalone
-                // class) - overflow-hidden on that class combined with
-                // rounded-full here clips the sweep to the circle correctly.
-                className={`roll-button tier-shimmer flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white ring-4 ring-indigo-500/30 transition-all duration-200 hover:scale-110 hover:ring-8 hover:ring-purple-500/40 active:scale-95 disabled:hover:scale-100 disabled:hover:ring-4 sm:h-32 sm:w-32 ${
+                // roll-orb-button: the glassy 3D depth/hover/active system
+                // (index.css, user-supplied CSS pattern, colorized navy/
+                // gold) - group still just for the dice icon's own
+                // hover-rotate, independent of that. rounded-full here is
+                // what roll-orb-wrap's border-radius: inherit picks up.
+                className={`roll-orb-button group flex h-28 w-28 shrink-0 items-center justify-center rounded-full transition-opacity duration-200 sm:h-32 sm:w-32 ${
                   isSpinning ? 'pointer-events-none opacity-0' : 'opacity-100'
                 }`}
               >
-                <span className="relative z-10 flex flex-col items-center gap-1">
-                  <Dices className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden="true" />
-                  <span className="text-2xl font-black tracking-wider sm:text-3xl">ROLL!</span>
-                </span>
+                <div className="roll-orb-wrap flex h-full w-full flex-col items-center justify-center gap-1">
+                  <Dices
+                    className="h-7 w-7 transition-transform duration-500 ease-out group-hover:rotate-180 sm:h-8 sm:w-8"
+                    aria-hidden="true"
+                  />
+                  {/* Two identical spans, not decorative duplication - the
+                      pasted CSS's own hover-swap mechanism needs a real
+                      :nth-child(1)/(2) pair to toggle between (index.css),
+                      kept as the same "ROLL!" text on both rather than
+                      inventing new copy that wasn't asked for. */}
+                  <p className="m-0 flex items-center text-2xl font-black tracking-wider sm:text-3xl">
+                    <span>ROLL!</span>
+                    <span>ROLL!</span>
+                  </p>
+                </div>
               </button>
+
+              {/* Lives right next to the actual Roll action now, not up in
+                  a top row - moved down here per explicit request ("put my
+                  buttons in a reasonable place that isn't the top
+                  banner"), and it fits the context better this way too:
+                  checking the real odds is naturally a "right before I
+                  roll" thing, not a header-level concern. */}
+              {!isSpinning ? <RollOddsDropdown /> : null}
 
               {!hasSeenRollTutorial && !isSpinning ? <RollTutorialTooltip onDismiss={dismissTutorial} /> : null}
             </motion.div>

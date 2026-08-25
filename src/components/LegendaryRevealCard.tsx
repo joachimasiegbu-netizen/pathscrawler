@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from 'react'
+import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Bookmark, BookmarkCheck, Check, Dices, Flame, Hammer, Info, Share2, Shield, Swords, Zap } from 'lucide-react'
@@ -6,7 +6,7 @@ import type { Career } from '../data/demoCareers'
 import { getDisplayRarityN, getTierConfig } from '../utils/careerTiers'
 import { formatSalaryRange } from '../utils/formatSalary'
 import { useAuthStore } from '../store/useAuthStore'
-import { useBinderStore } from '../store/useBinderStore'
+import { useBinderStore, useMyBinderCards } from '../store/useBinderStore'
 import { useRollStore } from '../store/useRollStore'
 import { usePathStore } from '../store/usePathStore'
 import AuthPromptModal from './AuthPromptModal'
@@ -52,8 +52,17 @@ export default function LegendaryRevealCard({ career, onRollAgain }: LegendaryRe
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
   const currentUser = useAuthStore((state) => state.currentUser)
   const addCard = useBinderStore((state) => state.addCard)
+  const binderCards = useMyBinderCards()
 
-  const [hasAdded, setHasAdded] = useState(false)
+  // justAdded: sticky per-mount flag for the manual Add button + the
+  // auto-add effect below - kept separate from the ref that actually
+  // guards the auto-add effect (autoAddedRef below) so this can safely
+  // start true (already in the Binder) without also disabling that
+  // effect's own always-runs-once-per-mount behavior.
+  const [justAdded, setJustAdded] = useState(false)
+  // Rolling a career you've already got shows "Added" immediately, not
+  // "Add" - per explicit request, same fix as RollResultCard.tsx.
+  const hasAdded = justAdded || binderCards.some((card) => card.careerId === career.id)
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
   const [showRarityInfo, setShowRarityInfo] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
@@ -83,16 +92,23 @@ export default function LegendaryRevealCard({ career, onRollAgain }: LegendaryRe
       setShowAuthPrompt(true)
       return
     }
-    setHasAdded(true)
+    setJustAdded(true)
     flashToast(result === 'duplicate' ? 'You already have this card! Duplicate added.' : 'Added to binder!')
   }
 
   // Auto-saves to the binder the moment this card mounts, for whoever's
   // signed in - same treatment MythicRevealCard/CelestialRevealCard give
   // their own tiers, just triggered immediately here since there's no
-  // 'revealed' phase transition to gate on.
+  // 'revealed' phase transition to gate on. Guarded by its own ref, NOT
+  // the display-facing `hasAdded` above - this always runs once per mount
+  // regardless of whether the career's already in the Binder (rolling the
+  // same Legendary again is meant to add another real copy, same as every
+  // other tier), so it can't be gated by the same flag that now starts
+  // true for an already-owned career.
+  const autoAddedRef = useRef(false)
   useEffect(() => {
-    if (hasAdded || !currentUser) return
+    if (autoAddedRef.current || !currentUser) return
+    autoAddedRef.current = true
     const attemptNumber = useRollStore.getState().lifetimeTotalRolls
     const result = addCard(career, 'legendary', attemptNumber)
     if (result === 'full') {
@@ -100,7 +116,7 @@ export default function LegendaryRevealCard({ career, onRollAgain }: LegendaryRe
       return
     }
     if (result === 'unauthenticated') return // shouldn't happen given the currentUser check above
-    setHasAdded(true)
+    setJustAdded(true)
     flashToast(result === 'duplicate' ? 'Legendary! Duplicate auto-added to your binder.' : 'Legendary! Auto-added to your binder.')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

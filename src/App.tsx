@@ -5,9 +5,12 @@ import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useCompareStore } from './store/useCompareStore'
 import AccessibilitySettingsPanel from './components/AccessibilitySettingsPanel'
+import RollStandingPanel from './components/RollStandingPanel'
 import SearchResultsPage from './pages/SearchResultsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import SharedPathwayPage from './pages/SharedPathwayPage'
 import MyPathwaysPage from './pages/MyPathwaysPage'
 import PathwayFlowPage from './pages/PathwayFlowPage'
@@ -347,6 +350,11 @@ function App() {
                 <span className="hidden md:inline">Sign in</span>
               </button>
             )}
+            {/* Titles/Roll Odds standing - visible everywhere in the header
+                now (was Roll a Job page-only at first), same reasoning as
+                every other persistent icon in this cluster: it's about the
+                player's account, not tied to any one page. */}
+            <RollStandingPanel />
             {/* Dark mode toggle is inside the accessibility panel this opens
                 (AccessibilitySettingsPanel.tsx already has a Dark mode tile
                 among its other toggles) - no longer a separate standalone
@@ -358,7 +366,13 @@ function App() {
               aria-label="Open accessibility settings"
               className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-sky-200 dark:ring-slate-700 dark:hover:bg-slate-700"
             >
-              <Settings2 className="h-6 w-6 text-primary" />
+              {/* No color class here on purpose - inherits the button's own
+                  text-primary (light mode) / dark:text-sky-200 (dark mode)
+                  instead of hardcoding one. Was hardcoded to text-primary
+                  (a near-black #1E3A5F), which overrode the button's dark
+                  mode color and left the icon almost invisible against the
+                  dark:bg-slate-800 circle. */}
+              <Settings2 className="h-6 w-6" />
             </button>
             </div>
           </div>
@@ -406,6 +420,8 @@ function App() {
           <Route path="/backtrack/subjects/:careerId/:pathway" element={<BacktrackSubjectSelectionPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/pathway/:id" element={<SharedPathwayPage />} />
           <Route path="/my-pathways" element={<MyPathwaysPage />} />
           <Route path="/my-pathways/:pathwayId" element={<PathwayFlowPage />} />

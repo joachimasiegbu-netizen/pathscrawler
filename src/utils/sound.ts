@@ -21,25 +21,30 @@ function getCachedAudio(src: string): HTMLAudioElement {
 // Every call is a graceful no-op if playback fails (file missing, autoplay
 // policy, browser quirks, Audio unavailable in this environment, ...)
 // since a missing/blocked sound effect should never break the interaction
-// it's attached to. currentTime reset to 0 first so mashing the same
-// action twice in a row (e.g. mis-clicking Roll again) restarts the clip
-// from the top instead of doing nothing (a still-playing HTMLAudioElement
-// ignores a second .play() call on itself).
+// it's attached to. currentTime reset to startAtSec (0 by default) first
+// so mashing the same action twice in a row (e.g. mis-clicking Roll again)
+// restarts the clip from the top instead of doing nothing (a
+// still-playing HTMLAudioElement ignores a second .play() call on itself).
 //
 // maxDurationMs cuts playback off early (a plain setTimeout pause, not an
 // actual trimmed asset - MythicStarfieldReveal.tsx's scream cue wants
 // only the first 3s of a longer file, and this way the source file in
 // public/sounds stays whole rather than needing a second, pre-trimmed
-// copy of it).
-export function playSound(src: string, maxDurationMs?: number) {
+// copy of it). startAtSec does the same for the START of a clip instead of
+// the end (roll-click.mp3 has ~0.5s of near-silent lead-in before the
+// actual click hits, per explicit request to cut it) - same reasoning:
+// skips it at playback time rather than needing an actual pre-trimmed
+// second copy of the file (no audio-editing tool available in this
+// environment to cut the real asset anyway).
+export function playSound(src: string, maxDurationMs?: number, startAtSec = 0) {
   try {
     const audio = getCachedAudio(src)
-    audio.currentTime = 0
+    audio.currentTime = startAtSec
     void audio.play().catch(() => {})
     if (maxDurationMs) {
       window.setTimeout(() => {
         audio.pause()
-        audio.currentTime = 0
+        audio.currentTime = startAtSec
       }, maxDurationMs)
     }
   } catch {

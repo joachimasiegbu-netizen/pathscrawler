@@ -8,7 +8,7 @@ import { getDisplayRarityN, getTierConfig } from '../utils/careerTiers'
 import { getTierStyle } from '../utils/tierStyles'
 import { formatSalaryRange } from '../utils/formatSalary'
 import { useAuthStore } from '../store/useAuthStore'
-import { useBinderStore } from '../store/useBinderStore'
+import { useBinderStore, useMyBinderCards } from '../store/useBinderStore'
 import { useRollStore } from '../store/useRollStore'
 import { usePathStore } from '../store/usePathStore'
 import AuthPromptModal from './AuthPromptModal'
@@ -43,16 +43,26 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
   const currentUser = useAuthStore((state) => state.currentUser)
   const addCard = useBinderStore((state) => state.addCard)
+  const binderCards = useMyBinderCards()
   const [toast, setToast] = useState<string | null>(null)
   const [showRarityInfo, setShowRarityInfo] = useState(false)
-  // Sticks at true for the rest of this card's lifetime (a fresh roll is a
-  // fresh RollResultCard instance - see JobMarketRollPage.tsx's
-  // AnimatePresence, result always passes through null/unmount between
-  // rolls), not just a brief animation flag - guards against spam-clicking
-  // Add adding unlimited duplicate copies of the SAME roll. Duplicates are
-  // a real, intended feature (rolling the same career again later), just
+  // Sticks at true for the rest of this card's lifetime once clicked (a
+  // fresh roll is a fresh RollResultCard instance - see
+  // JobMarketRollPage.tsx's AnimatePresence, result always passes through
+  // null/unmount between rolls), not just a brief animation flag - guards
+  // against spam-clicking Add adding unlimited duplicate copies of the SAME
+  // roll. Duplicates across DIFFERENT rolls are still a real, intended
+  // feature (rolling the same career again later adds another copy), just
   // not from mashing the button on one result.
-  const [hasAdded, setHasAdded] = useState(false)
+  const [justAdded, setJustAdded] = useState(false)
+  // Rolling a career you've already got shows "Added" immediately, not
+  // "Add" again - per explicit request ("if a card has been added then a
+  // user rolls the same card make sure that the add button already says
+  // added"). addCard() itself already treats this as a genuine duplicate
+  // add (a second Binder copy, tracked separately) rather than a no-op -
+  // this only affects what the BUTTON shows on first render, not whether
+  // clicking it still works.
+  const hasAdded = justAdded || binderCards.some((card) => card.careerId === career.id)
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
 
@@ -114,7 +124,7 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
       setShowAuthPrompt(true)
       return
     }
-    setHasAdded(true)
+    setJustAdded(true)
     flashToast(result === 'duplicate' ? 'You already have this card! Duplicate added.' : 'Added to binder!')
   }
 
@@ -282,10 +292,20 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
           {/* Discard was removed as redundant - the X in the top-right
               corner and clicking outside the card already close it. 3
               buttons fit a single row at every width, no 2x2/order
-              reshuffling needed anymore. */}
+              reshuffling needed anymore.
+              onClick stopPropagation on the ROW itself, not just each
+              button: the card's own root onClick navigates to the career
+              detail page (line ~170), and each button already stops that
+              when clicked directly - but the gaps between buttons and the
+              row's own padding/border-t weren't covered, so a slightly
+              off-target tap fell through to the card and navigated away
+              unexpectedly. Catching it here closes that gap without
+              touching the buttons' own handlers (still stop + act
+              normally when actually clicked). */}
           <div
             className="relative z-10 mt-5 grid grid-cols-3 gap-2 border-t pt-4 text-sm font-semibold"
             style={{ borderColor: isMythic ? 'rgba(255,255,255,0.1)' : `rgba(${style.glowRgb}, 0.15)` }}
+            onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"

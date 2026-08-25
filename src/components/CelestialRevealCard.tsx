@@ -9,7 +9,7 @@ import { formatSalaryRange } from '../utils/formatSalary'
 import { playSound } from '../utils/sound'
 import { getTierStyle } from '../utils/tierStyles'
 import { useAuthStore } from '../store/useAuthStore'
-import { useBinderStore } from '../store/useBinderStore'
+import { useBinderStore, useMyBinderCards } from '../store/useBinderStore'
 import { useRollStore } from '../store/useRollStore'
 import { usePathStore } from '../store/usePathStore'
 import ConfettiBurst from './ConfettiBurst'
@@ -63,11 +63,18 @@ export default function CelestialRevealCard({ career, onRollAgain }: CelestialRe
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
   const currentUser = useAuthStore((state) => state.currentUser)
   const addCard = useBinderStore((state) => state.addCard)
+  const binderCards = useMyBinderCards()
 
   const [phase, setPhase] = useState<RevealPhase>(reduceMotion ? 'revealed' : 'intro')
   const [showConfetti, setShowConfetti] = useState(false)
   const [showBanner, setShowBanner] = useState(false)
-  const [hasAdded, setHasAdded] = useState(false)
+  // justAdded: sticky per-mount flag, kept separate from the ref that
+  // actually guards the reveal-time auto-add effect below - see that
+  // effect's own comment for why.
+  const [justAdded, setJustAdded] = useState(false)
+  // Rolling a career you've already got shows "Added" immediately, not
+  // "Add" - per explicit request, same fix as RollResultCard.tsx.
+  const hasAdded = justAdded || binderCards.some((card) => card.careerId === career.id)
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
   const [showRarityInfo, setShowRarityInfo] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
@@ -129,17 +136,23 @@ export default function CelestialRevealCard({ career, onRollAgain }: CelestialRe
       setShowAuthPrompt(true)
       return
     }
-    setHasAdded(true)
+    setJustAdded(true)
     flashToast(result === 'duplicate' ? 'You already have this card! Duplicate added.' : 'Added to binder!')
   }
 
   // Celestial is even rarer than Mythic (see MythicRevealCard.tsx for the
   // full reasoning) - auto-saves to the binder the moment it's revealed,
   // for whoever's signed in, so a closed card without clicking Add can
-  // never lose the pull. hasAdded flipping true here disables the Add
+  // never lose the pull. justAdded flipping true here disables the Add
   // button below too, so there's no way to double-add the same pull.
+  // Guarded by its own ref (autoAddedRef), NOT the display-facing
+  // `hasAdded` above - rolling the same Celestial again is meant to
+  // auto-save another real copy, same as every other tier, so this can't
+  // be gated by a flag that now starts true for an already-owned career.
+  const autoAddedRef = useRef(false)
   useEffect(() => {
-    if (phase !== 'revealed' || hasAdded || !currentUser) return
+    if (phase !== 'revealed' || autoAddedRef.current || !currentUser) return
+    autoAddedRef.current = true
     const attemptNumber = useRollStore.getState().lifetimeTotalRolls
     const result = addCard(career, 'celestial', attemptNumber)
     if (result === 'full') {
@@ -147,7 +160,7 @@ export default function CelestialRevealCard({ career, onRollAgain }: CelestialRe
       return
     }
     if (result === 'unauthenticated') return // shouldn't happen given the currentUser check above
-    setHasAdded(true)
+    setJustAdded(true)
     flashToast(result === 'duplicate' ? 'Celestial! Duplicate auto-added to your binder.' : 'Celestial! Auto-added to your binder.')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase])

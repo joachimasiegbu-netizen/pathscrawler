@@ -70,8 +70,13 @@ export const Chisel = createLucideIcon('chisel', [
 // in a different spot. The thickness bump stayed - genuinely useful on
 // its own, unrelated to which hammer shape it's paired with.
 export const HammerAndChisel = createLucideIcon('hammer-and-chisel', [
-  ['path', { d: 'M4 20 11 13', key: 'hammer-handle' }],
-  ['rect', { x: '10.5', y: '8.5', width: '7', height: '3', rx: '0.6', transform: 'rotate(-45 14 10)', key: 'hammer-head' }],
+  // Hammer (handle + head) nudged down 1 unit as a rigid unit per explicit
+  // feedback on the rendered Pargeter card - both the handle's endpoints
+  // and the head rect's position AND its rotation origin all shifted by
+  // the same +1 so the head keeps rotating around its own actual center
+  // rather than the old, now-stale pivot point.
+  ['path', { d: 'M4 21 11 14', key: 'hammer-handle' }],
+  ['rect', { x: '10.5', y: '9.5', width: '7', height: '3', rx: '0.6', transform: 'rotate(-45 14 11)', key: 'hammer-head' }],
   ['path', { d: 'M20 20 13 13', key: 'chisel-handle', strokeWidth: '2.75' }],
   ['path', { d: 'M13 13 8 8', key: 'chisel-blade', strokeWidth: '2.75' }],
   ['path', { d: 'M6.5 9.5 9.5 6.5', key: 'chisel-edge', strokeWidth: '2.75' }],

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import type { RealtimeChannel } from '@supabase/supabase-js'
 import type { Career } from '../data/demoCareers'
 import { TIER_POINTS, type TierKey } from '../utils/careerTiers'
 import { isSupabaseConfigured, supabase } from '../lib/supabaseClient'
@@ -60,6 +61,31 @@ export async function recordRoll(career: Career, tier: TierKey): Promise<void> {
   }
 }
 
+/** Same shape as recordRoll above - no-ops while signed out/unconfigured,
+ * fire-and-forget. Called once per title the moment it unlocks (see
+ * RollStandingPanel.tsx's sync effect) so titles count toward the
+ * leaderboard score globally, not just in this browser's own local
+ * useTitleProgressStore. A duplicate insert (23505 - the primary key on
+ * (user_id, title_id), schema.sql) is expected and harmless, not logged -
+ * it just means this exact unlock was already recorded, e.g. re-detected
+ * on a second device or after a local state migration. */
+export async function recordTitleUnlock(titleId: string, points: number): Promise<void> {
+  if (!isSupabaseConfigured || !supabase) return
+  const user = useAuthStore.getState().currentUser
+  if (!user) return
+
+  const { error } = await supabase.from('title_unlocks').insert({
+    user_id: user.id,
+    email: user.email,
+    title_id: titleId,
+    points,
+  })
+  if (error && error.code !== '23505') {
+    // eslint-disable-next-line no-console
+    console.error('Failed to record title unlock for the leaderboard:', error.message)
+  }
+}
+
 interface UserBestCardsRow {
   user_id: string
   email: string
@@ -98,60 +124,102 @@ export interface LeaderboardResult {
   loading: boolean
 }
 
+// Module-level shared subscription, not one per component instance - was
+// one `useEffect` per call to useLeaderboardEntries(), each opening its OWN
+// `client.channel('leaderboard-user-best-cards')` and calling `.subscribe()`
+// on it. That was fine while only ever ONE component used this hook at a
+// time (RollStatsPanel on Roll a Job, or LeaderboardPage) - it broke the
+// moment RollStandingPanel.tsx started calling it too and got mounted
+// globally (App.tsx's header, present on every page): Supabase's client
+// dedupes `.channel(name)` calls by name onto the SAME underlying channel
+// object, so the second simultaneously-mounted caller's `.subscribe()`
+// threw "cannot add postgres_changes callbacks... after subscribe()" -
+// uncaught, no error boundary in this app, so it took down the entire React
+// tree (confirmed via the exact browser console trace, not guessed - the
+// crash was inside RollStatsPanel specifically, the second of the two
+// simultaneously-mounted callers on the Roll a Job page).
+//
+// Reference-counted instead: the real channel + fetch only happen once, for
+// however many components are actually using this hook at any moment: the
+// first mount opens it, the last unmount closes it, everyone in between
+// just reads the same shared, already-fetched data and re-renders via a
+// tiny local listener set (no separate store/library needed for this).
+let sharedEntries: LeaderboardEntry[] = []
+let sharedLoading = isSupabaseConfigured
+let sharedChannel: RealtimeChannel | null = null
+let subscriberCount = 0
+const listeners = new Set<() => void>()
+
+function notifyListeners() {
+  listeners.forEach((listener) => listener())
+}
+
+async function fetchSharedEntries() {
+  if (!isSupabaseConfigured || !supabase) {
+    sharedLoading = false
+    notifyListeners()
+    return
+  }
+  const { data, error } = await supabase
+    .from('user_best_cards')
+    .select('user_id, email, score, top_cards, total_rolls, best_tier')
+    .order('score', { ascending: false })
+    .limit(200)
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to load the leaderboard:', error.message)
+    sharedLoading = false
+    notifyListeners()
+    return
+  }
+  const rows = (data ?? []) as UserBestCardsRow[]
+  sharedEntries = rows.map(rowToEntry).sort(compareEntries)
+  sharedLoading = false
+  notifyListeners()
+}
+
+function acquireSharedSubscription() {
+  subscriberCount += 1
+  if (sharedChannel || !isSupabaseConfigured || !supabase) return
+  fetchSharedEntries()
+  // Any insert/update on ANY row (not just this user's) should refresh the
+  // whole board - a roll on a different device is exactly the case this
+  // subscription exists for.
+  sharedChannel = supabase
+    .channel('leaderboard-user-best-cards')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'user_best_cards' }, () => {
+      fetchSharedEntries()
+    })
+    .subscribe()
+}
+
+function releaseSharedSubscription() {
+  subscriberCount = Math.max(0, subscriberCount - 1)
+  if (subscriberCount > 0 || !sharedChannel || !supabase) return
+  supabase.removeChannel(sharedChannel)
+  sharedChannel = null
+}
+
 /**
  * Ranked leaderboard across EVERY account that has ever rolled, best score
  * first - fetched from Supabase's user_best_cards table and kept live via
  * a realtime subscription, so a roll made on any device (yours or anyone
  * else's) updates every open leaderboard view within moments, no refresh
- * needed.
+ * needed. Safe to call from multiple simultaneously-mounted components -
+ * see the shared-subscription comment above.
  */
 export function useLeaderboardEntries(): LeaderboardResult {
-  const [entries, setEntries] = useState<LeaderboardEntry[]>([])
-  const [loading, setLoading] = useState(isSupabaseConfigured)
+  const [, forceRender] = useState(0)
 
   useEffect(() => {
-    if (!isSupabaseConfigured || !supabase) {
-      setLoading(false)
-      return
-    }
-    const client = supabase
-    let cancelled = false
-
-    async function fetchEntries() {
-      const { data, error } = await client
-        .from('user_best_cards')
-        .select('user_id, email, score, top_cards, total_rolls, best_tier')
-        .order('score', { ascending: false })
-        .limit(200)
-      if (cancelled) return
-      if (error) {
-        // eslint-disable-next-line no-console
-        console.error('Failed to load the leaderboard:', error.message)
-        setLoading(false)
-        return
-      }
-      const rows = (data ?? []) as UserBestCardsRow[]
-      setEntries(rows.map(rowToEntry).sort(compareEntries))
-      setLoading(false)
-    }
-
-    fetchEntries()
-
-    // Any insert/update on ANY row (not just this user's) should refresh
-    // the whole board - a roll on a different device is exactly the case
-    // this subscription exists for.
-    const channel = client
-      .channel('leaderboard-user-best-cards')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_best_cards' }, () => {
-        fetchEntries()
-      })
-      .subscribe()
-
+    const listener = () => forceRender((n) => n + 1)
+    listeners.add(listener)
+    acquireSharedSubscription()
     return () => {
-      cancelled = true
-      client.removeChannel(channel)
+      listeners.delete(listener)
+      releaseSharedSubscription()
     }
   }, [])
 
-  return { entries, loading }
+  return { entries: sharedEntries, loading: sharedLoading }
 }

@@ -47,12 +47,31 @@ export const TIERS: TierConfig[] = [
 
 /** Parses a "£35k - £45k" style range into its midpoint. Used for salary
  * DISPLAY/comparison purposes elsewhere (Highest Paying sort, Compare's
- * "best salary" highlight, Binder's salary sort) - no longer for tier
- * classification, see getCareerTier below. */
+ * "best salary" highlight, Binder's salary sort, titles.ts's Money Bags
+ * threshold) - no longer for tier classification, see getCareerTier below.
+ *
+ * Was matching bare `\d+` runs, which silently mangled both salary formats
+ * actually used in demoCareers.js: a comma thousands-separator split a
+ * single number into two matches ("£150,000" -> "150" and "000", averaging
+ * to 90 instead of 150000), and a "k" shorthand was dropped entirely
+ * ("£35k - £45k" -> 40 instead of 40000). Caught because it made every
+ * salary in the app parse as a tiny 2-3 digit number - titles.ts's "£60k+"
+ * Money Bags threshold matched ZERO real careers as a result, which (via a
+ * second bug, the empty-target-set fix in useTitleProgressStore.ts) meant
+ * the title unlocked for everyone regardless of their Binder. Now matches a
+ * full comma-grouped number (or decimal) with an optional trailing k/K,
+ * strips the comma/k before parsing, and multiplies by 1000 when the k was
+ * present. Re-verified against the full 184-career set: no more near-zero
+ * results (one genuine 0, "Photographer"'s "Variable" salary, which has no
+ * digits to parse at all - same fallback as before). */
 export function parseSalaryAvg(salary: string): number {
-  const matches = salary.match(/\d+(?:\.\d+)?/g)
+  const matches = salary.match(/\d[\d,]*(?:\.\d+)?\s*[kK]?/g)
   if (!matches || matches.length === 0) return 0
-  const numbers = matches.map(Number)
+  const numbers = matches.map((raw) => {
+    const isThousands = /[kK]\s*$/.test(raw)
+    const numeric = Number(raw.replace(/[,\s]/g, '').replace(/[kK]$/, ''))
+    return isThousands ? numeric * 1000 : numeric
+  })
   return (Math.min(...numbers) + Math.max(...numbers)) / 2
 }
 

@@ -8,7 +8,7 @@ import { getDisplayRarityN, getTierConfig } from '../utils/careerTiers'
 import { formatSalaryRange } from '../utils/formatSalary'
 import { playSound, TIER_SOUNDS } from '../utils/sound'
 import { useAuthStore } from '../store/useAuthStore'
-import { useBinderStore } from '../store/useBinderStore'
+import { useBinderStore, useMyBinderCards } from '../store/useBinderStore'
 import { useRollStore } from '../store/useRollStore'
 import { usePathStore } from '../store/usePathStore'
 import ConfettiBurst from './ConfettiBurst'
@@ -58,10 +58,17 @@ export default function MythicRevealCard({ career, onRollAgain }: MythicRevealCa
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
   const currentUser = useAuthStore((state) => state.currentUser)
   const addCard = useBinderStore((state) => state.addCard)
+  const binderCards = useMyBinderCards()
 
   const [phase, setPhase] = useState<RevealPhase>(reduceMotion ? 'revealed' : 'intro')
   const [showConfetti, setShowConfetti] = useState(false)
-  const [hasAdded, setHasAdded] = useState(false)
+  // justAdded: sticky per-mount flag, kept separate from the ref that
+  // actually guards the reveal-time auto-add effect below - see that
+  // effect's own comment for why.
+  const [justAdded, setJustAdded] = useState(false)
+  // Rolling a career you've already got shows "Added" immediately, not
+  // "Add" - per explicit request, same fix as RollResultCard.tsx.
+  const hasAdded = justAdded || binderCards.some((card) => card.careerId === career.id)
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
   const [showRarityInfo, setShowRarityInfo] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
@@ -110,21 +117,26 @@ export default function MythicRevealCard({ career, onRollAgain }: MythicRevealCa
       setShowAuthPrompt(true)
       return
     }
-    setHasAdded(true)
+    setJustAdded(true)
     flashToast(result === 'duplicate' ? 'You already have this card! Duplicate added.' : 'Added to binder!')
   }
 
   // Mythic is rare enough that requiring a manual click risks losing the
   // pull entirely (close the card without hitting Add, and it's gone) -
   // so a Mythic auto-saves to the binder the moment it's actually
-  // revealed, for whoever's signed in. hasAdded flipping true here also
+  // revealed, for whoever's signed in. justAdded flipping true here also
   // disables the Add button below (same disabled styling as a manual add),
-  // so there's no way to double-add the same pull. Only fires once per
-  // card (guarded by hasAdded) and only when someone's actually signed in
-  // to attribute it to - a signed-out viewer keeps the ordinary manual Add
-  // button (which still prompts sign-in), same as before.
+  // so there's no way to double-add the same pull. Guarded by its own ref
+  // (autoAddedRef), NOT the display-facing `hasAdded` above - rolling the
+  // same Mythic again is meant to auto-save another real copy, same as
+  // every other tier, so this can't be gated by a flag that now starts
+  // true for an already-owned career. Only when someone's actually signed
+  // in to attribute it to - a signed-out viewer keeps the ordinary manual
+  // Add button (which still prompts sign-in), same as before.
+  const autoAddedRef = useRef(false)
   useEffect(() => {
-    if (phase !== 'revealed' || hasAdded || !currentUser) return
+    if (phase !== 'revealed' || autoAddedRef.current || !currentUser) return
+    autoAddedRef.current = true
     const attemptNumber = useRollStore.getState().lifetimeTotalRolls
     const result = addCard(career, 'mythic', attemptNumber)
     if (result === 'full') {
@@ -132,7 +144,7 @@ export default function MythicRevealCard({ career, onRollAgain }: MythicRevealCa
       return
     }
     if (result === 'unauthenticated') return // shouldn't happen given the currentUser check above
-    setHasAdded(true)
+    setJustAdded(true)
     flashToast(result === 'duplicate' ? 'Mythic! Duplicate auto-added to your binder.' : 'Mythic! Auto-added to your binder.')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase])

@@ -107,7 +107,7 @@ export default function LeaderboardPage() {
         <PageHeader
           icon={Trophy}
           title="Roll a Job Leaderboard"
-          subtitle="Ranked by your best 4 rolls ever - rarer tiers score more, so one Mythic can outweigh a shelf of Commons."
+          subtitle="Ranked by your best 4 rolls ever, plus every Achievement you've earned - rarer tiers score more, so one Mythic can outweigh a shelf of Commons."
         />
 
         {!isSupabaseConfigured ? (

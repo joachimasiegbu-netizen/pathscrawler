@@ -204,3 +204,18 @@ export const TIER_STYLES: Record<TierKey, TierStyle> = {
 export function getTierStyle(tier: TierKey): TierStyle {
   return TIER_STYLES[tier]
 }
+
+// Flat per-tier bar/fill color - used anywhere a tier needs a single solid
+// Tailwind background class rather than the full badge/border/glow set
+// above (RollStatsPanel.tsx's rarity-distribution bar, RollStandingPanel.tsx's
+// Odds tab). Was a private copy inside RollStatsPanel.tsx; promoted here so
+// a second hand-copied palette doesn't drift from it.
+export const TIER_BAR_COLOR: Record<TierKey, string> = {
+  common: 'bg-emerald-500',
+  uncommon: 'bg-blue-500',
+  rare: 'bg-purple-500',
+  epic: 'bg-amber-500',
+  legendary: 'bg-accent',
+  mythic: 'bg-slate-900 dark:bg-slate-950',
+  celestial: 'bg-gradient-to-r from-slate-300 to-amber-400',
+}

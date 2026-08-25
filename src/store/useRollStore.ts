@@ -17,8 +17,19 @@ interface RollState {
   lifetimeTotalRolls: number
   bestTier: TierKey | null
   hasSeenRollTutorial: boolean
+  /** The career currently sitting open on the Roll a Job page, if any -
+   * persisted so clicking through to a career's own detail page and
+   * pressing Back still shows the card you just rolled (and can still
+   * Add it to your Binder) instead of resetting to the idle Roll button,
+   * since JobMarketRollPage's own `result` state is just local React
+   * state that dies when the route unmounts. Only the id: JobMarketRollPage
+   * already has a proven way to rebuild a full RollOutcome from just a
+   * career id (getOddsForCareer - see its own "shared-link view" effect),
+   * so there's no need to duplicate tier/weight/odds here too. */
+  activeResultCareerId: number | null
   getRollContext: () => RollContext
   recordRoll: (careerId: number, tier: TierKey) => void
+  setActiveResultCareerId: (careerId: number | null) => void
   resetStats: () => void
   dismissTutorial: () => void
 }
@@ -34,6 +45,7 @@ const initialState = {
   lifetimeTotalRolls: 0,
   bestTier: null as TierKey | null,
   hasSeenRollTutorial: false,
+  activeResultCareerId: null as number | null,
 }
 
 export const useRollStore = create<RollState>()(
@@ -77,6 +89,8 @@ export const useRollStore = create<RollState>()(
         }),
 
       dismissTutorial: () => set({ hasSeenRollTutorial: true }),
+
+      setActiveResultCareerId: (careerId) => set({ activeResultCareerId: careerId }),
     }),
     {
       name: 'pathscrawler-roll',

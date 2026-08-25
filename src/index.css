@@ -204,17 +204,113 @@ html.reduce-motion *::after {
   animation: screen-darken-fade 2.4s ease-in-out forwards;
 }
 
-/* Roll! button - gentle idle breathing glow, indigo->purple->pink to match
-   the button's own gradient fill (see JobMarketRollPage.tsx). Roll a Job is
-   a fixed "game mode" dark page now regardless of the site's own light/dark
-   toggle, so this no longer needs the light/dark split its predecessor
-   (roll-pulse-light/dark) had - one look, always. */
-.roll-button {
-  animation: roll-pulse-dramatic 2.6s ease-in-out infinite;
+/* Roll! button - glassy "squishy" 3D orb, user-supplied CSS pattern
+   (a pill-shaped button with layered inset/drop shadows for depth plus a
+   painted top-highlight for a light source) adapted to this button's fixed
+   circular shape - real border-radius comes from Tailwind's own
+   rounded-full on the button element (JobMarketRollPage.tsx) rather than
+   the original's own --radius: 100px pill value, and .roll-orb-wrap fills
+   the circle via flex centering instead of the original's auto-sizing
+   text padding. Colorized per explicit request ("vive it some colour
+   tho") - the original used a near-black #080808 base with plain white
+   highlights; retinted to navy/gold, this exact button's own established
+   identity from its previous redesign, rather than an unrelated new
+   palette. The outer drop shadows (the last two box-shadow layers, both
+   plain black) are left neutral on purpose - that's the button's cast
+   shadow onto the page, which stays dark regardless of the button's own
+   color, same as it would on a real physical object. Replaced the old
+   idle-breathing-glow keyframe animation entirely rather than layering it
+   on top - that animation fully overwrites box-shadow every cycle (same
+   conflict noted on the previous design's own glossy overlay spans), which
+   would have periodically wiped out this new depth system's shadows;
+   the hover/active states below already carry the "alive" feedback this
+   design needs. */
+.roll-orb-button {
+  outline: none;
+  border: 0;
+  position: relative;
+  transition: all 0.2s ease;
+  background-color: #0b1a3a;
+  box-shadow:
+    inset 0 0.3rem 0.9rem rgba(255, 224, 156, 0.3),
+    inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.7),
+    inset 0 -0.4rem 0.9rem rgba(11, 26, 58, 0.6),
+    0 3rem 3rem rgba(0, 0, 0, 0.3),
+    0 1rem 1rem -0.6rem rgba(0, 0, 0, 0.8);
 }
-@keyframes roll-pulse-dramatic {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(129, 82, 245, 0.45), 0 25px 60px -12px rgba(168, 85, 247, 0.5); transform: scale(1); }
-  50% { box-shadow: 0 0 60px 22px rgba(168, 85, 247, 0.5), 0 25px 70px -10px rgba(236, 72, 153, 0.55); transform: scale(1.02); }
+.roll-orb-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  color: rgba(255, 224, 156, 0.85);
+}
+.roll-orb-wrap::before,
+.roll-orb-wrap::after {
+  content: '';
+  position: absolute;
+  transition: all 0.3s ease;
+}
+.roll-orb-wrap::before {
+  left: -15%;
+  right: -15%;
+  bottom: 25%;
+  top: -100%;
+  border-radius: 50%;
+  background-color: rgba(255, 224, 156, 0.14);
+}
+.roll-orb-wrap::after {
+  left: 6%;
+  right: 6%;
+  top: 12%;
+  bottom: 40%;
+  border-radius: 999px 999px 0 0;
+  box-shadow: inset 0 10px 8px -10px rgba(255, 224, 156, 0.8);
+  background: linear-gradient(180deg, rgba(255, 224, 156, 0.3) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+}
+.roll-orb-button:hover {
+  box-shadow:
+    inset 0 0.3rem 0.5rem rgba(255, 224, 156, 0.4),
+    inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.7),
+    inset 0 -0.4rem 0.9rem rgba(11, 26, 58, 0.8),
+    0 3rem 3rem rgba(0, 0, 0, 0.3),
+    0 1rem 1rem -0.6rem rgba(0, 0, 0, 0.8);
+}
+.roll-orb-button:hover .roll-orb-wrap::before {
+  transform: translateY(-5%);
+}
+.roll-orb-button:hover .roll-orb-wrap::after {
+  opacity: 0.4;
+  transform: translateY(5%);
+}
+.roll-orb-button:active {
+  transform: translateY(4px);
+  box-shadow:
+    inset 0 0.3rem 0.5rem rgba(255, 224, 156, 0.5),
+    inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.8),
+    inset 0 -0.4rem 0.9rem rgba(11, 26, 58, 0.5),
+    0 3rem 3rem rgba(0, 0, 0, 0.3),
+    0 1rem 1rem -0.6rem rgba(0, 0, 0, 0.8);
+}
+/* The "ROLL!"/"ROLL!" hover-swap - two identical-text spans (see the JSX's
+   own comment on why they're not deduped to one), the second one only
+   ever shown on hover, mimicking the original pattern's two-state label
+   even though this button's own two states read the same. */
+.roll-orb-wrap p span:nth-child(2) {
+  display: none;
+}
+.roll-orb-button:hover .roll-orb-wrap p span:nth-child(1) {
+  display: none;
+}
+.roll-orb-button:hover .roll-orb-wrap p span:nth-child(2) {
+  display: inline-block;
+}
+.roll-orb-wrap p {
+  transition: all 0.2s ease;
+  transform: translateY(2%);
+  mask-image: linear-gradient(to bottom, white 40%, transparent);
+}
+.roll-orb-button:hover .roll-orb-wrap p {
+  transform: translateY(-4%);
 }
 
 /* Roll a Job "game mode" - ambient ember/firefly particles drifting upward
@@ -3846,4 +3942,138 @@ html.dark-mode .binder-texture {
   .mythic-lightning-bolt-3 {
     display: none;
   }
+}
+
+/* ============================================================
+   Accessibility panel - Material-style toggle switch
+   (AccessibilitySettingsPanel.tsx), replacing the old plain "On"/"Off"
+   text label. User-supplied CSS, adapted:
+   - checked-state colors swapped from the pasted snippet's own teal
+     (#85b8b7/#018786) to this app's actual accent tokens (accent
+     #06B6D4 / accent-dark #0E7490, tailwind.config.js) - already the
+     app's own "selected state" color elsewhere (this same panel's tile
+     border/ring), so the switch matches instead of introducing an
+     unrelated second teal.
+   - .cl-toggle-switch from the pasted snippet isn't included - it only
+     set position: relative, which .cl-switch below already has of its
+     own; keeping both would've been a dead, unused wrapper class.
+   - dark-mode track/ripple colors added (html.dark-mode overrides
+     below) - the original was light-background-only (a black/38%
+     track), which would have gone nearly invisible against this
+     panel's own dark:bg-slate-950 tile background unchanged.
+   - transitions need no reduce-motion guard of their own: the global
+     `html.reduce-motion *` / prefers-reduced-motion rules above already
+     zero out every element's transition, this one included. */
+.cl-switch {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+/* Input */
+.cl-switch > input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  z-index: -1;
+  position: absolute;
+  right: 6px;
+  top: -8px;
+  display: block;
+  margin: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.38);
+  outline: none;
+  opacity: 0;
+  transform: scale(1);
+  pointer-events: none;
+  transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;
+}
+/* Track */
+.cl-switch > span::before {
+  content: '';
+  float: right;
+  display: inline-block;
+  margin: 5px 0 5px 10px;
+  border-radius: 7px;
+  width: 36px;
+  height: 14px;
+  background-color: rgba(0, 0, 0, 0.38);
+  vertical-align: top;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+/* Thumb */
+.cl-switch > span::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 16px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  transition: background-color 0.2s, transform 0.2s;
+}
+/* Checked */
+.cl-switch > input:checked {
+  right: -10px;
+  background-color: #06b6d4;
+}
+.cl-switch > input:checked + span::before {
+  background-color: #06b6d4;
+}
+.cl-switch > input:checked + span::after {
+  background-color: #0e7490;
+  transform: translateX(16px);
+}
+/* Hover, focus */
+.cl-switch:hover > input {
+  opacity: 0.04;
+}
+.cl-switch > input:focus-visible {
+  opacity: 0.16;
+}
+.cl-switch:hover > input:focus-visible {
+  opacity: 0.2;
+}
+/* Active */
+.cl-switch > input:active {
+  opacity: 1;
+  transform: scale(0);
+  transition: transform 0s, opacity 0s;
+}
+.cl-switch > input:active + span::before {
+  background-color: #8f8f8f;
+}
+.cl-switch > input:checked:active + span::before {
+  background-color: #06b6d4;
+}
+/* Disabled */
+.cl-switch > input:disabled {
+  opacity: 0;
+  cursor: default;
+}
+.cl-switch > input:disabled + span::before {
+  background-color: #ddd;
+}
+.cl-switch > input:checked:disabled + span::before {
+  background-color: #bfdbda;
+}
+.cl-switch > input:checked:disabled + span::after {
+  background-color: #61b5b4;
+}
+
+html.dark-mode .cl-switch > input {
+  background-color: rgba(255, 255, 255, 0.32);
+}
+html.dark-mode .cl-switch > span::before {
+  background-color: rgba(255, 255, 255, 0.28);
+}
+html.dark-mode .cl-switch > input:checked {
+  background-color: #06b6d4;
+}
+html.dark-mode .cl-switch > input:checked + span::before {
+  background-color: #06b6d4;
 }

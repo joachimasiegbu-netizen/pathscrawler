@@ -41,12 +41,15 @@ export default function AccessibilitySettingsPanel() {
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         {toggles.map(({ key, label, value }) => (
-          <button
+          // <label> wrapping the checkbox, not the old <button aria-pressed>
+          // imitating one - this is the actual native toggle pattern the
+          // .cl-switch CSS below expects (clicking anywhere in the label,
+          // including the tile's own text/icon, forwards to the checkbox
+          // for free), and it's more accessible than faking switch
+          // semantics on a button ever was.
+          <label
             key={key}
-            type="button"
-            onClick={() => updateSetting(key)}
-            aria-pressed={value}
-            className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-left transition ${
+            className={`flex cursor-pointer items-center justify-between rounded-2xl border px-4 py-3 text-left transition ${
               value
                 ? 'border-accent bg-accent/5 text-primary-dark ring-2 ring-accent dark:bg-accent/10 dark:text-primary-light'
                 : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-slate-500'
@@ -58,8 +61,11 @@ export default function AccessibilitySettingsPanel() {
               ) : null}
               {label}
             </span>
-            <span className="text-sm font-medium">{value ? 'On' : 'Off'}</span>
-          </button>
+            <span className="cl-switch">
+              <input type="checkbox" checked={value} onChange={() => updateSetting(key)} aria-label={label} />
+              <span />
+            </span>
+          </label>
         ))}
       </div>
     </div>

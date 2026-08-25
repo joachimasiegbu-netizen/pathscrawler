@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { BarChart3, RotateCcw, Trophy } from 'lucide-react'
 import demoCareers from '../data/demoCareers'
 import { getCareerTier, getTierConfig, TIER_POINTS, TIERS, type TierKey } from '../utils/careerTiers'
+import { TIER_BAR_COLOR } from '../utils/tierStyles'
 import { useAuthStore } from '../store/useAuthStore'
 import { useLeaderboardEntries } from '../store/useLeaderboardStore'
 import { useRollStore } from '../store/useRollStore'
@@ -145,14 +146,4 @@ export default function RollStatsPanel() {
       ) : null}
     </div>
   )
-}
-
-const TIER_BAR_COLOR: Record<TierKey, string> = {
-  common: 'bg-emerald-500',
-  uncommon: 'bg-blue-500',
-  rare: 'bg-purple-500',
-  epic: 'bg-amber-500',
-  legendary: 'bg-accent',
-  mythic: 'bg-slate-900 dark:bg-slate-950',
-  celestial: 'bg-gradient-to-r from-slate-300 to-amber-400',
 }

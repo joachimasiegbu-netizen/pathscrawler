@@ -43,6 +43,12 @@ export interface Career {
    * string literal (not TierKey) to avoid this file importing from
    * careerTiers.ts, which itself imports Career from here. */
   forcedTier?: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary' | 'mythic' | 'celestial'
+  /** True for the careers on this app's own existing, sourced AI-exposure
+   * list (src/data/aiEndangeredJobs.ts, backing the "AI-endangered jobs"
+   * stats page - IPPR/Microsoft Research/GLA London-cited) - powers the
+   * Roll a Job "Final Generation" title (titles.ts). Absent (not false) on
+   * every career not on that list. */
+  aiEndangered?: boolean
   category: string
   title: string
   salary: string
