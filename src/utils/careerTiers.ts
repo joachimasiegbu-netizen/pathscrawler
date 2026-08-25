@@ -22,20 +22,27 @@ export interface TierConfig {
 // tier in the first place, real-world-rarity based, not this probability
 // of landing on that tier once picked).
 // Was all zeroed except celestial=1 (a leftover from testing Celestial's
-// reveal animation - every roll landed Celestial regardless of the real
-// odds, with a "REVERT before shipping" comment that never got acted on).
-// Replaced per explicit request with a new target distribution - sums to
-// 0.999, not a clean 1 (0.68+0.20+0.08+0.03+0.005+0.003+0.001), but
-// pickTier() below normalizes against its own running total either way,
-// so the 0.1% shortfall doesn't skew the actual odds.
+// reveal animation), then a flat 68/20/8/3/0.5/0.3/0.1 split. That split
+// was picked independent of how many real careers actually populate each
+// tier (getCareerTier below) - fine on its own, but combined with the old
+// boundary table's uneven pool sizes (Uncommon's 103 careers vs Common's
+// 33, etc.) it produced a real problem: a SPECIFIC Common career was ~11x
+// more likely to come up than a specific Uncommon one, despite Uncommon
+// nominally being the harder tier to land. Retuned alongside the boundary
+// rework below so per-career odds (share / pool size) actually decrease
+// at every step now: Common ~1 in 91, Uncommon ~1 in 191, Rare ~1 in 433,
+// Epic ~1 in 699, Legendary ~1 in 1,429, Mythic ~1 in 3,597, Celestial ~1
+// in 8,000. Sums to 99.95%, not a clean 100 - pickTier() below normalizes
+// against its own running total either way, so that tiny shortfall
+// doesn't skew the actual odds.
 export const TIERS: TierConfig[] = [
-  { key: 'common', label: 'Common', emoji: '🟢', targetShare: 0.68 },
-  { key: 'uncommon', label: 'Uncommon', emoji: '🔵', targetShare: 0.2 },
-  { key: 'rare', label: 'Rare', emoji: '🟣', targetShare: 0.08 },
+  { key: 'common', label: 'Common', emoji: '🟢', targetShare: 0.65 },
+  { key: 'uncommon', label: 'Uncommon', emoji: '🔵', targetShare: 0.22 },
+  { key: 'rare', label: 'Rare', emoji: '🟣', targetShare: 0.09 },
   { key: 'epic', label: 'Epic', emoji: '🟡', targetShare: 0.03 },
-  { key: 'legendary', label: 'Legendary', emoji: '💎', targetShare: 0.005 },
-  { key: 'mythic', label: 'Mythic', emoji: '⚫', targetShare: 0.003 },
-  { key: 'celestial', label: 'Celestial', emoji: '✨', targetShare: 0.001 },
+  { key: 'legendary', label: 'Legendary', emoji: '💎', targetShare: 0.007 },
+  { key: 'mythic', label: 'Mythic', emoji: '⚫', targetShare: 0.0025 },
+  { key: 'celestial', label: 'Celestial', emoji: '✨', targetShare: 0.0005 },
 ]
 
 /** Parses a "£35k - £45k" style range into its midpoint. Used for salary
@@ -58,33 +65,39 @@ export function parseSalaryAvg(salary: string): number {
 // Spotlight) - there's no separate pay-based classification.
 //
 // Was a fixed "1 in X" band table (Common 1-50, ..., Celestial 4,000,001+,
-// each boundary exactly 10x the last) - replaced per explicit request with
-// a second, wider band table (Common 1-150, Uncommon 151-1,000, Rare
-// 1,001-8,000, Epic 8,001-80,000, Legendary 80,001-500,000, Mythic
-// 500,001-5,000,000, Celestial 5,000,001+). Re-verified against the
-// current 184-career set: no exact-pct tie ever gets split across two
-// tiers at any of these five boundaries, and this table fits the real
-// data far better than the previous one did - Common 33, Uncommon 103,
-// Rare 25, Epic 7, Legendary 5, Mythic 9 (Celestial's still the fixed 4,
-// see below), a real (if not perfectly monotonic) pyramid shape rather
-// than the previous table's 2/98/61/1/9 split. One consequence: several
-// of the careers added specifically to populate the OLD table's Legendary
-// band (demoCareers.js's "LEGENDARY TIER CAREERS" block) now fall in Epic
-// instead under this wider Legendary band (80,001-500,000 is a much
-// rarer bar than the old 50,001-100,000) - their employmentPercentage
-// wasn't changed, they just land differently against the new cutoff.
+// each boundary exactly 10x the last), then a second, wider band table
+// (Common 1-150, ..., Mythic 500,001-5,000,000) that fit the real data
+// better but still produced a genuinely broken pyramid once actually
+// counted up: Common 33 / Uncommon 103 / Rare 25 / Epic 7 / Legendary 5 /
+// Mythic 9 - Uncommon OUT-populating Common by 3x, and Mythic having
+// nearly double Legendary's pool, both backwards for a rarity ladder.
+// Combined with TIERS[]'s old flat share split, that meant a specific
+// Uncommon career was landing LESS often than a specific Common one
+// despite Uncommon nominally being rarer - the exact inversion this
+// third table (and the retuned TIERS[] shares above) was built to fix.
+// Derived from the real, sorted employmentPercentage gaps in the current
+// 184-career set rather than another guessed round-number scheme -
+// boundaries dropped into the actual gaps between clusters of careers so
+// each tier holds a believable, monotonically-shrinking pool: Common 59,
+// Uncommon 42, Rare 39, Epic 21, Legendary 10, Mythic 9 (Celestial's
+// still the fixed 4, see below) - 184 total, a real pyramid this time.
+// Re-verified against the current data set: no exact-pct tie gets split
+// across a boundary. Consequence: the careers added to populate the
+// SECOND table's Legendary band (demoCareers.js's "LEGENDARY TIER
+// CAREERS" block) land differently again here - LEGENDARY_MAX_PCT moved
+// from 1-in-80,000 to a much LESS strict 1-in-100, so several that had
+// fallen to Epic under the second table are back in Legendary under this
+// one; see that block's own comment for the up-to-date per-career count.
 // Celestial is NOT wired to CELESTIAL_MAX_PCT here (there isn't one) -
 // still reserved for exactly the 4 hand-picked careers via forcedTier
-// below, same as before. Unlike the previous table, this one doesn't
-// even need that exception in practice: the rarest REAL career in the
-// current set (Pargeter / Cut Crystal Glass Cutter, ~1 in 4,310,345) is
-// still short of the new 5,000,001+ Celestial floor, so nothing would
-// leak in even if this were wired up.
-const MYTHIC_MAX_PCT = 0.0002 // 1 in 500,000
-const LEGENDARY_MAX_PCT = 0.00125 // 1 in 80,000
-const EPIC_MAX_PCT = 0.0125 // 1 in 8,000
-const RARE_MAX_PCT = 0.1 // 1 in 1,000
-const UNCOMMON_MAX_PCT = 0.6667 // 1 in 150
+// below. The rarest REAL career in the current set (Pargeter / Cut
+// Crystal Glass Cutter, ~1 in 4,310,345) is still well inside the new
+// MYTHIC_MAX_PCT floor rather than needing a separate Celestial cutoff.
+const MYTHIC_MAX_PCT = 0.0007 // ~1 in 1,429
+const LEGENDARY_MAX_PCT = 0.01 // 1 in 100
+const EPIC_MAX_PCT = 0.0958 // ~1 in 10.4
+const RARE_MAX_PCT = 0.195 // ~1 in 5.1
+const UNCOMMON_MAX_PCT = 0.42 // ~1 in 2.4
 
 export function getCareerTier(career: Career): TierKey {
   // Celestial is never reached via employmentPercentage math, no matter

@@ -11086,18 +11086,18 @@ const rawDemoCareers = [
 
   // 9 careers originally added to populate the Legendary tier, which came
   // up completely EMPTY (0 real careers) under an EARLIER careerTiers.ts
-  // boundary table (Legendary = 1 in 50,001 - 100,000). That table has
-  // since been replaced with a wider one (Legendary = 1 in 80,001 -
-  // 500,000, see careerTiers.ts's own comment) - under the CURRENT
-  // boundaries, only 3 of these 9 still classify as Legendary (Stunt
-  // Performer, Coroner, Taxidermist - all ~1 in 89,749, comfortably
-  // inside the new band); the other 6 (Member of Parliament, Circuit
-  // Judge, Professional Jockey, Bomb Disposal Expert, Professional
-  // Boxer, Silversmith) now classify as Epic instead, since their real
-  // rarity (roughly 1 in 48,000-70,000) falls short of the new, much
-  // rarer Legendary floor. Their data wasn't changed for this - the
-  // employmentPercentage values below are unchanged, they just land
-  // differently against the new cutoff, same as any other career here.
+  // boundary table (Legendary = 1 in 50,001 - 100,000), then only 3 of
+  // the 9 stayed Legendary under a second, wider table (Legendary = 1 in
+  // 80,001 - 500,000; the other 6 fell to Epic). Under the CURRENT
+  // boundaries (careerTiers.ts's third pass, LEGENDARY_MAX_PCT = 1 in
+  // 100 - a much LESS strict floor than either earlier table, derived
+  // from the real sorted employmentPercentage gaps rather than another
+  // round-number guess), all 9 land back in Legendary - every one of
+  // them sits between roughly 1 in 48,000 and 1 in 89,749, comfortably
+  // inside the new 1-in-100-or-rarer band. Their data wasn't changed for
+  // this - the employmentPercentage values below are unchanged, they
+  // just land differently against the new cutoff, same as any other
+  // career here.
   // employmentPercentage below is each career's real UK headcount
   // (peopleInRole) divided by the same ~31.4M UK workforce total the
   // rest of this file (bar the heritage-craft block above, which uses a

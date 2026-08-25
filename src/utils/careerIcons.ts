@@ -20,7 +20,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import type { Career } from '../data/demoCareers'
-import { Pliers } from './customIcons'
+import { HammerAndChisel, Pliers } from './customIcons'
 
 // One icon per career, for anywhere a career needs a single representative
 // symbol rather than a full card (built for MythicRevealPreviewPage.tsx's
@@ -40,13 +40,14 @@ const TITLE_OVERRIDES: { match: RegExp; icon: LucideIcon }[] = [
   { match: /quantitative developer|software|developer|engineer.*data|data.*engineer/i, icon: Code2 },
   { match: /thatcher/i, icon: Home },
   { match: /bell founder/i, icon: Bell },
-  // lucide-react has no combined "hammer and chisel" icon (checked -
-  // Hammer, Pickaxe, Axe, Gavel, Drill, Wrench are the only tool icons it
-  // ships), so Hammer alone stands in for it on both of these - otherwise
-  // identical to the Construction & Trades category default below, but
-  // explicit rather than just falling through to it.
-  { match: /pargeter/i, icon: Hammer },
-  { match: /figurehead carver/i, icon: Hammer },
+  // Was plain Hammer for both of these - lucide has no combined "hammer
+  // and chisel" icon, and Hammer alone stood in for it since these two
+  // stonemasonry/carving careers otherwise just fell through to the
+  // Construction & Trades category default anyway (also Hammer). Fixed
+  // now with a hand-built one - see customIcons.tsx's own comment on
+  // HammerAndChisel.
+  { match: /pargeter/i, icon: HammerAndChisel },
+  { match: /figurehead carver/i, icon: HammerAndChisel },
   { match: /rattan furniture/i, icon: Pliers },
 ]
 
