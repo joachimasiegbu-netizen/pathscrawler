@@ -246,9 +246,16 @@ export default function JobMarketRollPage() {
     // sounds start, so a grinding player spamming Roll Again never hears
     // two rolls' worth of audio overlapping.
     stopAllSounds()
-    // startAtSec 0.5: skips the file's own ~0.5s near-silent lead-in
-    // before the actual click hits, per explicit request.
-    playSound('/sounds/roll-click.mp3', undefined, 0.5)
+    // Plays from the very start now - the earlier 0.5s skip (meant to
+    // trim a supposedly near-silent lead-in, guessed blindly since there's
+    // no audio-editing tool in this environment to actually inspect the
+    // file) turned out to cut into the real click itself: a manual frame-
+    // by-frame parse of the file puts it at ~1.6s total, and the audible
+    // hit apparently sits early enough in that window that skipping to
+    // 0.5s left it inaudible - confirmed by the user no longer hearing
+    // anything on Roll. Playing the untrimmed file from 0 is the safe
+    // correct behavior now that the guess is shown to have been wrong.
+    playSound('/sounds/roll-click.mp3')
     setResult(null)
     setShowConfetti(false)
     setShowFlashText(false)
@@ -394,15 +401,42 @@ export default function JobMarketRollPage() {
         // actually gets a seamless result, not two competing gradients.
         className="dark-mode relative left-1/2 w-screen min-h-screen -translate-x-1/2 flex flex-col overflow-hidden"
       >
-      {/* Job Market's own position copied directly from CareerDetailPage.tsx
-          - the exact page a rolled career takes you to - which wraps its
-          BackButton in `mx-auto w-full max-w-3xl px-4 py-6 sm:px-6`. Same
-          max-w-3xl here (was max-w-2xl, a guessed value) instead of another
-          made-up width. See real odds still shares the row on the right,
-          per the earlier explicit answer to keep it paired with Job
-          Market rather than separate. */}
-      <div className="relative z-10 mx-auto flex w-full max-w-3xl items-center justify-between px-4 pt-3 sm:px-6">
-        <BackButton to="/job-market" label="Job Market" />
+      {/* This row lives BELOW the header (App.tsx's own logo/nav-cluster
+          bar), not merged into it, but deliberately matches that header's
+          exact width/padding (max-w-5xl parent + px-4 sm:px-6, see
+          MobileContainer.tsx + App.tsx's header div) rather than
+          CareerDetailPage.tsx's max-w-3xl convention used before - this
+          page's own content breaks out to full viewport width (the
+          left-1/2/w-screen/-translate-x-1/2 hack on the outer motion.div),
+          so a narrower max-w-3xl row centered in THAT full width drifted
+          visibly left of where the header's own max-w-5xl box (centered
+          the same way, but wider) puts its right-edge icon cluster.
+          Matching max-w-5xl + px-4 sm:px-6 here instead puts Job Market
+          directly under the logo and See real odds directly under the
+          Settings icon - same vertical line as the banner above, per
+          explicit request.
+
+          z-20, not z-10: this row and the cylinder-content div further
+          down (SlotMachineLane's reel cards, e.g. the purple Rare-tier
+          card) are both direct children of the same transformed (so
+          stacking-context-forming) full-bleed wrapper. Equal z-index
+          siblings stack by DOM order, and the cylinder-content div comes
+          LATER in the DOM - so at equal z-10 it painted on top of this
+          entire row, reel cards in front of the "See real odds" panel
+          despite that panel's own internal z-50 (a z-index can never
+          escape its own parent's stacking context to beat a
+          higher-or-equal-z sibling context, no matter how high it is
+          inside). Bumping this row's own stacking context above the
+          cylinder's z-10 is what actually lets the z-50 panel win.
+          Still well under confetti's z-30 (ConfettiBurst.tsx), which
+          should stay on top of everything. */}
+      <div className="relative z-20 mx-auto flex w-full max-w-5xl items-center justify-between px-4 pt-3 sm:px-6">
+        {/* Both buttons fully disappear (not just the odds one) once a
+            spin starts - unmounted outright rather than opacity/pointer-
+            events-hidden like the Roll button itself, since there's no
+            layout-shift concern here (nothing else sits in this row that
+            would need the space held open). */}
+        {!isSpinning ? <BackButton to="/job-market" label="Job Market" /> : null}
         {!isSpinning ? <RollOddsDropdown /> : null}
       </div>
 

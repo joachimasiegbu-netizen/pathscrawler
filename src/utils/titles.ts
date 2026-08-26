@@ -35,17 +35,26 @@ export const MONEY_BAGS_SALARY_THRESHOLD = 60000
 // "Within your first N rolls" window for the three early-roll titles
 // (Golden Child / Seraph of the End / Heaven's Descendant).
 export const EARLY_ROLL_WINDOW = 20
-// Job's dry-spell length.
-export const JOB_DRY_SPELL_TARGET = 500
-// Gambling Addict's total-rolls target.
+// Shadow Banned's dry-spell length - was Job's own condition before Job's
+// condition changed to a leaderboard-rank drop; the underlying 500-roll
+// dry-spell mechanic itself didn't go away, it just moved to its own new
+// title id instead of being reused under Job's name.
+export const SHADOW_BANNED_DRY_SPELL_TARGET = 500
+// Employee of the Month's total-rolls target (was Gambling Addict's - same
+// id/condition/mechanic, only the display name changed).
 export const GAMBLING_ADDICT_ROLLS_TARGET = 2500
+// Job's own new condition - a leaderboard rank has to fall this many spots
+// (or more) from the best rank this account has ever held for Job to
+// unlock. 0-indexed same as everywhere else this app tracks rank (findIndex
+// on the leaderboard entries array), so a 2-spot drop really is 2 places.
+export const JOB_RANK_DROP_TARGET = 2
 // Money Bags must complete its full-set collection by this roll count.
 export const MONEY_BAGS_ROLL_WINDOW = 300
 // Sweat Lord's rolling-window target.
 export const SWEAT_LORD_ROLLS_TARGET = 1000
 export const SWEAT_LORD_WINDOW_MS = 24 * 60 * 60 * 1000
 
-// 12 titles, ranks 1-12 - final content as given, not placeholder/example
+// 13 titles, ranks 1-13 - final content as given, not placeholder/example
 // data. Every title is permanent once earned (see useTitleProgressStore.ts -
 // every flag it tracks is a one-way latch, never unset by later play,
 // specifically so a later "Clear binder" click can't retroactively re-lock
@@ -65,9 +74,15 @@ export const TITLES: TitleDef[] = [
     points: 500,
   },
   {
+    // id kept as 'gambling-addict' even though the displayed name changed
+    // to "Employee of the Month" - this id is what's actually recorded in
+    // Supabase's title_unlocks table (schema.sql) and in seenTitleIds/
+    // syncedTitleIds locally, so keeping it stable means anyone who'd
+    // already earned this under its old name keeps it (just sees the new
+    // name now), rather than being silently un-earned by a rename.
     id: 'gambling-addict',
     rank: 2,
-    name: 'Gambling Addict',
+    name: 'Employee of the Month',
     icon: 'flame',
     isHidden: false,
     condition: '2,500 total rolls',
@@ -157,13 +172,16 @@ export const TITLES: TitleDef[] = [
     name: 'Job',
     icon: 'skull',
     isHidden: false,
-    condition: '500 rolls without landing a Legendary+',
-    subtitle: "500 pulls, not one Legendary. You kept rolling anyway.",
-    // Bad-luck-gated, not skill or effort - a genuine dry spell (a single
-    // roll has a ~99% chance of NOT being Legendary+, so 500 in a row
-    // missing isn't rare on its own, though it does take real volume to
-    // reach 500 rolls at all) - nothing the player actually controls, so
-    // it sits mid-scale rather than near the top.
+    // Was "500 rolls without landing a Legendary+" - that mechanic didn't
+    // disappear, it moved to its own new title (Shadow Banned, rank 12)
+    // below. Job's condition is a genuinely different one now: a real
+    // reversal of fortune on the leaderboard itself, matching its
+    // biblical namesake even more directly than the old dry-spell did.
+    condition: 'Drop 2 or more ranks on the leaderboard',
+    subtitle: 'The Lord gave, and the Lord hath taken away.',
+    // Competitive/circumstantial like Icarus (rank 3) rather than a fixed
+    // personal probability - can be triggered by your own bad rolls OR by
+    // everyone else simply catching up around you either way.
     points: 200,
   },
   {
@@ -193,8 +211,27 @@ export const TITLES: TitleDef[] = [
     points: 200,
   },
   {
-    id: 'final-generation',
+    // Inherits Job's OLD condition verbatim (500 rolls without landing a
+    // Legendary+) - see Job's own comment above for why this moved here
+    // rather than being invented fresh. Reuses longestLegendaryDrySpell
+    // (useTitleProgressStore.ts), the same field Job's unlock check read
+    // before, so anyone's existing dry-spell progress is already correct
+    // for THIS title with no migration needed - that counter never had
+    // anything to do with which title id consumed it.
+    id: 'shadow-banned',
     rank: 12,
+    name: 'Shadow Banned',
+    icon: 'skull',
+    isHidden: false,
+    condition: '500 rolls without landing a Legendary',
+    subtitle: 'RNG put you in timeout.',
+    // Same reasoning Job's own points value used to carry - bad-luck-
+    // gated, not skill or effort, nothing the player actually controls.
+    points: 200,
+  },
+  {
+    id: 'final-generation',
+    rank: 13,
     name: 'Final Generation',
     icon: 'skull',
     isHidden: true,
@@ -237,6 +274,11 @@ export interface TitleUnlockProgress {
   hasCompletedMythicSet: boolean
   hasHitSweatLord: boolean
   hasRolledAiEndangered: boolean
+  /** Job's own new condition - latched the first time this account's
+   * leaderboard rank is observed to have fallen JOB_RANK_DROP_TARGET or
+   * more spots below the best rank it's ever held (useTitleProgressStore
+   * .ts's markLeaderboardRankObserved). */
+  hasDroppedTwoRanks: boolean
 }
 
 function isTitleUnlocked(id: string, p: TitleUnlockProgress): boolean {
@@ -258,11 +300,13 @@ function isTitleUnlocked(id: string, p: TitleUnlockProgress): boolean {
     case 'money-bags':
       return p.hasCompletedMoneyBagsSet
     case 'job':
-      return p.longestLegendaryDrySpell >= JOB_DRY_SPELL_TARGET
+      return p.hasDroppedTwoRanks
     case 'standing-on-a-million-lives':
       return p.hasCompletedMythicSet
     case 'sweat-lord':
       return p.hasHitSweatLord
+    case 'shadow-banned':
+      return p.longestLegendaryDrySpell >= SHADOW_BANNED_DRY_SPELL_TARGET
     case 'final-generation':
       return p.hasRolledAiEndangered
     default:

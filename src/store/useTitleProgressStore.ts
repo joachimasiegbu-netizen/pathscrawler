@@ -5,6 +5,7 @@ import { TIERS, type TierKey } from '../utils/careerTiers'
 import {
   COMMON_CAREER_IDS,
   EARLY_ROLL_WINDOW,
+  JOB_RANK_DROP_TARGET,
   MONEY_BAGS_CAREER_IDS,
   MONEY_BAGS_ROLL_WINDOW,
   MYTHIC_CAREER_IDS,
@@ -41,6 +42,15 @@ export interface TitleProgress {
   hasCompletedMythicSet: boolean
   hasCompletedMoneyBagsSet: boolean
   hasRolledAiEndangered: boolean
+  /** Best (lowest, 0-indexed) leaderboard rank this account has ever been
+   * observed at - null until the first observation. Job's own condition
+   * (titles.ts) needs a baseline to measure a drop AGAINST, not just the
+   * live current rank. */
+  bestLeaderboardRank: number | null
+  /** Job's unlock flag - latched the first time the current rank is seen
+   * JOB_RANK_DROP_TARGET or more spots worse than bestLeaderboardRank
+   * above (markLeaderboardRankObserved). */
+  hasDroppedTwoRanks: boolean
   /** Which title ids have already shown their one-time unlock toast. */
   seenTitleIds: string[]
   /** Which title ids have already been written to Supabase's title_unlocks
@@ -72,6 +82,8 @@ function emptyProgress(): TitleProgress {
     hasCompletedMythicSet: false,
     hasCompletedMoneyBagsSet: false,
     hasRolledAiEndangered: false,
+    bestLeaderboardRank: null,
+    hasDroppedTwoRanks: false,
     seenTitleIds: [],
     syncedTitleIds: [],
   }
@@ -90,6 +102,12 @@ interface TitleProgressState {
   progressByUser: Record<string, TitleProgress>
   recordRoll: (career: Career, tier: TierKey) => void
   markTop3Reached: () => void
+  /** Called with the current live leaderboard rank whenever it's known
+   * (RollStandingPanel.tsx, wherever yourRank is already computed) -
+   * updates bestLeaderboardRank and latches hasDroppedTwoRanks (Job's own
+   * condition, titles.ts) the first time rank falls JOB_RANK_DROP_TARGET+
+   * spots below the best this account has ever held. */
+  markLeaderboardRankObserved: (rank: number) => void
   /** Reactively checked against LIVE Binder contents whenever the Binder
    * changes (see RollStandingPanel.tsx) - a career-id superset check, not
    * something recordRoll can determine on its own since rolling a career
@@ -145,6 +163,25 @@ export const useTitleProgressStore = create<TitleProgressState>()(
         const existing = get().progressByUser[userId] ?? emptyProgress()
         if (existing.hasReachedTop3) return
         set({ progressByUser: { ...get().progressByUser, [userId]: { ...existing, hasReachedTop3: true } } })
+      },
+
+      markLeaderboardRankObserved: (rank) => {
+        const userId = currentUserId()
+        if (!userId) return
+        const existing = get().progressByUser[userId] ?? emptyProgress()
+        const previousBest = existing.bestLeaderboardRank
+        // No baseline yet - this observation just BECOMES the baseline,
+        // nothing to compare a "drop" against on the very first sighting.
+        const bestLeaderboardRank = previousBest === null ? rank : Math.min(previousBest, rank)
+        const hasDroppedTwoRanks =
+          existing.hasDroppedTwoRanks || (previousBest !== null && rank - previousBest >= JOB_RANK_DROP_TARGET)
+        if (bestLeaderboardRank === existing.bestLeaderboardRank && hasDroppedTwoRanks === existing.hasDroppedTwoRanks) return
+        set({
+          progressByUser: {
+            ...get().progressByUser,
+            [userId]: { ...existing, bestLeaderboardRank, hasDroppedTwoRanks },
+          },
+        })
       },
 
       syncBinderCompletion: (binderCareerIds) => {
@@ -238,7 +275,15 @@ export const useTitleProgressStore = create<TitleProgressState>()(
       // synced (not just defaulted) the next time the sync effect runs
       // (RollStandingPanel.tsx), since an empty syncedTitleIds makes every
       // currently-unlocked title look unsynced yet.
-      version: 3,
+      // v3 -> v4: adds bestLeaderboardRank/hasDroppedTwoRanks (Job's new
+      // condition) - plain additive defaults (null/false) for everyone,
+      // same reasoning as v3's own step. Anyone who'd already earned Job
+      // under its OLD condition (500-roll dry spell) will see it show as
+      // locked again until they genuinely satisfy the new one - that old
+      // dry-spell achievement itself isn't lost though, it's exactly what
+      // the new Shadow Banned title (titles.ts) reads from the SAME
+      // longestLegendaryDrySpell field, unaffected by this migration.
+      version: 4,
       migrate: (persisted, version) => {
         let state = (persisted ?? { progressByUser: {} }) as { progressByUser: Record<string, TitleProgress> }
         if (version < 2) {
@@ -254,6 +299,20 @@ export const useTitleProgressStore = create<TitleProgressState>()(
               Object.entries(state.progressByUser).map(([userId, progress]) => [
                 userId,
                 { ...progress, syncedTitleIds: progress.syncedTitleIds ?? [] },
+              ]),
+            ),
+          }
+        }
+        if (version < 4) {
+          state = {
+            progressByUser: Object.fromEntries(
+              Object.entries(state.progressByUser).map(([userId, progress]) => [
+                userId,
+                {
+                  ...progress,
+                  bestLeaderboardRank: progress.bestLeaderboardRank ?? null,
+                  hasDroppedTwoRanks: progress.hasDroppedTwoRanks ?? false,
+                },
               ]),
             ),
           }

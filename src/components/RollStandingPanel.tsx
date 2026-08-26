@@ -12,7 +12,7 @@ import {
   EARLY_ROLL_WINDOW,
   GAMBLING_ADDICT_ROLLS_TARGET,
   getTitlesWithStatus,
-  JOB_DRY_SPELL_TARGET,
+  SHADOW_BANNED_DRY_SPELL_TARGET,
   SWEAT_LORD_ROLLS_TARGET,
   type TitleIcon,
   type TitleWithStatus,
@@ -82,14 +82,27 @@ function getProgressInfo(title: TitleWithStatus, progress: TitleProgress, common
         percent: Math.min(100, (commonCollected / COMMON_CAREER_IDS.size) * 100),
       }
     case 'job':
+      // Rank-based like Icarus above, not a fixed climbing counter - no
+      // percent bar for the same reason Icarus doesn't get one.
       return {
-        label: `Current dry spell: ${progress.rollsSinceLegendaryPlus} / ${JOB_DRY_SPELL_TARGET} rolls`,
-        percent: Math.min(100, (progress.rollsSinceLegendaryPlus / JOB_DRY_SPELL_TARGET) * 100),
+        label:
+          yourRank === -1
+            ? 'Unranked so far'
+            : progress.bestLeaderboardRank === null
+              ? `Currently #${yourRank + 1} - no baseline yet`
+              : `Currently #${yourRank + 1}, best ever #${progress.bestLeaderboardRank + 1}`,
       }
     case 'sweat-lord':
       return {
         label: `${progress.recentRollTimestamps.length} / ${SWEAT_LORD_ROLLS_TARGET} rolls in the last 24h`,
         percent: Math.min(100, (progress.recentRollTimestamps.length / SWEAT_LORD_ROLLS_TARGET) * 100),
+      }
+    case 'shadow-banned':
+      // Job's own OLD readout, moved here alongside the condition it
+      // belongs to now (see titles.ts's own comment on this title).
+      return {
+        label: `Current dry spell: ${progress.rollsSinceLegendaryPlus} / ${SHADOW_BANNED_DRY_SPELL_TARGET} rolls`,
+        percent: Math.min(100, (progress.rollsSinceLegendaryPlus / SHADOW_BANNED_DRY_SPELL_TARGET) * 100),
       }
     default:
       return null
@@ -129,9 +142,12 @@ export default function RollStandingPanel() {
   // is always mounted in the header now, so it's the right permanent home
   // for these watchers.
   useEffect(() => {
-    if (yourRank !== -1 && yourRank < 3) {
-      useTitleProgressStore.getState().markTop3Reached()
-    }
+    if (yourRank === -1) return
+    if (yourRank < 3) useTitleProgressStore.getState().markTop3Reached()
+    // Job's own condition (titles.ts) - every live rank observation feeds
+    // the same watcher that also maintains bestLeaderboardRank, not just
+    // the top-3 check above.
+    useTitleProgressStore.getState().markLeaderboardRankObserved(yourRank)
   }, [yourRank])
 
   useEffect(() => {
