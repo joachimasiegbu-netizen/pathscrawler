@@ -1,4 +1,4 @@
-import { BarChart3, Crown, Dices, Rocket, Sparkles } from 'lucide-react'
+import { BarChart3, Crown, Dices, GraduationCap, Rocket, Sparkles } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import JobMarketDoorButton, { type DoorAccent } from '../components/JobMarketDoorButton'
 import PageHeader from '../components/PageHeader'
@@ -53,6 +53,13 @@ const DOORS: Door[] = [
     subtitle: 'Collect them all',
     href: '/job-market/roll',
     accent: 'rose',
+  },
+  {
+    icon: GraduationCap,
+    title: 'Skills to Learn',
+    subtitle: 'High-value skills, free resources',
+    href: '/job-market/skills',
+    accent: 'indigo',
   },
 ]
 

@@ -4,6 +4,7 @@ import {
   BookOpen,
   Briefcase,
   CheckCircle2,
+  Clock,
   ExternalLink,
   FileText,
   GraduationCap,
@@ -17,7 +18,11 @@ import Button from '../components/Button'
 import Card from '../components/Card'
 import RevealSection from '../components/RevealSection'
 import StaggerGrid from '../components/StaggerGrid'
+import TestimonialCard from '../components/TestimonialCard'
+import DayInTheLifeTimeline from '../components/DayInTheLifeTimeline'
 import demoCareers from '../data/demoCareers'
+import { getTestimonialsForCareer } from '../data/testimonials'
+import { getDayInTheLife } from '../data/dayInTheLife'
 import { usePathStore } from '../store/usePathStore'
 
 const resourceLinks = [
@@ -110,6 +115,8 @@ export default function CareerDetailPage() {
   }
 
   const isDisabledLearner = selectedRole === 'disabled-learner'
+  const careerTestimonials = getTestimonialsForCareer(Number(career.id))
+  const dayInTheLife = getDayInTheLife(Number(career.id))
 
   return (
     <div className="mx-auto w-full max-w-3xl space-y-8 px-4 py-6 sm:px-6">
@@ -138,6 +145,14 @@ export default function CareerDetailPage() {
           <CheckList items={career.requirements ?? []} />
         </DetailCard>
       </StaggerGrid>
+
+      {dayInTheLife ? (
+        <RevealSection>
+          <DetailCard icon={Clock} title="A day in the life">
+            <DayInTheLifeTimeline data={dayInTheLife} />
+          </DetailCard>
+        </RevealSection>
+      ) : null}
 
       <RevealSection>
         <DetailCard icon={TrendingUp} title="Career progression">
@@ -248,6 +263,18 @@ export default function CareerDetailPage() {
           </StaggerGrid>
         </DetailCard>
       </RevealSection>
+
+      {careerTestimonials.length > 0 ? (
+        <RevealSection>
+          <DetailCard icon={HeartHandshake} title={`What people say about being a ${career.title}`}>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {careerTestimonials.map((testimonial) => (
+                <TestimonialCard key={testimonial.id} testimonial={testimonial} hideCareerBadge />
+              ))}
+            </div>
+          </DetailCard>
+        </RevealSection>
+      ) : null}
 
       <div className="flex flex-col gap-3 border-t border-slate-200 pt-6 dark:border-slate-800 sm:flex-row">
         {/* Same page-they-came-from logic as the BackButton up top (see its

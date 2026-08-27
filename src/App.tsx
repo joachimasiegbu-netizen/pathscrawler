@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { BookOpen, FolderClock, GitCompare, LogIn, LogOut, Settings2, TrendingUp, Trophy, X } from 'lucide-react'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { BookOpen, FolderClock, GitCompare, GraduationCap, LogIn, LogOut, Settings2, TrendingUp, Trophy, UserRound, X } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useCompareStore } from './store/useCompareStore'
 import AccessibilitySettingsPanel from './components/AccessibilitySettingsPanel'
 import RollStandingPanel from './components/RollStandingPanel'
+import UsernameModal from './components/UsernameModal'
+import SetYourNameBanner from './components/SetYourNameBanner'
+import TitlePill from './components/TitlePill'
+import { useMyUserProfile, useUserProfileStore } from './store/useUserProfileStore'
 import SearchResultsPage from './pages/SearchResultsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
@@ -28,7 +32,17 @@ import JobMarketHighestPayingPage from './pages/JobMarketHighestPayingPage'
 import JobMarketRollPage from './pages/JobMarketRollPage'
 import LeaderboardPage from './pages/LeaderboardPage'
 import MythicRevealPreviewPage from './pages/MythicRevealPreviewPage'
+import UsernameModalPreviewPage from './pages/UsernameModalPreviewPage'
+import TitlesPreviewPage from './pages/TitlesPreviewPage'
 import MyBinderPage from './pages/MyBinderPage'
+import ProfilePage from './pages/ProfilePage'
+import TestimonialsPage from './pages/TestimonialsPage'
+import StudentHubPage from './pages/StudentHubPage'
+import StudentHubTopicPage from './pages/StudentHubTopicPage'
+import StudentHubFaqPage from './pages/StudentHubFaqPage'
+import StudentHubChecklistsPage from './pages/StudentHubChecklistsPage'
+import SkillsPage from './pages/SkillsPage'
+import StudentDebtCalculatorPage from './pages/StudentDebtCalculatorPage'
 import BinderComparePage from './pages/BinderComparePage'
 import LoadingPage from './pages/LoadingPage'
 import QuickAssessmentPage from './pages/QuickAssessmentPage'
@@ -67,6 +81,8 @@ function App() {
   const reset = usePathStore((state) => state.reset)
   const currentUser = useAuthStore((state) => state.currentUser)
   const signOut = useAuthStore((state) => state.signOut)
+  const userProfile = useMyUserProfile()
+  const profileHydratedFor = useUserProfileStore((state) => state.hydratedUserId)
   const compareCount = useCompareStore((state) => state.selectedCompareCards.length)
   const compareSelectionMode = useCompareStore((state) => state.compareSelectionMode)
   const compareSourcePage = useCompareStore((state) => state.compareSourcePage)
@@ -84,6 +100,7 @@ function App() {
   const isRollActive =
     location.pathname === '/job-market/roll' || location.pathname === '/leaderboard' || location.pathname === '/preview/mythic-reveal'
   const isJobMarketActive = location.pathname.startsWith('/job-market')
+  const isStudentHubActive = location.pathname.startsWith('/student-hub')
   // isRollActive forces the dark look here too, not just accessibilitySettings.darkMode -
   // Roll a Job is a fixed "game mode" dark page (JobMarketRollPage.tsx)
   // regardless of the site's own toggle. Without this, the app SHELL (this
@@ -110,6 +127,21 @@ function App() {
   useEffect(() => {
     setShowAccountMenu(false)
   }, [location.pathname])
+
+  // Pull this account's profile (username + equipped title) from Supabase
+  // once per sign-in, so a name set on another device shows up here and the
+  // setup modal below isn't flashed at a player who already has one.
+  useEffect(() => {
+    if (!currentUser) return
+    void useUserProfileStore.getState().hydrateFromSupabase()
+  }, [currentUser?.id])
+
+  // Blocking first-run setup: signed in, profile finished loading, still no
+  // username. "Skip for now" inside the modal assigns a fallback name (and
+  // triggers SetYourNameBanner) so this never becomes a hard lock-out.
+  const needsUsername =
+    !!currentUser && profileHydratedFor === currentUser.id && !userProfile?.username
+  const isPreviewRoute = location.pathname.startsWith('/preview/')
 
   // Selection mode is meant to end when you actually finish with it
   // (Cancel, or leaving /compare - see CompareButton/ComparePage), not the
@@ -263,6 +295,27 @@ function App() {
                 <NavGlowOrbs />
               </div>
             </button>
+            {/* Student Hub - promoted out of the Job Market lobby to its own
+                top-level pill (it's a distinct audience: school leavers and
+                mature learners, not "explore careers"). Plain pill, not the
+                glow treatment, so it sits beside Job Market without competing. */}
+            <button
+              type="button"
+              onClick={() => navigate('/student-hub')}
+              aria-current={isStudentHubActive ? 'page' : undefined}
+              title="Student Hub"
+              className={`inline-flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-full text-sm font-semibold ring-1 transition md:h-auto md:w-auto md:px-4 md:py-2 ${
+                isStudentHubActive
+                  ? 'bg-indigo-600 text-white ring-indigo-600'
+                  : 'bg-white text-indigo-700 ring-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:text-indigo-300 dark:ring-slate-700 dark:hover:bg-slate-700'
+              }`}
+            >
+              <GraduationCap className="h-4 w-4 shrink-0" />
+              <span className="hidden md:inline">Student Hub</span>
+            </button>
+            {/* Achievements / titles standing, sitting right next to the
+                Student Hub pill. */}
+            <RollStandingPanel />
             {/* "I Know My Goal" nav pill (a brief experiment, promoted out
                 of RoleSelectionPage's "Have a career in mind?" card) was
                 removed again - that card is back to being the one door in,
@@ -287,9 +340,28 @@ function App() {
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setShowAccountMenu(false)} />
                     <div className="absolute right-0 top-14 z-50 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg dark:border-slate-700 dark:bg-slate-800">
-                      <p className="truncate px-3 py-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
-                        {currentUser.email}
-                      </p>
+                      <div className="px-3 py-2">
+                        <p className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">
+                          {userProfile?.username ?? currentUser.email}
+                        </p>
+                        {userProfile?.equippedTitleId ? (
+                          <span className="mt-1 inline-flex">
+                            <TitlePill titleId={userProfile.equippedTitleId} tone="light" />
+                          </span>
+                        ) : null}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigate('/profile')
+                          setShowAccountMenu(false)
+                        }}
+                        aria-current={location.pathname === '/profile' ? 'page' : undefined}
+                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-700"
+                      >
+                        <UserRound className="h-4 w-4" />
+                        Profile
+                      </button>
                       <button
                         type="button"
                         onClick={() => {
@@ -350,11 +422,6 @@ function App() {
                 <span className="hidden md:inline">Sign in</span>
               </button>
             )}
-            {/* Titles/Roll Odds standing - visible everywhere in the header
-                now (was Roll a Job page-only at first), same reasoning as
-                every other persistent icon in this cluster: it's about the
-                player's account, not tied to any one page. */}
-            <RollStandingPanel />
             {/* Dark mode toggle is inside the accessibility panel this opens
                 (AccessibilitySettingsPanel.tsx already has a Dark mode tile
                 among its other toggles) - no longer a separate standalone
@@ -377,6 +444,7 @@ function App() {
             </div>
           </div>
         ) : null}
+        {!isFullBleed && !needsUsername ? <SetYourNameBanner /> : null}
         {showAccessibility ? (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-4 py-6 sm:px-6">
             <div className="relative w-full max-w-2xl">
@@ -392,6 +460,9 @@ function App() {
             </div>
           </div>
         ) : null}
+        {/* First-run username setup - blocking, but not on the /preview/*
+            routes (they render components in isolation for QA). */}
+        {needsUsername && !isPreviewRoute ? <UsernameModal /> : null}
         <Routes>
           <Route path="/" element={<LoadingPage />} />
           <Route path="/assessment" element={<QuickAssessmentPage />} />
@@ -437,9 +508,27 @@ function App() {
           <Route path="/job-market/easiest" element={<JobMarketEasiestPage />} />
           <Route path="/job-market/highest-paying" element={<JobMarketHighestPayingPage />} />
           <Route path="/job-market/roll" element={<JobMarketRollPage />} />
+
+          {/* Student Hub - its own top-level section (header nav pill), a
+              lobby of tiles leading to short FAQ pages + the two tools.
+              Specific paths before the generic :topic. */}
+          <Route path="/student-hub" element={<StudentHubPage />} />
+          <Route path="/student-hub/faq" element={<StudentHubFaqPage />} />
+          <Route path="/student-hub/checklists" element={<StudentHubChecklistsPage />} />
+          <Route path="/student-hub/debt-calculator" element={<StudentDebtCalculatorPage />} />
+          <Route path="/student-hub/:topic" element={<StudentHubTopicPage />} />
+          {/* old locations -> new */}
+          <Route path="/job-market/student-hub" element={<Navigate to="/student-hub" replace />} />
+          <Route path="/job-market/student-hub/debt-calculator" element={<Navigate to="/student-hub/debt-calculator" replace />} />
+          <Route path="/job-market/skills" element={<SkillsPage />} />
+          <Route path="/student-hub/skills" element={<Navigate to="/job-market/skills" replace />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
           <Route path="/preview/mythic-reveal" element={<MythicRevealPreviewPage />} />
+          <Route path="/preview/username-modal" element={<UsernameModalPreviewPage />} />
+          <Route path="/preview/titles" element={<TitlesPreviewPage />} />
           <Route path="/binder" element={<MyBinderPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/testimonials" element={<TestimonialsPage />} />
           <Route path="/binder/compare" element={<BinderComparePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

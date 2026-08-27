@@ -11,6 +11,7 @@ import { usePathStore } from '../store/usePathStore'
 import { useAuthStore } from '../store/useAuthStore'
 import { isSupabaseConfigured } from '../lib/supabaseClient'
 import { LEADERBOARD_TOP_N, useLeaderboardEntries, type LeaderboardEntry } from '../store/useLeaderboardStore'
+import TitlePill from '../components/TitlePill'
 
 // A genuinely global leaderboard now (see useLeaderboardStore.ts) - promoted
 // out of /job-market/roll/... to its own top-level /leaderboard route since
@@ -34,6 +35,15 @@ function TierPip({ tier }: { tier: TierKey }) {
   )
 }
 
+/** Display name for a row: the chosen username, or - until that player sets
+ * one - the part of their email before the @ (a handle, not a full address
+ * on a game board). Every row renders the same way regardless. */
+function displayNameFor(entry: LeaderboardEntry): string {
+  if (entry.username) return entry.username
+  const local = entry.email.split('@')[0]
+  return local || entry.email
+}
+
 function LeaderboardRow({ entry, rank, isYou }: { entry: LeaderboardEntry; rank: number; isYou: boolean }) {
   const bestConfig = entry.bestTier ? getTierConfig(entry.bestTier) : null
   return (
@@ -42,19 +52,20 @@ function LeaderboardRow({ entry, rank, isYou }: { entry: LeaderboardEntry; rank:
         isYou ? 'border-amber-400/50 bg-amber-400/10 ring-1 ring-amber-400/30' : 'border-white/10 bg-white/[0.03] hover:bg-white/[0.05]'
       }`}
     >
-      <div className="flex min-w-0 items-center gap-3">
+      <div className="flex min-w-0 flex-1 items-center gap-3">
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-base font-bold text-slate-300">
           {RANK_MEDAL[rank] ?? `#${rank + 1}`}
         </span>
-        <div className="min-w-0">
-          <p className="flex items-center gap-2 truncate font-semibold text-slate-100">
-            <span className="truncate">{entry.email}</span>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1.5">
+            {entry.equippedTitleId ? <TitlePill titleId={entry.equippedTitleId} /> : null}
+            <span className="min-w-0 truncate font-semibold text-slate-100">{displayNameFor(entry)}</span>
             {isYou ? (
               <span className="shrink-0 rounded-full bg-amber-400/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-300">
                 You
               </span>
             ) : null}
-          </p>
+          </div>
           <p className="text-xs text-slate-400">
             {entry.totalRolls} {entry.totalRolls === 1 ? 'roll' : 'rolls'} · Best: {bestConfig ? `${bestConfig.emoji} ${bestConfig.label}` : '—'}
           </p>
@@ -107,7 +118,7 @@ export default function LeaderboardPage() {
         <PageHeader
           icon={Trophy}
           title="Roll a Job Leaderboard"
-          subtitle="Ranked by your best 4 rolls ever, plus every Achievement you've earned - rarer tiers score more, so one Mythic can outweigh a shelf of Commons."
+          subtitle="Ranked by every card you've ever rolled, plus every Achievement you've earned - rarer tiers score more, so keep rolling to climb."
         />
 
         {!isSupabaseConfigured ? (

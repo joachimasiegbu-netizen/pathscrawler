@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronRight, Crown, Dices, Flame, Lock, Skull, Sparkles, Trophy, X } from 'lucide-react'
+import { Check, ChevronRight, Crown, Dices, Flame, Lock, Skull, Sparkles, Trophy, X } from 'lucide-react'
 import { useAuthStore } from '../store/useAuthStore'
 import { useMyBinderCards } from '../store/useBinderStore'
 import { recordTitleUnlock, useLeaderboardEntries } from '../store/useLeaderboardStore'
 import { useMyTitleProgress, useTitleProgressStore, type TitleProgress } from '../store/useTitleProgressStore'
+import { useMyUserProfile, useUserProfileStore } from '../store/useUserProfileStore'
 import { TIERS } from '../utils/careerTiers'
 import { TIER_BAR_COLOR } from '../utils/tierStyles'
 import {
@@ -17,7 +18,7 @@ import {
   type TitleIcon,
   type TitleWithStatus,
 } from '../utils/titles'
-import Toast from './Toast'
+import TitleUnlockToast from './TitleUnlockToast'
 
 const TITLE_ICONS: Record<TitleIcon, typeof Trophy> = {
   crown: Crown,
@@ -115,7 +116,7 @@ function getProgressInfo(title: TitleWithStatus, progress: TitleProgress, common
 // fixed dark-glass look. Styled to match the header's existing dropdowns
 // (the account menu, AccessibilitySettingsPanel) - white/slate-800 panel,
 // slate-200/700 borders - rather than inventing a third dropdown look.
-export default function RollStandingPanel() {
+export default function RollStandingPanel({ align = 'right' }: { align?: 'left' | 'right' }) {
   const navigate = useNavigate()
   const [panelOpen, setPanelOpen] = useState(false)
   const [activeTab, setActiveTab] = useState<'titles' | 'odds'>('titles')
@@ -126,10 +127,13 @@ export default function RollStandingPanel() {
   const currentUser = useAuthStore((state) => state.currentUser)
   const cards = useMyBinderCards()
   const progress = useMyTitleProgress()
+  const profile = useMyUserProfile()
+  const equipTitle = useUserProfileStore((state) => state.equipTitle)
+  const equippedTitleId = profile?.equippedTitleId ?? null
   const { entries: leaderboardEntries } = useLeaderboardEntries()
   const yourRank = currentUser ? leaderboardEntries.findIndex((entry) => entry.userId === currentUser.id) : -1
 
-  const titles = getTitlesWithStatus(progress)
+  const titles = getTitlesWithStatus(progress, !!currentUser)
   const earnedCount = titles.filter((t) => t.unlocked).length
   const commonCollectedCount = new Set(cards.map((card) => card.careerId).filter((id) => COMMON_CAREER_IDS.has(id))).size
 
@@ -160,7 +164,9 @@ export default function RollStandingPanel() {
   // finishes) so a title never re-queues itself on a re-render before its
   // toast has shown.
   useEffect(() => {
-    const newlyUnlocked = titles.filter((title) => title.unlocked && !progress.seenTitleIds.includes(title.id))
+    const newlyUnlocked = titles.filter(
+      (title) => title.unlocked && title.id !== 'trainee' && !progress.seenTitleIds.includes(title.id),
+    )
     if (newlyUnlocked.length === 0) return
     newlyUnlocked.forEach((title) => useTitleProgressStore.getState().markTitleSeen(title.id))
     setToastQueue((current) => [...current, ...newlyUnlocked])
@@ -205,7 +211,7 @@ export default function RollStandingPanel() {
 
   useEffect(() => {
     if (!activeToast) return
-    const timeout = window.setTimeout(() => setActiveToast(null), 4000)
+    const timeout = window.setTimeout(() => setActiveToast(null), 5000)
     return () => window.clearTimeout(timeout)
   }, [activeToast])
 
@@ -233,7 +239,7 @@ export default function RollStandingPanel() {
       {panelOpen ? (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setPanelOpen(false)} />
-          <div className="absolute right-0 top-14 z-50 w-[min(92vw,380px)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800">
+          <div className={`absolute ${align === 'left' ? 'left-0' : 'right-0'} top-14 z-50 w-[min(92vw,380px)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800`}>
             <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-slate-700">
               <div className="flex items-center gap-2">
                 <Trophy className="h-4 w-4 text-secondary-dark dark:text-secondary-light" />
@@ -275,10 +281,12 @@ export default function RollStandingPanel() {
 
             <div className="max-h-[60vh] overflow-y-auto">
               {!currentUser ? (
-                <p className="p-6 text-center text-xs text-slate-400 dark:text-slate-500">Sign in to start earning titles.</p>
+                <p className="p-6 text-center text-xs text-slate-400 dark:text-slate-500">Sign in to start earning titles and points.</p>
               ) : activeTab === 'titles' ? (
                 <TitlesTab
                   titles={titles}
+                  equippedTitleId={equippedTitleId}
+                  onEquip={equipTitle}
                   onSelect={(title) => {
                     setPanelOpen(false)
                     setSelectedTitle(title)
@@ -296,12 +304,21 @@ export default function RollStandingPanel() {
         </>
       ) : null}
 
-      {activeToast ? <Toast message={`🏆 Title unlocked: ${activeToast.name} — ${activeToast.subtitle}`} type="success" /> : null}
+      {activeToast ? (
+        <TitleUnlockToast
+          title={activeToast}
+          isEquipped={equippedTitleId === activeToast.id}
+          onEquip={() => equipTitle(activeToast.id)}
+          onDismiss={() => setActiveToast(null)}
+        />
+      ) : null}
 
       {selectedTitle ? (
         <TitleDetailModal
           title={selectedTitle}
           progress={getProgressInfo(selectedTitle, progress, commonCollectedCount, yourRank)}
+          isEquipped={equippedTitleId === selectedTitle.id}
+          onEquip={() => equipTitle(equippedTitleId === selectedTitle.id ? null : selectedTitle.id)}
           onClose={() => setSelectedTitle(null)}
         />
       ) : null}
@@ -311,10 +328,14 @@ export default function RollStandingPanel() {
 
 function TitlesTab({
   titles,
+  equippedTitleId,
+  onEquip,
   onSelect,
   onNavigate,
 }: {
   titles: TitleWithStatus[]
+  equippedTitleId: string | null
+  onEquip: (titleId: string | null) => void
   onSelect: (title: TitleWithStatus) => void
   onNavigate: (path: string) => void
 }) {
@@ -326,6 +347,21 @@ function TitlesTab({
         </p>
       </div>
 
+      {/* "None" - unequip and show just the username. Highlighted like an
+          equipped row when nothing is equipped. */}
+      <button
+        type="button"
+        onClick={() => onEquip(null)}
+        className={`flex w-full items-center justify-between rounded-xl border p-3 text-left text-sm transition ${
+          equippedTitleId === null
+            ? 'border-amber-400/70 bg-amber-50 ring-2 ring-amber-400/40 dark:border-amber-400/60 dark:bg-amber-400/10'
+            : 'border-slate-200 bg-slate-50 hover:bg-slate-100 dark:border-slate-700 dark:bg-white/5 dark:hover:bg-white/10'
+        }`}
+      >
+        <span className="font-semibold text-slate-700 dark:text-slate-200">No title</span>
+        {equippedTitleId === null ? <Check className="h-4 w-4 text-amber-500" /> : null}
+      </button>
+
       {titles.map((title) => {
         const Icon = TITLE_ICONS[title.icon]
         // Hidden titles show NOTHING identifying until earned - not even
@@ -336,54 +372,72 @@ function TitlesTab({
         // full - nothing stays masked after it's actually been earned.
         const displayName = title.isHidden && !title.unlocked ? '???' : title.name
         const conditionLine = title.unlocked ? title.condition : undefined
+        const isEquipped = title.unlocked && equippedTitleId === title.id
         return (
-          <button
-            type="button"
+          // Row is a flex container, not one big button - the details view
+          // and the Equip action are two separate targets (nested buttons
+          // aren't valid HTML).
+          <div
             key={title.id}
-            onClick={() => onSelect(title)}
-            // Rows are real buttons already, but nothing about a flat
-            // bordered card actually READS as clickable at rest - per
-            // explicit request, added a persistent chevron (a standard
-            // "tap for more" affordance, not just a hover-only cue) plus a
-            // visible hover/press state (background tint + slight scale-
-            // down on tap, not just the old border-color-only hover).
-            className={`group flex w-full items-center gap-3 rounded-xl border p-3 text-left transition hover:border-secondary/50 hover:bg-secondary/5 active:scale-[0.98] dark:hover:bg-secondary/10 ${
-              title.unlocked
-                ? 'border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-white/5'
-                : 'border-slate-100 bg-slate-50/60 opacity-60 hover:opacity-90 dark:border-slate-800 dark:bg-black/20'
+            className={`group flex w-full items-center gap-2.5 rounded-xl border p-3 text-left transition ${
+              isEquipped
+                ? 'border-amber-400/70 bg-amber-50 ring-2 ring-amber-400/40 dark:border-amber-400/60 dark:bg-amber-400/10'
+                : title.unlocked
+                  ? 'border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-white/5'
+                  : 'border-slate-100 bg-slate-50/60 opacity-60 dark:border-slate-800 dark:bg-black/20'
             }`}
           >
-            <div
-              className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg ${
-                title.unlocked
-                  ? 'bg-secondary/15 text-secondary-dark dark:bg-secondary/20 dark:text-secondary-light'
-                  : 'bg-slate-200/70 text-slate-400 dark:bg-white/5 dark:text-white/20'
-              }`}
+            <button
+              type="button"
+              onClick={() => onSelect(title)}
+              className="flex min-w-0 flex-1 items-center gap-3 text-left"
             >
-              {title.unlocked ? <Icon className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
-            </div>
-
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <span className={`truncate text-sm font-bold ${title.unlocked ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-white/50'}`}>
-                  {displayName}
-                </span>
-                {title.unlocked && title.isHidden ? (
-                  <span className="rounded border border-purple-400/40 bg-purple-100 px-1.5 py-0.5 text-[10px] text-purple-700 dark:border-purple-500/30 dark:bg-purple-500/20 dark:text-purple-300">
-                    SECRET
-                  </span>
-                ) : null}
+              <div
+                className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg ${
+                  title.unlocked
+                    ? 'bg-secondary/15 text-secondary-dark dark:bg-secondary/20 dark:text-secondary-light'
+                    : 'bg-slate-200/70 text-slate-400 dark:bg-white/5 dark:text-white/20'
+                }`}
+              >
+                {title.unlocked ? <Icon className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
               </div>
-              {conditionLine ? <p className="truncate text-[11px] text-slate-400 dark:text-white/30">{conditionLine}</p> : null}
-            </div>
 
-            <span className="flex shrink-0 items-center gap-1.5">
-              {title.unlocked ? (
-                <span className="text-xs font-mono text-secondary-dark/70 dark:text-secondary-light/60">#{String(title.rank).padStart(2, '0')}</span>
-              ) : null}
-              <ChevronRight className="h-4 w-4 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-secondary-dark dark:text-slate-600 dark:group-hover:text-secondary-light" />
-            </span>
-          </button>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <span className={`truncate text-sm font-bold ${title.unlocked ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-white/50'}`}>
+                    {displayName}
+                  </span>
+                  {title.unlocked && title.isHidden ? (
+                    <span className="rounded border border-purple-400/40 bg-purple-100 px-1.5 py-0.5 text-[10px] text-purple-700 dark:border-purple-500/30 dark:bg-purple-500/20 dark:text-purple-300">
+                      SECRET
+                    </span>
+                  ) : null}
+                </div>
+                {conditionLine ? <p className="truncate text-[11px] text-slate-400 dark:text-white/30">{conditionLine}</p> : null}
+              </div>
+            </button>
+
+            {title.unlocked ? (
+              <button
+                type="button"
+                onClick={() => onEquip(isEquipped ? null : title.id)}
+                aria-pressed={isEquipped}
+                className={`flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-bold uppercase tracking-wide transition ${
+                  isEquipped
+                    ? 'bg-amber-400 text-black hover:bg-amber-300'
+                    : 'border border-secondary/40 text-secondary-dark hover:bg-secondary/10 dark:text-secondary-light'
+                }`}
+              >
+                {isEquipped ? <Check className="h-3 w-3" /> : null}
+                {isEquipped ? 'Equipped' : 'Equip'}
+              </button>
+            ) : (
+              <span className="flex shrink-0 items-center gap-1.5 pr-1">
+                <span className="font-mono text-xs text-secondary-dark/70 dark:text-secondary-light/60">#{String(title.rank).padStart(2, '0')}</span>
+                <ChevronRight className="h-4 w-4 text-slate-300 dark:text-slate-600" />
+              </span>
+            )}
+          </div>
         )
       })}
 
@@ -476,10 +530,14 @@ function OddsTab() {
 function TitleDetailModal({
   title,
   progress,
+  isEquipped,
+  onEquip,
   onClose,
 }: {
   title: TitleWithStatus
   progress: TitleProgressInfo | null
+  isEquipped: boolean
+  onEquip: () => void
   onClose: () => void
 }) {
   const Icon = TITLE_ICONS[title.icon]
@@ -517,6 +575,18 @@ function TitleDetailModal({
           {title.unlocked && title.isHidden ? (
             <span className="rounded border border-purple-400/40 bg-purple-100 px-1.5 py-0.5 text-[10px] text-purple-700 dark:border-purple-500/30 dark:bg-purple-500/20 dark:text-purple-300">
               SECRET
+            </span>
+          ) : null}
+          {!isMystery ? (
+            <span
+              className="rounded border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
+              style={{
+                color: title.color === '#ffffff' ? '#64748b' : title.color,
+                borderColor: `${title.color === '#ffffff' ? '#94a3b8' : title.color}66`,
+                backgroundColor: `${title.color === '#ffffff' ? '#94a3b8' : title.color}22`,
+              }}
+            >
+              {title.difficulty}
             </span>
           ) : null}
         </div>
@@ -564,6 +634,21 @@ function TitleDetailModal({
             <p className={`text-xs font-semibold ${title.unlocked ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}`}>
               {title.unlocked ? '✓ Unlocked' : 'Not yet unlocked'}
             </p>
+
+            {title.unlocked ? (
+              <button
+                type="button"
+                onClick={onEquip}
+                className={`flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
+                  isEquipped
+                    ? 'bg-amber-400 text-black hover:bg-amber-300'
+                    : 'bg-primary text-white hover:bg-primary-dark'
+                }`}
+              >
+                {isEquipped ? <Check className="h-4 w-4" /> : null}
+                {isEquipped ? 'Equipped — tap to remove' : 'Equip this title'}
+              </button>
+            ) : null}
           </div>
         )}
       </div>

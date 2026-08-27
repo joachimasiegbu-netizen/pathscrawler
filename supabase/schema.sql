@@ -18,10 +18,14 @@
 --                       view.
 --   user_best_cards  - one row per player, auto-maintained by the trigger
 --                       below every time a row lands in EITHER `rolls` OR
---                       `title_unlocks`: their top 4 rolls by points, the
---                       score those sum to PLUS every earned title's own
---                       points, their lifetime roll count, and their best
---                       tier ever. This is the table the leaderboard page
+--                       `title_unlocks`: their top 4 rolls by points (kept
+--                       purely for the leaderboard's "best cards" display),
+--                       their lifetime roll count, and their best tier ever.
+--                       The score itself is now the sum of EVERY roll
+--                       they've ever made (not just those top 4) PLUS every
+--                       earned title's own points - "every card you roll
+--                       adds points to your standing", not just your
+--                       luckiest few. This is the table the leaderboard page
 --                       actually reads - the client never aggregates
 --                       `rolls`/`title_unlocks` itself.
 
@@ -135,6 +139,9 @@ declare
   v_total integer;
   v_best_tier text;
 begin
+  -- Still just the top 4 by points - this is ONLY for the leaderboard's
+  -- "best cards" showcase now, not the score itself (see v_roll_score
+  -- just below).
   select coalesce(jsonb_agg(t), '[]'::jsonb) into v_top
   from (
     select career_id as "careerId", title, tier, points, rolled_at as "rolledAt"
@@ -144,18 +151,18 @@ begin
     limit 4
   ) t;
 
+  -- Every roll counts now, not just the best 4 - "every card you roll adds
+  -- points to your standing" per explicit request. No order/limit here on
+  -- purpose (that's what made this a top-4-only score before); a full sum
+  -- over every row this account has ever rolled.
   select coalesce(sum(points), 0) into v_roll_score
-  from (
-    select points from public.rolls
-    where user_id = p_user_id
-    order by points desc, rolled_at desc
-    limit 4
-  ) top4;
+  from public.rolls
+  where user_id = p_user_id;
 
   -- Titles count toward the leaderboard score too now - every EARNED
-  -- title's own points (titles.ts), on top of the best-4-rolls score
-  -- above, not folded into the top_cards/top-4 set itself (titles aren't
-  -- rolls, they don't have a tier to show as one of those 4 pips).
+  -- title's own points (titles.ts), on top of the all-rolls score above,
+  -- not folded into the top_cards/top-4 set itself (titles aren't rolls,
+  -- they don't have a tier to show as one of those 4 pips).
   select coalesce(sum(points), 0) into v_title_score
   from public.title_unlocks
   where user_id = p_user_id;
@@ -254,13 +261,13 @@ end $$;
 
 -- One-off backfill - recomputes every existing player's row through the
 -- shared function above, so anyone whose score/best_tier was already
--- computed by an older version of this file (missing titles entirely, or
--- the missing-Celestial best_tier bug from before) gets corrected
--- immediately rather than waiting on their next roll/title. Safe to
--- re-run any time - title_unlocks starts empty for everyone on this
--- migration, so this specific run only changes best_tier/score
--- consistency for existing rolls, but it's what future re-runs of this
--- whole file will also fall back on to catch up any other backfill need.
+-- computed by an older version of this file (missing titles entirely, the
+-- missing-Celestial best_tier bug from before, or - as of this version -
+-- the old top-4-only scoring) gets corrected immediately rather than
+-- waiting on their next roll/title. Safe to re-run any time. Re-running
+-- this specific version is what actually applies the "every roll counts"
+-- change retroactively to everyone's existing roll history, not just
+-- rolls made after this file is re-run.
 do $$
 declare
   r record;
@@ -268,4 +275,72 @@ begin
   for r in select distinct user_id, email from public.rolls loop
     perform public.refresh_user_best_cards_for(r.user_id, r.email);
   end loop;
+end $$;
+
+
+-- ===========================================================================
+-- profiles - one row per player: their chosen display name and which of
+-- their unlocked titles (title_unlocks / titles.ts) they've equipped to show
+-- next to it. Written by the client (useUserProfileStore.ts) via upsert;
+-- read publicly so the leaderboard can show every player's name + title, not
+-- just the signed-in viewer's own. The client keeps a localStorage mirror
+-- for its own name, but THIS table is the source of truth across devices and
+-- the only place other players' names come from.
+-- ===========================================================================
+create table if not exists public.profiles (
+  user_id uuid primary key references auth.users (id) on delete cascade,
+  email text not null,
+  username text not null,
+  -- Title id string (e.g. 'icarus'), or null for "show no title". Not a FK -
+  -- titles are app-side data (titles.ts), not a DB table.
+  equipped_title_id text,
+  -- True when `username` was auto-assigned because the player skipped the
+  -- setup modal - the client shows a "Set your name" banner while this holds.
+  is_fallback_name boolean not null default false,
+  updated_at timestamptz not null default now(),
+  -- Server-side backstop for the format rules the client enforces in
+  -- usernameValidation.ts (3-20 chars; letters/numbers/spaces/_/-; no
+  -- leading/trailing or double spaces; not digits-only; not a reserved
+  -- word). The profanity deny-list is client-side only for now - a trigger
+  -- or edge function reproducing that list is the follow-up backstop.
+  constraint profiles_username_format check (
+    char_length(username) between 3 and 20
+    and username ~ '^[A-Za-z0-9_ -]+$'
+    and username !~ '  '
+    and username !~ '^ '
+    and username !~ ' $'
+    and username !~ '^[0-9]+$'
+    and lower(username) <> all (array['admin', 'support', 'official', 'pathscrawler', 'mod'])
+  )
+);
+
+-- Case-insensitive uniqueness: "Joachim" and "joachim" are the same handle.
+create unique index if not exists profiles_username_lower_key on public.profiles (lower(username));
+
+alter table public.profiles enable row level security;
+
+-- Public read (the leaderboard shows everyone's name/title); a player can
+-- only write their own row.
+drop policy if exists "Public can read profiles" on public.profiles;
+create policy "Public can read profiles" on public.profiles
+  for select using (true);
+
+drop policy if exists "Users insert their own profile" on public.profiles;
+create policy "Users insert their own profile" on public.profiles
+  for insert to authenticated with check (auth.uid() = user_id);
+
+drop policy if exists "Users update their own profile" on public.profiles;
+create policy "Users update their own profile" on public.profiles
+  for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- Realtime so an equipped-title or name change shows on every open
+-- leaderboard within moments, same as user_best_cards above.
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'profiles'
+  ) then
+    alter publication supabase_realtime add table public.profiles;
+  end if;
 end $$;

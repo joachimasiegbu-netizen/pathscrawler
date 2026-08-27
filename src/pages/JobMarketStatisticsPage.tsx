@@ -9,6 +9,9 @@ import {
   Bot,
   ChevronDown,
   ExternalLink,
+  Ghost,
+  Hammer,
+  Layers,
   LineChart as LineChartIcon,
   ListChecks,
   PieChart as PieChartIcon,
@@ -171,8 +174,40 @@ function TrendingRow({ item, navigate }: { item: TrendingJob; navigate: Navigate
 
 const LAST_UPDATED = jobMarketData.lastUpdated
 
+// The four labour-market deep dives, grouped behind one "More UK labour data"
+// toggle at the bottom of the page. AI Endangered Jobs used to be its own
+// standalone button mid-page; it lives here now so the same link isn't shown
+// twice. Routes are all real (see App.tsx).
+const MORE_LABOUR_PAGES = [
+  {
+    to: '/job-market/statistics/ai-endangered-jobs',
+    icon: Bot,
+    title: 'AI Endangered Jobs',
+    description: 'Which real UK roles are most exposed to AI and automation right now.',
+  },
+  {
+    to: '/job-market/statistics/uk-numbers/heritage-crafts',
+    icon: Hammer,
+    title: 'Endangered & Heritage Crafts',
+    description: 'Real crafts dying out, and the ones you can still train for.',
+  },
+  {
+    to: '/job-market/statistics/uk-numbers/high-demand-careers',
+    icon: TrendingUp,
+    title: 'Skills Shortages & Demand',
+    description: 'Every PathScrawler career in a genuine UK skills-shortage field.',
+  },
+  {
+    to: '/job-market/statistics/uk-numbers/vanished-jobs',
+    icon: Ghost,
+    title: 'Vanished Jobs',
+    description: 'Jobs that used to exist and simply do not anymore.',
+  },
+]
+
 export default function JobMarketStatisticsPage() {
   const navigate = useNavigate()
+  const [moreDataOpen, setMoreDataOpen] = useState(false)
 
   // Shuffled once per mount - the ticker used to list every trendingUp
   // item before any trendingDown one (all green, then all red), which read
@@ -280,25 +315,6 @@ export default function JobMarketStatisticsPage() {
         </div>
       </RevealSection>
 
-      <RevealSection>
-        <button
-          type="button"
-          onClick={() => navigate('/job-market/statistics/ai-endangered-jobs')}
-          className="flex w-full flex-wrap items-center justify-between gap-3 rounded-3xl bg-gradient-to-br from-red-50 via-white to-white px-8 py-6 text-left shadow-soft ring-1 ring-red-200 transition hover:-translate-y-0.5 hover:shadow-lg dark:from-red-950/30 dark:via-slate-800 dark:to-slate-900 dark:ring-red-900/60"
-        >
-          <span className="flex items-center gap-3">
-            <Bot className="h-6 w-6 shrink-0 text-red-600 dark:text-red-400" aria-hidden="true" />
-            <span>
-              <span className="block text-lg font-bold text-slate-950 dark:text-slate-50">Jobs endangered by AI</span>
-              <span className="mt-0.5 block text-sm text-slate-600 dark:text-slate-300">
-                Which real UK roles are most exposed to AI and automation right now.
-              </span>
-            </span>
-          </span>
-          <ArrowRight className="h-5 w-5 shrink-0 text-red-600 dark:text-red-400" aria-hidden="true" />
-        </button>
-      </RevealSection>
-
       <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <BarChart3 className="h-5 w-5" />
@@ -341,6 +357,51 @@ export default function JobMarketStatisticsPage() {
         <div className="mt-5">
           <SectorDonutChart data={jobMarketData.sectorDistribution} />
         </div>
+      </RevealSection>
+
+      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+        <button
+          type="button"
+          onClick={() => setMoreDataOpen((open) => !open)}
+          aria-expanded={moreDataOpen}
+          className="flex w-full items-center justify-between gap-3 text-left"
+        >
+          <span className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
+            <Layers className="h-5 w-5" aria-hidden="true" />
+            More UK labour data
+          </span>
+          <ChevronDown
+            className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-150 ${moreDataOpen ? 'rotate-180' : ''}`}
+            aria-hidden="true"
+          />
+        </button>
+
+        {moreDataOpen ? (
+          <>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              The rest of PathScrawler's labour-market deep dives.
+            </p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {MORE_LABOUR_PAGES.map(({ to, icon: Icon, title, description }) => (
+                <button
+                  key={to}
+                  type="button"
+                  onClick={() => navigate(to)}
+                  className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white/70 p-4 text-left transition-all duration-150 hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md dark:border-slate-700 dark:bg-slate-900/70 dark:hover:border-primary/50"
+                >
+                  <span className="flex items-center gap-3">
+                    <Icon className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                    <span>
+                      <span className="block text-sm font-bold text-slate-950 dark:text-slate-50">{title}</span>
+                      <span className="mt-0.5 block text-xs text-slate-600 dark:text-slate-300">{description}</span>
+                    </span>
+                  </span>
+                  <ArrowRight className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+          </>
+        ) : null}
       </RevealSection>
 
       <RevealSection className="text-center text-xs text-slate-400 dark:text-slate-500">

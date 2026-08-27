@@ -10,17 +10,23 @@ import { useAuthStore } from './useAuthStore'
 // It's real Supabase data now: every roll a signed-in player makes is
 // inserted as its own row into the `rolls` table, and a database trigger
 // (see supabase/schema.sql) maintains one summary row per player in
-// `user_best_cards` - their top 4 rolls by points, the score those sum to,
-// their lifetime roll count, and their best tier ever. The client never
-// computes any of that itself; it only ever appends raw roll events and
-// reads the already-aggregated leaderboard back.
+// `user_best_cards` - their top 4 rolls by points (kept purely for the
+// leaderboard's "best cards" display, see LEADERBOARD_TOP_N below), their
+// lifetime roll count, and their best tier ever. The score itself is the
+// sum of EVERY roll they've ever made (not just those top 4) plus every
+// earned title's own points - "every card you roll adds points to your
+// standing" per explicit request, not just your luckiest few. The client
+// never computes any of that itself; it only ever appends raw roll events
+// and reads the already-aggregated leaderboard back.
 //
 // RLS on both tables (see the same schema file) means: anyone can READ the
 // leaderboard, signed in or not (that's the point of a leaderboard), but a
 // player can only ever INSERT rolls under their own account - nobody can
 // write a fake score for someone else.
 
-/** How many of a player's best rolls make up their score - "your top 4". */
+/** How many of a player's best rolls show in the leaderboard's tier-pip
+ * showcase (LeaderboardPage.tsx) - display only now, NOT the score (see
+ * the file banner comment above); the actual score sums every roll. */
 export const LEADERBOARD_TOP_N = 4
 
 export interface LeaderboardCard {
@@ -34,6 +40,13 @@ export interface LeaderboardCard {
 export interface LeaderboardEntry {
   userId: string
   email: string
+  /** Display name from the `profiles` table (useUserProfileStore.ts).
+   * Undefined for a player who has rolled but never set one - the UI falls
+   * back to email in that case. */
+  username?: string
+  /** Equipped title id (titles.ts) from `profiles`, or null/undefined for
+   * "no title". Drives the TitlePill next to the name on the board. */
+  equippedTitleId?: string | null
   score: number
   topRolls: LeaderboardCard[]
   totalRolls: number
@@ -150,6 +163,12 @@ let sharedChannel: RealtimeChannel | null = null
 let subscriberCount = 0
 const listeners = new Set<() => void>()
 
+// Set true the first time the `profiles` join comes back "table doesn't
+// exist" (a deployment that hasn't re-run schema.sql yet). Stops the join
+// being retried on every refetch - without it the console fills with the
+// same PostgREST error on every roll anyone makes.
+let profilesJoinDisabled = false
+
 function notifyListeners() {
   listeners.forEach((listener) => listener())
 }
@@ -173,7 +192,53 @@ async function fetchSharedEntries() {
     return
   }
   const rows = (data ?? []) as UserBestCardsRow[]
-  sharedEntries = rows.map(rowToEntry).sort(compareEntries)
+  const entries = rows.map(rowToEntry)
+
+  // Second, independent read: the `profiles` table (useUserProfileStore.ts)
+  // holds every player's chosen name + equipped title. Merged in by user_id
+  // rather than joined server-side so a missing/empty `profiles` table (a
+  // deployment that hasn't re-run schema.sql yet) just degrades to
+  // email-only rows instead of failing the whole board. This runs on every
+  // refetch, so a name/title change picks up on the next roll anyone makes
+  // (no dedicated realtime binding for `profiles` on purpose - see
+  // acquireSharedSubscription).
+  if (entries.length > 0 && !profilesJoinDisabled) {
+    const { data: profileData, error: profileError } = await supabase
+      .from('profiles')
+      .select('user_id, username, equipped_title_id')
+      .in(
+        'user_id',
+        entries.map((entry) => entry.userId),
+      )
+    if (profileError) {
+      // 42P01 = undefined_table; PGRST205 = "table not in the schema cache".
+      // Either way the table isn't there yet - stop retrying the join
+      // rather than logging this on every future refetch.
+      if (
+        profileError.code === '42P01' ||
+        profileError.code === 'PGRST205' ||
+        /schema cache|does not exist/i.test(profileError.message ?? '')
+      ) {
+        profilesJoinDisabled = true
+      } else {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load leaderboard profiles:', profileError.message)
+      }
+    } else {
+      const byId = new Map(
+        (profileData ?? []).map((row) => [row.user_id as string, row as { username: string | null; equipped_title_id: string | null }]),
+      )
+      for (const entry of entries) {
+        const profile = byId.get(entry.userId)
+        if (profile) {
+          entry.username = profile.username ?? undefined
+          entry.equippedTitleId = profile.equipped_title_id
+        }
+      }
+    }
+  }
+
+  sharedEntries = entries.sort(compareEntries)
   sharedLoading = false
   notifyListeners()
 }
@@ -185,6 +250,16 @@ function acquireSharedSubscription() {
   // Any insert/update on ANY row (not just this user's) should refresh the
   // whole board - a roll on a different device is exactly the case this
   // subscription exists for.
+  // ONE postgres_changes binding on this channel, deliberately. An earlier
+  // version added a second binding for the `profiles` table here - but a
+  // binding for a table that isn't in the `supabase_realtime` publication
+  // (which `profiles` isn't until schema.sql is re-run) puts the WHOLE
+  // channel into CHANNEL_ERROR, silently killing the user_best_cards live
+  // updates too. `profiles` changes are instead picked up by the join in
+  // fetchSharedEntries on the next user_best_cards event / page load, which
+  // is a fine trade for not risking the core live feed again (see this
+  // file's top banner for the last time a channel bug here caused real
+  // damage).
   sharedChannel = supabase
     .channel('leaderboard-user-best-cards')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'user_best_cards' }, () => {

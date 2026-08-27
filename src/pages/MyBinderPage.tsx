@@ -8,7 +8,9 @@ import BinderStatsPanel from '../components/BinderStatsPanel'
 import FloatingCompareButton from '../components/FloatingCompareButton'
 import Toast from '../components/Toast'
 import Button from '../components/Button'
+import TitlePill from '../components/TitlePill'
 import { useAuthStore } from '../store/useAuthStore'
+import { useMyUserProfile } from '../store/useUserProfileStore'
 import { useBinderStore, useMyBinderCards } from '../store/useBinderStore'
 import { groupBinderCards, type GroupedBinderCard } from '../utils/binderGrouping'
 import { TIERS, parseSalaryAvg, type TierKey } from '../utils/careerTiers'
@@ -47,6 +49,7 @@ export default function MyBinderPage() {
   const navigate = useNavigate()
   const currentUser = useAuthStore((state) => state.currentUser)
   const isAuthLoading = useAuthStore((state) => state.isLoading)
+  const profile = useMyUserProfile()
   const cards = useMyBinderCards()
   const binderSelectionMode = useBinderStore((state) => state.binderSelectionMode)
   const selectedBinderCards = useBinderStore((state) => state.selectedBinderCards)
@@ -178,6 +181,12 @@ export default function MyBinderPage() {
           <BookOpen className="h-8 w-8 shrink-0 text-accent" aria-hidden="true" />
           <div>
             <h1 className="text-2xl font-bold text-slate-950 dark:text-white sm:text-3xl">My Career Binder</h1>
+            {profile?.username ? (
+              <p className="mt-0.5 flex items-center gap-1.5 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                {profile.equippedTitleId ? <TitlePill titleId={profile.equippedTitleId} tone="light" /> : null}
+                {profile.username}
+              </p>
+            ) : null}
             <p className="text-sm text-slate-600 dark:text-slate-400">Careers you've collected from Roll a Job</p>
           </div>
         </div>

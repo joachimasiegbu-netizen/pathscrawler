@@ -163,15 +163,24 @@ export default function ResultPage() {
                         Your dream career
                       </div>
                     ) : null}
-                    {isDisabledLearner && career.supportTags?.length ? (
-                      <div className="flex flex-wrap gap-2">
-                        {career.supportTags.map((tag: string) => (
-                          <span key={tag} className="rounded-full bg-primary-soft/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary-dark dark:bg-primary/15 dark:text-primary-light">
-                            {badgeLabelMap[tag] || tag}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
+                    {(() => {
+                      // Only the support tags that match what the learner
+                      // actually picked (supportTags is derived from their
+                      // supportNeeds selection) - not every accessibility tag
+                      // the career happens to carry.
+                      const matchedTags = isDisabledLearner
+                        ? (career.supportTags ?? []).filter((tag: string) => supportTags.includes(tag))
+                        : []
+                      return matchedTags.length > 0 ? (
+                        <div className="flex flex-wrap gap-2">
+                          {matchedTags.map((tag: string) => (
+                            <span key={tag} className="rounded-full bg-primary-soft/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-primary-dark dark:bg-primary/15 dark:text-primary-light">
+                              {badgeLabelMap[tag] || tag}
+                            </span>
+                          ))}
+                        </div>
+                      ) : null
+                    })()}
 
                     <div>
                       <p className="font-semibold text-slate-900 dark:text-slate-100">Matched because you selected:</p>

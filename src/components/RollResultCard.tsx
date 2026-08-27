@@ -11,9 +11,11 @@ import { useAuthStore } from '../store/useAuthStore'
 import { useBinderStore, useMyBinderCards } from '../store/useBinderStore'
 import { useRollStore } from '../store/useRollStore'
 import { usePathStore } from '../store/usePathStore'
+import { useMyUserProfile } from '../store/useUserProfileStore'
 import AuthPromptModal from './AuthPromptModal'
 import CardParticles from './CardParticles'
 import RarityInfoModal from './RarityInfoModal'
+import TitlePill from './TitlePill'
 import Toast from './Toast'
 
 interface RollResultCardProps {
@@ -42,6 +44,7 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
   const navigate = useNavigate()
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
   const currentUser = useAuthStore((state) => state.currentUser)
+  const profile = useMyUserProfile()
   const addCard = useBinderStore((state) => state.addCard)
   const binderCards = useMyBinderCards()
   const [toast, setToast] = useState<string | null>(null)
@@ -177,7 +180,18 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
 
         <motion.div
           ref={cardRef}
-          onClick={() => navigate(`/career/${career.id}`, { state: { from: 'roll' } })}
+          // stopPropagation: without it, this click also bubbles up to
+          // JobMarketRollPage's own outer "click anywhere outside the
+          // card to dismiss" handler, which fires dismiss() in the same
+          // tick and clears activeResultCareerId (useRollStore) right as
+          // the user navigates away - so the "resume the card you
+          // rolled" restore-on-Back effect found nothing left to
+          // restore. Stopping it here keeps the click-through-to-detail
+          // and click-to-dismiss actions from firing on the same click.
+          onClick={(event) => {
+            event.stopPropagation()
+            navigate(`/career/${career.id}`, { state: { from: 'roll' } })
+          }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           style={
@@ -224,6 +238,21 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
           >
             <X className="h-4 w-4" />
           </button>
+
+          {/* Owner watermark - who rolled this card + their equipped title.
+              Reads as attribution when the card is screenshotted/shared
+              (spec: "Top corner watermark"). Only for the signed-in player's
+              own roll. */}
+          {currentUser && profile?.username ? (
+            <div className="relative z-10 mb-2 flex items-center gap-1.5 pr-8">
+              {profile.equippedTitleId ? (
+                <TitlePill titleId={profile.equippedTitleId} tone={isMythic ? 'dark' : 'light'} />
+              ) : null}
+              <span className={`truncate text-[11px] font-semibold ${isMythic ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>
+                {profile.username}
+              </span>
+            </div>
+          ) : null}
 
           <h2
             className={`relative z-10 text-3xl font-bold leading-tight ${isMythic ? 'text-white' : 'text-slate-950 dark:text-slate-50'}`}

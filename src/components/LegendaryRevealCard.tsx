@@ -149,7 +149,16 @@ export default function LegendaryRevealCard({ career, onRollAgain }: LegendaryRe
         className="relative mx-auto flex w-full max-w-md flex-col items-center"
       >
         <div
-          onClick={() => navigate(`/career/${career.id}`, { state: { from: 'roll' } })}
+          // stopPropagation: same fix as RollResultCard.tsx's own reveal
+          // card - without it, this click also bubbles up to
+          // JobMarketRollPage's "click outside to dismiss" handler,
+          // which clears activeResultCareerId (useRollStore) in the same
+          // tick, breaking the "resume the card you rolled" restore on
+          // Back.
+          onClick={(event) => {
+            event.stopPropagation()
+            navigate(`/career/${career.id}`, { state: { from: 'roll' } })
+          }}
           className="legendary-reveal-card tier-holographic bg-gradient-to-br from-cyan-50 via-white to-cyan-100 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-950"
         >
           <Icon className="legendary-reveal-icon" aria-hidden="true" />

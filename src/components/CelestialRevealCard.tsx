@@ -273,7 +273,16 @@ export default function CelestialRevealCard({ career, onRollAgain }: CelestialRe
               className="relative"
             >
               <div
-                onClick={() => navigate(`/career/${career.id}`, { state: { from: 'roll' } })}
+                // stopPropagation: same fix as RollResultCard.tsx's own
+                // reveal card - without it, this click also bubbles up
+                // to JobMarketRollPage's "click outside to dismiss"
+                // handler, which clears activeResultCareerId
+                // (useRollStore) in the same tick, breaking the "resume
+                // the card you rolled" restore on Back.
+                onClick={(event) => {
+                  event.stopPropagation()
+                  navigate(`/career/${career.id}`, { state: { from: 'roll' } })
+                }}
                 className="celestial-reveal-card bg-gradient-to-br from-slate-100 via-white to-amber-50"
               >
                 <Icon className="celestial-reveal-icon" aria-hidden="true" />

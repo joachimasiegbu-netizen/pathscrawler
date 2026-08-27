@@ -3,9 +3,30 @@ import { getCareerTier, parseSalaryAvg } from './careerTiers'
 
 export type TitleIcon = 'crown' | 'flame' | 'skull' | 'sparkles' | 'trophy'
 
+/** Difficulty band shown as a coloured tag in the Titles tab / detail view
+ * (RollStandingPanel.tsx). Flavour, not a sort key - the real ordering is
+ * still `rank`. */
+export type TitleDifficulty =
+  | 'Freebie'
+  | 'Impossible'
+  | 'Extreme'
+  | 'Hard'
+  | 'Luck'
+  | 'Grind'
+  | 'Punishment'
+  | 'Misery'
+  | 'Rare'
+
 export interface TitleDef {
   id: string
   rank: number
+  /** Difficulty band (flavour tag). */
+  difficulty: TitleDifficulty
+  /** Rarity colour - the equipped-title pill next to a username (TitlePill.tsx)
+   * derives its fill/text/border from this, and the unlock toast tints to it.
+   * '#ffffff' is treated specially (white + gold glow, and a readable dark
+   * fallback on light surfaces) - see TitlePill.tsx. */
+  color: string
   name: string
   icon: TitleIcon
   isHidden: boolean
@@ -54,15 +75,35 @@ export const MONEY_BAGS_ROLL_WINDOW = 300
 export const SWEAT_LORD_ROLLS_TARGET = 1000
 export const SWEAT_LORD_WINDOW_MS = 24 * 60 * 60 * 1000
 
-// 13 titles, ranks 1-13 - final content as given, not placeholder/example
-// data. Every title is permanent once earned (see useTitleProgressStore.ts -
-// every flag it tracks is a one-way latch, never unset by later play,
-// specifically so a later "Clear binder" click can't retroactively re-lock
-// Working Class Hero / Money Bags / Standing on a Million Lives).
+// 14 titles, ranks 0-13 - final content as given, not placeholder/example
+// data. Rank 0 (Trainee) is the auto-granted "you have an account" freebie -
+// every signed-in player has it, and it's the default thing shown next to a
+// new name until they equip something they earned. Ranks 1-13 are permanent
+// once earned (see useTitleProgressStore.ts - every flag it tracks is a
+// one-way latch, never unset by later play, specifically so a later "Clear
+// binder" click can't retroactively re-lock Working Class Hero / Money Bags /
+// Standing on a Million Lives).
 export const TITLES: TitleDef[] = [
+  {
+    id: 'trainee',
+    rank: 0,
+    difficulty: 'Freebie',
+    color: '#94a3b8',
+    name: 'Trainee',
+    icon: 'trophy',
+    isHidden: false,
+    condition: 'Create your account',
+    subtitle: 'Badge number issued. Welcome aboard.',
+    // Auto-granted the moment you're signed in (isTitleUnlocked's hasAccount
+    // arg) - not an achievement, just the baseline handle-badge everyone
+    // starts equipped with.
+    points: 0,
+  },
   {
     id: 'chosen-one',
     rank: 1,
+    difficulty: 'Impossible',
+    color: '#ffffff',
     name: 'The Chosen One',
     icon: 'crown',
     isHidden: false,
@@ -82,6 +123,8 @@ export const TITLES: TitleDef[] = [
     // name now), rather than being silently un-earned by a rename.
     id: 'gambling-addict',
     rank: 2,
+    difficulty: 'Extreme',
+    color: '#f59e0b',
     name: 'Employee of the Month',
     icon: 'flame',
     isHidden: false,
@@ -93,6 +136,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'icarus',
     rank: 3,
+    difficulty: 'Hard',
+    color: '#06b6d4',
     name: 'Icarus',
     icon: 'flame',
     isHidden: false,
@@ -105,6 +150,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'golden-child',
     rank: 4,
+    difficulty: 'Luck',
+    color: '#fbbf24',
     name: 'Golden Child',
     icon: 'sparkles',
     isHidden: false,
@@ -118,6 +165,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'seraph-of-the-end',
     rank: 5,
+    difficulty: 'Luck',
+    color: '#a855f7',
     name: 'Seraph of the End',
     icon: 'sparkles',
     isHidden: false,
@@ -129,6 +178,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'heavens-descendant',
     rank: 6,
+    difficulty: 'Impossible',
+    color: '#ffffff',
     name: "Heaven's Descendant",
     icon: 'crown',
     isHidden: false,
@@ -141,6 +192,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'working-class-hero',
     rank: 7,
+    difficulty: 'Grind',
+    color: '#22c55e',
     name: 'Working Class Hero',
     icon: 'trophy',
     isHidden: false,
@@ -153,6 +206,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'money-bags',
     rank: 8,
+    difficulty: 'Hard',
+    color: '#eab308',
     name: 'Money Bags',
     icon: 'trophy',
     isHidden: true,
@@ -169,6 +224,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'job',
     rank: 9,
+    difficulty: 'Punishment',
+    color: '#ef4444',
     name: 'Job',
     icon: 'skull',
     isHidden: false,
@@ -187,6 +244,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'standing-on-a-million-lives',
     rank: 10,
+    difficulty: 'Extreme',
+    color: '#a855f7',
     name: 'Standing on a Million Lives',
     icon: 'skull',
     isHidden: true,
@@ -200,6 +259,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'sweat-lord',
     rank: 11,
+    difficulty: 'Extreme',
+    color: '#f97316',
     name: 'Sweat Lord',
     icon: 'flame',
     isHidden: false,
@@ -220,6 +281,8 @@ export const TITLES: TitleDef[] = [
     // anything to do with which title id consumed it.
     id: 'shadow-banned',
     rank: 12,
+    difficulty: 'Misery',
+    color: '#6b7280',
     name: 'Shadow Banned',
     icon: 'skull',
     isHidden: false,
@@ -232,6 +295,8 @@ export const TITLES: TitleDef[] = [
   {
     id: 'final-generation',
     rank: 13,
+    difficulty: 'Rare',
+    color: '#ec4899',
     name: 'Final Generation',
     icon: 'skull',
     isHidden: true,
@@ -281,8 +346,14 @@ export interface TitleUnlockProgress {
   hasDroppedTwoRanks: boolean
 }
 
-function isTitleUnlocked(id: string, p: TitleUnlockProgress): boolean {
+function isTitleUnlocked(id: string, p: TitleUnlockProgress, hasAccount: boolean): boolean {
   switch (id) {
+    case 'trainee':
+      // The one title that isn't earned through play - you have it the
+      // moment you have an account. Gated on hasAccount (not just `true`)
+      // so the header's earned-count badge stays empty for signed-out
+      // visitors, who see EMPTY_PROGRESS.
+      return hasAccount
     case 'chosen-one':
       return p.hasCelestialRoll
     case 'gambling-addict':
@@ -322,9 +393,16 @@ export interface TitleWithStatus extends TitleDef {
  * titles first (so what the player has actually accomplished is the first
  * thing they see, not buried under a wall of locked ones), rank ascending
  * within each group. */
-export function getTitlesWithStatus(progress: TitleUnlockProgress): TitleWithStatus[] {
-  return TITLES.map((title) => ({ ...title, unlocked: isTitleUnlocked(title.id, progress) })).sort((a, b) => {
+export function getTitlesWithStatus(progress: TitleUnlockProgress, hasAccount = false): TitleWithStatus[] {
+  return TITLES.map((title) => ({ ...title, unlocked: isTitleUnlocked(title.id, progress, hasAccount) })).sort((a, b) => {
     if (a.unlocked !== b.unlocked) return a.unlocked ? -1 : 1
     return a.rank - b.rank
   })
+}
+
+/** Lookup by id - used by TitlePill.tsx / the unlock toast / the profile
+ * page to resolve an equipped title id back to its name + colour. */
+export function getTitleById(id: string | null | undefined): TitleDef | null {
+  if (!id) return null
+  return TITLES.find((title) => title.id === id) ?? null
 }

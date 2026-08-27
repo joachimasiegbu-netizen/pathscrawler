@@ -45,6 +45,13 @@ const THEME = {
     accent: 'text-rose-600 dark:text-rose-400',
     title: 'text-rose-900 dark:text-rose-100',
   },
+  indigo: {
+    bg: 'bg-indigo-50 dark:bg-indigo-950',
+    border: 'border-indigo-200 hover:border-indigo-300 dark:border-indigo-800 dark:hover:border-indigo-700',
+    glow: 'hover:shadow-lg hover:shadow-indigo-200/60 dark:hover:shadow-indigo-950/60',
+    accent: 'text-indigo-600 dark:text-indigo-400',
+    title: 'text-indigo-900 dark:text-indigo-100',
+  },
 } as const
 
 export type DoorAccent = keyof typeof THEME

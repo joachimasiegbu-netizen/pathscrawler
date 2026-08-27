@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { animate, motion, useMotionValue } from 'framer-motion'
 import { ChevronDown, type LucideIcon } from 'lucide-react'
 import demoCareers from '../data/demoCareers'
@@ -77,18 +77,30 @@ const SPIN_EASE: [number, number, number, number] = [0.1, 0.6, 0.15, 1]
 // above, not a flat card-swap - matches the brief's example value.
 const TILT_DEG = -15
 
-// Full-color rarity panels, not a dark card with a colored accent - Epic
-// and Legendary keep dark text (their bg is light/bright enough that white
-// text would be low-contrast); Mythic keeps the gold-on-black identity
+// "Glass Marble" rarity panels - a two-stop same-hue gradient (not a flat
+// fill) plus the .reel-marble-card CSS class (index.css, same layered-
+// shadow/glow-blob/glossy-streak technique as the ROLL! button itself) for
+// the actual glass depth; this object only carries the per-tier colors
+// that technique needs. fillFrom/fillTo are "R, G, B" (not hex/Tailwind
+// classes) since they feed CSS custom properties consumed by rgb()/rgba()
+// in that class. common/uncommon/rare reuse the EXACT same gradient
+// tierStyles.ts's flipBackClass already uses for these three tiers
+// (Binder card flip face) - genuine consistency, not a coincidence.
+// epic/legendary/celestial intentionally use LIGHTER stops than
+// flipBackClass's own (which pairs those with WHITE text) to preserve
+// this card's own established dark-text-for-contrast choice below -
+// Epic and Legendary keep dark text (their bg is light/bright enough that
+// white text would be low-contrast); Mythic keeps its own black+red
+// identity (overriding --highlight to red instead of the shared gold)
 // already established for it elsewhere in this feature.
-const REEL_CARD_STYLE: Record<TierKey, { bg: string; text: string }> = {
-  common: { bg: 'bg-emerald-500', text: 'text-white' },
-  uncommon: { bg: 'bg-blue-500', text: 'text-white' },
-  rare: { bg: 'bg-purple-500', text: 'text-white' },
-  epic: { bg: 'bg-amber-400', text: 'text-slate-900' },
-  legendary: { bg: 'bg-cyan-300', text: 'text-slate-900' },
-  mythic: { bg: 'bg-black', text: 'text-red-500' },
-  celestial: { bg: 'bg-white', text: 'text-slate-900' },
+const REEL_CARD_STYLE: Record<TierKey, { fillFrom: string; fillTo: string; text: string; highlight?: string }> = {
+  common: { fillFrom: '52, 211, 153', fillTo: '5, 150, 105', text: 'text-white' },
+  uncommon: { fillFrom: '96, 165, 250', fillTo: '37, 99, 235', text: 'text-white' },
+  rare: { fillFrom: '192, 132, 252', fillTo: '147, 51, 234', text: 'text-white' },
+  epic: { fillFrom: '252, 211, 77', fillTo: '245, 158, 11', text: 'text-slate-900' },
+  legendary: { fillFrom: '165, 243, 252', fillTo: '34, 211, 238', text: 'text-slate-900' },
+  mythic: { fillFrom: '15, 23, 42', fillTo: '0, 0, 0', text: 'text-red-500', highlight: '220, 38, 38' },
+  celestial: { fillFrom: '241, 245, 249', fillTo: '254, 243, 199', text: 'text-slate-900', highlight: '251, 191, 36' },
 }
 
 function randomReelItem(index: number): ReelItem {
@@ -153,15 +165,46 @@ function ReelCard({ item, index }: { item: ReelItem; index: number }) {
     // mirrored/backwards text bleeding through instead of just vanishing
     // as they rotate out of view, which is what an opaque physical card
     // would actually do.
+    //
+    // reel-marble-card: the glass depth (index.css) -
+    // --fill-from/--fill-to/--highlight feed that class via inline custom
+    // properties since they're per-tier values a CSS class alone can't
+    // parametrize. overflow-hidden clips the glow-blob/glossy-streak
+    // pseudo-elements (which intentionally extend past the card's own
+    // box) to this card's own rounded corners.
+    //
+    // Deliberately NOT also using .card-noise here (unlike the final
+    // reveal cards, RollResultCard.tsx) - that class hardcodes
+    // `position: relative`, and since it's defined AFTER Tailwind's own
+    // utilities in index.css, it silently beat this card's required
+    // `absolute` (equal specificity, later rule wins) and knocked every
+    // card out of the 3D cylinder into normal document flow - confirmed
+    // via a real rendered screenshot showing cards scattered down the
+    // page instead of arranged in the circle. Not worth chasing a
+    // grain-texture-on-an-absolutely-positioned-element variant for a
+    // subtle effect nobody's going to see mid-spin anyway.
     <div
-      className={`absolute inset-0 flex items-center justify-center rounded-xl border-2 border-white/15 px-3 text-center shadow-lg [backface-visibility:hidden] ${style.bg}`}
-      style={{ transform: `rotateY(${angle}deg) translateZ(${RADIUS}px)` }}
+      className="reel-marble-card absolute inset-0 flex items-center justify-center overflow-hidden rounded-xl border border-white/20 px-3 text-center [backface-visibility:hidden]"
+      style={
+        {
+          transform: `rotateY(${angle}deg) translateZ(${RADIUS}px)`,
+          '--fill-from': style.fillFrom,
+          '--fill-to': style.fillTo,
+          ...(style.highlight ? { '--highlight': style.highlight } : {}),
+        } as CSSProperties
+      }
     >
-      {isSealed ? (
-        <Icon className={`h-10 w-10 ${SEALED_ICON_COLOR[item.tier] ?? style.text}`} aria-hidden="true" />
-      ) : (
-        <span className={`line-clamp-3 text-sm font-extrabold leading-tight sm:text-base ${style.text}`}>{item.title}</span>
-      )}
+      {/* z-[2]: above both the noise layer (.card-noise::before, z-index:1)
+          and the glow/streak pseudo-elements (z-index:auto, same paint
+          layer as the noise) - guarantees the icon/title stays legible on
+          top of all of it. */}
+      <div className="relative z-[2]">
+        {isSealed ? (
+          <Icon className={`h-10 w-10 ${SEALED_ICON_COLOR[item.tier] ?? style.text}`} aria-hidden="true" />
+        ) : (
+          <span className={`line-clamp-3 text-sm font-extrabold leading-tight sm:text-base ${style.text}`}>{item.title}</span>
+        )}
+      </div>
     </div>
   )
 }

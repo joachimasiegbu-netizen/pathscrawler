@@ -98,27 +98,31 @@ export default function RoleSelectionPage() {
     setSelectedRole(id)
     setCurrentPath('education')
 
+    // These go straight from /role to a level-specific page (skipping the
+    // /subjects picker). Use a normal push, not replace: a replace here wipes
+    // the /role entry out of history, so the Back button on the next page
+    // sails past it to the landing page instead of returning here.
     if (id === 'apprentice') {
       console.log('[RoleSelectionPage] navigating apprentice directly to /subjects/vocational')
-      navigate('/subjects/vocational', { replace: true })
+      navigate('/subjects/vocational')
       return
     }
 
     if (id === 'graduate') {
       console.log('[RoleSelectionPage] navigating graduate directly to /subjects/university')
-      navigate('/subjects/university', { replace: true })
+      navigate('/subjects/university')
       return
     }
 
     if (id === 'refugee-asylum-seeker') {
       console.log('[RoleSelectionPage] navigating refugee-asylum-seeker to /subjects/refugee-asylum-seeker')
-      navigate('/subjects/refugee-asylum-seeker', { replace: true })
+      navigate('/subjects/refugee-asylum-seeker')
       return
     }
 
     if (id === 'career-changer') {
       console.log('[RoleSelectionPage] navigating career-changer to /career-changer/current-role')
-      navigate('/career-changer/current-role', { replace: true })
+      navigate('/career-changer/current-role')
       return
     }
 
@@ -143,7 +147,7 @@ export default function RoleSelectionPage() {
         <div className="mt-6">
           <PageHeader
             title="What best describes you?"
-            subtitle="Choose a role that fits your current journey and we'll tailor the next subjects and pathways for you."
+            subtitle="Pick the one that sounds most like you right now. It just sets your starting point, and you can change it whenever."
           />
         </div>
       </div>
@@ -193,32 +197,32 @@ export default function RoleSelectionPage() {
         ))}
       </div>
 
-      <RevealSection className="grid gap-4 sm:grid-cols-2">
-        <div className="group rounded-2xl border border-gray-200 bg-white p-6 text-slate-950 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary-dark dark:text-primary-light">
-            <Wand2 className="h-4 w-4" />
-            Not sure where to start?
-          </div>
-          <h3 className="mt-2 text-base font-semibold text-slate-950 dark:text-slate-50">Take a quick assessment</h3>
-          <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-200">
-            Answer a few quick questions and we'll match you to a starting path.
-          </p>
-          <Button onClick={() => navigate('/assessment')} className="mt-4 w-full justify-center py-3">
-            Start assessment
-          </Button>
-        </div>
+      <RevealSection className="space-y-4">
+        {/* The "not sure" prompt lives here now, replacing the old assessment
+            card, rather than at the top of the page. */}
+        <button
+          type="button"
+          onClick={() => navigate('/assessment')}
+          className="flex w-full items-center justify-between gap-3 rounded-2xl border border-primary/30 bg-primary-soft/40 px-5 py-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:bg-primary-soft/70 hover:shadow-md dark:border-primary/40 dark:bg-primary/10"
+        >
+          <span className="flex items-center gap-2.5 text-sm font-semibold text-primary-dark dark:text-primary-light">
+            <Wand2 className="h-4 w-4 shrink-0" />
+            Not sure? Answer 5 quick questions and we&rsquo;ll pick your path for you.
+          </span>
+          <span className="shrink-0 text-sm font-bold text-primary-dark dark:text-primary-light">Start &rarr;</span>
+        </button>
 
         <div className="group rounded-2xl border border-gray-200 bg-white p-6 text-slate-950 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary-dark dark:text-primary-light">
             <Target className="h-4 w-4" />
-            Have a career in mind?
+            If you already know the job you want
           </div>
-          <h3 className="mt-2 text-base font-semibold text-slate-950 dark:text-slate-50">I know my goal</h3>
+          <h3 className="mt-2 text-base font-semibold text-slate-950 dark:text-slate-50">Start from the goal, work backwards</h3>
           <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-200">
-            Start with your dream career and we'll show you how to get there.
+            Name the career and we&rsquo;ll trace the exact subjects, courses and steps that get you there.
           </p>
           <Button variant="secondary" onClick={() => navigate('/backtrack/categories')} className="mt-4 w-full justify-center py-3">
-            Find my pathway →
+            Work backwards from a career &rarr;
           </Button>
         </div>
       </RevealSection>

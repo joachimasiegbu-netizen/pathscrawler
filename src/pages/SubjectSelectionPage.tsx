@@ -140,7 +140,7 @@ export default function SubjectSelectionPage() {
             >
               <div>
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-soft text-primary"><Icon className="h-6 w-6" /></div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-primary dark:bg-slate-700 dark:text-primary-light"><Icon className="h-6 w-6" /></div>
                 </div>
                 <div className="mt-5 space-y-3">
                   <h3 className="text-xl font-semibold text-slate-950 dark:text-slate-50">{level.label}</h3>
@@ -165,7 +165,7 @@ export default function SubjectSelectionPage() {
           >
             <div>
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-primary dark:bg-slate-700 dark:text-primary-light">
                   {(() => {
                     const UniversityIcon = universityCard.icon
                     return <UniversityIcon className="h-6 w-6" />
