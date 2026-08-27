@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useNavigationType, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Dices } from 'lucide-react'
 import BackButton from '../components/BackButton'
@@ -77,6 +77,11 @@ export default function JobMarketRollPage() {
   const isRollingRef = useRef(false)
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 639px)').matches)
   const [searchParams, setSearchParams] = useSearchParams()
+  // 'POP' means we arrived here by going Back (or forward) in history - the
+  // only case where restoring the last-open card is wanted. Opening Roll a
+  // Job from a nav link is a 'PUSH', and should always start at the idle
+  // cylinder, never a card left over from a previous visit.
+  const navigationType = useNavigationType()
 
   useEffect(() => {
     const query = window.matchMedia('(max-width: 639px)')
@@ -133,8 +138,14 @@ export default function JobMarketRollPage() {
   // entirely if a shared-link `?career=` is also present - that one wins
   // (it's an explicit, more specific request than "whatever was open
   // last"), same as it already does today. Runs once on mount only, same
-  // as the shared-link effect.
+  // as the shared-link effect. Gated on navigationType 'POP': only a Back
+  // (from the career-detail page you clicked the card to open) restores the
+  // card - arriving fresh via the Job Market nav link is a 'PUSH' and
+  // starts at the idle cylinder. activeResultCareerId is also no longer
+  // persisted (see useRollStore), so a reload or new session starts clean
+  // too.
   useEffect(() => {
+    if (navigationType !== 'POP') return
     if (searchParams.get('career')) return
     const careerId = useRollStore.getState().activeResultCareerId
     if (!careerId) return
