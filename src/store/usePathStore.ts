@@ -37,6 +37,11 @@ interface PathState {
     largerText: boolean
     dyslexiaFont: boolean
     darkMode: boolean
+    /** Silences every app sound (sound.ts's playSound/playLoopingSound/
+     * playSoundBoosted all check this via usePathStore.getState() before
+     * playing anything, same non-hook read pattern other plain utility
+     * modules in this app already use to reach store state). */
+    muted: boolean
   }
   progress: number
   assessmentCompleted: boolean
@@ -70,6 +75,7 @@ interface PathState {
     largerText: boolean
     dyslexiaFont: boolean
     darkMode: boolean
+    muted: boolean
   }) => void
   toggleSubject: (subjectId: string) => void
   setProgress: (progress: number) => void
@@ -99,6 +105,7 @@ export const usePathStore = create<PathState>()(
         largerText: false,
         dyslexiaFont: false,
         darkMode: false,
+        muted: false,
       },
       selectedSubjects: [],
       progress: 0,

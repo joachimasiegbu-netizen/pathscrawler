@@ -1,5 +1,6 @@
 import demoCareers from '../data/demoCareers'
 import { getCareerTier, parseSalaryAvg } from './careerTiers'
+import { getEasyEntryCareers } from './easyEntryCareers'
 
 export type TitleIcon = 'crown' | 'flame' | 'skull' | 'sparkles' | 'trophy'
 
@@ -75,7 +76,7 @@ export const MONEY_BAGS_ROLL_WINDOW = 300
 export const SWEAT_LORD_ROLLS_TARGET = 1000
 export const SWEAT_LORD_WINDOW_MS = 24 * 60 * 60 * 1000
 
-// 14 titles, ranks 0-13 - final content as given, not placeholder/example
+// 15 titles, ranks 0-14 - final content as given, not placeholder/example
 // data. Rank 0 (Trainee) is the auto-granted "you have an account" freebie -
 // every signed-in player has it, and it's the default thing shown next to a
 // new name until they equip something they earned. Ranks 1-13 are permanent
@@ -93,7 +94,7 @@ export const TITLES: TitleDef[] = [
     icon: 'trophy',
     isHidden: false,
     condition: 'Create your account',
-    subtitle: 'Badge number issued. Welcome aboard.',
+    subtitle: 'Lanyard issued. Welcome aboard.',
     // Auto-granted the moment you're signed in (isTitleUnlocked's hasAccount
     // arg) - not an achievement, just the baseline handle-badge everyone
     // starts equipped with.
@@ -104,7 +105,11 @@ export const TITLES: TitleDef[] = [
     rank: 1,
     difficulty: 'Impossible',
     color: '#ffffff',
-    name: 'The Chosen One',
+    // Renamed from "The Chosen One" per explicit request - id stays
+    // 'chosen-one' (it's what seenTitleIds/syncedTitleIds and Supabase's
+    // title_unlocks rows key on; renaming that too would orphan every
+    // already-earned record of this title).
+    name: "HR's Favourite",
     icon: 'crown',
     isHidden: false,
     condition: 'Roll a Celestial',
@@ -307,6 +312,22 @@ export const TITLES: TitleDef[] = [
     // hidden, genuinely the easiest title to stumble into by accident.
     points: 120,
   },
+  {
+    id: 'graduate',
+    rank: 14,
+    difficulty: 'Grind',
+    color: '#3b82f6',
+    name: 'Graduate',
+    icon: 'trophy',
+    isHidden: false,
+    condition: 'Collect every entry-level career in your Binder',
+    subtitle: 'Every entry-level job, checked off the list. Time to move up.',
+    // GRADUATE_CAREER_IDS below - the 20 "very-easy" careers from
+    // easyEntryCareers.ts (no formal qualifications beyond GCSEs). Smaller
+    // set than Working Class Hero's 59 Common careers, so fewer points -
+    // same "grind every single one" shape, a shorter grind.
+    points: 180,
+  },
 ]
 
 // Static per-career id sets, computed once from the bundled career list -
@@ -320,6 +341,19 @@ export const MYTHIC_CAREER_IDS: Set<number> = new Set(
 )
 export const MONEY_BAGS_CAREER_IDS: Set<number> = new Set(
   demoCareers.filter((career) => parseSalaryAvg(career.salary) >= MONEY_BAGS_SALARY_THRESHOLD).map((career) => career.id),
+)
+// Graduate's "entry-level jobs" - reuses the Easy Entry Careers system
+// (easyEntryCareers.ts, already built for the Job Market "Easiest Jobs to
+// Get Into" page) rather than inventing a second, competing definition of
+// "entry-level". Specifically the 'very-easy' barrier tier ("No formal
+// qualifications beyond GCSEs - most employers train you on the job") -
+// the actual literal entry-level end of that list, not the wider 'easy'
+// tier (apprenticeships/short courses), which happens to land at exactly
+// 20 careers, matching "~15-20 entry-level jobs" as given.
+export const GRADUATE_CAREER_IDS: Set<number> = new Set(
+  getEasyEntryCareers()
+    .filter((entry) => entry.barrier === 'very-easy')
+    .map((entry) => entry.career.id),
 )
 
 /** The minimum progress shape every unlock check below reads from -
@@ -339,6 +373,9 @@ export interface TitleUnlockProgress {
   hasCompletedMythicSet: boolean
   hasHitSweatLord: boolean
   hasRolledAiEndangered: boolean
+  /** Graduate's condition - every GRADUATE_CAREER_IDS career sitting in the
+   * Binder at once (useTitleProgressStore.ts's syncBinderCompletion). */
+  hasCompletedGraduateSet: boolean
   /** Job's own new condition - latched the first time this account's
    * leaderboard rank is observed to have fallen JOB_RANK_DROP_TARGET or
    * more spots below the best rank it's ever held (useTitleProgressStore
@@ -380,6 +417,8 @@ function isTitleUnlocked(id: string, p: TitleUnlockProgress, hasAccount: boolean
       return p.longestLegendaryDrySpell >= SHADOW_BANNED_DRY_SPELL_TARGET
     case 'final-generation':
       return p.hasRolledAiEndangered
+    case 'graduate':
+      return p.hasCompletedGraduateSet
     default:
       return false
   }

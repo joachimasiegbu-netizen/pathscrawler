@@ -19,11 +19,59 @@ if (!isSupabaseConfigured) {
   )
 }
 
+// "Remember me" (LoginPage.tsx) - a small, ALWAYS-in-localStorage flag
+// (never the session itself) that decides which real storage the actual
+// session tokens below get read from/written to: localStorage (survives
+// closing the browser - "30-day persistent", bounded by the Supabase
+// project's own refresh-token expiry, not literally hand-rolled here) when
+// remembered, sessionStorage (gone the moment the tab/browser closes) when
+// not. Defaults to remembered (`!== '0'`) so anyone who never touches the
+// checkbox keeps the exact always-logged-in behavior this app already had
+// before "Remember me" existed - unchecking it is the new, opt-in MORE
+// restrictive behavior, not the other way around.
+const REMEMBER_ME_KEY = 'pathscrawler-remember-me'
+export function setRememberMe(remember: boolean): void {
+  try {
+    window.localStorage.setItem(REMEMBER_ME_KEY, remember ? '1' : '0')
+  } catch {
+    // localStorage unavailable (private mode, etc.) - falls through to the
+    // default (remembered) read below every time; nothing else to do.
+  }
+}
+function isRemembered(): boolean {
+  try {
+    return window.localStorage.getItem(REMEMBER_ME_KEY) !== '0'
+  } catch {
+    return true
+  }
+}
+
+// Supabase's own `auth.storage` option wants this exact getItem/setItem/
+// removeItem shape (it awaits them, so sync-or-async both work). Routes
+// every read/write through whichever real storage the flag above currently
+// picks, and always clears the OTHER one on write so a later "remember me"
+// flip can't resurrect a stale session from whichever storage this session
+// didn't use.
+const rememberAwareStorage = {
+  getItem: (key: string) => (isRemembered() ? window.localStorage : window.sessionStorage).getItem(key),
+  setItem: (key: string, value: string) => {
+    const target = isRemembered() ? window.localStorage : window.sessionStorage
+    const other = isRemembered() ? window.sessionStorage : window.localStorage
+    other.removeItem(key)
+    target.setItem(key, value)
+  },
+  removeItem: (key: string) => {
+    window.localStorage.removeItem(key)
+    window.sessionStorage.removeItem(key)
+  },
+}
+
 export const supabase: SupabaseClient | null = isSupabaseConfigured
   ? createClient(url, anonKey, {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
+        storage: rememberAwareStorage,
         // Supabase's own storage key, separate from every "pathscrawler-*"
         // zustand/persist key elsewhere in this app - this is the actual
         // session/JWT, not app state, so it gets its own namespace.

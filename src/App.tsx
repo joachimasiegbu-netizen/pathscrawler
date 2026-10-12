@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { BookOpen, FolderClock, GitCompare, GraduationCap, LogIn, LogOut, Settings2, TrendingUp, Trophy, UserRound, X } from 'lucide-react'
+import { BookOpen, FolderClock, GitCompare, GraduationCap, LogOut, Settings2, TrendingUp, Trophy, UserRound, X } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useCompareStore } from './store/useCompareStore'
@@ -93,12 +93,24 @@ function App() {
   // styling below regardless of how you got there, but it no longer needs
   // to be excluded from Job Market's "am I active" check.
   // Leaderboard and the Mythic reveal preview both reuse Roll a Job's same
-  // full-bleed dark "game mode" shell (see LeaderboardPage.tsx /
-  // MythicRevealPreviewPage.tsx), so they need the exact same header/shell
-  // forcing below or they get the light-strip-above-a-dark-page gap the
-  // comment just below this describes.
+  // full-bleed dark "game mode" shell, so they need the exact same header/
+  // shell forcing below or they get the light-strip-above-a-dark-page gap
+  // the comment just below this describes. /role (the persona carousel,
+  // RoleSelectionPage.tsx) briefly joined this list too, then moved back
+  // out - it's a normal bright/light page now (explicit request: "why is
+  // the page so dark, make it brighter"), not a forced-dark one, so it no
+  // longer needs the game-mode shell treatment its header row required.
   const isRollActive =
     location.pathname === '/job-market/roll' || location.pathname === '/leaderboard' || location.pathname === '/preview/mythic-reveal'
+  // /role (the persona carousel, RoleSelectionPage.tsx) wants the header
+  // pared down to just the logo, centered - no nav pills/trophy/sign-in/
+  // settings cluster - explicit request, matching the immersive full-screen
+  // feel persona_carousel_prompt.txt asks for (its own layout spec has no
+  // header row at all). Kept scoped to the header's own layout here rather
+  // than folding this into isFullBleed - that flag also drives
+  // MobileContainer's content-width behavior and the SetYourNameBanner
+  // suppression below, neither of which this page needs changed.
+  const isRoleActive = location.pathname === '/role'
   const isJobMarketActive = location.pathname.startsWith('/job-market')
   const isStudentHubActive = location.pathname.startsWith('/student-hub')
   // isRollActive forces the dark look here too, not just accessibilitySettings.darkMode -
@@ -176,7 +188,10 @@ function App() {
 
   return (
     <div className={appClassName}>
-      <MobileContainer fullBleed={isFullBleed} forceDarkBg={isRollActive}>
+      {/* /role gets the full page width (not the max-w-5xl column) so the
+          persona carousel can spread across it - only the width, not the rest
+          of what isFullBleed changes. */}
+      <MobileContainer fullBleed={isFullBleed || isRoleActive} forceDarkBg={isRollActive} disableCyclingBg={isRoleActive}>
         {!isFullBleed ? (
           // dark-mode: Roll a Job is a fixed "game mode" dark page now
           // (JobMarketRollPage.tsx), regardless of the site's own light/dark
@@ -193,7 +208,9 @@ function App() {
           // style overrides elsewhere in index.css, which specifically
           // require the real <html> element - the header doesn't lean on
           // those, so that's not a gap in practice.)
-          <div className={`flex items-center justify-between gap-3 px-4 pt-3 sm:px-6 ${isRollActive ? 'dark-mode' : ''}`}>
+          <div
+            className={`flex items-center gap-3 px-4 pt-3 sm:px-6 ${isRoleActive ? 'justify-center' : 'justify-between'} ${isRollActive ? 'dark-mode' : ''}`}
+          >
             <button
               type="button"
               onClick={() => {
@@ -201,28 +218,49 @@ function App() {
                 navigate('/')
               }}
               aria-label="PathScrawler home"
-              className="shrink-0 rounded-lg transition hover:opacity-80"
+              className="min-w-11 shrink-0 rounded-lg transition hover:opacity-80"
             >
-              {/* Full lockup by default (desktop and tablet both keep the
-                  wordmark) - icon-only kicks in below 480px, a true last
-                  resort for phones too narrow to fit "PathScrawler" next to
-                  the nav cluster on the right. That cutoff was 380px before
-                  this cluster briefly carried a second persistent pill for
-                  Roll a Job (since folded back into the Job Market hub as a
-                  door tile - see JobMarketPage.tsx) - confirmed via a real
-                  rendered overflow at common ~390px phone widths with the old
-                  threshold, now covers that plus the next size up (412-428px
-                  phones) with margin. Rendering both and toggling with CSS
-                  (rather than one Logo with a media-query-driven prop) means
-                  this collapse is scoped to the header specifically - the
-                  hero and auth-page logos always show the full wordmark
-                  regardless of viewport. */}
-              <span className="hidden max-[480px]:inline-flex">
-                <Logo showText={false} />
-              </span>
-              <span className="inline-flex max-[480px]:hidden">
-                <Logo />
-              </span>
+              {isRoleActive ? (
+                // /role wants the logo large and prominent - "the first
+                // thing the user sees before the heading" (explicit
+                // request), text included, not just the icon mark (follow-
+                // up request after size="lg" only grew the circle enough to
+                // read as proportionate next to the old text size) -
+                // size="xl" (Logo.tsx) grows both together. Plus a soft
+                // brand-colour glow behind it so it actually pops against
+                // the page instead of just being a bigger flat mark.
+                <span className="relative inline-flex">
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 -z-10 rounded-full blur-xl"
+                    style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.35), transparent 70%)' }}
+                  />
+                  <Logo size="xl" />
+                </span>
+              ) : (
+                <>
+                  {/* Full lockup by default (desktop and tablet both keep the
+                      wordmark) - icon-only kicks in below 480px, a true last
+                      resort for phones too narrow to fit "PathScrawler" next to
+                      the nav cluster on the right. That cutoff was 380px before
+                      this cluster briefly carried a second persistent pill for
+                      Roll a Job (since folded back into the Job Market hub as a
+                      door tile - see JobMarketPage.tsx) - confirmed via a real
+                      rendered overflow at common ~390px phone widths with the old
+                      threshold, now covers that plus the next size up (412-428px
+                      phones) with margin. Rendering both and toggling with CSS
+                      (rather than one Logo with a media-query-driven prop) means
+                      this collapse is scoped to the header specifically - the
+                      hero and auth-page logos always show the full wordmark
+                      regardless of viewport. */}
+                  <span className="hidden max-[480px]:inline-flex">
+                    <Logo showText={false} />
+                  </span>
+                  <span className="inline-flex max-[480px]:hidden">
+                    <Logo />
+                  </span>
+                </>
+              )}
             </button>
 
             {/* gap-1.5 up through the sm breakpoint, then md: for both the
@@ -257,6 +295,7 @@ function App() {
                 as a real max-width, and min-w-0 overrides a flex item's
                 default min-width:auto (which would otherwise refuse to
                 shrink below its content's natural width regardless). */}
+            {!isRoleActive ? (
             <div className="flex min-w-0 flex-1 flex-wrap items-center justify-end gap-1.5 md:gap-3">
             {compareCount > 0 ? (
               <button
@@ -304,10 +343,16 @@ function App() {
               onClick={() => navigate('/student-hub')}
               aria-current={isStudentHubActive ? 'page' : undefined}
               title="Student Hub"
-              className={`inline-flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-full text-sm font-semibold ring-1 transition md:h-auto md:w-auto md:px-4 md:py-2 ${
+              className={`inline-flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-full text-sm font-semibold ring-1 transition header-icon-fixed md:h-auto md:w-auto md:px-4 md:py-2 ${
                 isStudentHubActive
                   ? 'bg-indigo-600 text-white ring-indigo-600'
-                  : 'bg-white text-indigo-700 ring-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:text-indigo-300 dark:ring-slate-700 dark:hover:bg-slate-700'
+                  : // Deliberately no dark: overrides on the idle state - the
+                    // header-icon-fixed marker (index.css) carves this back
+                    // out of the site-wide dark-mode recolor system too, so
+                    // it stays the same white circle/indigo icon in dark mode
+                    // as in light mode (explicit request: this button reads
+                    // as "a white button", unchanged by the theme toggle).
+                    'bg-white text-indigo-700 ring-slate-200 hover:bg-slate-50'
               }`}
             >
               <GraduationCap className="h-4 w-4 shrink-0" />
@@ -339,7 +384,17 @@ function App() {
                 {showAccountMenu ? (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setShowAccountMenu(false)} />
-                    <div className="absolute right-0 top-14 z-50 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg dark:border-slate-700 dark:bg-slate-800">
+                    {/* fixed inset-x-4 on mobile, not the button-anchored
+                        absolute/right-0/w-56 desktop version - same fix as
+                        RollStandingPanel's Achievements panel (see its own
+                        comment): this account button isn't the last icon
+                        in the header (Trophy and Settings both sit after
+                        it), so right-0 relative to its own small wrapper
+                        risks the same left-edge clipping on a narrow phone,
+                        confirmed for the Trophy panel and pre-emptively
+                        fixed here the same way rather than waiting to
+                        reproduce it signed in. */}
+                    <div className="fixed inset-x-4 top-16 z-50 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg dark:border-slate-700 dark:bg-slate-800 sm:absolute sm:inset-x-auto sm:right-0 sm:top-14 sm:w-56">
                       <div className="px-3 py-2">
                         <p className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">
                           {userProfile?.username ?? currentUser.email}
@@ -416,9 +471,16 @@ function App() {
                 type="button"
                 onClick={() => navigate('/login')}
                 title="Sign in"
-                className="inline-flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-full bg-white text-sm font-semibold text-primary ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-primary-light dark:ring-slate-700 md:h-auto md:w-auto md:px-4 md:py-2"
+                // Deliberately no dark: overrides - the header-icon-fixed
+                // marker (index.css) carves this back out of the site-wide
+                // dark-mode recolor system too, so it stays the same white
+                // circle/navy icon in dark mode as it is in light mode,
+                // rather than the slate-800 dark treatment most of the
+                // header uses (explicit request: this button reads as "a
+                // white button", unchanged by the theme toggle).
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-full bg-white text-sm font-semibold text-primary ring-1 ring-slate-200 transition hover:bg-slate-50 header-icon-fixed md:h-auto md:w-auto md:px-4 md:py-2"
               >
-                <LogIn className="h-4 w-4 shrink-0" />
+                <UserRound className="h-4 w-4 shrink-0" />
                 <span className="hidden md:inline">Sign in</span>
               </button>
             )}
@@ -431,17 +493,19 @@ function App() {
               type="button"
               onClick={() => setShowAccessibility(true)}
               aria-label="Open accessibility settings"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 dark:bg-slate-800 dark:text-sky-200 dark:ring-slate-700 dark:hover:bg-slate-700"
+              // Deliberately no dark: overrides - the header-icon-fixed
+              // marker (index.css) carves this back out of the site-wide
+              // dark-mode recolor system too, so it stays the same white
+              // circle/navy icon in dark mode as it is in light mode (explicit
+              // request: this button reads as "a white button", unchanged by
+              // the theme toggle), rather than the slate-800 dark treatment
+              // most of the header uses.
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 header-icon-fixed"
             >
-              {/* No color class here on purpose - inherits the button's own
-                  text-primary (light mode) / dark:text-sky-200 (dark mode)
-                  instead of hardcoding one. Was hardcoded to text-primary
-                  (a near-black #1E3A5F), which overrode the button's dark
-                  mode color and left the icon almost invisible against the
-                  dark:bg-slate-800 circle. */}
               <Settings2 className="h-6 w-6" />
             </button>
             </div>
+            ) : null}
           </div>
         ) : null}
         {!isFullBleed && !needsUsername ? <SetYourNameBanner /> : null}

@@ -24,7 +24,7 @@ const config: Config = {
         accent: '#06B6D4', // teal/cyan - selected states, highlights
         'accent-dark': '#0E7490',
         orange: '#F97316', // distinct from secondary - used for the "recommended" highlight ring on Results
-        background: '#F8FAFC', // soft off-white/cream page background (light mode)
+        background: '#FAFCFF', // bright near-white page background (light mode) - was darkened to #EEF2F6 earlier so the cycling background pattern read as distinct from white cards; explicit follow-up ("all the backgrounds are gray, make them bright") walked that back - CyclingPageBackground's own texture (now at a lower opacity too, see that file) is what provides the distinction now, not a darker base tone.
         'background-dark': '#0F172A', // deep slate page background (dark mode)
         success: '#10B981',
         warning: '#F59E0B',

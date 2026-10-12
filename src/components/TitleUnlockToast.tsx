@@ -12,7 +12,19 @@ const ICONS: Record<TitleIcon, typeof Trophy> = {
 // Richer replacement for the generic <Toast> when a title unlocks: tinted to
 // the title's rarity colour, shows the flavour subtitle, and offers a
 // one-tap "Equip" straight from the toast (spec). The parent
-// (RollStandingPanel.tsx) still owns the 5s auto-dismiss timer.
+// (RollStandingPanel.tsx) still owns the 5s auto-dismiss timer and the
+// unlock chime.
+//
+// Redesigned per an explicit reference (a "success message" card with a
+// torn/zigzag left edge, a circular icon badge, bold heading + muted
+// subtext, and an X) - adopted the CARD SHAPE (the zigzag edge, the round
+// icon badge) and the TOP-OF-SCREEN position, but kept this component's own
+// already-good behavior rather than flattening it to match the reference
+// literally: each title keeps ITS OWN icon (crown/flame/skull/...) and
+// rarity colour tinting the zigzag/badge/equip-button, instead of a
+// hardcoded green checkmark for every unlock - a plain checkmark would be a
+// real loss of the per-title identity this panel already has everywhere
+// else (TitlePill, the Titles tab, the detail modal).
 export default function TitleUnlockToast({
   title,
   isEquipped,
@@ -33,20 +45,42 @@ export default function TitleUnlockToast({
   return (
     <div
       role="status"
-      className="fixed bottom-6 left-1/2 z-[60] w-[min(92vw,400px)] -translate-x-1/2 overflow-hidden rounded-2xl border bg-white shadow-2xl dark:bg-slate-800"
+      // top-20, not bottom-6 (per explicit request to move this to the top
+      // of the screen) - clears the header's own icon row (h-11 circles +
+      // padding) plus a comfortable gap, rather than sitting flush under it.
+      className="fixed left-1/2 top-20 z-[60] w-[min(92vw,400px)] -translate-x-1/2 overflow-hidden rounded-2xl border bg-white shadow-2xl dark:bg-slate-800"
       style={{ borderColor: `${accent}66` }}
     >
-      <div className="h-1 w-full" style={{ backgroundColor: accent }} />
-      <div className="flex items-start gap-3 p-4">
+      {/* Zigzag/torn-edge accent, tinted to the title's own colour - a pure
+          CSS repeating-gradient "sawtooth" (two 45deg gradients tiled
+          vertically), not an SVG: it needs to tile cleanly to whatever
+          height this card ends up being (subtitle length, equip button,
+          etc. all vary it), which a fixed-size shape can't do without
+          stretching/distorting. w-3, not wider - a hinted accent along the
+          edge, not a competing block of colour next to the icon badge. */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 w-3"
+        style={{
+          backgroundImage: `linear-gradient(135deg, transparent 50%, ${accent} 50%), linear-gradient(45deg, ${accent} 50%, transparent 50%)`,
+          backgroundSize: '12px 12px',
+          backgroundRepeat: 'repeat-y',
+          opacity: 0.35,
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="flex items-start gap-3 py-4 pl-6 pr-4">
         <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
           style={{ backgroundColor: `${accent}22`, color: accent }}
         >
           <Icon className="h-5 w-5" />
         </div>
 
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-bold text-slate-900 dark:text-white">Title unlocked: {title.name}</p>
+          <p className="text-sm font-bold" style={{ color: accent }}>
+            Title unlocked: {title.name}
+          </p>
           <p className="mt-0.5 text-xs leading-5 text-slate-500 dark:text-slate-300">{title.subtitle}</p>
 
           <button

@@ -155,9 +155,11 @@ export default function SubjectDetailPage() {
           </div>
         </div>
 
-        <div className="border-t px-8 py-4">
+        {/* Sticks to the bottom on phones (the lists run up to ~25 screens long,
+            and FloatingScrollButton is hidden there), docks back in place at the end. */}
+        <div className="sticky bottom-0 z-20 border-t bg-white px-8 py-4 sm:static">
           <div className="flex justify-end">
-            <Button onClick={() => navigate('/results')} disabled={selectedCount === 0} className="w-full sm:w-auto">Continue</Button>
+            <Button onClick={() => navigate('/results')} disabled={selectedCount === 0} className="w-full sm:w-auto">{selectedCount > 0 ? `Continue · ${selectedCount} selected` : 'Continue'}</Button>
           </div>
         </div>
       </div>

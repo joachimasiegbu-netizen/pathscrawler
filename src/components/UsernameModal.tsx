@@ -1,12 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, Loader2, X } from 'lucide-react'
+import { Check, Clock, Loader2, X } from 'lucide-react'
 import { useAuthStore } from '../store/useAuthStore'
-import { isUsernameTaken, useUserProfileStore } from '../store/useUserProfileStore'
+import { getUsernameCooldownRemainingMs, isUsernameTaken, useMyUserProfile, useUserProfileStore } from '../store/useUserProfileStore'
 import {
   USERNAME_MAX,
   USERNAME_UNAVAILABLE_MESSAGE,
   validateUsernameFormat,
 } from '../utils/usernameValidation'
+
+/** "3 days" / "1 hour" / "less than an hour" - a rough, human countdown, not
+ * a live-ticking clock (the shortest cooldown here is measured in hours, so
+ * a per-second timer would be overkill - re-renders naturally whenever the
+ * profile itself changes instead). */
+function formatCooldown(ms: number): string {
+  const days = Math.ceil(ms / (24 * 60 * 60 * 1000))
+  if (days >= 1) return `${days} ${days === 1 ? 'day' : 'days'}`
+  const hours = Math.ceil(ms / (60 * 60 * 1000))
+  if (hours >= 1) return `${hours} ${hours === 1 ? 'hour' : 'hours'}`
+  return 'less than an hour'
+}
 
 // First-run account setup: a signed-in player with no username yet gets this
 // as a blocking overlay (App.tsx decides when to mount it). They can pick a
@@ -32,6 +44,15 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
   const currentUser = useAuthStore((state) => state.currentUser)
   const setUsername = useUserProfileStore((state) => state.setUsername)
   const assignFallbackName = useUserProfileStore((state) => state.assignFallbackName)
+  const profile = useMyUserProfile()
+
+  // Once-every-7-days rate limit - explicit request, including telling the
+  // player about the rule up front, not just after a rejected attempt.
+  // Recomputed from `profile` (reactive) rather than a ticking timer - the
+  // shortest thing formatCooldown ever shows is "1 hour", so re-rendering
+  // only when the profile itself changes is plenty precise.
+  const cooldownRemainingMs = getUsernameCooldownRemainingMs(profile)
+  const inCooldown = cooldownRemainingMs > 0
 
   const [value, setValue] = useState('')
   const [availability, setAvailability] = useState<Availability>('idle')
@@ -41,7 +62,8 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
   const checkSeq = useRef(0)
 
   useEffect(() => {
-    inputRef.current?.focus()
+    if (!inCooldown) inputRef.current?.focus()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const trimmedLen = value.length
@@ -49,10 +71,11 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
   const showFormatError = value.length > 0 && !format.valid
 
   // Debounced case-insensitive uniqueness check - only runs once the format
-  // is already valid, so a half-typed name doesn't spam the network.
+  // is already valid, so a half-typed name doesn't spam the network. Also
+  // skipped entirely during the cooldown - nothing to submit either way.
   useEffect(() => {
     setSubmitError(null)
-    if (!format.valid) {
+    if (!format.valid || inCooldown) {
       setAvailability('idle')
       return
     }
@@ -64,12 +87,12 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
       setAvailability(taken ? 'taken' : 'available')
     }, 350)
     return () => window.clearTimeout(timer)
-  }, [value, format.valid, currentUser?.id])
+  }, [value, format.valid, currentUser?.id, inCooldown])
 
-  const canSubmit = format.valid && availability === 'available' && !submitting
+  const canSubmit = !inCooldown && format.valid && availability === 'available' && !submitting
 
   const handleContinue = async () => {
-    if (submitting) return
+    if (submitting || inCooldown) return
     const finalFormat = validateUsernameFormat(value)
     if (!finalFormat.valid) {
       setSubmitError(finalFormat.error ?? USERNAME_UNAVAILABLE_MESSAGE)
@@ -83,8 +106,16 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
       setSubmitError(USERNAME_UNAVAILABLE_MESSAGE)
       return
     }
-    setUsername(value)
+    // Backstop against the cooldown having kicked in between this modal
+    // opening and this click (e.g. left open across the boundary) - the
+    // store itself is the actual source of truth, this UI check is just
+    // what keeps the form from ever LOOKING submittable in that window.
+    const applied = setUsername(value)
     setSubmitting(false)
+    if (!applied) {
+      setSubmitError('You can only change your name once every 7 days - come back later.')
+      return
+    }
     onClose?.()
   }
 
@@ -123,6 +154,13 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
             <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
               This is how other employees will see you on the leaderboard.
             </p>
+            {/* Told up front, not just discovered after a rejected submit -
+                explicit request. Always visible (even outside the cooldown)
+                so it's known before someone commits to a name. */}
+            <p className="mt-1.5 flex items-center gap-1 text-xs font-medium text-slate-400 dark:text-slate-500">
+              <Clock className="h-3 w-3 shrink-0" aria-hidden="true" />
+              You can only change this once every 7 days.
+            </p>
           </div>
           {dismissible ? (
             <button
@@ -136,6 +174,18 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
           ) : null}
         </div>
 
+        {inCooldown ? (
+          // Replaces the whole form - nothing to type or submit while
+          // blocked, so a disabled input just invites a confused retry
+          // instead of clearly explaining why.
+          <div className="mt-5 flex items-start gap-2.5 rounded-lg border border-amber-300/60 bg-amber-50 px-3.5 py-3 text-sm leading-6 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">
+            <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+            <span>
+              You already changed your name recently. You can change it again in{' '}
+              <span className="font-semibold">{formatCooldown(cooldownRemainingMs)}</span>.
+            </span>
+          </div>
+        ) : (
         <div className="mt-5">
           <div className="relative">
             <input
@@ -150,7 +200,7 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
               onKeyDown={(event) => {
                 if (event.key === 'Enter' && canSubmit) handleContinue()
               }}
-              placeholder="e.g. Joachim"
+              placeholder="e.g. lucas3000"
               aria-invalid={statusMessage ? true : undefined}
               className={`w-full rounded-lg border bg-white px-4 py-3 pr-11 text-sm text-slate-900 outline-none transition focus:ring-2 dark:bg-slate-950 dark:text-slate-100 ${
                 statusMessage
@@ -178,7 +228,9 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
             </span>
           </div>
         </div>
+        )}
 
+        {!inCooldown ? (
         <button
           type="button"
           disabled={!canSubmit}
@@ -187,7 +239,13 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
         >
           {submitting ? 'Saving…' : 'Continue'}
         </button>
+        ) : null}
 
+        {/* Skip only ever means anything before a real name exists - once
+            the cooldown is active the player already has one, so this
+            would either be a confusing no-op or (if dismissible) is
+            redundant with the X/backdrop close already available. */}
+        {!inCooldown ? (
         <button
           type="button"
           onClick={handleSkip}
@@ -195,6 +253,7 @@ export default function UsernameModal({ dismissible = false, onClose }: Username
         >
           Skip for now
         </button>
+        ) : null}
       </div>
     </div>
   )

@@ -52,7 +52,7 @@ export default function SearchResultsPage() {
           subtitle={
             hasQuery
               ? `${matches.length} ${matches.length === 1 ? 'career matches' : 'careers match'} "${query}".`
-              : 'Use the search bar above to find a career by name, category or skill.'
+              : 'This page shows results for a career search - browse Job Market to find one.'
           }
         />
         {matches.length > 0 ? <CompareButton disabled={matches.length < 2} /> : null}
@@ -66,7 +66,21 @@ export default function SearchResultsPage() {
             message={`No careers matched "${query}". Try a different search term or check the spelling.`}
           />
         ) : (
-          <EmptyState icon={Search} title="Search for a career" message="Type a career name, category or skill to get started." />
+          <EmptyState
+            icon={Search}
+            title="Search for a career"
+            // No search input lives on this page itself (this route is
+            // fed by its own ?q= URL param, filled in elsewhere) - the old
+            // copy here said "use the search bar above", which stopped
+            // being true once SearchBar1.tsx was intentionally unmounted
+            // from the app (kept in the codebase per explicit instruction,
+            // but nothing currently renders it - see that file's own
+            // comment). Pointing at Job Market's browse experience instead
+            // of a search box that isn't there.
+            message="Browse careers from Job Market to find one - this page only shows results once you've searched."
+            actionLabel="Browse Job Market"
+            onAction={() => navigate('/job-market')}
+          />
         )
       ) : (
         <StaggerGrid className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

@@ -62,10 +62,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=software+developer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Developer Apprentice / Junior (Entry (£18k-£30k))',
-      'Developer (Mid-level (£30k-£50k))',
-      'Senior Developer (Senior (£45k-£70k))',
-      'Lead Developer / Specialist (Lead / Specialist (£60k+))',
+      'Developer Apprentice / Junior (£18k-£30k)',
+      'Developer (£30k-£50k)',
+      'Senior Developer (£45k-£70k)',
+      'Lead Developer / Specialist (£60k+)',
     ],
     similarCareers: [
       2,
@@ -292,10 +292,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=ux+ui+designer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Designer Apprentice / Junior (Entry (£18k-£30k))',
-      'Designer (Mid-level (£30k-£50k))',
-      'Senior Designer (Senior (£45k-£70k))',
-      'Lead Designer / Specialist (Lead / Specialist (£60k+))',
+      'Designer Apprentice / Junior (£18k-£30k)',
+      'Designer (£30k-£50k)',
+      'Senior Designer (£45k-£70k)',
+      'Lead Designer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -359,10 +359,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=it+support+technician', description: 'Business & tech skills' },
     ],
     progression: [
-      'Technician Apprentice / Junior (Entry (£18k-£30k))',
-      'Technician (Mid-level (£30k-£50k))',
-      'Senior Technician (Senior (£45k-£70k))',
-      'Lead Technician / Specialist (Lead / Specialist (£60k+))',
+      'Technician Apprentice / Junior (£18k-£30k)',
+      'Technician (£30k-£50k)',
+      'Senior Technician (£45k-£70k)',
+      'Lead Technician / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -436,10 +436,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=network+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Engineer Apprentice / Junior (£18k-£30k)',
+      'Engineer (£30k-£50k)',
+      'Senior Engineer (£45k-£70k)',
+      'Lead Engineer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -672,10 +672,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=web+developer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Developer Apprentice / Junior (Entry (£18k-£30k))',
-      'Developer (Mid-level (£30k-£50k))',
-      'Senior Developer (Senior (£45k-£70k))',
-      'Lead Developer / Specialist (Lead / Specialist (£60k+))',
+      'Developer Apprentice / Junior (£18k-£30k)',
+      'Developer (£30k-£50k)',
+      'Senior Developer (£45k-£70k)',
+      'Lead Developer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -752,10 +752,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=game+developer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Developer Apprentice / Junior (Entry (£18k-£30k))',
-      'Developer (Mid-level (£30k-£50k))',
-      'Senior Developer (Senior (£45k-£70k))',
-      'Lead Developer / Specialist (Lead / Specialist (£60k+))',
+      'Developer Apprentice / Junior (£18k-£30k)',
+      'Developer (£30k-£50k)',
+      'Senior Developer (£45k-£70k)',
+      'Lead Developer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -971,10 +971,10 @@ const rawDemoCareers2 = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=financial+advisor', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Financial Apprentice / Junior (Entry (£18k-£30k))',
-      'Financial (Mid-level (£30k-£50k))',
-      'Senior Financial (Senior (£45k-£70k))',
-      'Lead Financial / Specialist (Lead / Specialist (£60k+))',
+      'Financial Apprentice / Junior (£18k-£30k)',
+      'Financial (£30k-£50k)',
+      'Senior Financial (£45k-£70k)',
+      'Lead Financial / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1062,10 +1062,10 @@ const rawDemoCareers2 = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=project+manager', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Manager Apprentice / Junior (Entry (£18k-£30k))',
-      'Manager (Mid-level (£30k-£50k))',
-      'Senior Manager (Senior (£45k-£70k))',
-      'Lead Manager / Specialist (Lead / Specialist (£60k+))',
+      'Manager Apprentice / Junior (£18k-£30k)',
+      'Manager (£30k-£50k)',
+      'Senior Manager (£45k-£70k)',
+      'Lead Manager / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1128,10 +1128,10 @@ const rawDemoCareers2 = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=marketing+manager', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Manager Apprentice / Junior (Entry (£18k-£30k))',
-      'Manager (Mid-level (£30k-£50k))',
-      'Senior Manager (Senior (£45k-£70k))',
-      'Lead Manager / Specialist (Lead / Specialist (£60k+))',
+      'Manager Apprentice / Junior (£18k-£30k)',
+      'Manager (£30k-£50k)',
+      'Senior Manager (£45k-£70k)',
+      'Lead Manager / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1192,10 +1192,10 @@ const rawDemoCareers2 = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=human+resources+officer', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Officer Apprentice / Junior (Entry (£18k-£30k))',
-      'Officer (Mid-level (£30k-£50k))',
-      'Senior Officer (Senior (£45k-£70k))',
-      'Lead Officer / Specialist (Lead / Specialist (£60k+))',
+      'Officer Apprentice / Junior (£18k-£30k)',
+      'Officer (£30k-£50k)',
+      'Senior Officer (£45k-£70k)',
+      'Lead Officer / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1268,10 +1268,10 @@ const rawDemoCareers2 = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=sales+manager', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Sales Apprentice / Junior (Entry (£18k-£30k))',
-      'Sales (Mid-level (£30k-£50k))',
-      'Senior Sales (Senior (£45k-£70k))',
-      'Lead Sales / Specialist (Lead / Specialist (£60k+))',
+      'Sales Apprentice / Junior (£18k-£30k)',
+      'Sales (£30k-£50k)',
+      'Senior Sales (£45k-£70k)',
+      'Lead Sales / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1346,10 +1346,10 @@ const rawDemoCareers2 = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=management+consultant', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Consultant Apprentice / Junior (Entry (£18k-£30k))',
-      'Consultant (Mid-level (£30k-£50k))',
-      'Senior Consultant (Senior (£45k-£70k))',
-      'Lead Consultant / Specialist (Lead / Specialist (£60k+))',
+      'Consultant Apprentice / Junior (£18k-£30k)',
+      'Consultant (£30k-£50k)',
+      'Senior Consultant (£45k-£70k)',
+      'Lead Consultant / Specialist (£60k+)',
     ],
     similarCareers: [
       92,
@@ -1413,10 +1413,10 @@ const rawDemoCareers2 = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=investment+banker', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Investment Banker Apprentice / Junior (Entry (£18k-£30k))',
-      'Investment Banker (Mid-level (£30k-£50k))',
-      'Senior Investment Banker (Senior (£45k-£70k))',
-      'Lead Investment Banker / Specialist (Lead / Specialist (£60k+))',
+      'Investment Banker Apprentice / Junior (£18k-£30k)',
+      'Investment Banker (£30k-£50k)',
+      'Senior Investment Banker (£45k-£70k)',
+      'Lead Investment Banker / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1476,10 +1476,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=insurance+underwriter', description: 'Business & tech skills' },
     ],
     progression: [
-      'Insurance Underwriter Apprentice / Junior (Entry (£18k-£30k))',
-      'Insurance Underwriter (Mid-level (£30k-£50k))',
-      'Senior Insurance Underwriter (Senior (£45k-£70k))',
-      'Lead Insurance Underwriter / Specialist (Lead / Specialist (£60k+))',
+      'Insurance Underwriter Apprentice / Junior (£18k-£30k)',
+      'Insurance Underwriter (£30k-£50k)',
+      'Senior Insurance Underwriter (£45k-£70k)',
+      'Lead Insurance Underwriter / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1556,10 +1556,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=doctor+gp', description: 'Business & tech skills' },
     ],
     progression: [
-      'DoctorGP Apprentice / Junior (Entry (£18k-£30k))',
-      'DoctorGP (Mid-level (£30k-£50k))',
-      'Senior DoctorGP (Senior (£45k-£70k))',
-      'Lead DoctorGP / Specialist (Lead / Specialist (£60k+))',
+      'Doctor/GP Apprentice / Junior (£18k-£30k)',
+      'Doctor/GP (£30k-£50k)',
+      'Senior Doctor/GP (£45k-£70k)',
+      'Lead Doctor/GP / Specialist (£60k+)',
     ],
     similarCareers: [
       91,
@@ -1648,10 +1648,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=nurse', description: 'Business & tech skills' },
     ],
     progression: [
-      'Nurse Apprentice / Junior (Entry (£18k-£30k))',
-      'Nurse (Mid-level (£30k-£50k))',
-      'Senior Nurse (Senior (£45k-£70k))',
-      'Lead Nurse / Specialist (Lead / Specialist (£60k+))',
+      'Nurse Apprentice / Junior (£18k-£30k)',
+      'Nurse (£30k-£50k)',
+      'Senior Nurse (£45k-£70k)',
+      'Lead Nurse / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -1710,10 +1710,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=paramedic', description: 'Business & tech skills' },
     ],
     progression: [
-      'Paramedic Apprentice / Junior (Entry (£18k-£30k))',
-      'Paramedic (Mid-level (£30k-£50k))',
-      'Senior Paramedic (Senior (£45k-£70k))',
-      'Lead Paramedic / Specialist (Lead / Specialist (£60k+))',
+      'Paramedic Apprentice / Junior (£18k-£30k)',
+      'Paramedic (£30k-£50k)',
+      'Senior Paramedic (£45k-£70k)',
+      'Lead Paramedic / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -1772,10 +1772,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=pharmacist', description: 'Business & tech skills' },
     ],
     progression: [
-      'Pharmacist Apprentice / Junior (Entry (£18k-£30k))',
-      'Pharmacist (Mid-level (£30k-£50k))',
-      'Senior Pharmacist (Senior (£45k-£70k))',
-      'Lead Pharmacist / Specialist (Lead / Specialist (£60k+))',
+      'Pharmacist Apprentice / Junior (£18k-£30k)',
+      'Pharmacist (£30k-£50k)',
+      'Senior Pharmacist (£45k-£70k)',
+      'Lead Pharmacist / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -1837,10 +1837,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=physiotherapist', description: 'Business & tech skills' },
     ],
     progression: [
-      'Physiotherapist Apprentice / Junior (Entry (£18k-£30k))',
-      'Physiotherapist (Mid-level (£30k-£50k))',
-      'Senior Physiotherapist (Senior (£45k-£70k))',
-      'Lead Physiotherapist / Specialist (Lead / Specialist (£60k+))',
+      'Physiotherapist Apprentice / Junior (£18k-£30k)',
+      'Physiotherapist (£30k-£50k)',
+      'Senior Physiotherapist (£45k-£70k)',
+      'Lead Physiotherapist / Specialist (£60k+)',
     ],
     similarCareers: [
       88,
@@ -1915,10 +1915,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=occupational+therapist', description: 'Business & tech skills' },
     ],
     progression: [
-      'Occupational Therapist Apprentice / Junior (Entry (£18k-£30k))',
-      'Occupational Therapist (Mid-level (£30k-£50k))',
-      'Senior Occupational Therapist (Senior (£45k-£70k))',
-      'Lead Occupational Therapist / Specialist (Lead / Specialist (£60k+))',
+      'Occupational Therapist Apprentice / Junior (£18k-£30k)',
+      'Occupational Therapist (£30k-£50k)',
+      'Senior Occupational Therapist (£45k-£70k)',
+      'Lead Occupational Therapist / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -2046,10 +2046,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=psychologist', description: 'Business & tech skills' },
     ],
     progression: [
-      'Psychologist Apprentice / Junior (Entry (£18k-£30k))',
-      'Psychologist (Mid-level (£30k-£50k))',
-      'Senior Psychologist (Senior (£45k-£70k))',
-      'Lead Psychologist / Specialist (Lead / Specialist (£60k+))',
+      'Psychologist Apprentice / Junior (£18k-£30k)',
+      'Psychologist (£30k-£50k)',
+      'Senior Psychologist (£45k-£70k)',
+      'Lead Psychologist / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -2110,10 +2110,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=radiographer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Radiographer Apprentice / Junior (Entry (£18k-£30k))',
-      'Radiographer (Mid-level (£30k-£50k))',
-      'Senior Radiographer (Senior (£45k-£70k))',
-      'Lead Radiographer / Specialist (Lead / Specialist (£60k+))',
+      'Radiographer Apprentice / Junior (£18k-£30k)',
+      'Radiographer (£30k-£50k)',
+      'Senior Radiographer (£45k-£70k)',
+      'Lead Radiographer / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -2170,10 +2170,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=midwife', description: 'Business & tech skills' },
     ],
     progression: [
-      'Midwife Apprentice / Junior (Entry (£18k-£30k))',
-      'Midwife (Mid-level (£30k-£50k))',
-      'Senior Midwife (Senior (£45k-£70k))',
-      'Lead Midwife / Specialist (Lead / Specialist (£60k+))',
+      'Midwife Apprentice / Junior (£18k-£30k)',
+      'Midwife (£30k-£50k)',
+      'Senior Midwife (£45k-£70k)',
+      'Lead Midwife / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -2338,10 +2338,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=mechanical+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Engineer Apprentice / Junior (£18k-£30k)',
+      'Engineer (£30k-£50k)',
+      'Senior Engineer (£45k-£70k)',
+      'Lead Engineer / Specialist (£60k+)',
     ],
     similarCareers: [
       31,
@@ -2413,10 +2413,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=electrical+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Engineer Apprentice / Junior (£18k-£30k)',
+      'Engineer (£30k-£50k)',
+      'Senior Engineer (£45k-£70k)',
+      'Lead Engineer / Specialist (£60k+)',
     ],
     similarCareers: [
       31,
@@ -2687,10 +2687,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=quantity+surveyor', description: 'Business & tech skills' },
     ],
     progression: [
-      'Surveyor Apprentice / Junior (Entry (£18k-£30k))',
-      'Surveyor (Mid-level (£30k-£50k))',
-      'Senior Surveyor (Senior (£45k-£70k))',
-      'Lead Surveyor / Specialist (Lead / Specialist (£60k+))',
+      'Surveyor Apprentice / Junior (£18k-£30k)',
+      'Surveyor (£30k-£50k)',
+      'Senior Surveyor (£45k-£70k)',
+      'Lead Surveyor / Specialist (£60k+)',
     ],
     similarCareers: [
       31,
@@ -2824,10 +2824,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=graphic+designer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Designer Apprentice / Junior (Entry (£18k-£30k))',
-      'Designer (Mid-level (£30k-£50k))',
-      'Senior Designer (Senior (£45k-£70k))',
-      'Lead Designer / Specialist (Lead / Specialist (£60k+))',
+      'Designer Apprentice / Junior (£18k-£30k)',
+      'Designer (£30k-£50k)',
+      'Senior Designer (£45k-£70k)',
+      'Lead Designer / Specialist (£60k+)',
     ],
     similarCareers: [
       40,
@@ -2889,10 +2889,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=video+editor', description: 'Business & tech skills' },
     ],
     progression: [
-      'Video Editor Apprentice / Junior (Entry (£18k-£30k))',
-      'Video Editor (Mid-level (£30k-£50k))',
-      'Senior Video Editor (Senior (£45k-£70k))',
-      'Lead Video Editor / Specialist (Lead / Specialist (£60k+))',
+      'Video Editor Apprentice / Junior (£18k-£30k)',
+      'Video Editor (£30k-£50k)',
+      'Senior Video Editor (£45k-£70k)',
+      'Lead Video Editor / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -2953,10 +2953,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=photographer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Photographer Apprentice / Junior (Entry (£18k-£30k))',
-      'Photographer (Mid-level (£30k-£50k))',
-      'Senior Photographer (Senior (£45k-£70k))',
-      'Lead Photographer / Specialist (Lead / Specialist (£60k+))',
+      'Photographer Apprentice / Junior (£18k-£30k)',
+      'Photographer (£30k-£50k)',
+      'Senior Photographer (£45k-£70k)',
+      'Lead Photographer / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -3092,10 +3092,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=writer+copywriter', description: 'Business & tech skills' },
     ],
     progression: [
-      'WriterCopywriter Apprentice / Junior (Entry (£18k-£30k))',
-      'WriterCopywriter (Mid-level (£30k-£50k))',
-      'Senior WriterCopywriter (Senior (£45k-£70k))',
-      'Lead WriterCopywriter / Specialist (Lead / Specialist (£60k+))',
+      'Writer/Copywriter Apprentice / Junior (£18k-£30k)',
+      'Writer/Copywriter (£30k-£50k)',
+      'Senior Writer/Copywriter (£45k-£70k)',
+      'Lead Writer/Copywriter / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -3162,10 +3162,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=social+media+manager', description: 'Business & tech skills' },
     ],
     progression: [
-      'Manager Apprentice / Junior (Entry (£18k-£30k))',
-      'Manager (Mid-level (£30k-£50k))',
-      'Senior Manager (Senior (£45k-£70k))',
-      'Lead Manager / Specialist (Lead / Specialist (£60k+))',
+      'Manager Apprentice / Junior (£18k-£30k)',
+      'Manager (£30k-£50k)',
+      'Senior Manager (£45k-£70k)',
+      'Lead Manager / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -3246,10 +3246,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=film+tv+producer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Producer Apprentice / Junior (Entry (£18k-£30k))',
-      'Producer (Mid-level (£30k-£50k))',
-      'Senior Producer (Senior (£45k-£70k))',
-      'Lead Producer / Specialist (Lead / Specialist (£60k+))',
+      'Producer Apprentice / Junior (£18k-£30k)',
+      'Producer (£30k-£50k)',
+      'Senior Producer (£45k-£70k)',
+      'Lead Producer / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -3338,10 +3338,10 @@ const rawDemoCareers2 = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=primary+school+teacher', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Teacher Apprentice / Junior (Entry (£18k-£30k))',
-      'Teacher (Mid-level (£30k-£50k))',
-      'Senior Teacher (Senior (£45k-£70k))',
-      'Lead Teacher / Specialist (Lead / Specialist (£60k+))',
+      'Teacher Apprentice / Junior (£18k-£30k)',
+      'Teacher (£30k-£50k)',
+      'Senior Teacher (£45k-£70k)',
+      'Lead Teacher / Specialist (£60k+)',
     ],
     similarCareers: [
       47,
@@ -3434,10 +3434,10 @@ const rawDemoCareers2 = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=secondary+school+teacher', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Teacher Apprentice / Junior (Entry (£18k-£30k))',
-      'Teacher (Mid-level (£30k-£50k))',
-      'Senior Teacher (Senior (£45k-£70k))',
-      'Lead Teacher / Specialist (Lead / Specialist (£60k+))',
+      'Teacher Apprentice / Junior (£18k-£30k)',
+      'Teacher (£30k-£50k)',
+      'Senior Teacher (£45k-£70k)',
+      'Lead Teacher / Specialist (£60k+)',
     ],
     similarCareers: [
       46,
@@ -3530,10 +3530,10 @@ const rawDemoCareers2 = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=teaching+assistant', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Assistant Apprentice / Junior (Entry (£18k-£30k))',
-      'Assistant (Mid-level (£30k-£50k))',
-      'Senior Assistant (Senior (£45k-£70k))',
-      'Lead Assistant / Specialist (Lead / Specialist (£60k+))',
+      'Assistant Apprentice / Junior (£18k-£30k)',
+      'Assistant (£30k-£50k)',
+      'Senior Assistant (£45k-£70k)',
+      'Lead Assistant / Specialist (£60k+)',
     ],
     similarCareers: [
       46,
@@ -3615,10 +3615,10 @@ const rawDemoCareers2 = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=university+lecturer', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Lecturer Apprentice / Junior (Entry (£18k-£30k))',
-      'Lecturer (Mid-level (£30k-£50k))',
-      'Senior Lecturer (Senior (£45k-£70k))',
-      'Lead Lecturer / Specialist (Lead / Specialist (£60k+))',
+      'Lecturer Apprentice / Junior (£18k-£30k)',
+      'Lecturer (£30k-£50k)',
+      'Senior Lecturer (£45k-£70k)',
+      'Lead Lecturer / Specialist (£60k+)',
     ],
     similarCareers: [
       46,
@@ -3779,10 +3779,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=devops+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Engineer Apprentice / Junior (£18k-£30k)',
+      'Engineer (£30k-£50k)',
+      'Senior Engineer (£45k-£70k)',
+      'Lead Engineer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -3972,10 +3972,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=ethical+hacker', description: 'Business & tech skills' },
     ],
     progression: [
-      'Ethical Hacker Apprentice / Junior (Entry (£18k-£30k))',
-      'Ethical Hacker (Mid-level (£30k-£50k))',
-      'Senior Ethical Hacker (Senior (£45k-£70k))',
-      'Lead Ethical Hacker / Specialist (Lead / Specialist (£60k+))',
+      'Ethical Hacker Apprentice / Junior (£18k-£30k)',
+      'Ethical Hacker (£30k-£50k)',
+      'Senior Ethical Hacker (£45k-£70k)',
+      'Lead Ethical Hacker / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4047,10 +4047,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=digital+forensics+investigator', description: 'Business & tech skills' },
     ],
     progression: [
-      'Digital Forensics Investigator Apprentice / Junior (Entry (£18k-£30k))',
-      'Digital Forensics Investigator (Mid-level (£30k-£50k))',
-      'Senior Digital Forensics Investigator (Senior (£45k-£70k))',
-      'Lead Digital Forensics Investigator / Specialist (Lead / Specialist (£60k+))',
+      'Digital Forensics Investigator Apprentice / Junior (£18k-£30k)',
+      'Digital Forensics Investigator (£30k-£50k)',
+      'Senior Digital Forensics Investigator (£45k-£70k)',
+      'Lead Digital Forensics Investigator / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4187,10 +4187,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=site+reliability+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Engineer Apprentice / Junior (£18k-£30k)',
+      'Engineer (£30k-£50k)',
+      'Senior Engineer (£45k-£70k)',
+      'Lead Engineer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4252,10 +4252,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=mobile+app+developer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Developer Apprentice / Junior (Entry (£18k-£30k))',
-      'Developer (Mid-level (£30k-£50k))',
-      'Senior Developer (Senior (£45k-£70k))',
-      'Lead Developer / Specialist (Lead / Specialist (£60k+))',
+      'Developer Apprentice / Junior (£18k-£30k)',
+      'Developer (£30k-£50k)',
+      'Senior Developer (£45k-£70k)',
+      'Lead Developer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4327,10 +4327,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=systems+analyst', description: 'Business & tech skills' },
     ],
     progression: [
-      'Analyst Apprentice / Junior (Entry (£18k-£30k))',
-      'Analyst (Mid-level (£30k-£50k))',
-      'Senior Analyst (Senior (£45k-£70k))',
-      'Lead Analyst / Specialist (Lead / Specialist (£60k+))',
+      'Analyst Apprentice / Junior (£18k-£30k)',
+      'Analyst (£30k-£50k)',
+      'Senior Analyst (£45k-£70k)',
+      'Lead Analyst / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4391,10 +4391,10 @@ const rawDemoCareers2 = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=technical+writer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Writer Apprentice / Junior (Entry (£18k-£30k))',
-      'Writer (Mid-level (£30k-£50k))',
-      'Senior Writer (Senior (£45k-£70k))',
-      'Lead Writer / Specialist (Lead / Specialist (£60k+))',
+      'Writer Apprentice / Junior (£18k-£30k)',
+      'Writer (£30k-£50k)',
+      'Senior Writer (£45k-£70k)',
+      'Lead Writer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4517,10 +4517,10 @@ const rawDemoCareers2 = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=virtual+assistant', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Assistant Apprentice / Junior (Entry (£18k-£30k))',
-      'Assistant (Mid-level (£30k-£50k))',
-      'Senior Assistant (Senior (£45k-£70k))',
-      'Lead Assistant / Specialist (Lead / Specialist (£60k+))',
+      'Assistant Apprentice / Junior (£18k-£30k)',
+      'Assistant (£30k-£50k)',
+      'Senior Assistant (£45k-£70k)',
+      'Lead Assistant / Specialist (£60k+)',
     ],
     similarCareers: [
       11,

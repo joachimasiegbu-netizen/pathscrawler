@@ -115,13 +115,13 @@ export default function JobMarketUkStatsPage() {
         </div>
       </div>
 
-      <RevealSection className="rounded-3xl bg-gradient-to-br from-primary-soft/50 via-white to-white px-8 py-8 shadow-soft ring-1 ring-primary/10 dark:from-primary/10 dark:via-slate-800 dark:to-slate-900 dark:ring-primary/20">
-        <div className="flex items-center justify-between gap-3">
+      <RevealSection className="rounded-3xl bg-gradient-to-br from-primary-soft/50 via-white to-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft ring-1 ring-primary/10 dark:from-primary/10 dark:via-slate-800 dark:to-slate-900 dark:ring-primary/20">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
             <Users className="h-5 w-5" />
             The workforce
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-green-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm shadow-green-500/30 ring-1 ring-green-400">
+          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-green-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm shadow-green-500/30 ring-1 ring-green-400">
             <BadgeCheck className="h-4 w-4" />
             Real ONS data
           </span>
@@ -146,7 +146,7 @@ export default function JobMarketUkStatsPage() {
         </p>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <Hammer className="h-5 w-5 text-amber-600 dark:text-amber-400" />
           Endangered & heritage crafts
@@ -188,7 +188,7 @@ export default function JobMarketUkStatsPage() {
         />
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <Ghost className="h-5 w-5 text-slate-500 dark:text-slate-400" />
           Jobs that no longer exist
@@ -210,7 +210,7 @@ export default function JobMarketUkStatsPage() {
         />
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <TrendingUp className="h-5 w-5 text-green-600 dark:text-green-400" />
           Skills shortages & demand

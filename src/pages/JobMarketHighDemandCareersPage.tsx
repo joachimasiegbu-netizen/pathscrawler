@@ -39,7 +39,7 @@ export default function JobMarketHighDemandCareersPage() {
         </div>
       </div>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">Skills England Occupations in Demand 2025</p>
         <StaggerGrid className="mt-5 grid gap-4 sm:grid-cols-2">
           {demandSkillsStats.map((stat) => (
@@ -53,7 +53,7 @@ export default function JobMarketHighDemandCareersPage() {
       </RevealSection>
 
       {categoryGroups.map(({ category, careers }) => (
-        <RevealSection key={category} className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+        <RevealSection key={category} className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
               <TrendingUp className="h-5 w-5 text-green-600 dark:text-green-400" />

@@ -1,4 +1,4 @@
-import { BookOpen, GraduationCap, Layers, Award, Microscope, BadgeCheck } from 'lucide-react'
+import { BookOpen, GraduationCap, Layers, Award, Microscope, BadgeCheck, Globe2 } from 'lucide-react'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
@@ -16,7 +16,21 @@ const levelCards = [
   { key: 'masters', label: "Master's Degree", description: 'Postgraduate study for a career pivot or specialisation (MSc, MA, MBA, MEng and more).', category: 'Masters', icon: GraduationCap },
   { key: 'phd', label: 'PhD / Doctoral Research', description: 'Research degrees for academia and specialist research careers.', category: 'PhD', icon: Microscope },
   { key: 'professional', label: 'Professional Qualifications', description: 'Industry certifications, conversion courses and professional diplomas (GDL, PGCE, CIM, ACCA, CFA and more).', category: 'Professional', icon: BadgeCheck },
+  // Not really a "level" like the others - it's the destination the old
+  // dedicated "New to the UK" persona card used to route to directly
+  // (still a real page, /subjects/refugee-asylum-seeker). Now that persona
+  // is folded into Student (RoleSelectionPage.tsx), this is how it stays
+  // reachable - one more button on Student's own level-picker rather than
+  // its own carousel card, per explicit request.
+  { key: 'refugee-asylum-seeker', label: 'New to the UK', description: 'Support with English, qualifications, and finding your career path.', category: 'Support', icon: Globe2 },
 ]
+// Armed Forces Leaver (the persona now folded into Career Changer) doesn't
+// belong here - Career Changer never actually renders this page's card
+// grid at all (RoleSelectionPage.tsx routes it straight to
+// /career-changer/current-role; the 'career-changer' entry in roleCardMap
+// below is unreachable dead code, a defensive fallback only). See
+// careerChangerData.ts's own 'military' entry (relabeled "Armed Forces
+// Leaver") for where that persona actually lives now instead.
 
 export default function SubjectSelectionPage() {
   const navigate = useNavigate()
@@ -43,7 +57,7 @@ export default function SubjectSelectionPage() {
   }
 
   const roleCardMap: Record<string, string[]> = {
-    student: ['gcse', 'a-level', 'tlevel'],
+    student: ['gcse', 'a-level', 'tlevel', 'refugee-asylum-seeker'],
     apprentice: [],
     graduate: [],
     'career-changer': ['masters', 'phd', 'professional'],

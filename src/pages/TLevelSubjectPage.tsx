@@ -113,10 +113,10 @@ export default function TLevelSubjectPage() {
           </div>
         </div>
 
-        <div className="border-t px-8 py-4">
+        <div className="sticky bottom-0 z-20 border-t bg-white px-8 py-4 sm:static">
           <div className="flex justify-end">
             <Button onClick={() => navigate('/results')} disabled={selectedCount === 0} className="w-full sm:w-auto">
-              Continue
+              {selectedCount > 0 ? `Continue · ${selectedCount} selected` : 'Continue'}
             </Button>
           </div>
         </div>

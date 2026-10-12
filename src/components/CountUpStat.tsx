@@ -18,6 +18,15 @@ function parseValue(value: string) {
   const match = value.match(/^([^\d]*)([\d,]+(?:\.\d+)?)(.*)$/)
   if (!match) return null
   const [, prefix, numStr, suffix] = match
+  // A second number anywhere in the suffix means this is a range ("£28k -
+  // £55k"), not a single stat - this function only ever animates the
+  // FIRST number, so a range used to show "£0k - £55k" (one number frozen
+  // at 0, the other already correct) until it scrolled into view, which
+  // reads as broken/placeholder data rather than an animation in
+  // progress. Treat a range as unparseable instead - falls through to the
+  // same "just show the real value, no animation" path reduceMotion
+  // already uses below, for everything that isn't a single plain number.
+  if (/\d/.test(suffix)) return null
   const decimals = numStr.includes('.') ? numStr.split('.')[1].length : 0
   const target = parseFloat(numStr.replace(/,/g, ''))
   return { prefix, suffix, decimals, target }

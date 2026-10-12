@@ -21,7 +21,7 @@ function VanishedJobCard({ job }: { job: VanishedJob }) {
     <div className="rounded-2xl border border-slate-200 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-900/70">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <h3 className="text-base font-bold text-slate-950 dark:text-slate-50">{job.title}</h3>
-        <span className="shrink-0 rounded-full bg-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-200">
+        <span className="rounded-full bg-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-200">
           {job.status}
         </span>
       </div>
@@ -63,7 +63,7 @@ export default function JobMarketVanishedJobsPage() {
         </div>
       </div>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <StaggerGrid className="grid gap-4 sm:grid-cols-2">
           {fullyExtinctJobs.map((job) => (
             <VanishedJobCard key={job.title} job={job} />
@@ -71,7 +71,7 @@ export default function JobMarketVanishedJobsPage() {
         </StaggerGrid>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <Ghost className="h-5 w-5 text-slate-500 dark:text-slate-400" />
           Reduced to ceremonial or tiny numbers
@@ -87,7 +87,7 @@ export default function JobMarketVanishedJobsPage() {
         </StaggerGrid>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <Ghost className="h-5 w-5 text-slate-500 dark:text-slate-400" />
           Fully extinct UK production crafts

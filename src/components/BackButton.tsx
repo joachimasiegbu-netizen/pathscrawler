@@ -46,7 +46,8 @@ export default function BackButton({ to, state, label = 'Back' }: BackButtonProp
     <button
       type="button"
       onClick={handleClick}
-      className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition hover:text-primary-dark dark:text-white dark:hover:text-slate-200"
+      // py-3/-my-3: a 44px-tall tap area on phones without moving the layout.
+      className="-my-3 inline-flex items-center gap-2 py-3 text-sm font-semibold text-primary transition hover:text-primary-dark dark:text-white dark:hover:text-slate-200"
     >
       <ArrowLeft className="h-5 w-5" />
       {label}

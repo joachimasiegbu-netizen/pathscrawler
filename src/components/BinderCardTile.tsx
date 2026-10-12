@@ -82,7 +82,7 @@ export default function BinderCardTile({ entry, onClick, selectionMode = false, 
       // mode" than normal browsing. The hover lift/shadow/flip is
       // normal-mode only - selection mode uses the circle toggle as its
       // only affordance.
-      className={`group relative block aspect-[3/4] w-full text-left transition-all duration-200 ${
+      className={`binder-card-tile group relative block aspect-[3/4] w-full text-left transition-all duration-200 ${
         selectionMode ? 'opacity-90' : 'hover:-translate-y-1 hover:shadow-xl'
       }`}
     >

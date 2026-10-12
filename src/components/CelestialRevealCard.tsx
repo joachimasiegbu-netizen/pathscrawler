@@ -136,8 +136,12 @@ export default function CelestialRevealCard({ career, onRollAgain }: CelestialRe
       setShowAuthPrompt(true)
       return
     }
+    // No success toast here anymore, per explicit request - the button
+    // itself already flips to the disabled "Added" state (BookmarkCheck +
+    // label, hasAdded above) right as this fires, so a popup on top of
+    // that was redundant. Binder-full still gets one above (that failure
+    // isn't otherwise visible - the button just silently stays "Add").
     setJustAdded(true)
-    flashToast(result === 'duplicate' ? 'You already have this card! Duplicate added.' : 'Added to binder!')
   }
 
   // Celestial is even rarer than Mythic (see MythicRevealCard.tsx for the
@@ -160,8 +164,10 @@ export default function CelestialRevealCard({ career, onRollAgain }: CelestialRe
       return
     }
     if (result === 'unauthenticated') return // shouldn't happen given the currentUser check above
+    // No success toast here anymore either, per explicit request - same
+    // reasoning as handleAddToBinder above (the button's own "Added" state
+    // already shows it).
     setJustAdded(true)
-    flashToast(result === 'duplicate' ? 'Celestial! Duplicate auto-added to your binder.' : 'Celestial! Auto-added to your binder.')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase])
 
@@ -248,7 +254,11 @@ export default function CelestialRevealCard({ career, onRollAgain }: CelestialRe
               initial={reduceMotion ? undefined : { opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } }}
               exit={reduceMotion ? undefined : { opacity: 0, transition: { duration: 0.15 } }}
-              className={`celestial-float-card relative flex h-[440px] w-[300px] flex-col items-center justify-center rounded-[24px] border-2 border-amber-200/60 bg-gradient-to-br from-slate-100 via-white to-amber-50 px-6 text-center ${
+              // w-[min(300px,calc(100vw-64px))], not a bare w-[300px] - see
+              // .celestial-reveal-card's comment in index.css: a flat 300px
+              // overflows the actual available width on common ~360px-wide
+              // phones once this page's own padding is accounted for.
+              className={`celestial-float-card relative flex h-[440px] w-[min(300px,calc(100vw-64px))] flex-col items-center justify-center rounded-[24px] border-2 border-amber-200/60 bg-gradient-to-br from-slate-100 via-white to-amber-50 px-6 text-center ${
                 phase === 'exploding' && !reduceMotion ? 'celestial-card-burst-out' : ''
               }`}
             >
@@ -331,14 +341,17 @@ export default function CelestialRevealCard({ career, onRollAgain }: CelestialRe
 
               {/* Real, always-reachable actions (a hover-only bar doesn't
                   work for touch) - same 3-button pattern every tier's card
-                  uses. Width pinned to exactly match .celestial-reveal-card
-                  (300px) - without an explicit width here, this grid just
+                  uses. Width pinned to exactly match .celestial-reveal-card -
+                  without an explicit width here, this grid just
                   shrink-wraps to its own content (motion.div's parent is a
                   flex item, not a block container, so it doesn't stretch
                   to match its sibling's width automatically), which could
                   come out narrower OR wider than the card above it and
-                  read as off-center relative to it either way. */}
-              <div className="mt-4 grid w-[300px] grid-cols-3 gap-2 text-sm font-semibold">
+                  read as off-center relative to it either way.
+                  min(300px,calc(100vw-64px)), not a bare 300px, so this row
+                  shrinks in lockstep with the card on narrow phones - see
+                  .celestial-reveal-card's own comment in index.css. */}
+              <div className="mt-4 grid w-[min(300px,calc(100vw-64px))] grid-cols-3 gap-2 text-sm font-semibold">
                 <button
                   type="button"
                   onClick={handleAddToBinder}

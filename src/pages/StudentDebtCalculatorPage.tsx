@@ -81,6 +81,7 @@ function NumberField({
         {prefix ? <span className="pl-3.5 text-sm text-slate-400">{prefix}</span> : null}
         <input
           type="number"
+          inputMode="decimal"
           value={Number.isFinite(value) ? value : 0}
           step={step}
           min={0}
@@ -112,6 +113,9 @@ function Outcome({ result }: { result: LoanResult }) {
         <p className="leading-6 text-emerald-900 dark:text-emerald-100">
           <span className="font-bold">Debt-free in year {result.clearedInYear}</span> after graduating. You repay it in
           full before the {result.writeOffYears}-year write-off, then the 9% deduction stops.
+          {result.totalRepaid > result.totalBorrowed
+            ? ` Total repaid (${gbp(result.totalRepaid)}) comes out above the ${gbp(result.totalBorrowed)} borrowed - about ${gbp(result.totalInterest)} of that is interest along the way, not extra borrowing.`
+            : null}
         </p>
       </div>
     )
@@ -123,7 +127,9 @@ function Outcome({ result }: { result: LoanResult }) {
         <p className="leading-6 text-amber-900 dark:text-amber-100">
           On these figures the loan is <span className="font-bold">written off after {result.writeOffYears} years</span>,
           with about <span className="font-bold">{gbp(result.writtenOffAmount)}</span> of balance cancelled. You never
-          repay it all. Total repaid is {gbp(result.totalRepaid)}.
+          repay it all. Total repaid is {gbp(result.totalRepaid)} - more than the {gbp(result.totalBorrowed)} borrowed,
+          because interest kept accruing faster than the repayments could clear it (about{' '}
+          {gbp(result.totalInterest)} of interest across the loan's life, not extra borrowing).
         </p>
       </div>
     )
@@ -167,7 +173,6 @@ export default function StudentDebtCalculatorPage() {
   const resultA = useMemo(() => projectLoan(toInputs(a)), [a])
   const resultB = useMemo(() => projectLoan(toInputs(b)), [b])
 
-  const monthlyNow = resultA.years.find((y) => y.phase === 'repay')?.monthlyRepayment ?? 0
   const monthlyYr10 = resultA.years.find((y) => y.yearIndex === 10)?.monthlyRepayment ?? 0
 
   return (
@@ -256,8 +261,23 @@ export default function StudentDebtCalculatorPage() {
         </>
       )}
 
+      {/* Phones only: the result is ten inputs further down, so keep the headline
+          number in view while editing. Sticky (not fixed), so it docks just above
+          the Result section once you scroll down to it. */}
+      <div className="sticky bottom-3 z-20 sm:hidden">
+        <button
+          type="button"
+          onClick={() => document.getElementById('debt-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          className="flex w-full items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 text-left shadow-lg backdrop-blur dark:border-slate-700 dark:bg-slate-800/95"
+        >
+          <span className="text-sm text-slate-500 dark:text-slate-400">{compareOn ? 'Course A repaid' : 'Total repaid'}</span>
+          <span className="font-bold tabular-nums text-slate-900 dark:text-white">{gbp(resultA.totalRepaid)}</span>
+          <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Details ↓</span>
+        </button>
+      </div>
+
       {/* Results */}
-      <section className="space-y-5 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/40 sm:p-6">
+      <section id="debt-result" className="scroll-mt-4 space-y-5 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/40 sm:p-6">
         <div>
           <h2 className="text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
             {compareOn ? 'Course A result' : 'Result'}
@@ -267,10 +287,21 @@ export default function StudentDebtCalculatorPage() {
             {a.loanInterestPct}% loan interest.
           </p>
         </div>
+        {/* "Monthly now" was removed earlier (showed a confusing £0 by
+            default - see git history) and this row ran 3-wide since. Back
+            to 4 now: without a visible "total interest" figure, Total
+            repaid (and, once written off, Total repaid + the cancelled
+            balance) can land well above Total borrowed with nothing on
+            screen explaining why - reported back as "doesn't make sense",
+            confirmed by testing it live (default settings alone: £61,809
+            borrowed vs £79,653 repaid + £98,465 written off). This stat is
+            the reconciling number: borrowed + interest = repaid +
+            written-off/outstanding, always. grid-cols-2 (not 1) on mobile
+            so 4 stats still read as one block instead of a long stack. */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <ResultStat label="Total borrowed" value={gbp(resultA.totalBorrowed)} />
+          <ResultStat label="Total interest" value={gbp(resultA.totalInterest)} />
           <ResultStat label="Total repaid" value={gbp(resultA.totalRepaid)} tone={resultA.totalRepaid > resultA.totalBorrowed ? 'bad' : 'default'} />
-          <ResultStat label="Monthly now" value={gbp(monthlyNow)} />
           <ResultStat label="Monthly at yr 10" value={gbp(monthlyYr10)} />
         </div>
         <Outcome result={resultA} />
@@ -278,7 +309,9 @@ export default function StudentDebtCalculatorPage() {
         <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
           <LoanBalanceChart primary={resultA} compare={compareOn ? resultB : null} writeOffYear={resultA.writeOffYears} />
           {compareOn ? (
-            <p className="mt-1 text-center text-xs text-slate-400">Solid indigo is Course A, dashed amber is Course B</p>
+            <p className="mt-1 text-center text-xs text-slate-400">
+              Solid indigo is {courseById(a.courseId).label}, dashed amber is {courseById(b.courseId).label}
+            </p>
           ) : null}
         </div>
 
@@ -401,6 +434,7 @@ function ScenarioSummary({ label, result }: { label: string; result: LoanResult 
       <p className="font-bold text-slate-900 dark:text-white">{label}</p>
       <dl className="mt-1.5 space-y-1 text-xs text-slate-600 dark:text-slate-300">
         <div className="flex justify-between"><dt>Borrowed</dt><dd className="tabular-nums">{gbp(result.totalBorrowed)}</dd></div>
+        <div className="flex justify-between"><dt>Interest</dt><dd className="tabular-nums">{gbp(result.totalInterest)}</dd></div>
         <div className="flex justify-between"><dt>Repaid</dt><dd className="tabular-nums">{gbp(result.totalRepaid)}</dd></div>
         <div className="flex justify-between">
           <dt>Outcome</dt>

@@ -344,3 +344,142 @@ begin
     alter publication supabase_realtime add table public.profiles;
   end if;
 end $$;
+
+-- Graduate title's reward (titles.ts) - a custom 120-char "yearbook quote"
+-- shown under the player's name on the leaderboard once they've earned it.
+-- A plain nullable column on the existing profiles table, not a new one -
+-- it's one more fact about a player, same as username/equipped_title_id
+-- above, not a separate collection with its own lifecycle. `add column if
+-- not exists` so re-running this whole file stays idempotent like
+-- everything else in it.
+alter table public.profiles add column if not exists graduation_quote text;
+
+-- Postgres has no native "add constraint if not exists" - drop-then-add is
+-- the same idempotent pattern the policies above already use.
+alter table public.profiles drop constraint if exists profiles_graduation_quote_length;
+alter table public.profiles add constraint profiles_graduation_quote_length
+  check (graduation_quote is null or char_length(graduation_quote) <= 120);
+
+-- Once-every-7-days username rate limit (useUserProfileStore.ts) - when the
+-- player last actually changed their name, so the cooldown travels with
+-- their account across devices/sign-ins rather than resetting on a fresh
+-- browser. null until they've ever changed it once (picking a name for the
+-- very first time doesn't start the clock - see that file's own comment).
+alter table public.profiles add column if not exists username_changed_at timestamptz;
+
+-- ===========================================================================
+-- Security hardening pass.
+-- ===========================================================================
+
+-- The Supabase security advisor flagged all three refresh_user_best_cards*
+-- functions as callable directly by `anon`/`authenticated` via PostgREST's
+-- auto-exposed /rest/v1/rpc/* endpoints - Postgres grants EXECUTE on newly
+-- created functions to PUBLIC by default, and these are all SECURITY
+-- DEFINER (they have to be, to write user_best_cards despite that table's
+-- own RLS - see the comment above refresh_user_best_cards_for). Worst case
+-- of the two trigger functions (refresh_user_best_cards,
+-- refresh_user_best_cards_on_title) is low - Postgres refuses to run a
+-- RETURNS TRIGGER function outside an actual trigger context - but
+-- refresh_user_best_cards_for(p_user_id, p_email) has no such guard: it's a
+-- plain callable function, so anyone could invoke it with a victim's real
+-- user_id and an ARBITRARY p_email, which the `on conflict do update set
+-- email = excluded.email` clause would then write straight into that
+-- victim's user_best_cards row - a stranger overwriting another player's
+-- stored email. Revoking EXECUTE from anon/authenticated/public here closes
+-- that off entirely; the triggers above still work because a SECURITY
+-- DEFINER function's internal `perform` calls run as ITS OWNER (not as the
+-- inserting client), and the owner always has execute rights on its own
+-- functions.
+revoke execute on function public.refresh_user_best_cards() from public, anon, authenticated;
+revoke execute on function public.refresh_user_best_cards_for(uuid, text) from public, anon, authenticated;
+revoke execute on function public.refresh_user_best_cards_on_title() from public, anon, authenticated;
+
+-- Disposable/temp email domains - maintained as a table rather than a
+-- hardcoded list baked into the hook function below, so a newly-spotted
+-- burner service can be blocked with a single INSERT from the SQL Editor,
+-- no redeploy needed. Not exhaustive (new throwaway providers appear
+-- constantly) - this is the same "minimum checklist" tradeoff as everything
+-- else in this file, covering the overwhelming common case
+-- (mailinator/guerrillamail/10minutemail-style services) rather than
+-- chasing every one that will ever exist.
+create table if not exists public.disposable_email_domains (
+  domain text primary key
+);
+alter table public.disposable_email_domains enable row level security;
+-- Deliberately NO policies - nobody needs direct client read/write access
+-- (not even public read); only the hook function below touches this table,
+-- running as supabase_auth_admin, which bypasses RLS entirely as part of
+-- its own role privileges - same reasoning as security definer elsewhere in
+-- this file, just via role membership instead of a function attribute.
+
+insert into public.disposable_email_domains (domain) values
+  ('mailinator.com'), ('mailinator.net'), ('mailinator.org'), ('sogetthis.com'),
+  ('guerrillamail.com'), ('guerrillamail.net'), ('guerrillamail.org'), ('guerrillamail.biz'),
+  ('guerrillamail.de'), ('guerrillamail.info'), ('guerrillamailblock.com'), ('grr.la'), ('sharklasers.com'),
+  ('10minutemail.com'), ('10minutemail.net'), ('20minutemail.com'), ('anonbox.net'),
+  ('tempmail.com'), ('temp-mail.org'), ('temp-mail.io'), ('tempmailo.com'), ('tempmail.net'),
+  ('tempmail.plus'), ('tempmail.dev'), ('tmpmail.org'), ('tmpeml.com'), ('tmail.ws'), ('mail-temp.com'),
+  ('mailtemp.info'), ('mailtemporaire.com'), ('mail-temporaire.fr'), ('correotemporal.org'),
+  ('yopmail.com'), ('yopmail.net'), ('yopmail.fr'), ('cool.fr.nf'), ('jetable.fr.nf'), ('jetable.org'),
+  ('throwawaymail.com'), ('trashmail.com'), ('trashmail.net'), ('trashmail.me'), ('trash-mail.com'),
+  ('dispostable.com'), ('discard.email'), ('discardmail.com'), ('mytrashmail.com'), ('deadaddress.com'),
+  ('getnada.com'), ('fakeinbox.com'), ('fakemailgenerator.com'), ('emailfake.com'), ('inboxkitten.com'),
+  ('maildrop.cc'), ('mailnesia.com'), ('mailcatch.com'), ('mailnull.com'), ('spamgourmet.com'),
+  ('moakt.com'), ('moakt.cc'), ('mohmal.com'), ('pokiemail.com'), ('spam4.me'), ('spambog.com'),
+  ('spamex.com'), ('spamavert.com'), ('burnermail.io'), ('dropmail.me'), ('crazymailing.com'),
+  ('mintemail.com'), ('mytemp.email'), ('emailondeck.com'), ('1secmail.com'), ('1secmail.net'),
+  ('1secmail.org'), ('einrot.com'), ('kurzepost.de'), ('spoofmail.de'), ('trbvm.com'), ('tafmail.com'),
+  ('boximail.com'), ('tempail.com'), ('disposablemail.com'), ('byom.de'), ('wegwerfemail.de'),
+  ('wegwerfmail.de'), ('wegwerfmail.net'), ('wegwerfmail.org')
+on conflict (domain) do nothing;
+
+-- Real server-side enforcement of the deny-list above (the client-side
+-- check in useAuthStore.ts's signUp is UX only - it stops a normal signup
+-- form submit, but anyone can call Supabase Auth's REST API directly and
+-- skip the browser entirely, so blocking disposable emails ONLY has to
+-- happen here, in a Postgres "before user created" Auth Hook, to actually
+-- hold). event->'user'->>'email' / the jsonb return shape (either '{}' to
+-- allow, or {"error": {...}} to reject) are the exact contract Supabase
+-- Auth calls this function with - see
+-- https://supabase.com/docs/guides/auth/auth-hooks/before-user-created-hook.
+--
+-- Creating this function does NOT turn it on by itself - Auth Hooks are
+-- wired up in the dashboard (Authentication -> Hooks -> "Before User
+-- Created" -> Postgres function -> pick this one), not via SQL. There is
+-- no API/CLI-free way to flip that toggle from here; whoever owns the
+-- Supabase project has to do that one click.
+create or replace function public.hook_reject_disposable_email(event jsonb)
+returns jsonb
+language plpgsql
+set search_path = public, pg_temp
+as $$
+declare
+  v_email text;
+  v_domain text;
+  v_hit int;
+begin
+  v_email := lower(event->'user'->>'email');
+  v_domain := split_part(v_email, '@', 2);
+
+  select count(*) into v_hit
+  from public.disposable_email_domains
+  where domain = v_domain;
+
+  if v_hit > 0 then
+    return jsonb_build_object(
+      'error', jsonb_build_object(
+        'http_code', 400,
+        'message', 'Please sign up with a permanent email address - disposable/temporary email addresses are not allowed.'
+      )
+    );
+  end if;
+
+  return '{}'::jsonb;
+end;
+$$;
+
+-- Only Supabase's own Auth service (which calls hooks as this role) may run
+-- this - same reasoning/pattern as the revokes at the top of this section,
+-- just the inverse (granting to auth instead of taking from everyone else).
+grant execute on function public.hook_reject_disposable_email(jsonb) to supabase_auth_admin;
+revoke execute on function public.hook_reject_disposable_email(jsonb) from public, anon, authenticated;

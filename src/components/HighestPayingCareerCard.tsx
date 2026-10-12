@@ -29,7 +29,11 @@ const SECTIONS: { key: SectionKey; label: string; icon: typeof Route }[] = [
 export default function HighestPayingCareerCard({ entry }: HighestPayingCareerCardProps) {
   const navigate = useNavigate()
   const { career } = entry
-  const [openSections, setOpenSections] = useState<Set<SectionKey>>(() => new Set(['pathway']))
+  // Pathway starts open on tablet/desktop only - open on all 38 cards it made
+  // the page ~41,900px (about 50 screens) on a phone.
+  const [openSections, setOpenSections] = useState<Set<SectionKey>>(
+    () => new Set(window.matchMedia('(min-width: 640px)').matches ? ['pathway'] : []),
+  )
 
   const goToDetail = () => navigate(`/career/${career.id}`, { state: { from: 'highest-paying' } })
 

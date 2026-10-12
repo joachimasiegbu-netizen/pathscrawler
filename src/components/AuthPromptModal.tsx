@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -28,6 +29,21 @@ export default function AuthPromptModal({
 }: AuthPromptModalProps) {
   const navigate = useNavigate()
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
+
+  // Escape closes just this modal. Capture phase + stopPropagation so the
+  // keypress never reaches page-level Escape handlers underneath (e.g.
+  // JobMarketRollPage's, which would otherwise discard the rolled card this
+  // modal promises to leave on screen).
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      event.preventDefault()
+      event.stopPropagation()
+      onClose()
+    }
+    window.addEventListener('keydown', onKeyDown, true)
+    return () => window.removeEventListener('keydown', onKeyDown, true)
+  }, [onClose])
 
   // Portalled to document.body - this now opens from SavePathwayButton
   // instances deep inside StaggerGrid/Card, whose reveal-animation

@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import CyclingPageBackground from "./CyclingPageBackground";
 
 interface Props {
   children: ReactNode;
@@ -21,17 +22,32 @@ interface Props {
    * user's actual toggle was off - confirmed via a real rendered
    * screenshot, not eyeballed. */
   forceDarkBg?: boolean;
+  /** Skips CyclingPageBackground for this page - a plain, solid
+   * bg-background/dark:bg-background-dark instead of the pattern cycle on
+   * top of it. Explicit request ("have one solid background for the first
+   * page") for /role specifically (App.tsx passes this for it, reusing the
+   * isRoleActive flag already computed there for the logo/header treatment)
+   * - the persona cards there already carry plenty of their own visual
+   * interest; a plain backdrop reads calmer behind them than one more
+   * moving pattern would. */
+  disableCyclingBg?: boolean;
 }
 
-export default function MobileContainer({ children, fullBleed = false, forceDarkBg = false }: Props) {
+export default function MobileContainer({ children, fullBleed = false, forceDarkBg = false, disableCyclingBg = false }: Props) {
   return (
     <div
-      className={`min-h-screen w-full transition-colors duration-300 ${
+      className={`relative min-h-screen w-full transition-colors duration-300 ${
         forceDarkBg
           ? 'bg-fixed bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900 via-slate-900 to-black'
-          : 'bg-background dark:bg-background-dark'
+          : // "Add more life... make it subtle" - bg-background/dark:bg-
+            // background-dark sets the actual base colour every normal page
+            // sits on; CyclingPageBackground (rendered below) layers all 6
+            // of the user's pasted decorative patterns on top of it, one at
+            // a time, at low enough opacity to read as background texture.
+            'bg-background dark:bg-background-dark'
       }`}
     >
+      {!forceDarkBg && !disableCyclingBg ? <CyclingPageBackground /> : null}
       <div
         className={
           fullBleed

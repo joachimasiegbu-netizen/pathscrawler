@@ -5,6 +5,7 @@ import { TIERS, type TierKey } from '../utils/careerTiers'
 import {
   COMMON_CAREER_IDS,
   EARLY_ROLL_WINDOW,
+  GRADUATE_CAREER_IDS,
   JOB_RANK_DROP_TARGET,
   MONEY_BAGS_CAREER_IDS,
   MONEY_BAGS_ROLL_WINDOW,
@@ -42,6 +43,9 @@ export interface TitleProgress {
   hasCompletedMythicSet: boolean
   hasCompletedMoneyBagsSet: boolean
   hasRolledAiEndangered: boolean
+  /** Graduate's condition (titles.ts) - every GRADUATE_CAREER_IDS career in
+   * the Binder at once. */
+  hasCompletedGraduateSet: boolean
   /** Best (lowest, 0-indexed) leaderboard rank this account has ever been
    * observed at - null until the first observation. Job's own condition
    * (titles.ts) needs a baseline to measure a drop AGAINST, not just the
@@ -82,6 +86,7 @@ function emptyProgress(): TitleProgress {
     hasCompletedMythicSet: false,
     hasCompletedMoneyBagsSet: false,
     hasRolledAiEndangered: false,
+    hasCompletedGraduateSet: false,
     bestLeaderboardRank: null,
     hasDroppedTwoRanks: false,
     seenTitleIds: [],
@@ -212,17 +217,19 @@ export const useTitleProgressStore = create<TitleProgressState>()(
         // window closes).
         const hasCompletedMoneyBagsSet =
           existing.hasCompletedMoneyBagsSet || (hasAll(MONEY_BAGS_CAREER_IDS) && existing.totalRolls <= MONEY_BAGS_ROLL_WINDOW)
+        const hasCompletedGraduateSet = existing.hasCompletedGraduateSet || hasAll(GRADUATE_CAREER_IDS)
         if (
           hasCompletedCommonSet === existing.hasCompletedCommonSet &&
           hasCompletedMythicSet === existing.hasCompletedMythicSet &&
-          hasCompletedMoneyBagsSet === existing.hasCompletedMoneyBagsSet
+          hasCompletedMoneyBagsSet === existing.hasCompletedMoneyBagsSet &&
+          hasCompletedGraduateSet === existing.hasCompletedGraduateSet
         ) {
           return
         }
         set({
           progressByUser: {
             ...get().progressByUser,
-            [userId]: { ...existing, hasCompletedCommonSet, hasCompletedMythicSet, hasCompletedMoneyBagsSet },
+            [userId]: { ...existing, hasCompletedCommonSet, hasCompletedMythicSet, hasCompletedMoneyBagsSet, hasCompletedGraduateSet },
           },
         })
       },
@@ -283,7 +290,12 @@ export const useTitleProgressStore = create<TitleProgressState>()(
       // dry-spell achievement itself isn't lost though, it's exactly what
       // the new Shadow Banned title (titles.ts) reads from the SAME
       // longestLegendaryDrySpell field, unaffected by this migration.
-      version: 4,
+      // v4 -> v5: adds hasCompletedGraduateSet (the new Graduate title) -
+      // plain additive default (false) for everyone; syncBinderCompletion
+      // re-evaluates it against their real Binder the next time it runs
+      // regardless, same backfill behavior v3's syncedTitleIds step relies
+      // on for titles earned before the field existed.
+      version: 5,
       migrate: (persisted, version) => {
         let state = (persisted ?? { progressByUser: {} }) as { progressByUser: Record<string, TitleProgress> }
         if (version < 2) {
@@ -313,6 +325,16 @@ export const useTitleProgressStore = create<TitleProgressState>()(
                   bestLeaderboardRank: progress.bestLeaderboardRank ?? null,
                   hasDroppedTwoRanks: progress.hasDroppedTwoRanks ?? false,
                 },
+              ]),
+            ),
+          }
+        }
+        if (version < 5) {
+          state = {
+            progressByUser: Object.fromEntries(
+              Object.entries(state.progressByUser).map(([userId, progress]) => [
+                userId,
+                { ...progress, hasCompletedGraduateSet: progress.hasCompletedGraduateSet ?? false },
               ]),
             ),
           }

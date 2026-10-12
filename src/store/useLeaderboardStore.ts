@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { RealtimeChannel } from '@supabase/supabase-js'
 import type { Career } from '../data/demoCareers'
-import { TIER_POINTS, type TierKey } from '../utils/careerTiers'
+import type { TierKey } from '../utils/careerTiers'
 import { isSupabaseConfigured, supabase } from '../lib/supabaseClient'
 import { useAuthStore } from './useAuthStore'
 
@@ -47,6 +47,9 @@ export interface LeaderboardEntry {
   /** Equipped title id (titles.ts) from `profiles`, or null/undefined for
    * "no title". Drives the TitlePill next to the name on the board. */
   equippedTitleId?: string | null
+  /** Graduate title's reward - a custom "yearbook quote" shown under the
+   * name (LeaderboardPage.tsx), or null/undefined for "no quote set". */
+  graduationQuote?: string | null
   score: number
   topRolls: LeaderboardCard[]
   totalRolls: number
@@ -54,19 +57,27 @@ export interface LeaderboardEntry {
 }
 
 /** No-ops (and logs, not throws) while signed out or unconfigured - a roll
- * made signed-out never counts toward the leaderboard, same as before. */
+ * made signed-out never counts toward the leaderboard, same as before.
+ *
+ * Goes through the record_roll() RPC now, not a direct table insert - a
+ * 2026-08-31 pentest found that a direct `rolls` insert only ever checked
+ * `auth.uid() = user_id` server-side, so any signed-in player could insert
+ * an invented tier/points pair straight from devtools and inflate their
+ * own leaderboard score, bypassing this function (and the real roll logic
+ * in JobMarketRollPage.tsx) entirely. The RPC (schema.sql /
+ * close_leaderboard_forgery_paths migration) is SECURITY DEFINER and
+ * looks points up server-side from `tier` itself - `points` is no longer
+ * sent from here at all, since a client-supplied value can never be
+ * trusted regardless of what this function itself does with it. */
 export async function recordRoll(career: Career, tier: TierKey): Promise<void> {
   if (!isSupabaseConfigured || !supabase) return
   const user = useAuthStore.getState().currentUser
   if (!user) return
 
-  const { error } = await supabase.from('rolls').insert({
-    user_id: user.id,
-    email: user.email,
-    career_id: career.id,
-    title: career.title,
-    tier,
-    points: TIER_POINTS[tier],
+  const { error } = await supabase.rpc('record_roll', {
+    p_career_id: career.id,
+    p_title: career.title,
+    p_tier: tier,
   })
   if (error) {
     // eslint-disable-next-line no-console
@@ -78,22 +89,26 @@ export async function recordRoll(career: Career, tier: TierKey): Promise<void> {
  * fire-and-forget. Called once per title the moment it unlocks (see
  * RollStandingPanel.tsx's sync effect) so titles count toward the
  * leaderboard score globally, not just in this browser's own local
- * useTitleProgressStore. A duplicate insert (23505 - the primary key on
- * (user_id, title_id), schema.sql) is expected and harmless, not logged -
- * it just means this exact unlock was already recorded, e.g. re-detected
- * on a second device or after a local state migration. */
+ * useTitleProgressStore.
+ *
+ * Goes through the record_title_unlock() RPC now, same reasoning as
+ * recordRoll above - titles.ts lives client-side with no server-side
+ * catalog to look points up against exactly, so the RPC bounds-checks
+ * `points` instead (0-750, see its own comment in schema.sql) rather than
+ * trusting whatever this call happens to pass. A duplicate call (the
+ * primary key on (user_id, title_id)) is handled inside the RPC itself
+ * now (`on conflict do nothing`) rather than by checking for Postgres
+ * error 23505 here - it just silently no-ops, no error to filter for. */
 export async function recordTitleUnlock(titleId: string, points: number): Promise<void> {
   if (!isSupabaseConfigured || !supabase) return
   const user = useAuthStore.getState().currentUser
   if (!user) return
 
-  const { error } = await supabase.from('title_unlocks').insert({
-    user_id: user.id,
-    email: user.email,
-    title_id: titleId,
-    points,
+  const { error } = await supabase.rpc('record_title_unlock', {
+    p_title_id: titleId,
+    p_points: points,
   })
-  if (error && error.code !== '23505') {
+  if (error) {
     // eslint-disable-next-line no-console
     console.error('Failed to record title unlock for the leaderboard:', error.message)
   }
@@ -168,6 +183,16 @@ const listeners = new Set<() => void>()
 // being retried on every refetch - without it the console fills with the
 // same PostgREST error on every roll anyone makes.
 let profilesJoinDisabled = false
+// Separate, narrower flag: true once this deployment's `profiles` table has
+// come back "graduation_quote doesn't exist" (schema.sql adds that column
+// after username/equipped_title_id already existed, so a deployment can be
+// mid-migration - old table, new client code). Falls back to the original
+// 2-column select rather than disabling the whole join like
+// profilesJoinDisabled above - losing the not-yet-migrated quote column is
+// fine, but there's no reason a missing NEW column should also take down
+// the already-working username/title display until someone re-runs the
+// SQL file.
+let graduationQuoteColumnMissing = false
 
 function notifyListeners() {
   listeners.forEach((listener) => listener())
@@ -203,36 +228,68 @@ async function fetchSharedEntries() {
   // (no dedicated realtime binding for `profiles` on purpose - see
   // acquireSharedSubscription).
   if (entries.length > 0 && !profilesJoinDisabled) {
-    const { data: profileData, error: profileError } = await supabase
-      .from('profiles')
-      .select('user_id, username, equipped_title_id')
-      .in(
-        'user_id',
-        entries.map((entry) => entry.userId),
-      )
+    // Two full literal `.select()` calls rather than one call fed a
+    // pre-declared string variable - postgrest-js parses the column list at
+    // the type level via a template-literal grammar, and that parser only
+    // resolves correctly against an inline string literal. A variable typed
+    // as the union of both column lists (even annotated, not widened to
+    // plain `string`) makes the parser try to consume both branches as one
+    // input and fail with a ParserError on both, so each branch needs its
+    // own literal call instead.
+    const { data: profileData, error: profileError } = graduationQuoteColumnMissing
+      ? await supabase
+          .from('profiles')
+          .select('user_id, username, equipped_title_id')
+          .in(
+            'user_id',
+            entries.map((entry) => entry.userId),
+          )
+      : await supabase
+          .from('profiles')
+          .select('user_id, username, equipped_title_id, graduation_quote')
+          .in(
+            'user_id',
+            entries.map((entry) => entry.userId),
+          )
     if (profileError) {
       // 42P01 = undefined_table; PGRST205 = "table not in the schema cache".
       // Either way the table isn't there yet - stop retrying the join
       // rather than logging this on every future refetch.
-      if (
-        profileError.code === '42P01' ||
-        profileError.code === 'PGRST205' ||
-        /schema cache|does not exist/i.test(profileError.message ?? '')
-      ) {
+      if (profileError.code === '42P01' || profileError.code === 'PGRST205' || /schema cache/i.test(profileError.message ?? '')) {
         profilesJoinDisabled = true
+      } else if (/graduation_quote.*does not exist/i.test(profileError.message ?? '')) {
+        // Narrower than the table-missing case above - only the NEW column
+        // isn't there yet, not the whole table. Flip the flag (idempotent -
+        // deliberately not gated on it already being false) and let the
+        // NEXT refetch retry with the narrower select; this fetch just has
+        // no profile data to merge in this once (same as any other failed
+        // attempt), rather than fabricating a result from half a query.
+        // Matching on the message rather than gating on the flag also means
+        // this stays correct when two fetches race (RollStandingPanel.tsx
+        // and RollStatsPanel.tsx/LeaderboardPage.tsx can each independently
+        // trigger one on the same page load) - both requests go out with
+        // the same full column list before either resolves, so both errors
+        // land here and both silently narrow the flag, instead of the
+        // second one falling through to the generic console.error below
+        // just because the first had already flipped it.
+        graduationQuoteColumnMissing = true
       } else {
         // eslint-disable-next-line no-console
         console.error('Failed to load leaderboard profiles:', profileError.message)
       }
     } else {
       const byId = new Map(
-        (profileData ?? []).map((row) => [row.user_id as string, row as { username: string | null; equipped_title_id: string | null }]),
+        (profileData ?? []).map((row) => [
+          row.user_id as string,
+          row as { username: string | null; equipped_title_id: string | null; graduation_quote?: string | null },
+        ]),
       )
       for (const entry of entries) {
         const profile = byId.get(entry.userId)
         if (profile) {
           entry.username = profile.username ?? undefined
           entry.equippedTitleId = profile.equipped_title_id
+          entry.graduationQuote = profile.graduation_quote
         }
       }
     }

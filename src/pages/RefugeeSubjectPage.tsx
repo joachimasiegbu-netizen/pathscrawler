@@ -45,6 +45,20 @@ export default function RefugeeSubjectPage() {
   const info = routeKey ? refugeeCategories[routeKey] : null
 
   useEffect(() => {
+    // A routeKey that doesn't match any known category (mistyped URL,
+    // stale/shared bookmark, a since-renamed subpage) used to fall through
+    // to the plain `if (!info) return null` below with nothing else - a
+    // silent blank page, AND (since this ran unconditionally, before ever
+    // checking routeKey/info) it still set selectedRole/selectedLevel in
+    // the persisted store on the way there, corrupting later navigation
+    // even after leaving this page. Bail out first, before touching any
+    // state, same redirect-then-state-setting order every sibling page
+    // with this same shape already uses (DisabledWelcomePage.tsx,
+    // CareerChangerPreferencesPage.tsx, SubjectDetailPage.tsx, etc.).
+    if (routeKey && !info) {
+      navigate('/subjects/refugee-asylum-seeker/levels', { replace: true })
+      return
+    }
     if (selectedRole !== 'refugee-asylum-seeker') {
       setSelectedRole('refugee-asylum-seeker')
     }
@@ -54,7 +68,7 @@ export default function RefugeeSubjectPage() {
     if (!routeKey) {
       setShowLevel(true)
     }
-  }, [routeKey, selectedRole, setSelectedLevel, setSelectedRole])
+  }, [routeKey, info, navigate, selectedRole, setSelectedLevel, setSelectedRole])
 
   const levelSubjects = useMemo(() => {
     if (!info) return []
@@ -128,10 +142,10 @@ export default function RefugeeSubjectPage() {
           </div>
         </div>
 
-        <div className="border-t px-8 py-4">
+        <div className="sticky bottom-0 z-20 border-t bg-white px-8 py-4 sm:static">
           <div className="flex justify-end">
             <Button onClick={() => navigate('/results')} disabled={selectedCount === 0} className="w-full sm:w-auto">
-              Continue
+              {selectedCount > 0 ? `Continue · ${selectedCount} selected` : 'Continue'}
             </Button>
           </div>
         </div>

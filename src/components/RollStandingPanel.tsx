@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Check, ChevronRight, Crown, Dices, Flame, Lock, Skull, Sparkles, Trophy, X } from 'lucide-react'
 import { useAuthStore } from '../store/useAuthStore'
@@ -13,12 +13,32 @@ import {
   EARLY_ROLL_WINDOW,
   GAMBLING_ADDICT_ROLLS_TARGET,
   getTitlesWithStatus,
+  GRADUATE_CAREER_IDS,
   SHADOW_BANNED_DRY_SPELL_TARGET,
   SWEAT_LORD_ROLLS_TARGET,
+  TITLES,
   type TitleIcon,
   type TitleWithStatus,
 } from '../utils/titles'
+import { playSound } from '../utils/sound'
 import TitleUnlockToast from './TitleUnlockToast'
+
+// TEMPORARY (now OFF - "back to normal" per explicit request) - while
+// true, every roll fires a toast for the next title in rank order,
+// cycling through all of them, regardless of whether it's actually
+// earned. Deliberately NOT wired through markTitleSeen/markTitleSynced/
+// recordTitleUnlock - these preview toasts never touched seenTitleIds,
+// syncedTitleIds, or the Supabase title_unlocks table, so there was
+// nothing to undo in the player's real progress from that half of the
+// preview session - no titles were actually earned, only shown. The
+// EQUIP button on those toasts was real, though (separate explicit
+// request to make that work) - see the restore effect below for that half.
+const DEV_PREVIEW_TITLE_TOAST_ON_EVERY_ROLL = false
+// Where the player's equipped title stood before this preview session
+// touched it, captured once below so "put it back to normal" can restore
+// it exactly - a plain localStorage key (not app state) since it only
+// needs to survive until that revert, not be part of the persisted stores.
+const PREVIEW_ORIGINAL_EQUIP_KEY = 'pathscrawler-preview-original-equip'
 
 const TITLE_ICONS: Record<TitleIcon, typeof Trophy> = {
   crown: Crown,
@@ -55,7 +75,13 @@ interface TitleProgressInfo {
 // actual running number behind them (Chosen One is a flat "did it happen
 // or not", nothing to show a fraction of). Reads straight off fields
 // useTitleProgressStore.ts already tracks - no new state needed for this.
-function getProgressInfo(title: TitleWithStatus, progress: TitleProgress, commonCollected: number, yourRank: number): TitleProgressInfo | null {
+function getProgressInfo(
+  title: TitleWithStatus,
+  progress: TitleProgress,
+  commonCollected: number,
+  yourRank: number,
+  graduateCollected: number,
+): TitleProgressInfo | null {
   if (title.unlocked || title.isHidden) return null
   switch (title.id) {
     case 'gambling-addict':
@@ -82,6 +108,11 @@ function getProgressInfo(title: TitleWithStatus, progress: TitleProgress, common
         label: `${commonCollected} / ${COMMON_CAREER_IDS.size} Common careers collected`,
         percent: Math.min(100, (commonCollected / COMMON_CAREER_IDS.size) * 100),
       }
+    case 'graduate':
+      return {
+        label: `${graduateCollected} / ${GRADUATE_CAREER_IDS.size} entry-level careers collected`,
+        percent: Math.min(100, (graduateCollected / GRADUATE_CAREER_IDS.size) * 100),
+      }
     case 'job':
       // Rank-based like Icarus above, not a fixed climbing counter - no
       // percent bar for the same reason Icarus doesn't get one.
@@ -91,7 +122,12 @@ function getProgressInfo(title: TitleWithStatus, progress: TitleProgress, common
             ? 'Unranked so far'
             : progress.bestLeaderboardRank === null
               ? `Currently #${yourRank + 1} - no baseline yet`
-              : `Currently #${yourRank + 1}, best ever #${progress.bestLeaderboardRank + 1}`,
+              : progress.bestLeaderboardRank === yourRank
+                // Drop the redundant "best ever #N" once it matches the
+                // current rank exactly (explicit request - was showing
+                // "Currently #1, best ever #1", repeating the same number).
+                ? `Currently #${yourRank + 1}`
+                : `Currently #${yourRank + 1}, best ever #${progress.bestLeaderboardRank + 1}`,
       }
     case 'sweat-lord':
       return {
@@ -136,6 +172,7 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
   const titles = getTitlesWithStatus(progress, !!currentUser)
   const earnedCount = titles.filter((t) => t.unlocked).length
   const commonCollectedCount = new Set(cards.map((card) => card.careerId).filter((id) => COMMON_CAREER_IDS.has(id))).size
+  const graduateCollectedCount = new Set(cards.map((card) => card.careerId).filter((id) => GRADUATE_CAREER_IDS.has(id))).size
 
   // Two reactive syncs into useTitleProgressStore - neither is something
   // recordRoll (fired once per roll, JobMarketRollPage.tsx) can determine
@@ -173,6 +210,73 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress.seenTitleIds, titles.map((t) => t.unlocked).join(',')])
 
+  // TEMPORARY - see DEV_PREVIEW_TITLE_TOAST_ON_EVERY_ROLL above. Fires a
+  // toast for the next title in rank order on every actual roll (detected
+  // as progress.totalRolls increasing - skips the first run, which is just
+  // this component mounting with whatever roll count already existed, not
+  // a new roll). Pushed onto the same toastQueue the real system uses, so
+  // it's the exact real toast component/sound/dismiss timing - just fed a
+  // synthetic { unlocked: true } instead of the player's real progress.
+  const lastSeenRollCountRef = useRef<number | null>(null)
+  useEffect(() => {
+    if (!DEV_PREVIEW_TITLE_TOAST_ON_EVERY_ROLL) return
+    if (lastSeenRollCountRef.current === null) {
+      lastSeenRollCountRef.current = progress.totalRolls
+      return
+    }
+    if (progress.totalRolls === lastSeenRollCountRef.current) return
+    const rollsSoFar = progress.totalRolls
+    lastSeenRollCountRef.current = rollsSoFar
+    const previewTitle: TitleWithStatus = { ...TITLES[rollsSoFar % TITLES.length], unlocked: true }
+    setToastQueue((current) => [...current, previewTitle])
+  }, [progress.totalRolls])
+
+  // Snapshot the real equipped title exactly once, before this preview
+  // session's own Equip clicks (see the toast's onEquip below - it's no
+  // longer neutered for preview titles, per explicit request) get the
+  // chance to overwrite it. Waits for `profile` to actually exist so a
+  // still-hydrating profile can't get captured as "originally unequipped"
+  // by mistake. Deliberately not keyed on equippedTitleId - it must only
+  // ever write the FIRST value it sees, never a later preview-equipped one.
+  useEffect(() => {
+    if (!DEV_PREVIEW_TITLE_TOAST_ON_EVERY_ROLL || !profile) return
+    try {
+      if (window.localStorage.getItem(PREVIEW_ORIGINAL_EQUIP_KEY) === null) {
+        window.localStorage.setItem(PREVIEW_ORIGINAL_EQUIP_KEY, JSON.stringify(equippedTitleId))
+      }
+    } catch {
+      // localStorage unavailable - nothing to restore later, not fatal.
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile])
+
+  // Restores whatever the snapshot above captured, exactly once, now that
+  // DEV_PREVIEW_TITLE_TOAST_ON_EVERY_ROLL is back to false - "change my
+  // titles back to normal". Removing the key afterward means this is a
+  // true one-shot: it only ever does anything on the first load after the
+  // flag flips off, then goes permanently inert.
+  useEffect(() => {
+    if (DEV_PREVIEW_TITLE_TOAST_ON_EVERY_ROLL || !profile) return
+    let raw: string | null = null
+    try {
+      raw = window.localStorage.getItem(PREVIEW_ORIGINAL_EQUIP_KEY)
+    } catch {
+      return
+    }
+    if (raw === null) return
+    try {
+      const original = JSON.parse(raw) as string | null
+      if (original !== equippedTitleId) equipTitle(original)
+    } finally {
+      try {
+        window.localStorage.removeItem(PREVIEW_ORIGINAL_EQUIP_KEY)
+      } catch {
+        // Nothing more to do - worst case this runs (harmlessly) once more.
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile])
+
   // Syncs every currently-unlocked title to Supabase's title_unlocks
   // table (useLeaderboardStore.ts) so it counts toward the global
   // leaderboard score, not just this browser's own local progress -
@@ -207,6 +311,12 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
     const [next, ...rest] = toastQueue
     setActiveToast(next)
     setToastQueue(rest)
+    // Unlock chime, per explicit request - fires exactly once per title
+    // (this effect only runs when a NEW toast actually gets popped off the
+    // queue, not on every render/re-toast of the same activeToast), same
+    // "one real Audio element per src, reused" caching playSound already
+    // does for every other sound in the app.
+    playSound('/sounds/choir2.mp3')
   }, [toastQueue, activeToast])
 
   useEffect(() => {
@@ -222,15 +332,27 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
         onClick={() => setPanelOpen((value) => !value)}
         aria-label="Your titles and roll odds"
         aria-expanded={panelOpen}
-        className={`relative flex h-11 w-11 items-center justify-center rounded-full shadow-sm ring-1 transition ${
+        className={`relative flex h-11 w-11 items-center justify-center rounded-full shadow-sm ring-1 transition header-icon-fixed ${
           panelOpen
             ? 'bg-secondary/15 text-secondary-dark ring-secondary/50 dark:bg-secondary/20 dark:text-secondary-light'
-            : 'bg-white text-primary ring-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:text-sky-200 dark:ring-slate-700 dark:hover:bg-slate-700'
+            : // Deliberately no dark: overrides on the idle state - the
+              // header-icon-fixed marker (index.css) carves this back out of
+              // the site-wide dark-mode recolor system too, so it stays the
+              // same white circle/navy trophy in dark mode as in light mode
+              // (explicit request: this button reads as "a white button",
+              // unchanged by the theme toggle).
+              'bg-white text-primary ring-slate-200 hover:bg-slate-50'
         }`}
       >
         <Trophy className="h-5 w-5" />
         {earnedCount > 0 ? (
-          <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-black">
+          // title-badge-count: the site-wide 16px normalization (index.css)
+          // would otherwise blow this up to fill way past the h-4/w-4
+          // circle - that class is a hook for an explicit exception rule
+          // sitting right after that normalization rule, not just a normal
+          // Tailwind text-[Npx] (which the normalization rule already
+          // overrides via !important).
+          <span className="title-badge-count absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-secondary font-bold text-black">
             {earnedCount}
           </span>
         ) : null}
@@ -239,7 +361,21 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
       {panelOpen ? (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setPanelOpen(false)} />
-          <div className={`absolute ${align === 'left' ? 'left-0' : 'right-0'} top-14 z-50 w-[min(92vw,380px)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800`}>
+          {/* fixed inset-x-4 top-16 on mobile (below sm), not the button-
+              anchored absolute/right-0 desktop version below - the Trophy
+              trigger isn't the last icon in the header (Settings sits
+              after it), so right-0 relative to the trigger's own small
+              wrapper put this panel's LEFT edge well past the true left
+              edge of the screen on a narrow phone (confirmed via a real
+              mobile screenshot - "Achievements"/"TITLES" both read with
+              their first few letters clipped off). Anchoring to the actual
+              viewport edges on mobile instead of the trigger fixes that
+              regardless of how many icons end up in the header, rather
+              than guessing a narrower magic-number width that could break
+              again the next time this header gains or loses an icon. */}
+          <div
+            className={`fixed inset-x-4 top-16 z-50 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800 sm:absolute sm:inset-x-auto sm:top-14 sm:w-[min(92vw,380px)] ${align === 'left' ? 'sm:left-0' : 'sm:right-0'}`}
+          >
             <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-slate-700">
               <div className="flex items-center gap-2">
                 <Trophy className="h-4 w-4 text-secondary-dark dark:text-secondary-light" />
@@ -308,6 +444,10 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
         <TitleUnlockToast
           title={activeToast}
           isEquipped={equippedTitleId === activeToast.id}
+          // Real equip, including for preview toasts - explicit request to
+          // make every title equipable straight from its notification. The
+          // snapshot effect above (captures the original equip once, before
+          // any of these clicks) is what makes this safe to revert later.
           onEquip={() => equipTitle(activeToast.id)}
           onDismiss={() => setActiveToast(null)}
         />
@@ -316,7 +456,7 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
       {selectedTitle ? (
         <TitleDetailModal
           title={selectedTitle}
-          progress={getProgressInfo(selectedTitle, progress, commonCollectedCount, yourRank)}
+          progress={getProgressInfo(selectedTitle, progress, commonCollectedCount, yourRank, graduateCollectedCount)}
           isEquipped={equippedTitleId === selectedTitle.id}
           onEquip={() => equipTitle(equippedTitleId === selectedTitle.id ? null : selectedTitle.id)}
           onClose={() => setSelectedTitle(null)}
@@ -404,9 +544,14 @@ function TitlesTab({
 
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className={`truncate text-sm font-bold ${title.unlocked ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-white/50'}`}>
+                  {/* h4, not span - a real heading is what the site-wide
+                      16px normalization (index.css) excludes, and it needs
+                      to actually be BIGGER than its own condition/subtitle
+                      line below (now 16px too under that same rule) to read
+                      as a header again - text-lg gets it there. */}
+                  <h4 className={`truncate text-lg font-bold ${title.unlocked ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-white/50'}`}>
                     {displayName}
-                  </span>
+                  </h4>
                   {title.unlocked && title.isHidden ? (
                     <span className="rounded border border-purple-400/40 bg-purple-100 px-1.5 py-0.5 text-[10px] text-purple-700 dark:border-purple-500/30 dark:bg-purple-500/20 dark:text-purple-300">
                       SECRET
@@ -630,6 +775,17 @@ function TitleDetailModal({
               <span className="text-xs font-semibold text-secondary-dark dark:text-secondary-light">Points</span>
               <span className="text-sm font-bold text-secondary-dark dark:text-secondary-light">+{title.points}</span>
             </div>
+
+            {/* Graduate is the one title with a reward beyond points - a
+                custom Graduation Quote (ProfilePage.tsx) shown under the
+                player's name on the leaderboard. Called out here so a
+                player actually knows that unlocking it unlocked, since
+                there's no other in-app hint pointing them to Profile for it. */}
+            {title.id === 'graduate' ? (
+              <div className="rounded-xl border border-primary/20 bg-primary/5 px-3 py-2.5 text-xs leading-5 text-primary-dark dark:border-primary/30 dark:bg-primary/10 dark:text-primary-light">
+                Also unlocks a custom <span className="font-semibold">Graduation Quote</span> - set it on your Profile and it shows under your name on the leaderboard, like a yearbook quote.
+              </div>
+            ) : null}
 
             <p className={`text-xs font-semibold ${title.unlocked ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}`}>
               {title.unlocked ? '✓ Unlocked' : 'Not yet unlocked'}

@@ -49,17 +49,29 @@ export default function Card({ title, description, badge, children, animateBadge
         isInteractive ? 'cursor-pointer active:scale-[0.98] hover:border-primary/40 dark:hover:border-primary-light/40' : ''
       }`}
     >
-      <div className="mb-3 flex items-start justify-between gap-3">
+      {/* Only the title shares a row with the badge - the description sits
+          below at full card width. Beside a badge that can take 45% of the
+          row it was squeezed to ~130-200px on phones (8+ line wraps). */}
+      <div className={`flex items-start justify-between gap-3 ${description ? '' : 'mb-3'}`}>
         <div className="min-w-0 flex-1">
           <h3 className="text-base font-semibold text-slate-950 dark:text-slate-50">{title}</h3>
-          {description ? <p className="mt-1 text-sm text-slate-500 dark:text-slate-300">{description}</p> : null}
         </div>
         {badge ? (
-          <span className="shrink-0 whitespace-nowrap rounded-xl bg-primary-soft/70 px-3 py-1.5 text-xs font-semibold text-primary-dark dark:bg-primary/10 dark:text-primary-light">
+          // No shrink-0/whitespace-nowrap (there used to be) - fine for the
+          // common short badge ("£28k - £46k"), but some callers pass much
+          // longer strings with a parenthetical caveat (e.g. Heritage
+          // Crafts' Professional Jockey: "£20,000 - £150,000 (prize money
+          // and retainers; top jockeys earn £1M+)") - forcing that onto one
+          // unbroken line blew this card, and the whole page, more than 2x
+          // past the viewport width on mobile. Letting it wrap (and shrink
+          // to fit the row like any other flex child) keeps the common
+          // case looking exactly the same while fixing the long-text case.
+          <span className="max-w-[45%] rounded-xl bg-primary-soft/70 px-3 py-1.5 text-right text-xs font-semibold text-primary-dark dark:bg-primary/10 dark:text-primary-light">
             {animateBadge ? <CountUpStat value={badge} duration={800} /> : badge}
           </span>
         ) : null}
       </div>
+      {description ? <p className="mb-3 mt-1 text-sm text-slate-500 dark:text-slate-300">{description}</p> : null}
       {children}
     </div>
   )

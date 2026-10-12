@@ -56,10 +56,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=software+developer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Developer Apprentice / Junior (Entry (£18k-£30k))',
-      'Developer (Mid-level (£30k-£50k))',
-      'Senior Developer (Senior (£45k-£70k))',
-      'Lead Developer / Specialist (Lead / Specialist (£60k+))',
+      'Developer Apprentice / Junior (£18k-£30k)',
+      'Developer (£30k-£50k)',
+      'Senior Developer (£45k-£70k)',
+      'Lead Developer / Specialist (£60k+)',
     ],
     similarCareers: [
       2,
@@ -96,7 +96,6 @@ const rawDemoCareers = [
           'web-development-bsc',
           'game-development-bsc',
           'network-engineering-bsc',
-          'nanotechnology-bsc',
         ],
         description: 'Study full-time for a degree that leads into a career as a Software Developer.',
       },
@@ -289,10 +288,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=ux+ui+designer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Designer Apprentice / Junior (Entry (£18k-£30k))',
-      'Designer (Mid-level (£30k-£50k))',
-      'Senior Designer (Senior (£45k-£70k))',
-      'Lead Designer / Specialist (Lead / Specialist (£60k+))',
+      'Designer Apprentice / Junior (£18k-£30k)',
+      'Designer (£30k-£50k)',
+      'Senior Designer (£45k-£70k)',
+      'Lead Designer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -357,10 +356,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=it+support+technician', description: 'Business & tech skills' },
     ],
     progression: [
-      'Technician Apprentice / Junior (Entry (£18k-£30k))',
-      'Technician (Mid-level (£30k-£50k))',
-      'Senior Technician (Senior (£45k-£70k))',
-      'Lead Technician / Specialist (Lead / Specialist (£60k+))',
+      'Technician Apprentice / Junior (£18k-£30k)',
+      'Technician (£30k-£50k)',
+      'Senior Technician (£45k-£70k)',
+      'Lead Technician / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -435,10 +434,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=network+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Engineer Apprentice / Junior (£18k-£30k)',
+      'Engineer (£30k-£50k)',
+      'Senior Engineer (£45k-£70k)',
+      'Lead Engineer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -674,10 +673,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=web+developer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Developer Apprentice / Junior (Entry (£18k-£30k))',
-      'Developer (Mid-level (£30k-£50k))',
-      'Senior Developer (Senior (£45k-£70k))',
-      'Lead Developer / Specialist (Lead / Specialist (£60k+))',
+      'Developer Apprentice / Junior (£18k-£30k)',
+      'Developer (£30k-£50k)',
+      'Senior Developer (£45k-£70k)',
+      'Lead Developer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -755,10 +754,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=game+developer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Developer Apprentice / Junior (Entry (£18k-£30k))',
-      'Developer (Mid-level (£30k-£50k))',
-      'Senior Developer (Senior (£45k-£70k))',
-      'Lead Developer / Specialist (Lead / Specialist (£60k+))',
+      'Developer Apprentice / Junior (£18k-£30k)',
+      'Developer (£30k-£50k)',
+      'Senior Developer (£45k-£70k)',
+      'Lead Developer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -977,10 +976,10 @@ const rawDemoCareers = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=financial+advisor', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Financial Apprentice / Junior (Entry (£18k-£30k))',
-      'Financial (Mid-level (£30k-£50k))',
-      'Senior Financial (Senior (£45k-£70k))',
-      'Lead Financial / Specialist (Lead / Specialist (£60k+))',
+      'Financial Apprentice / Junior (£18k-£30k)',
+      'Financial (£30k-£50k)',
+      'Senior Financial (£45k-£70k)',
+      'Lead Financial / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1069,10 +1068,10 @@ const rawDemoCareers = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=project+manager', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Manager Apprentice / Junior (Entry (£18k-£30k))',
-      'Manager (Mid-level (£30k-£50k))',
-      'Senior Manager (Senior (£45k-£70k))',
-      'Lead Manager / Specialist (Lead / Specialist (£60k+))',
+      'Manager Apprentice / Junior (£18k-£30k)',
+      'Manager (£30k-£50k)',
+      'Senior Manager (£45k-£70k)',
+      'Lead Manager / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1136,10 +1135,10 @@ const rawDemoCareers = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=marketing+manager', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Manager Apprentice / Junior (Entry (£18k-£30k))',
-      'Manager (Mid-level (£30k-£50k))',
-      'Senior Manager (Senior (£45k-£70k))',
-      'Lead Manager / Specialist (Lead / Specialist (£60k+))',
+      'Manager Apprentice / Junior (£18k-£30k)',
+      'Manager (£30k-£50k)',
+      'Senior Manager (£45k-£70k)',
+      'Lead Manager / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1201,10 +1200,10 @@ const rawDemoCareers = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=human+resources+officer', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Officer Apprentice / Junior (Entry (£18k-£30k))',
-      'Officer (Mid-level (£30k-£50k))',
-      'Senior Officer (Senior (£45k-£70k))',
-      'Lead Officer / Specialist (Lead / Specialist (£60k+))',
+      'Officer Apprentice / Junior (£18k-£30k)',
+      'Officer (£30k-£50k)',
+      'Senior Officer (£45k-£70k)',
+      'Lead Officer / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1278,10 +1277,10 @@ const rawDemoCareers = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=sales+manager', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Sales Apprentice / Junior (Entry (£18k-£30k))',
-      'Sales (Mid-level (£30k-£50k))',
-      'Senior Sales (Senior (£45k-£70k))',
-      'Lead Sales / Specialist (Lead / Specialist (£60k+))',
+      'Sales Apprentice / Junior (£18k-£30k)',
+      'Sales (£30k-£50k)',
+      'Senior Sales (£45k-£70k)',
+      'Lead Sales / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1357,10 +1356,10 @@ const rawDemoCareers = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=management+consultant', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Consultant Apprentice / Junior (Entry (£18k-£30k))',
-      'Consultant (Mid-level (£30k-£50k))',
-      'Senior Consultant (Senior (£45k-£70k))',
-      'Lead Consultant / Specialist (Lead / Specialist (£60k+))',
+      'Consultant Apprentice / Junior (£18k-£30k)',
+      'Consultant (£30k-£50k)',
+      'Senior Consultant (£45k-£70k)',
+      'Lead Consultant / Specialist (£60k+)',
     ],
     similarCareers: [
       92,
@@ -1489,10 +1488,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=insurance+underwriter', description: 'Business & tech skills' },
     ],
     progression: [
-      'Insurance Underwriter Apprentice / Junior (Entry (£18k-£30k))',
-      'Insurance Underwriter (Mid-level (£30k-£50k))',
-      'Senior Insurance Underwriter (Senior (£45k-£70k))',
-      'Lead Insurance Underwriter / Specialist (Lead / Specialist (£60k+))',
+      'Insurance Underwriter Apprentice / Junior (£18k-£30k)',
+      'Insurance Underwriter (£30k-£50k)',
+      'Senior Insurance Underwriter (£45k-£70k)',
+      'Lead Insurance Underwriter / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -1570,10 +1569,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=doctor+gp', description: 'Business & tech skills' },
     ],
     progression: [
-      'DoctorGP Apprentice / Junior (Entry (£18k-£30k))',
-      'DoctorGP (Mid-level (£30k-£50k))',
-      'Senior DoctorGP (Senior (£45k-£70k))',
-      'Lead DoctorGP / Specialist (Lead / Specialist (£60k+))',
+      'Doctor/GP Apprentice / Junior (£18k-£30k)',
+      'Doctor/GP (£30k-£50k)',
+      'Senior Doctor/GP (£45k-£70k)',
+      'Lead Doctor/GP / Specialist (£60k+)',
     ],
     similarCareers: [
       91,
@@ -1663,10 +1662,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=nurse', description: 'Business & tech skills' },
     ],
     progression: [
-      'Nurse Apprentice / Junior (Entry (£18k-£30k))',
-      'Nurse (Mid-level (£30k-£50k))',
-      'Senior Nurse (Senior (£45k-£70k))',
-      'Lead Nurse / Specialist (Lead / Specialist (£60k+))',
+      'Nurse Apprentice / Junior (£18k-£30k)',
+      'Nurse (£30k-£50k)',
+      'Senior Nurse (£45k-£70k)',
+      'Lead Nurse / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -1726,10 +1725,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=paramedic', description: 'Business & tech skills' },
     ],
     progression: [
-      'Paramedic Apprentice / Junior (Entry (£18k-£30k))',
-      'Paramedic (Mid-level (£30k-£50k))',
-      'Senior Paramedic (Senior (£45k-£70k))',
-      'Lead Paramedic / Specialist (Lead / Specialist (£60k+))',
+      'Paramedic Apprentice / Junior (£18k-£30k)',
+      'Paramedic (£30k-£50k)',
+      'Senior Paramedic (£45k-£70k)',
+      'Lead Paramedic / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -1855,10 +1854,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=physiotherapist', description: 'Business & tech skills' },
     ],
     progression: [
-      'Physiotherapist Apprentice / Junior (Entry (£18k-£30k))',
-      'Physiotherapist (Mid-level (£30k-£50k))',
-      'Senior Physiotherapist (Senior (£45k-£70k))',
-      'Lead Physiotherapist / Specialist (Lead / Specialist (£60k+))',
+      'Physiotherapist Apprentice / Junior (£18k-£30k)',
+      'Physiotherapist (£30k-£50k)',
+      'Senior Physiotherapist (£45k-£70k)',
+      'Lead Physiotherapist / Specialist (£60k+)',
     ],
     similarCareers: [
       88,
@@ -1934,10 +1933,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=occupational+therapist', description: 'Business & tech skills' },
     ],
     progression: [
-      'Occupational Therapist Apprentice / Junior (Entry (£18k-£30k))',
-      'Occupational Therapist (Mid-level (£30k-£50k))',
-      'Senior Occupational Therapist (Senior (£45k-£70k))',
-      'Lead Occupational Therapist / Specialist (Lead / Specialist (£60k+))',
+      'Occupational Therapist Apprentice / Junior (£18k-£30k)',
+      'Occupational Therapist (£30k-£50k)',
+      'Senior Occupational Therapist (£45k-£70k)',
+      'Lead Occupational Therapist / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -2067,10 +2066,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=psychologist', description: 'Business & tech skills' },
     ],
     progression: [
-      'Psychologist Apprentice / Junior (Entry (£18k-£30k))',
-      'Psychologist (Mid-level (£30k-£50k))',
-      'Senior Psychologist (Senior (£45k-£70k))',
-      'Lead Psychologist / Specialist (Lead / Specialist (£60k+))',
+      'Psychologist Apprentice / Junior (£18k-£30k)',
+      'Psychologist (£30k-£50k)',
+      'Senior Psychologist (£45k-£70k)',
+      'Lead Psychologist / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -2132,10 +2131,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=radiographer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Radiographer Apprentice / Junior (Entry (£18k-£30k))',
-      'Radiographer (Mid-level (£30k-£50k))',
-      'Senior Radiographer (Senior (£45k-£70k))',
-      'Lead Radiographer / Specialist (Lead / Specialist (£60k+))',
+      'Radiographer Apprentice / Junior (£18k-£30k)',
+      'Radiographer (£30k-£50k)',
+      'Senior Radiographer (£45k-£70k)',
+      'Lead Radiographer / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -2193,10 +2192,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=midwife', description: 'Business & tech skills' },
     ],
     progression: [
-      'Midwife Apprentice / Junior (Entry (£18k-£30k))',
-      'Midwife (Mid-level (£30k-£50k))',
-      'Senior Midwife (Senior (£45k-£70k))',
-      'Lead Midwife / Specialist (Lead / Specialist (£60k+))',
+      'Midwife Apprentice / Junior (£18k-£30k)',
+      'Midwife (£30k-£50k)',
+      'Senior Midwife (£45k-£70k)',
+      'Lead Midwife / Specialist (£60k+)',
     ],
     similarCareers: [
       21,
@@ -2856,10 +2855,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=graphic+designer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Designer Apprentice / Junior (Entry (£18k-£30k))',
-      'Designer (Mid-level (£30k-£50k))',
-      'Senior Designer (Senior (£45k-£70k))',
-      'Lead Designer / Specialist (Lead / Specialist (£60k+))',
+      'Designer Apprentice / Junior (£18k-£30k)',
+      'Designer (£30k-£50k)',
+      'Senior Designer (£45k-£70k)',
+      'Lead Designer / Specialist (£60k+)',
     ],
     similarCareers: [
       40,
@@ -2922,10 +2921,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=video+editor', description: 'Business & tech skills' },
     ],
     progression: [
-      'Video Editor Apprentice / Junior (Entry (£18k-£30k))',
-      'Video Editor (Mid-level (£30k-£50k))',
-      'Senior Video Editor (Senior (£45k-£70k))',
-      'Lead Video Editor / Specialist (Lead / Specialist (£60k+))',
+      'Video Editor Apprentice / Junior (£18k-£30k)',
+      'Video Editor (£30k-£50k)',
+      'Senior Video Editor (£45k-£70k)',
+      'Lead Video Editor / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -2987,10 +2986,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=photographer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Photographer Apprentice / Junior (Entry (£18k-£30k))',
-      'Photographer (Mid-level (£30k-£50k))',
-      'Senior Photographer (Senior (£45k-£70k))',
-      'Lead Photographer / Specialist (Lead / Specialist (£60k+))',
+      'Photographer Apprentice / Junior (£18k-£30k)',
+      'Photographer (£30k-£50k)',
+      'Senior Photographer (£45k-£70k)',
+      'Lead Photographer / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -3128,10 +3127,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=writer+copywriter', description: 'Business & tech skills' },
     ],
     progression: [
-      'WriterCopywriter Apprentice / Junior (Entry (£18k-£30k))',
-      'WriterCopywriter (Mid-level (£30k-£50k))',
-      'Senior WriterCopywriter (Senior (£45k-£70k))',
-      'Lead WriterCopywriter / Specialist (Lead / Specialist (£60k+))',
+      'Writer/Copywriter Apprentice / Junior (£18k-£30k)',
+      'Writer/Copywriter (£30k-£50k)',
+      'Senior Writer/Copywriter (£45k-£70k)',
+      'Lead Writer/Copywriter / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -3199,10 +3198,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=social+media+manager', description: 'Business & tech skills' },
     ],
     progression: [
-      'Manager Apprentice / Junior (Entry (£18k-£30k))',
-      'Manager (Mid-level (£30k-£50k))',
-      'Senior Manager (Senior (£45k-£70k))',
-      'Lead Manager / Specialist (Lead / Specialist (£60k+))',
+      'Manager Apprentice / Junior (£18k-£30k)',
+      'Manager (£30k-£50k)',
+      'Senior Manager (£45k-£70k)',
+      'Lead Manager / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -3284,10 +3283,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=film+tv+producer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Producer Apprentice / Junior (Entry (£18k-£30k))',
-      'Producer (Mid-level (£30k-£50k))',
-      'Senior Producer (Senior (£45k-£70k))',
-      'Lead Producer / Specialist (Lead / Specialist (£60k+))',
+      'Producer Apprentice / Junior (£18k-£30k)',
+      'Producer (£30k-£50k)',
+      'Senior Producer (£45k-£70k)',
+      'Lead Producer / Specialist (£60k+)',
     ],
     similarCareers: [
       39,
@@ -3377,10 +3376,10 @@ const rawDemoCareers = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=primary+school+teacher', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Teacher Apprentice / Junior (Entry (£18k-£30k))',
-      'Teacher (Mid-level (£30k-£50k))',
-      'Senior Teacher (Senior (£45k-£70k))',
-      'Lead Teacher / Specialist (Lead / Specialist (£60k+))',
+      'Teacher Apprentice / Junior (£18k-£30k)',
+      'Teacher (£30k-£50k)',
+      'Senior Teacher (£45k-£70k)',
+      'Lead Teacher / Specialist (£60k+)',
     ],
     similarCareers: [
       47,
@@ -3474,10 +3473,10 @@ const rawDemoCareers = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=secondary+school+teacher', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Teacher Apprentice / Junior (Entry (£18k-£30k))',
-      'Teacher (Mid-level (£30k-£50k))',
-      'Senior Teacher (Senior (£45k-£70k))',
-      'Lead Teacher / Specialist (Lead / Specialist (£60k+))',
+      'Teacher Apprentice / Junior (£18k-£30k)',
+      'Teacher (£30k-£50k)',
+      'Senior Teacher (£45k-£70k)',
+      'Lead Teacher / Specialist (£60k+)',
     ],
     similarCareers: [
       46,
@@ -3571,10 +3570,10 @@ const rawDemoCareers = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=teaching+assistant', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Assistant Apprentice / Junior (Entry (£18k-£30k))',
-      'Assistant (Mid-level (£30k-£50k))',
-      'Senior Assistant (Senior (£45k-£70k))',
-      'Lead Assistant / Specialist (Lead / Specialist (£60k+))',
+      'Assistant Apprentice / Junior (£18k-£30k)',
+      'Assistant (£30k-£50k)',
+      'Senior Assistant (£45k-£70k)',
+      'Lead Assistant / Specialist (£60k+)',
     ],
     similarCareers: [
       46,
@@ -3823,10 +3822,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=devops+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Engineer Apprentice / Junior (£18k-£30k)',
+      'Engineer (£30k-£50k)',
+      'Senior Engineer (£45k-£70k)',
+      'Lead Engineer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4019,10 +4018,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=ethical+hacker', description: 'Business & tech skills' },
     ],
     progression: [
-      'Ethical Hacker Apprentice / Junior (Entry (£18k-£30k))',
-      'Ethical Hacker (Mid-level (£30k-£50k))',
-      'Senior Ethical Hacker (Senior (£45k-£70k))',
-      'Lead Ethical Hacker / Specialist (Lead / Specialist (£60k+))',
+      'Ethical Hacker Apprentice / Junior (£18k-£30k)',
+      'Ethical Hacker (£30k-£50k)',
+      'Senior Ethical Hacker (£45k-£70k)',
+      'Lead Ethical Hacker / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4098,10 +4097,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=digital+forensics+investigator', description: 'Business & tech skills' },
     ],
     progression: [
-      'Digital Forensics Investigator Apprentice / Junior (Entry (£18k-£30k))',
-      'Digital Forensics Investigator (Mid-level (£30k-£50k))',
-      'Senior Digital Forensics Investigator (Senior (£45k-£70k))',
-      'Lead Digital Forensics Investigator / Specialist (Lead / Specialist (£60k+))',
+      'Digital Forensics Investigator Apprentice / Junior (£18k-£30k)',
+      'Digital Forensics Investigator (£30k-£50k)',
+      'Senior Digital Forensics Investigator (£45k-£70k)',
+      'Lead Digital Forensics Investigator / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4243,10 +4242,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=site+reliability+engineer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Engineer Apprentice / Junior (Entry (£18k-£30k))',
-      'Engineer (Mid-level (£30k-£50k))',
-      'Senior Engineer (Senior (£45k-£70k))',
-      'Lead Engineer / Specialist (Lead / Specialist (£60k+))',
+      'Engineer Apprentice / Junior (£18k-£30k)',
+      'Engineer (£30k-£50k)',
+      'Senior Engineer (£45k-£70k)',
+      'Lead Engineer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4309,10 +4308,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=mobile+app+developer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Developer Apprentice / Junior (Entry (£18k-£30k))',
-      'Developer (Mid-level (£30k-£50k))',
-      'Senior Developer (Senior (£45k-£70k))',
-      'Lead Developer / Specialist (Lead / Specialist (£60k+))',
+      'Developer Apprentice / Junior (£18k-£30k)',
+      'Developer (£30k-£50k)',
+      'Senior Developer (£45k-£70k)',
+      'Lead Developer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4385,10 +4384,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=systems+analyst', description: 'Business & tech skills' },
     ],
     progression: [
-      'Analyst Apprentice / Junior (Entry (£18k-£30k))',
-      'Analyst (Mid-level (£30k-£50k))',
-      'Senior Analyst (Senior (£45k-£70k))',
-      'Lead Analyst / Specialist (Lead / Specialist (£60k+))',
+      'Analyst Apprentice / Junior (£18k-£30k)',
+      'Analyst (£30k-£50k)',
+      'Senior Analyst (£45k-£70k)',
+      'Lead Analyst / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4450,10 +4449,10 @@ const rawDemoCareers = [
       { name: 'LinkedIn Learning', url: 'https://www.linkedin.com/learning/search?keywords=technical+writer', description: 'Business & tech skills' },
     ],
     progression: [
-      'Writer Apprentice / Junior (Entry (£18k-£30k))',
-      'Writer (Mid-level (£30k-£50k))',
-      'Senior Writer (Senior (£45k-£70k))',
-      'Lead Writer / Specialist (Lead / Specialist (£60k+))',
+      'Writer Apprentice / Junior (£18k-£30k)',
+      'Writer (£30k-£50k)',
+      'Senior Writer (£45k-£70k)',
+      'Lead Writer / Specialist (£60k+)',
     ],
     similarCareers: [
       1,
@@ -4582,10 +4581,10 @@ const rawDemoCareers = [
       { name: 'Skillshare', url: 'https://www.skillshare.com/search?query=virtual+assistant', description: 'Creative & practical classes' },
     ],
     progression: [
-      'Assistant Apprentice / Junior (Entry (£18k-£30k))',
-      'Assistant (Mid-level (£30k-£50k))',
-      'Senior Assistant (Senior (£45k-£70k))',
-      'Lead Assistant / Specialist (Lead / Specialist (£60k+))',
+      'Assistant Apprentice / Junior (£18k-£30k)',
+      'Assistant (£30k-£50k)',
+      'Senior Assistant (£45k-£70k)',
+      'Lead Assistant / Specialist (£60k+)',
     ],
     similarCareers: [
       11,
@@ -7650,10 +7649,10 @@ const rawDemoCareers = [
       { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/thatching/', description: 'Endangered crafts directory and training routes' },
     ],
     progression: [
-      "Thatcher's Apprentice (Entry (£18k-£24k))",
-      'Journeyman Thatcher (Mid-level (£28k-£38k))',
-      'Master Thatcher (Senior (£38k-£48k))',
-      'Master Thatcher with own client waiting list (Lead / Specialist (£45k+))',
+      "Thatcher's Apprentice (£18k-£24k)",
+      'Journeyman Thatcher (£28k-£38k)',
+      'Master Thatcher (£38k-£48k)',
+      'Master Thatcher with own client waiting list (£45k+)',
     ],
     similarCareers: [
       130,
@@ -7709,10 +7708,10 @@ const rawDemoCareers = [
       { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/organ-building/', description: 'Endangered crafts directory and training routes' },
     ],
     progression: [
-      'Trainee / Apprentice Organ Builder (Entry (£20k-£26k))',
-      'Organ Builder (Mid-level (£26k-£36k))',
-      'Senior Restorer (Senior (£36k-£45k))',
-      'Master Organ Builder / Workshop Owner (Lead / Specialist (£45k+))',
+      'Trainee / Apprentice Organ Builder (£20k-£26k)',
+      'Organ Builder (£26k-£36k)',
+      'Senior Restorer (£36k-£45k)',
+      'Master Organ Builder / Workshop Owner (£45k+)',
     ],
     similarCareers: [
       127,
@@ -7764,10 +7763,10 @@ const rawDemoCareers = [
       { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/bell-founding/', description: 'Endangered crafts directory - bell founding is critically endangered' },
     ],
     progression: [
-      'Foundry Apprentice (Entry (£20k-£24k))',
-      'Bell Founder (Mid-level (£26k-£34k))',
-      'Senior Founder / Tuner (Senior (£34k-£42k))',
-      'Master Bell Founder (Lead / Specialist (£42k+))',
+      'Foundry Apprentice (£20k-£24k)',
+      'Bell Founder (£26k-£34k)',
+      'Senior Founder / Tuner (£34k-£42k)',
+      'Master Bell Founder (£42k+)',
     ],
     similarCareers: [
       126,
@@ -7820,10 +7819,10 @@ const rawDemoCareers = [
       { name: 'Birmingham School of Jewellery', url: 'https://www.bcu.ac.uk/jewellery', description: 'Specialist jewellery and engraving courses' },
     ],
     progression: [
-      'Engraving Apprentice (Entry (£18k-£24k))',
-      'Hand Engraver (Mid-level (£25k-£34k))',
-      'Senior Engraver (Senior (£34k-£40k))',
-      'Master Engraver / Own Workshop (Lead / Specialist (£40k+))',
+      'Engraving Apprentice (£18k-£24k)',
+      'Hand Engraver (£25k-£34k)',
+      'Senior Engraver (£34k-£40k)',
+      'Master Engraver / Own Workshop (£40k+)',
     ],
     similarCareers: [
       126,
@@ -7876,10 +7875,10 @@ const rawDemoCareers = [
       { name: 'Royal Anthropological Institute', url: 'https://therai.org.uk', description: 'Professional registration and CPD' },
     ],
     progression: [
-      'PhD Researcher / Trainee (Entry (£25k-£35k))',
-      'Forensic Anthropologist, casework + academic post (Mid-level (£35k-£50k))',
-      'Senior Consultant Forensic Anthropologist (Senior (£50k-£65k))',
-      'Lead Consultant / Professor (Lead / Specialist (£65k+))',
+      'PhD Researcher / Trainee (£25k-£35k)',
+      'Forensic Anthropologist, casework + academic post (£35k-£50k)',
+      'Senior Consultant Forensic Anthropologist (£50k-£65k)',
+      'Lead Consultant / Professor (£65k+)',
     ],
     similarCareers: [
       91,
@@ -7936,10 +7935,10 @@ const rawDemoCareers = [
       { name: 'National Heritage Ironwork Group', url: 'https://nhig.org.uk', description: 'Standards, training and accreditation for heritage blacksmiths' },
     ],
     progression: [
-      'Blacksmithing Apprentice (Entry (£19k-£25k))',
-      'Blacksmith (Mid-level (£26k-£36k))',
-      'Senior / Heritage Blacksmith (Senior (£36k-£44k))',
-      'Master Blacksmith / Own Forge (Lead / Specialist (£44k+))',
+      'Blacksmithing Apprentice (£19k-£25k)',
+      'Blacksmith (£26k-£36k)',
+      'Senior / Heritage Blacksmith (£36k-£44k)',
+      'Master Blacksmith / Own Forge (£44k+)',
     ],
     similarCareers: [
       125,
@@ -7992,10 +7991,10 @@ const rawDemoCareers = [
       { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/pargeting/', description: 'Endangered crafts directory - pargeting is critically endangered' },
     ],
     progression: [
-      'Plastering Apprentice (Entry (£19k-£25k))',
-      'Decorative Plasterer (Mid-level (£26k-£34k))',
-      'Pargeter, simple stamped/combed work (Senior (£34k-£40k))',
-      'Master Pargeter, freehand ornamental work (Lead / Specialist (£40k+))',
+      'Plastering Apprentice (£19k-£25k)',
+      'Decorative Plasterer (£26k-£34k)',
+      'Pargeter, simple stamped/combed work (£34k-£40k)',
+      'Master Pargeter, freehand ornamental work (£40k+)',
     ],
     similarCareers: [
       125,
@@ -8060,10 +8059,10 @@ const rawDemoCareers = [
       { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/rattan-furniture-making/', description: 'Endangered crafts directory - rattan furniture making is critically endangered' },
     ],
     progression: [
-      'Rattan Weaving Apprentice (Entry (£19k-£24k))',
-      'Rattan Furniture Maker (Mid-level (£24k-£32k))',
-      'Senior Weaver, complex pieces (Senior (£32k-£38k))',
-      'Master Weaver / Workshop Lead (Lead / Specialist (£38k+))',
+      'Rattan Weaving Apprentice (£19k-£24k)',
+      'Rattan Furniture Maker (£24k-£32k)',
+      'Senior Weaver, complex pieces (£32k-£38k)',
+      'Master Weaver / Workshop Lead (£38k+)',
     ],
     similarCareers: [
       128,
@@ -8114,10 +8113,10 @@ const rawDemoCareers = [
       { name: 'Heritage Crafts', url: 'https://www.heritagecrafts.org.uk/craft/cut-crystal-glass-making-skilled-trades-manufacture/', description: 'Endangered crafts directory - cut crystal glass making is critically endangered' },
     ],
     progression: [
-      'Glass Cutting Trainee (Entry (£19k-£24k))',
-      'Glass Cutter (Mid-level (£24k-£32k))',
-      'Senior Cutter, bespoke commissions (Senior (£32k-£38k))',
-      'Master Cutter / Studio Lead (Lead / Specialist (£38k+))',
+      'Glass Cutting Trainee (£19k-£24k)',
+      'Glass Cutter (£24k-£32k)',
+      'Senior Cutter, bespoke commissions (£32k-£38k)',
+      'Master Cutter / Studio Lead (£38k+)',
     ],
     similarCareers: [
       128,
@@ -8173,10 +8172,10 @@ const rawDemoCareers = [
       { name: 'City & Guilds of London Art School', url: 'https://www.cityandguildsartschool.ac.uk', description: 'Woodcarving & gilding degree routes relevant to historic carving' },
     ],
     progression: [
-      'Woodcarving Trainee (Entry (£18k-£24k))',
-      'Carver, restoration assistant work (Mid-level (£24k-£32k))',
-      'Carver, own commissions (Senior (£32k-£40k))',
-      'Master Carver, museum & heritage-fleet work (Lead / Specialist (£40k+))',
+      'Woodcarving Trainee (£18k-£24k)',
+      'Carver, restoration assistant work (£24k-£32k)',
+      'Carver, own commissions (£32k-£40k)',
+      'Master Carver, museum & heritage-fleet work (£40k+)',
     ],
     similarCareers: [
       128,
@@ -8240,10 +8239,10 @@ const rawDemoCareers = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=telesales', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Telesales Representative (Entry (£19k-£23k))',
-      'Senior Telesales Representative (Mid-level (£23k-£28k))',
-      'Telesales Team Leader (Senior (£28k-£34k))',
-      'Sales Manager (Lead / Specialist (£34k+))',
+      'Telesales Representative (£19k-£23k)',
+      'Senior Telesales Representative (£23k-£28k)',
+      'Telesales Team Leader (£28k-£34k)',
+      'Sales Manager (£34k+)',
     ],
     similarCareers: [
       17,
@@ -8297,10 +8296,10 @@ const rawDemoCareers = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=travel+agent', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Trainee Travel Agent (Entry (£19k-£22k))',
-      'Travel Agent (Mid-level (£22k-£27k))',
-      'Senior Travel Consultant (Senior (£27k-£33k))',
-      'Branch Manager (Lead / Specialist (£33k+))',
+      'Trainee Travel Agent (£19k-£22k)',
+      'Travel Agent (£22k-£27k)',
+      'Senior Travel Consultant (£27k-£33k)',
+      'Branch Manager (£33k+)',
     ],
     similarCareers: [
       75,
@@ -8354,10 +8353,10 @@ const rawDemoCareers = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=junior+software+developer', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Junior Software Developer (Entry (£22k-£28k))',
-      'Software Developer (Mid-level (£28k-£45k))',
-      'Senior Software Developer (Senior (£45k-£60k))',
-      'Lead Developer / Engineering Manager (Lead / Specialist (£60k+))',
+      'Junior Software Developer (£22k-£28k)',
+      'Software Developer (£28k-£45k)',
+      'Senior Software Developer (£45k-£60k)',
+      'Lead Developer / Engineering Manager (£60k+)',
     ],
     similarCareers: [
       1,
@@ -8411,10 +8410,10 @@ const rawDemoCareers = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=legal+secretary', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Legal Secretary / Paralegal (Entry (£20k-£25k))',
-      'Senior Paralegal (Mid-level (£25k-£32k))',
-      'Legal Executive (CILEx) (Senior (£32k-£45k))',
-      'Chartered Legal Executive (Lead / Specialist (£45k+))',
+      'Legal Secretary / Paralegal (£20k-£25k)',
+      'Senior Paralegal (£25k-£32k)',
+      'Legal Executive (CILEx) (£32k-£45k)',
+      'Chartered Legal Executive (£45k+)',
     ],
     similarCareers: [
       92,
@@ -8470,10 +8469,10 @@ const rawDemoCareers = [
       { name: 'Udemy', url: 'https://www.udemy.com/courses/search/?q=translation', description: 'Affordable professional courses' },
     ],
     progression: [
-      'Junior Translator (Entry (£22k-£26k))',
-      'Translator (Mid-level (£26k-£32k))',
-      'Senior / Specialist Translator (Senior (£32k-£40k))',
-      'Translation Project Manager (Lead / Specialist (£40k+))',
+      'Junior Translator (£22k-£26k)',
+      'Translator (£26k-£32k)',
+      'Senior / Specialist Translator (£32k-£40k)',
+      'Translation Project Manager (£40k+)',
     ],
     similarCareers: [
       43,
@@ -8534,10 +8533,10 @@ const rawDemoCareers = [
       { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
     ],
     progression: [
-      'Roofing Apprentice (Entry (£18k-£24k))',
-      'Roofer (Mid-level (£24k-£32k))',
-      'Senior Roofer (Senior (£32k-£38k))',
-      'Roofing Contractor / Business Owner (Lead / Specialist (£38k+))',
+      'Roofing Apprentice (£18k-£24k)',
+      'Roofer (£24k-£32k)',
+      'Senior Roofer (£32k-£38k)',
+      'Roofing Contractor / Business Owner (£38k+)',
     ],
     similarCareers: [
       89,
@@ -8588,10 +8587,10 @@ const rawDemoCareers = [
       { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
     ],
     progression: [
-      'Plastering Apprentice (Entry (£18k-£23k))',
-      'Plasterer (Mid-level (£23k-£30k))',
-      'Senior Plasterer (Senior (£30k-£36k))',
-      'Plastering Contractor (Lead / Specialist (£36k+))',
+      'Plastering Apprentice (£18k-£23k)',
+      'Plasterer (£23k-£30k)',
+      'Senior Plasterer (£30k-£36k)',
+      'Plastering Contractor (£36k+)',
     ],
     similarCareers: [
       89,
@@ -8643,10 +8642,10 @@ const rawDemoCareers = [
       { name: 'NICEIC', url: 'https://www.niceic.com', description: 'Electrical contractor certification' },
     ],
     progression: [
-      'Electrical Apprentice (Entry (£18k-£25k))',
-      'Electrician (Mid-level (£28k-£36k))',
-      'Approved Electrician (Senior (£36k-£42k))',
-      'Electrical Contractor / Business Owner (Lead / Specialist (£42k+))',
+      'Electrical Apprentice (£18k-£25k)',
+      'Electrician (£28k-£36k)',
+      'Approved Electrician (£36k-£42k)',
+      'Electrical Contractor / Business Owner (£42k+)',
     ],
     similarCareers: [
       33,
@@ -8697,10 +8696,10 @@ const rawDemoCareers = [
       { name: 'Gas Safe Register', url: 'https://www.gassaferegister.co.uk', description: 'Gas safety registration and training' },
     ],
     progression: [
-      'Plumbing Apprentice (Entry (£18k-£25k))',
-      'Plumber (Mid-level (£28k-£36k))',
-      'Gas Safe Registered Plumber (Senior (£36k-£42k))',
-      'Plumbing Contractor / Business Owner (Lead / Specialist (£42k+))',
+      'Plumbing Apprentice (£18k-£25k)',
+      'Plumber (£28k-£36k)',
+      'Gas Safe Registered Plumber (£36k-£42k)',
+      'Plumbing Contractor / Business Owner (£42k+)',
     ],
     similarCareers: [
       142,
@@ -8749,10 +8748,10 @@ const rawDemoCareers = [
       { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
     ],
     progression: [
-      'Carpentry Apprentice (Entry (£18k-£24k))',
-      'Carpenter (Mid-level (£24k-£32k))',
-      'Senior Carpenter / Joiner (Senior (£32k-£38k))',
-      'Carpentry Contractor / Business Owner (Lead / Specialist (£38k+))',
+      'Carpentry Apprentice (£18k-£24k)',
+      'Carpenter (£24k-£32k)',
+      'Senior Carpenter / Joiner (£32k-£38k)',
+      'Carpentry Contractor / Business Owner (£38k+)',
     ],
     similarCareers: [
       89,
@@ -8801,10 +8800,10 @@ const rawDemoCareers = [
       { name: 'CITB', url: 'https://www.citb.co.uk', description: 'Construction apprenticeships and training' },
     ],
     progression: [
-      'Bricklaying Apprentice (Entry (£18k-£24k))',
-      'Bricklayer (Mid-level (£24k-£32k))',
-      'Senior Bricklayer (Senior (£32k-£38k))',
-      'Bricklaying Contractor / Business Owner (Lead / Specialist (£38k+))',
+      'Bricklaying Apprentice (£18k-£24k)',
+      'Bricklayer (£24k-£32k)',
+      'Senior Bricklayer (£32k-£38k)',
+      'Bricklaying Contractor / Business Owner (£38k+)',
     ],
     similarCareers: [
       89,
@@ -8853,10 +8852,10 @@ const rawDemoCareers = [
       { name: 'National Examining Board for Dental Nurses', url: 'https://www.nebdn.org', description: 'Dental nursing qualifications' },
     ],
     progression: [
-      'Trainee Dental Nurse (Entry (£18k-£21k))',
-      'Qualified Dental Nurse (Mid-level (£21k-£26k))',
-      'Senior Dental Nurse (Senior (£26k-£30k))',
-      'Practice Manager / Lead Dental Nurse (Lead / Specialist (£30k+))',
+      'Trainee Dental Nurse (£18k-£21k)',
+      'Qualified Dental Nurse (£21k-£26k)',
+      'Senior Dental Nurse (£26k-£30k)',
+      'Practice Manager / Lead Dental Nurse (£30k+)',
     ],
     similarCareers: [
       22,
@@ -8906,10 +8905,10 @@ const rawDemoCareers = [
       { name: 'National Fire Chiefs Council', url: 'https://nfcc.org.uk', description: 'Firefighter recruitment and training routes' },
     ],
     progression: [
-      'Trainee Firefighter (Entry (£24k-£28k))',
-      'Firefighter (Mid-level (£28k-£34k))',
-      'Crew Manager (Senior (£34k-£40k))',
-      'Watch Manager / Station Manager (Lead / Specialist (£40k+))',
+      'Trainee Firefighter (£24k-£28k)',
+      'Firefighter (£28k-£34k)',
+      'Crew Manager (£34k-£40k)',
+      'Watch Manager / Station Manager (£40k+)',
     ],
     similarCareers: [
       90,
@@ -8960,10 +8959,10 @@ const rawDemoCareers = [
       { name: 'Security Industry Authority', url: 'https://www.sia.homeoffice.gov.uk', description: 'SIA licensing and training requirements' },
     ],
     progression: [
-      'Security Guard (Entry (£20k-£23k))',
-      'Senior Security Officer (Mid-level (£23k-£27k))',
-      'Security Supervisor (Senior (£27k-£32k))',
-      'Security Manager (Lead / Specialist (£32k+))',
+      'Security Guard (£20k-£23k)',
+      'Senior Security Officer (£23k-£27k)',
+      'Security Supervisor (£27k-£32k)',
+      'Security Manager (£32k+)',
     ],
     similarCareers: [
       90,
@@ -9013,10 +9012,10 @@ const rawDemoCareers = [
       { name: 'British Institute of Cleaning Science', url: 'https://www.bics.org.uk', description: 'Cleaning industry training and standards' },
     ],
     progression: [
-      'Cleaner (Entry (£18k-£21k))',
-      'Senior Cleaner (Mid-level (£21k-£23k))',
-      'Cleaning Supervisor (Senior (£23k-£27k))',
-      'Cleaning Contracts Manager (Lead / Specialist (£27k+))',
+      'Cleaner (£18k-£21k)',
+      'Senior Cleaner (£21k-£23k)',
+      'Cleaning Supervisor (£23k-£27k)',
+      'Cleaning Contracts Manager (£27k+)',
     ],
     similarCareers: [
       165,
@@ -9065,10 +9064,10 @@ const rawDemoCareers = [
       { name: 'Early Years Alliance', url: 'https://www.eyalliance.org.uk', description: 'Early years training and qualifications' },
     ],
     progression: [
-      'Nursery Assistant (Entry (£17k-£19k))',
-      'Early Years Educator (Mid-level (£19k-£23k))',
-      'Room Leader (Senior (£23k-£26k))',
-      'Nursery Manager (Lead / Specialist (£26k+))',
+      'Nursery Assistant (£17k-£19k)',
+      'Early Years Educator (£19k-£23k)',
+      'Room Leader (£23k-£26k)',
+      'Nursery Manager (£26k+)',
     ],
     similarCareers: [
       48,
@@ -9119,10 +9118,10 @@ const rawDemoCareers = [
       { name: 'UK Sport', url: 'https://www.uksport.gov.uk', description: 'Talent pathways and elite sport support' },
     ],
     progression: [
-      'Academy / Youth Athlete (Entry (£18k-£25k))',
-      'Professional Athlete (Mid-level (£25k-£45k))',
-      'Elite / International Athlete (Senior (£45k-£100k+))',
-      'Top-Tier Professional (Lead / Specialist (£100k+))',
+      'Academy / Youth Athlete (£18k-£25k)',
+      'Professional Athlete (£25k-£45k)',
+      'Elite / International Athlete (£45k-£100k+)',
+      'Top-Tier Professional (£100k+)',
     ],
     similarCareers: [
       88,
@@ -9175,10 +9174,10 @@ const rawDemoCareers = [
       { name: 'CIMSPA', url: 'https://www.cimspa.co.uk', description: 'Fitness industry qualifications and standards' },
     ],
     progression: [
-      'Gym Instructor (Entry (£18k-£21k))',
-      'Personal Trainer (Mid-level (£21k-£28k))',
-      'Senior / Specialist Trainer (Senior (£28k-£35k))',
-      'Studio / Gym Manager (Lead / Specialist (£35k+))',
+      'Gym Instructor (£18k-£21k)',
+      'Personal Trainer (£21k-£28k)',
+      'Senior / Specialist Trainer (£28k-£35k)',
+      'Studio / Gym Manager (£35k+)',
     ],
     similarCareers: [
       88,
@@ -9227,10 +9226,10 @@ const rawDemoCareers = [
       { name: 'Social Work England', url: 'https://www.socialworkengland.org.uk', description: 'Registration and professional standards' },
     ],
     progression: [
-      'Newly Qualified Social Worker (Entry (£28k-£32k))',
-      'Social Worker (Mid-level (£32k-£38k))',
-      'Senior Practitioner (Senior (£38k-£45k))',
-      'Team Manager (Lead / Specialist (£45k+))',
+      'Newly Qualified Social Worker (£28k-£32k)',
+      'Social Worker (£32k-£38k)',
+      'Senior Practitioner (£38k-£45k)',
+      'Team Manager (£45k+)',
     ],
     similarCareers: [
       154,
@@ -9281,10 +9280,10 @@ const rawDemoCareers = [
       { name: 'BACP', url: 'https://www.bacp.co.uk', description: 'Counselling accreditation and training routes' },
     ],
     progression: [
-      'Trainee Counsellor (Entry (£20k-£24k))',
-      'Qualified Counsellor (Mid-level (£24k-£32k))',
-      'Senior / Accredited Counsellor (Senior (£32k-£40k))',
-      'Private Practice / Clinical Lead (Lead / Specialist (£40k+))',
+      'Trainee Counsellor (£20k-£24k)',
+      'Qualified Counsellor (£24k-£32k)',
+      'Senior / Accredited Counsellor (£32k-£40k)',
+      'Private Practice / Clinical Lead (£40k+)',
     ],
     similarCareers: [
       153,
@@ -9334,10 +9333,10 @@ const rawDemoCareers = [
       { name: 'National Youth Agency', url: 'https://www.nya.org.uk', description: 'Youth work qualifications and standards' },
     ],
     progression: [
-      'Youth Support Worker (Entry (£20k-£24k))',
-      'Youth Worker (Mid-level (£24k-£29k))',
-      'Senior Youth Worker (Senior (£29k-£34k))',
-      'Youth Service Manager (Lead / Specialist (£34k+))',
+      'Youth Support Worker (£20k-£24k)',
+      'Youth Worker (£24k-£29k)',
+      'Senior Youth Worker (£29k-£34k)',
+      'Youth Service Manager (£34k+)',
     ],
     similarCareers: [
       153,
@@ -9387,10 +9386,10 @@ const rawDemoCareers = [
       { name: 'Church of England Ministry', url: 'https://www.churchofengland.org/careers-and-vocations', description: 'Ordained ministry training pathways' },
     ],
     progression: [
-      'Trainee / Curate (Entry (£18k-£24k))',
-      'Minister / Vicar (Mid-level (£24k-£28k))',
-      'Senior Minister (Senior (£28k-£32k))',
-      'Bishop / Denominational Leader (Lead / Specialist (£32k+))',
+      'Trainee / Curate (£18k-£24k)',
+      'Minister / Vicar (£24k-£28k)',
+      'Senior Minister (£28k-£32k)',
+      'Bishop / Denominational Leader (£32k+)',
     ],
     similarCareers: [
       153,
@@ -9439,10 +9438,10 @@ const rawDemoCareers = [
       { name: 'Seafish', url: 'https://www.seafish.org', description: 'UK seafood industry training and safety courses' },
     ],
     progression: [
-      'Deckhand (Entry (£20k-£25k))',
-      'Fisher (Mid-level (£25k-£30k))',
-      'Skipper (Senior (£30k-£38k))',
-      'Boat Owner / Fleet Operator (Lead / Specialist (£38k+))',
+      'Deckhand (£20k-£25k)',
+      'Fisher (£25k-£30k)',
+      'Skipper (£30k-£38k)',
+      'Boat Owner / Fleet Operator (£38k+)',
     ],
     similarCareers: [
       83,
@@ -9490,10 +9489,10 @@ const rawDemoCareers = [
       { name: 'WAMITAB', url: 'https://www.wamitab.org.uk', description: 'Waste management training and qualifications' },
     ],
     progression: [
-      'Loader / Refuse Collector (Entry (£20k-£23k))',
-      'Refuse Vehicle Driver (Mid-level (£23k-£27k))',
-      'Crew Supervisor (Senior (£27k-£31k))',
-      'Waste Services Manager (Lead / Specialist (£31k+))',
+      'Loader / Refuse Collector (£20k-£23k)',
+      'Refuse Vehicle Driver (£23k-£27k)',
+      'Crew Supervisor (£27k-£31k)',
+      'Waste Services Manager (£31k+)',
     ],
     similarCareers: [
       148,
@@ -9558,10 +9557,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
     ],
     progression: [
-      'Waiter / Waitress (Entry (£17k-£20k))',
-      'Head Waiter (Mid-level (£20k-£24k))',
-      'Restaurant Supervisor (Senior (£24k-£28k))',
-      'Restaurant Manager (Lead / Specialist (£28k+))',
+      'Waiter / Waitress (£17k-£20k)',
+      'Head Waiter (£20k-£24k)',
+      'Restaurant Supervisor (£24k-£28k)',
+      'Restaurant Manager (£28k+)',
     ],
     similarCareers: [
       160,
@@ -9613,10 +9612,10 @@ const rawDemoCareers = [
       { name: 'British Institute of Innkeeping', url: 'https://www.bii.org', description: 'Licensed trade training and qualifications' },
     ],
     progression: [
-      'Bar Person (Entry (£17k-£20k))',
-      'Senior Bartender (Mid-level (£20k-£24k))',
-      'Bar Supervisor (Senior (£24k-£28k))',
-      'Bar Manager (Lead / Specialist (£28k+))',
+      'Bar Person (£17k-£20k)',
+      'Senior Bartender (£20k-£24k)',
+      'Bar Supervisor (£24k-£28k)',
+      'Bar Manager (£28k+)',
     ],
     similarCareers: [
       159,
@@ -9668,10 +9667,10 @@ const rawDemoCareers = [
       { name: 'Speciality Coffee Association', url: 'https://sca.coffee', description: 'Barista skills and coffee industry training' },
     ],
     progression: [
-      'Barista (Entry (£17k-£20k))',
-      'Senior Barista (Mid-level (£20k-£24k))',
-      'Cafe Supervisor (Senior (£24k-£27k))',
-      'Cafe Manager (Lead / Specialist (£27k+))',
+      'Barista (£17k-£20k)',
+      'Senior Barista (£20k-£24k)',
+      'Cafe Supervisor (£24k-£27k)',
+      'Cafe Manager (£27k+)',
     ],
     similarCareers: [
       159,
@@ -9723,10 +9722,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
     ],
     progression: [
-      'Host / Hostess (Entry (£17k-£19k))',
-      'Senior Host (Mid-level (£19k-£22k))',
-      'Head Host (Senior (£22k-£25k))',
-      'Front of House Manager (Lead / Specialist (£25k+))',
+      'Host / Hostess (£17k-£19k)',
+      'Senior Host (£19k-£22k)',
+      'Head Host (£22k-£25k)',
+      'Front of House Manager (£25k+)',
     ],
     similarCareers: [
       163,
@@ -9777,10 +9776,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
     ],
     progression: [
-      'Hotel Receptionist (Entry (£18k-£21k))',
-      'Senior Receptionist (Mid-level (£21k-£25k))',
-      'Front Office Manager (Senior (£25k-£32k))',
-      'Hotel Manager (Lead / Specialist (£32k+))',
+      'Hotel Receptionist (£18k-£21k)',
+      'Senior Receptionist (£21k-£25k)',
+      'Front Office Manager (£25k-£32k)',
+      'Hotel Manager (£32k+)',
     ],
     similarCareers: [
       172,
@@ -9830,10 +9829,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
     ],
     progression: [
-      'Concierge Assistant (Entry (£19k-£23k))',
-      'Concierge (Mid-level (£23k-£28k))',
-      'Head Concierge (Senior (£28k-£34k))',
-      'Guest Services Manager (Lead / Specialist (£34k+))',
+      'Concierge Assistant (£19k-£23k)',
+      'Concierge (£23k-£28k)',
+      'Head Concierge (£28k-£34k)',
+      'Guest Services Manager (£34k+)',
     ],
     similarCareers: [
       163,
@@ -9884,10 +9883,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
     ],
     progression: [
-      'Room Attendant (Entry (£17k-£19k))',
-      'Senior Housekeeper (Mid-level (£19k-£23k))',
-      'Housekeeping Supervisor (Senior (£23k-£27k))',
-      'Executive Housekeeper (Lead / Specialist (£27k+))',
+      'Room Attendant (£17k-£19k)',
+      'Senior Housekeeper (£19k-£23k)',
+      'Housekeeping Supervisor (£23k-£27k)',
+      'Executive Housekeeper (£27k+)',
     ],
     similarCareers: [
       166,
@@ -9936,10 +9935,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality training and career development' },
     ],
     progression: [
-      'Hotel Porter (Entry (£19k-£22k))',
-      'Senior Porter (Mid-level (£22k-£27k))',
-      'Head Porter (Senior (£27k-£31k))',
-      'Concierge / Front of House Manager (Lead / Specialist (£31k+))',
+      'Hotel Porter (£19k-£22k)',
+      'Senior Porter (£22k-£27k)',
+      'Head Porter (£27k-£31k)',
+      'Concierge / Front of House Manager (£31k+)',
     ],
     similarCareers: [
       164,
@@ -9989,10 +9988,10 @@ const rawDemoCareers = [
       { name: 'City & Guilds', url: 'https://www.cityandguilds.com', description: 'Catering and hospitality qualifications' },
     ],
     progression: [
-      'Kitchen Assistant (Entry (£17k-£19k))',
-      'Kitchen Porter (Mid-level (£19k-£22k))',
-      'Commis Chef (Senior (£22k-£25k))',
-      'Chef de Partie (Lead / Specialist (£25k+))',
+      'Kitchen Assistant (£17k-£19k)',
+      'Kitchen Porter (£19k-£22k)',
+      'Commis Chef (£22k-£25k)',
+      'Chef de Partie (£25k+)',
     ],
     similarCareers: [
       86,
@@ -10040,10 +10039,10 @@ const rawDemoCareers = [
       { name: 'City & Guilds', url: 'https://www.cityandguilds.com', description: 'Catering and hospitality qualifications' },
     ],
     progression: [
-      'Junior Pastry Chef (Entry (£20k-£24k))',
-      'Pastry Chef (Mid-level (£24k-£30k))',
-      'Head Pastry Chef (Senior (£30k-£38k))',
-      'Executive Pastry Chef (Lead / Specialist (£38k+))',
+      'Junior Pastry Chef (£20k-£24k)',
+      'Pastry Chef (£24k-£30k)',
+      'Head Pastry Chef (£30k-£38k)',
+      'Executive Pastry Chef (£38k+)',
     ],
     similarCareers: [
       169,
@@ -10095,10 +10094,10 @@ const rawDemoCareers = [
       { name: 'City & Guilds', url: 'https://www.cityandguilds.com', description: 'Catering and hospitality qualifications' },
     ],
     progression: [
-      'Cake Decorator (Entry (£18k-£21k))',
-      'Senior Cake Decorator (Mid-level (£21k-£26k))',
-      'Bakery Supervisor (Senior (£26k-£30k))',
-      'Bakery Manager / Own Business (Lead / Specialist (£30k+))',
+      'Cake Decorator (£18k-£21k)',
+      'Senior Cake Decorator (£21k-£26k)',
+      'Bakery Supervisor (£26k-£30k)',
+      'Bakery Manager / Own Business (£30k+)',
     ],
     similarCareers: [
       170,
@@ -10146,10 +10145,10 @@ const rawDemoCareers = [
       { name: 'City & Guilds', url: 'https://www.cityandguilds.com', description: 'Catering and hospitality qualifications' },
     ],
     progression: [
-      'Baker (Entry (£18k-£21k))',
-      'Senior Baker (Mid-level (£21k-£24k))',
-      'Bakery Supervisor (Senior (£24k-£28k))',
-      'Bakery Manager (Lead / Specialist (£28k+))',
+      'Baker (£18k-£21k)',
+      'Senior Baker (£21k-£24k)',
+      'Bakery Supervisor (£24k-£28k)',
+      'Bakery Manager (£28k+)',
     ],
     similarCareers: [
       169,
@@ -10197,10 +10196,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality management training and qualifications' },
     ],
     progression: [
-      'Assistant Manager (Entry (£22k-£27k))',
-      'Restaurant Manager (Mid-level (£27k-£36k))',
-      'Area Manager (Senior (£36k-£48k))',
-      'Operations Director (Lead / Specialist (£48k+))',
+      'Assistant Manager (£22k-£27k)',
+      'Restaurant Manager (£27k-£36k)',
+      'Area Manager (£36k-£48k)',
+      'Operations Director (£48k+)',
     ],
     similarCareers: [
       159,
@@ -10249,10 +10248,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality management training and qualifications' },
     ],
     progression: [
-      'Assistant Manager (Entry (£24k-£30k))',
-      'Deputy Manager (Mid-level (£30k-£40k))',
-      'Hotel Manager (Senior (£40k-£55k))',
-      'Regional / Group Operations Director (Lead / Specialist (£60k+))',
+      'Assistant Manager (£24k-£30k)',
+      'Deputy Manager (£30k-£40k)',
+      'Hotel Manager (£40k-£55k)',
+      'Regional / Group Operations Director (£60k+)',
     ],
     similarCareers: [
       163,
@@ -10301,10 +10300,10 @@ const rawDemoCareers = [
       { name: 'British Institute of Innkeeping', url: 'https://www.bii.org', description: 'Licensed trade training and personal licence qualifications' },
     ],
     progression: [
-      'Assistant Manager (Entry (£21k-£26k))',
-      'Pub / Bar Manager (Mid-level (£26k-£36k))',
-      'Area Manager (Senior (£36k-£48k))',
-      'Regional Director (Lead / Specialist (£48k+))',
+      'Assistant Manager (£21k-£26k)',
+      'Pub / Bar Manager (£26k-£36k)',
+      'Area Manager (£36k-£48k)',
+      'Regional Director (£48k+)',
     ],
     similarCareers: [
       160,
@@ -10352,10 +10351,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality management training and qualifications' },
     ],
     progression: [
-      'Assistant Catering Manager (Entry (£19k-£23k))',
-      'Catering Manager (Mid-level (£23k-£30k))',
-      'Senior Catering Manager (Senior (£30k-£36k))',
-      'Food and Beverage Director (Lead / Specialist (£36k+))',
+      'Assistant Catering Manager (£19k-£23k)',
+      'Catering Manager (£23k-£30k)',
+      'Senior Catering Manager (£30k-£36k)',
+      'Food and Beverage Director (£36k+)',
     ],
     similarCareers: [
       171,
@@ -10406,10 +10405,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality and accommodation management training' },
     ],
     progression: [
-      'Accommodation Warden (Entry (£22k-£25k))',
-      'Senior Warden (Mid-level (£25k-£28k))',
-      'Accommodation Manager (Senior (£28k-£34k))',
-      'Housing Services Manager (Lead / Specialist (£34k+))',
+      'Accommodation Warden (£22k-£25k)',
+      'Senior Warden (£25k-£28k)',
+      'Accommodation Manager (£28k-£34k)',
+      'Housing Services Manager (£34k+)',
     ],
     similarCareers: [
       165,
@@ -10457,10 +10456,10 @@ const rawDemoCareers = [
       { name: 'WSET', url: 'https://www.wsetglobal.com', description: 'Wine & Spirit Education Trust qualifications' },
     ],
     progression: [
-      'Junior Sommelier (Entry (£22k-£27k))',
-      'Sommelier (Mid-level (£27k-£35k))',
-      'Head Sommelier (Senior (£35k-£45k))',
-      'Wine Director (Lead / Specialist (£45k+))',
+      'Junior Sommelier (£22k-£27k)',
+      'Sommelier (£27k-£35k)',
+      'Head Sommelier (£35k-£45k)',
+      'Wine Director (£45k+)',
     ],
     similarCareers: [
       159,
@@ -10506,10 +10505,10 @@ const rawDemoCareers = [
       { name: 'Chartered Institute of Environmental Health', url: 'https://www.cieh.org', description: 'Environmental health and food safety qualifications' },
     ],
     progression: [
-      'Trainee Inspector (Entry (£20k-£24k))',
-      'Food Safety Officer (Mid-level (£24k-£29k))',
-      'Senior Inspector / Team Leader (Senior (£29k-£36k))',
-      'Environmental Health Manager (Lead / Specialist (£36k+))',
+      'Trainee Inspector (£20k-£24k)',
+      'Food Safety Officer (£24k-£29k)',
+      'Senior Inspector / Team Leader (£29k-£36k)',
+      'Environmental Health Manager (£36k+)',
     ],
     similarCareers: [
       86,
@@ -10557,10 +10556,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Hospitality and culinary industry training' },
     ],
     progression: [
-      'Junior Developer (Entry (£23k-£28k))',
-      'Menu / Food Product Developer (Mid-level (£28k-£36k))',
-      'Senior Developer (Senior (£36k-£45k))',
-      'Head of Food Development (Lead / Specialist (£45k+))',
+      'Junior Developer (£23k-£28k)',
+      'Menu / Food Product Developer (£28k-£36k)',
+      'Senior Developer (£36k-£45k)',
+      'Head of Food Development (£45k+)',
     ],
     similarCareers: [
       86,
@@ -10610,10 +10609,10 @@ const rawDemoCareers = [
       { name: 'ABTA', url: 'https://abta.com', description: 'Travel industry training and standards' },
     ],
     progression: [
-      'Tour Guide (Entry (£18k-£22k))',
-      'Tour Manager (Mid-level (£22k-£30k))',
-      'Operations Manager (Senior (£30k-£38k))',
-      'Travel Director (Lead / Specialist (£38k+))',
+      'Tour Guide (£18k-£22k)',
+      'Tour Manager (£22k-£30k)',
+      'Operations Manager (£30k-£38k)',
+      'Travel Director (£38k+)',
     ],
     similarCareers: [
       180,
@@ -10663,10 +10662,10 @@ const rawDemoCareers = [
       { name: 'ABTA', url: 'https://abta.com', description: 'Travel industry training and standards' },
     ],
     progression: [
-      'Resort Representative (Entry (£17k-£21k))',
-      'Senior Representative (Mid-level (£21k-£25k))',
-      'Resort Manager (Senior (£25k-£32k))',
-      'Area Manager (Lead / Specialist (£32k+))',
+      'Resort Representative (£17k-£21k)',
+      'Senior Representative (£21k-£25k)',
+      'Resort Manager (£25k-£32k)',
+      'Area Manager (£32k+)',
     ],
     similarCareers: [
       179,
@@ -10716,10 +10715,10 @@ const rawDemoCareers = [
       { name: 'Institute of Hospitality', url: 'https://www.instituteofhospitality.org', description: 'Customer service and hospitality training' },
     ],
     progression: [
-      'Attendant (Entry (£17k-£19k))',
-      'Supervisor (Mid-level (£19k-£23k))',
-      'Duty Manager (Senior (£23k-£27k))',
-      'Venue Manager (Lead / Specialist (£27k+))',
+      'Attendant (£17k-£19k)',
+      'Supervisor (£19k-£23k)',
+      'Duty Manager (£23k-£27k)',
+      'Venue Manager (£27k+)',
     ],
     similarCareers: [
       182,
@@ -10770,10 +10769,10 @@ const rawDemoCareers = [
       { name: 'CIMSPA', url: 'https://www.cimspa.co.uk', description: 'Sport and leisure industry qualifications' },
     ],
     progression: [
-      'Leisure Assistant (Entry (£17k-£20k))',
-      'Senior Assistant (Mid-level (£20k-£24k))',
-      'Duty Manager (Senior (£24k-£29k))',
-      'Centre Manager (Lead / Specialist (£29k+))',
+      'Leisure Assistant (£17k-£20k)',
+      'Senior Assistant (£20k-£24k)',
+      'Duty Manager (£24k-£29k)',
+      'Centre Manager (£29k+)',
     ],
     similarCareers: [
       152,
@@ -10824,10 +10823,10 @@ const rawDemoCareers = [
       { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
     ],
     progression: [
-      'Delivery Driver (Entry (£18k-£21k))',
-      'Experienced Driver, peak-time earnings (Mid-level (£21k-£25k))',
-      'Fleet / Local Area Coordinator (Senior (£25k-£30k))',
-      'Operations Manager (Lead / Specialist (£30k+))',
+      'Delivery Driver (£18k-£21k)',
+      'Experienced Driver, peak-time earnings (£21k-£25k)',
+      'Fleet / Local Area Coordinator (£25k-£30k)',
+      'Operations Manager (£30k+)',
     ],
     similarCareers: [
       184,
@@ -10873,10 +10872,10 @@ const rawDemoCareers = [
       { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
     ],
     progression: [
-      'Crew Member (Entry (£17k-£19k))',
-      'Shift Leader (Mid-level (£19k-£23k))',
-      'Assistant Manager (Senior (£23k-£28k))',
-      'Restaurant Manager (Lead / Specialist (£28k+))',
+      'Crew Member (£17k-£19k)',
+      'Shift Leader (£19k-£23k)',
+      'Assistant Manager (£23k-£28k)',
+      'Restaurant Manager (£28k+)',
     ],
     similarCareers: [
       159,
@@ -10926,10 +10925,10 @@ const rawDemoCareers = [
       { name: 'National Careers Service', url: 'https://nationalcareers.service.gov.uk', description: 'UK careers guidance and job profiles' },
     ],
     progression: [
-      'Dishwasher (Entry (£17k-£19k))',
-      'Kitchen Porter (Mid-level (£19k-£21k))',
-      'Commis Chef (Senior (£21k-£25k))',
-      'Chef de Partie (Lead / Specialist (£25k+))',
+      'Dishwasher (£17k-£19k)',
+      'Kitchen Porter (£19k-£21k)',
+      'Commis Chef (£21k-£25k)',
+      'Chef de Partie (£25k+)',
     ],
     similarCareers: [
       167,

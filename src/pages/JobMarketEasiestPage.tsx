@@ -21,7 +21,11 @@ export default function JobMarketEasiestPage() {
       <BackButton to="/job-market" label="Job Market" />
       <PageHeader icon={Zap} title="Easiest Jobs to Get Into" subtitle="Careers you can start without years of study" />
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      {/* justify-start, not justify-between - Compare used to be pushed all
+          the way to the far right edge of the row, leaving an odd gap from
+          the "Showing N careers" count next to it (explicit request to
+          bring it in close instead). */}
+      <div className="flex flex-wrap items-center justify-start gap-3">
         <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
           Showing {visibleEntries.length} {visibleEntries.length === 1 ? 'career' : 'careers'}
         </p>

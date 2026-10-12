@@ -12,13 +12,17 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  // Defaults checked - see useAuthStore.ts's own signIn comment for why
+  // (keeps the always-logged-in behavior this app already had before this
+  // checkbox existed for anyone who never touches it).
+  const [rememberMe, setRememberMe] = useState(true)
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
     if (isSubmitting) return
     setIsSubmitting(true)
     setError(null)
-    const result = await signIn(email, password)
+    const result = await signIn(email, password, rememberMe)
     setIsSubmitting(false)
     if (!result.success) {
       setError(result.error ?? 'Something went wrong.')
@@ -71,6 +75,16 @@ export default function LoginPage() {
               onChange={(event) => setPassword(event.target.value)}
               className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
             />
+          </label>
+
+          <label className="flex cursor-pointer items-center gap-2">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(event) => setRememberMe(event.target.checked)}
+              className="h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary/30 dark:border-slate-600 dark:bg-slate-950"
+            />
+            <span className="text-sm text-slate-600 dark:text-slate-300">Remember me</span>
           </label>
 
           {error ? <p className="text-sm font-medium text-red-600 dark:text-red-400">{error}</p> : null}

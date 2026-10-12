@@ -92,8 +92,12 @@ export default function LegendaryRevealCard({ career, onRollAgain }: LegendaryRe
       setShowAuthPrompt(true)
       return
     }
+    // No success toast here anymore, per explicit request - the button
+    // itself already flips to the disabled "Added" state (BookmarkCheck +
+    // label, hasAdded above) right as this fires, so a popup on top of
+    // that was redundant. Binder-full still gets one above (that failure
+    // isn't otherwise visible - the button just silently stays "Add").
     setJustAdded(true)
-    flashToast(result === 'duplicate' ? 'You already have this card! Duplicate added.' : 'Added to binder!')
   }
 
   // Auto-saves to the binder the moment this card mounts, for whoever's
@@ -116,8 +120,10 @@ export default function LegendaryRevealCard({ career, onRollAgain }: LegendaryRe
       return
     }
     if (result === 'unauthenticated') return // shouldn't happen given the currentUser check above
+    // No success toast here anymore either, per explicit request - same
+    // reasoning as handleAddToBinder above (the button's own "Added" state
+    // already shows it).
     setJustAdded(true)
-    flashToast(result === 'duplicate' ? 'Legendary! Duplicate auto-added to your binder.' : 'Legendary! Auto-added to your binder.')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -189,11 +195,13 @@ export default function LegendaryRevealCard({ career, onRollAgain }: LegendaryRe
         </div>
 
         {/* Same 3-button pattern every other tier's card uses. Width pinned
-            to exactly match .legendary-reveal-card (300px) - see
+            to exactly match .legendary-reveal-card - see
             CelestialRevealCard.tsx's own comment on this same pattern for
             why (a flex item doesn't stretch to match a sibling's width on
-            its own). */}
-        <div className="mt-4 grid w-[300px] grid-cols-3 gap-2 text-sm font-semibold">
+            its own). min(300px,calc(100vw-64px)), not a bare 300px, so this
+            row shrinks in lockstep with the card above it on narrow phones -
+            see .legendary-reveal-card's own comment in index.css for why. */}
+        <div className="mt-4 grid w-[min(300px,calc(100vw-64px))] grid-cols-3 gap-2 text-sm font-semibold">
           <button
             type="button"
             onClick={handleAddToBinder}

@@ -30,6 +30,23 @@ export interface UserProfile {
   /** True when `username` was auto-assigned because the player skipped the
    * setup modal - drives the persistent "Set your name" banner. */
   isFallbackName: boolean
+  /** Graduate title's reward (titles.ts) - a custom, up to 120-char
+   * "yearbook quote" shown under this player's name on the leaderboard.
+   * null until they set one; the editor (ProfilePage.tsx) only shows once
+   * Graduate is actually unlocked, but nothing here enforces that itself -
+   * same trust boundary as username, backstopped by the same server-side
+   * check constraint (schema.sql) for length. */
+  graduationQuote: string | null
+  /** epoch ms of the last time setUsername actually applied a change - null
+   * until the player has ever set a real name (assignFallbackName never
+   * touches this, so skipping setup doesn't start the clock; the FIRST real
+   * name a player picks doesn't either, since there's nothing to compare
+   * against yet - only a genuine second-or-later change does). Drives the
+   * once-every-7-days rate limit (USERNAME_CHANGE_COOLDOWN_MS below). Client-
+   * side only, same trust model as the rest of this store - there's no
+   * server-side trigger enforcing it, just the UI refusing to offer a
+   * change during the cooldown. */
+  usernameChangedAt: number | null
   /** epoch ms - last local change, also written to profiles.updated_at. */
   updatedAt: number
 }
@@ -40,7 +57,21 @@ interface ProfileRow {
   username: string
   equipped_title_id: string | null
   is_fallback_name: boolean
+  graduation_quote: string | null
+  username_changed_at: string | null
   updated_at: string
+}
+
+/** How often a player is allowed to change their username - explicit
+ * request. Exported so the UI (UsernameModal.tsx) can compute and display
+ * the remaining cooldown up front, not just discover it after a rejected
+ * submit. */
+export const USERNAME_CHANGE_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000
+
+/** 0 when a change is allowed right now, otherwise how many ms remain. */
+export function getUsernameCooldownRemainingMs(profile: UserProfile | null | undefined): number {
+  if (!profile?.usernameChangedAt) return 0
+  return Math.max(0, USERNAME_CHANGE_COOLDOWN_MS - (Date.now() - profile.usernameChangedAt))
 }
 
 function currentUser(): { id: string; email: string } | null {
@@ -59,6 +90,8 @@ async function syncProfile(userId: string, email: string, profile: UserProfile):
       username: profile.username,
       equipped_title_id: profile.equippedTitleId,
       is_fallback_name: profile.isFallbackName,
+      graduation_quote: profile.graduationQuote,
+      username_changed_at: profile.usernameChangedAt === null ? null : new Date(profile.usernameChangedAt).toISOString(),
       updated_at: new Date(profile.updatedAt).toISOString(),
     },
     { onConflict: 'user_id' },
@@ -92,9 +125,21 @@ interface UserProfileState {
    * so a returning player with a name on another device doesn't get the
    * modal flashed at them. */
   hydratedUserId: string | null
-  setUsername: (name: string) => void
+  /** Returns false (and leaves the profile untouched) if a change isn't
+   * allowed yet - either not signed in, or still within
+   * USERNAME_CHANGE_COOLDOWN_MS of the last real change. The UI should
+   * check getUsernameCooldownRemainingMs() before even offering the form,
+   * this is the backstop for calling it anyway. */
+  setUsername: (name: string) => boolean
   assignFallbackName: () => void
   equipTitle: (titleId: string | null) => void
+  /** Graduate title's reward - null clears it back to "no quote shown". No
+   * length/unlock check here (ProfilePage.tsx's editor already caps input
+   * at 120 chars and only renders once Graduate is unlocked); the server-
+   * side check constraint (schema.sql) is the real backstop, same trust
+   * model as setUsername relying on usernameValidation.ts client-side plus
+   * profiles_username_format server-side. */
+  setGraduationQuote: (quote: string | null) => void
   hydrateFromSupabase: () => Promise<void>
   getProfile: () => UserProfile | null
 }
@@ -107,8 +152,13 @@ export const useUserProfileStore = create<UserProfileState>()(
 
       setUsername: (name) => {
         const user = currentUser()
-        if (!user) return
+        if (!user) return false
         const existing = get().profilesByUser[user.id]
+        // Once-every-7-days rate limit - explicit request. Only a genuine
+        // prior CHANGE starts the clock (see usernameChangedAt's own
+        // comment), so this only ever blocks a second-or-later change, never
+        // someone's first real name.
+        if (getUsernameCooldownRemainingMs(existing) > 0) return false
         const profile: UserProfile = {
           username: name,
           // Brand-new profile -> equipped with the freebie Trainee badge by
@@ -116,10 +166,13 @@ export const useUserProfileStore = create<UserProfileState>()(
           // had, including a deliberate null ("None").
           equippedTitleId: existing ? existing.equippedTitleId : 'trainee',
           isFallbackName: false,
+          graduationQuote: existing ? existing.graduationQuote : null,
+          usernameChangedAt: Date.now(),
           updatedAt: Date.now(),
         }
         set({ profilesByUser: { ...get().profilesByUser, [user.id]: profile } })
         void syncProfile(user.id, user.email, profile)
+        return true
       },
 
       assignFallbackName: () => {
@@ -132,6 +185,9 @@ export const useUserProfileStore = create<UserProfileState>()(
           username: randomFallbackName(),
           equippedTitleId: 'trainee',
           isFallbackName: true,
+          graduationQuote: null,
+          // Skipping setup isn't a "change" - doesn't start the cooldown.
+          usernameChangedAt: null,
           updatedAt: Date.now(),
         }
         set({ profilesByUser: { ...get().profilesByUser, [user.id]: profile } })
@@ -149,6 +205,18 @@ export const useUserProfileStore = create<UserProfileState>()(
         void syncProfile(user.id, user.email, profile)
       },
 
+      setGraduationQuote: (quote) => {
+        const user = currentUser()
+        if (!user) return
+        const existing = get().profilesByUser[user.id]
+        if (!existing) return
+        const trimmed = quote?.trim() || null
+        if (existing.graduationQuote === trimmed) return
+        const profile: UserProfile = { ...existing, graduationQuote: trimmed, updatedAt: Date.now() }
+        set({ profilesByUser: { ...get().profilesByUser, [user.id]: profile } })
+        void syncProfile(user.id, user.email, profile)
+      },
+
       hydrateFromSupabase: async () => {
         const user = currentUser()
         if (!user) return
@@ -158,7 +226,7 @@ export const useUserProfileStore = create<UserProfileState>()(
         }
         const { data, error } = await supabase
           .from('profiles')
-          .select('user_id, email, username, equipped_title_id, is_fallback_name, updated_at')
+          .select('user_id, email, username, equipped_title_id, is_fallback_name, graduation_quote, username_changed_at, updated_at')
           .eq('user_id', user.id)
           .maybeSingle()
         if (error) {
@@ -173,6 +241,8 @@ export const useUserProfileStore = create<UserProfileState>()(
             username: row.username,
             equippedTitleId: row.equipped_title_id,
             isFallbackName: row.is_fallback_name ?? isFallbackName(row.username),
+            graduationQuote: row.graduation_quote ?? null,
+            usernameChangedAt: row.username_changed_at ? Date.parse(row.username_changed_at) : null,
             updatedAt: Date.parse(row.updated_at) || Date.now(),
           }
           set({
@@ -195,7 +265,38 @@ export const useUserProfileStore = create<UserProfileState>()(
     }),
     {
       name: 'pathscrawler-user-profile',
-      version: 1,
+      // v1 -> v2: adds graduationQuote (Graduate title's reward, titles.ts)
+      // - plain additive default (null) for every already-persisted
+      // profile, same pattern useTitleProgressStore.ts's own version bumps
+      // use. hydrateFromSupabase overwrites this with the real remote value
+      // on next load anyway; the migration just keeps the LOCAL copy's
+      // shape/types honest (`string | null`, never `undefined`) in the
+      // meantime.
+      // v2 -> v3: adds usernameChangedAt (once-a-week rename limit) - null
+      // for everyone already persisted, same reasoning: nobody's next
+      // change should be blocked by a cooldown that didn't exist yet when
+      // they last changed their name.
+      version: 3,
+      migrate: (persisted, version) => {
+        const state = (persisted ?? { profilesByUser: {} }) as { profilesByUser: Record<string, UserProfile> }
+        if (version < 2) {
+          state.profilesByUser = Object.fromEntries(
+            Object.entries(state.profilesByUser).map(([userId, profile]) => [
+              userId,
+              { ...profile, graduationQuote: profile.graduationQuote ?? null },
+            ]),
+          )
+        }
+        if (version < 3) {
+          state.profilesByUser = Object.fromEntries(
+            Object.entries(state.profilesByUser).map(([userId, profile]) => [
+              userId,
+              { ...profile, usernameChangedAt: profile.usernameChangedAt ?? null },
+            ]),
+          )
+        }
+        return state
+      },
       partialize: (state) => ({ profilesByUser: state.profilesByUser }),
     },
   ),

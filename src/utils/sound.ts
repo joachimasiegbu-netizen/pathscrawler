@@ -1,4 +1,13 @@
 import type { TierKey } from './careerTiers'
+import { usePathStore } from '../store/usePathStore'
+
+// Read via getState(), not the useX() hook - this is a plain utility
+// module, not a component, same non-hook pattern useRollStore.getState()
+// etc. already use throughout this app for reaching store state outside
+// React's render cycle.
+function isMuted(): boolean {
+  return usePathStore.getState().accessibilitySettings.muted
+}
 
 // One real Audio element per src, created once and reused - not a fresh
 // `new Audio()` per call. A cold `new Audio(src).play()` has to fetch and
@@ -37,6 +46,7 @@ function getCachedAudio(src: string): HTMLAudioElement {
 // second copy of the file (no audio-editing tool available in this
 // environment to cut the real asset anyway).
 export function playSound(src: string, maxDurationMs?: number, startAtSec = 0) {
+  if (isMuted()) return
   try {
     const audio = getCachedAudio(src)
     audio.currentTime = startAtSec
@@ -59,6 +69,7 @@ export function playSound(src: string, maxDurationMs?: number, startAtSec = 0) {
 // out on its own past unmount; a looping bed left unstopped would loop
 // forever in the background).
 export function playLoopingSound(src: string) {
+  if (isMuted()) return
   try {
     const audio = getCachedAudio(src)
     audio.loop = true
@@ -103,6 +114,7 @@ let boostAudioContext: AudioContext | null = null
 // across a long grinding session.
 const boostedAudioElements = new Set<HTMLAudioElement>()
 export function playSoundBoosted(src: string, gain: number) {
+  if (isMuted()) return
   try {
     const AudioContextCtor =
       window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext

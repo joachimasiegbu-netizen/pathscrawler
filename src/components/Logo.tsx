@@ -11,26 +11,35 @@ import { useId } from 'react'
 // useId() keeps the circle's gradient id unique per instance: the header
 // logo and the small auth-page logo both mount at once on /login and
 // /signup, and two <linearGradient> defs sharing one id would collide.
+// xl added for /role's header lockup - "lg" was already the biggest tier
+// (used to satisfy persona_carousel_prompt_updated.txt's "large, at least
+// 48-64px" icon spec), but a follow-up explicitly asked for the TEXT next
+// to it to be bigger too, past what any existing tier offers - a new tier
+// (not a one-off override) so both halves of the lockup keep scaling
+// together in proportion, same as every other size step already does.
 const CIRCLE_SIZE_CLASS = {
   sm: 'h-8 w-8',
   md: 'h-10 w-10',
   lg: 'h-16 w-16',
+  xl: 'h-16 w-16 sm:h-20 sm:w-20',
 } as const
 
 const TEXT_SIZE_CLASS = {
   sm: 'text-base',
   md: 'text-xl',
   lg: 'text-3xl',
+  xl: 'text-4xl sm:text-5xl',
 } as const
 
 const GAP_CLASS = {
   sm: 'gap-2',
   md: 'gap-2.5',
   lg: 'gap-3',
+  xl: 'gap-3.5',
 } as const
 
 interface LogoProps {
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
   showText?: boolean
   className?: string
 }

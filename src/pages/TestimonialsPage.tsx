@@ -38,13 +38,15 @@ export default function TestimonialsPage() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-1.5">
+        {/* One sideways-scrolling row on phones (same pattern as JobMarketFilterBar) -
+            wrapped, the 17 chips took ~10 rows and pushed every review off the first screen. */}
+        <div className="-mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
           {['all', ...TESTIMONIAL_CATEGORIES].map((key) => (
             <button
               key={key}
               type="button"
               onClick={() => setCategory(key)}
-              className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+              className={`shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition ${
                 category === key
                   ? 'bg-primary text-white'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'

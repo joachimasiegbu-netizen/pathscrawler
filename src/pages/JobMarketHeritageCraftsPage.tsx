@@ -39,7 +39,7 @@ export default function JobMarketHeritageCraftsPage() {
         </div>
       </div>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <Hammer className="h-5 w-5 text-amber-600 dark:text-amber-400" />
           Heritage crafts on PathScrawler
@@ -49,7 +49,7 @@ export default function JobMarketHeritageCraftsPage() {
           Spotlight careers.
         </p>
 
-        <StaggerGrid className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGrid className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {heritageCraftCareers.map((career) => (
             <Card
               key={career.id}

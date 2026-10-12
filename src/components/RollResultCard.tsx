@@ -11,11 +11,9 @@ import { useAuthStore } from '../store/useAuthStore'
 import { useBinderStore, useMyBinderCards } from '../store/useBinderStore'
 import { useRollStore } from '../store/useRollStore'
 import { usePathStore } from '../store/usePathStore'
-import { useMyUserProfile } from '../store/useUserProfileStore'
 import AuthPromptModal from './AuthPromptModal'
 import CardParticles from './CardParticles'
 import RarityInfoModal from './RarityInfoModal'
-import TitlePill from './TitlePill'
 import Toast from './Toast'
 
 interface RollResultCardProps {
@@ -44,7 +42,6 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
   const navigate = useNavigate()
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
   const currentUser = useAuthStore((state) => state.currentUser)
-  const profile = useMyUserProfile()
   const addCard = useBinderStore((state) => state.addCard)
   const binderCards = useMyBinderCards()
   const [toast, setToast] = useState<string | null>(null)
@@ -127,8 +124,12 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
       setShowAuthPrompt(true)
       return
     }
+    // No success toast here anymore, per explicit request - the button
+    // itself already flips to the disabled "Added" state (BookmarkCheck +
+    // label, hasAdded above) right as this fires, so a popup on top of
+    // that was redundant. Binder-full still gets one above (that failure
+    // isn't otherwise visible - the button just silently stays "Add").
     setJustAdded(true)
-    flashToast(result === 'duplicate' ? 'You already have this card! Duplicate added.' : 'Added to binder!')
   }
 
   const buildShareUrl = () => `${window.location.origin}/job-market/roll?career=${career.id}&tier=${tier}`
@@ -238,21 +239,6 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
           >
             <X className="h-4 w-4" />
           </button>
-
-          {/* Owner watermark - who rolled this card + their equipped title.
-              Reads as attribution when the card is screenshotted/shared
-              (spec: "Top corner watermark"). Only for the signed-in player's
-              own roll. */}
-          {currentUser && profile?.username ? (
-            <div className="relative z-10 mb-2 flex items-center gap-1.5 pr-8">
-              {profile.equippedTitleId ? (
-                <TitlePill titleId={profile.equippedTitleId} tone={isMythic ? 'dark' : 'light'} />
-              ) : null}
-              <span className={`truncate text-[11px] font-semibold ${isMythic ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>
-                {profile.username}
-              </span>
-            </div>
-          ) : null}
 
           <h2
             className={`relative z-10 text-3xl font-bold leading-tight ${isMythic ? 'text-white' : 'text-slate-950 dark:text-slate-50'}`}

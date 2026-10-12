@@ -23,7 +23,11 @@ export default function DemandBarChart({ data }: { data: DemandDatum[] }) {
   const gridColor = isDark ? '#2c2c2a' : '#e1e0d9'
   const tickColor = isDark ? '#c3c2b7' : '#52514e'
 
+  // overflow-hidden: Recharts leaves its (invisible) tooltip wrapper parked
+  // past the chart's right edge after a tap, which widened the whole page
+  // on mobile and let it scroll sideways.
   return (
+    <div className="overflow-hidden">
     <ResponsiveContainer width="100%" height={320}>
       <BarChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 72 }}>
         <CartesianGrid vertical={false} stroke={gridColor} />
@@ -41,7 +45,7 @@ export default function DemandBarChart({ data }: { data: DemandDatum[] }) {
         <ReferenceLine y={0} stroke={gridColor} />
         <Tooltip
           formatter={(value: any) => [`${value > 0 ? '+' : ''}${value}%`, 'Change']}
-          contentStyle={{ background: '#0f172a', border: 'none', borderRadius: 8, color: '#fff', fontSize: 12 }}
+          contentStyle={{ background: '#0f172a', border: 'none', borderRadius: 8, color: '#fff', fontSize: 12, maxWidth: 200, whiteSpace: 'normal' }}
         />
         <Bar
           dataKey="change"
@@ -57,5 +61,6 @@ export default function DemandBarChart({ data }: { data: DemandDatum[] }) {
         </Bar>
       </BarChart>
     </ResponsiveContainer>
+    </div>
   )
 }

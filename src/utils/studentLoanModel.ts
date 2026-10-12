@@ -59,6 +59,16 @@ export interface LoanResult {
   /** Balance cancelled at write-off (0 if cleared first). */
   writtenOffAmount: number
   writeOffYears: number
+  /** Interest accrued over the whole loan's life (study phase + repayment
+   * phase combined) - the gap between what was borrowed and what eventually
+   * got repaid/cancelled/still owed. Without this surfaced, totalRepaid
+   * (and totalRepaid + writtenOffAmount) can land well above totalBorrowed
+   * with nothing on screen explaining why - not a bug in the number, but a
+   * genuinely confusing gap in what's shown (explicit user report: "doesn't
+   * make sense"). Conservation identity: totalBorrowed + totalInterest =
+   * totalRepaid + writtenOffAmount + stillOutstanding, so this is exactly
+   * the term that makes the other four reconcile. */
+  totalInterest: number
 }
 
 const PLAN_WRITE_OFF: Record<LoanPlan, number> = { plan2: 30, plan5: 40 }
@@ -152,6 +162,15 @@ export function projectLoan(input: LoanInputs): LoanResult {
   const writtenOffAmount = writtenOff
     ? (years[years.length - 2]?.balance ?? 0) + (lastYear?.interestAdded ?? 0) - (lastYear?.repaid ?? 0)
     : 0
+  // Whatever's left un-recovered at the end of the projection - cancelled at
+  // write-off, or still outstanding if the window ended before either
+  // clearing or write-off. At most one of these two terms is ever nonzero.
+  const stillOutstanding = writtenOff ? 0 : Math.max(0, lastYear?.balance ?? 0)
+  // Conservation identity: totalBorrowed + totalInterest = totalRepaid +
+  // writtenOffAmount + stillOutstanding. Solved for the one term nothing in
+  // this file computes directly - see LoanResult's own comment on why this
+  // needs to exist at all.
+  const totalInterest = Math.max(0, totalRepaid + writtenOffAmount + stillOutstanding - totalBorrowed)
 
   return {
     years,
@@ -162,6 +181,7 @@ export function projectLoan(input: LoanInputs): LoanResult {
     writtenOff,
     writtenOffAmount: Math.max(0, Math.round(writtenOffAmount)),
     writeOffYears,
+    totalInterest: Math.round(totalInterest),
   }
 }
 

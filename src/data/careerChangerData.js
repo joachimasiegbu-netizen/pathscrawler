@@ -32,7 +32,12 @@ export const currentRoles = [
   { id: 'hospitality', title: 'Hospitality Worker' },
   { id: 'construction', title: 'Construction Worker' },
   { id: 'sales', title: 'Sales' },
-  { id: 'military', title: 'Military' },
+  // Renamed from 'Military' to match the merged Armed Forces Leaver
+  // persona's own terminology (RoleSelectionPage.tsx) - explicit request
+  // ("add armed forces leaver to career changer"), id stays 'military' so
+  // the currentJobSkills entry keyed on it below (and demoCareers2.js
+  // matching against it) doesn't need to change.
+  { id: 'military', title: 'Armed Forces Leaver' },
   { id: 'warehouse', title: 'Warehouse' },
   { id: 'call-centre', title: 'Call Centre' },
   { id: 'chef', title: 'Chef' },

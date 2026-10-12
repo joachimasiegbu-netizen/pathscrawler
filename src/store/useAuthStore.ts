@@ -1,5 +1,6 @@
 import { create } from 'zustand'
-import { isSupabaseConfigured, supabase } from '../lib/supabaseClient'
+import { isSupabaseConfigured, setRememberMe, supabase } from '../lib/supabaseClient'
+import { isDisposableEmail } from '../utils/disposableEmailDomains'
 
 // REAL AUTH NOW - this used to be a from-scratch mock (accounts/passwords
 // hashed and stored directly in this browser's localStorage, no server at
@@ -43,7 +44,13 @@ interface AuthState {
    * Supabase's own storage on page load. */
   isLoading: boolean
   signUp: (email: string, password: string) => Promise<AuthResult>
-  signIn: (email: string, password: string) => Promise<AuthResult>
+  /** `remember` defaults true (see supabaseClient.ts's own comment on why) -
+   * checked = the session survives closing the browser; unchecked = it's
+   * gone the moment the tab/browser closes. Has to be set BEFORE the actual
+   * sign-in call below, not after - Supabase writes the session to storage
+   * as part of signInWithPassword itself, so setting the flag afterward
+   * would be too late for that very first write. */
+  signIn: (email: string, password: string, remember?: boolean) => Promise<AuthResult>
   signOut: () => Promise<void>
   /** Sends the "click here to reset your password" email via Supabase - no
    * AuthResult needed the way signUp/signIn have one, since this never
@@ -89,9 +96,37 @@ export const useAuthStore = create<AuthState>()((set) => {
       if (!isSupabaseConfigured || !supabase) return { success: false, error: NOT_CONFIGURED_ERROR }
       const normalizedEmail = email.trim().toLowerCase()
       if (!normalizedEmail || !password) return { success: false, error: 'Enter an email and password.' }
-      if (password.length < 6) return { success: false, error: 'Password must be at least 6 characters.' }
+      // 8, not Supabase's own platform-default 6 - raised per the
+      // 2026-08-31 pentest report's recommendation, alongside enabling
+      // leaked-password-protection (a Supabase dashboard-only toggle this
+      // client can't flip). This is still just the UX-fast-path half of
+      // that: the project's own server-side minimum-length policy is a
+      // dashboard setting too, so raising it there is what actually makes
+      // this unbypassable rather than only tightening the common case.
+      if (password.length < 8) return { success: false, error: 'Password must be at least 8 characters.' }
+      // UX-only fast path - the real, unbypassable block is the "before
+      // user created" Postgres Auth Hook (schema.sql's
+      // hook_reject_disposable_email), which Supabase Auth itself runs
+      // server-side regardless of what this client does. This just saves a
+      // round trip for the common case instead of leaving the disposable
+      // check to only ever happen after signUp() is already called.
+      if (isDisposableEmail(normalizedEmail)) {
+        return { success: false, error: 'Please sign up with a permanent email address - disposable/temporary email addresses are not allowed.' }
+      }
 
-      const { data, error } = await supabase.auth.signUp({ email: normalizedEmail, password })
+      // emailRedirectTo, explicitly - without it, Supabase builds the
+      // confirmation link from the project's dashboard-configured Site URL
+      // instead, regardless of where this app is actually running. Same
+      // "use wherever we're actually running, not a fixed dashboard
+      // default" fix as requestPasswordReset's own redirectTo below - a
+      // signer-upper on the deployed site was getting a confirmation link
+      // that pointed at whatever the dashboard's Site URL happened to be
+      // (localhost, from local dev) instead of back to this deployment.
+      const { data, error } = await supabase.auth.signUp({
+        email: normalizedEmail,
+        password,
+        options: { emailRedirectTo: `${window.location.origin}/login` },
+      })
       if (error) return { success: false, error: error.message }
 
       // A session comes back immediately when the project has email
@@ -107,8 +142,9 @@ export const useAuthStore = create<AuthState>()((set) => {
       return { success: true }
     },
 
-    signIn: async (email, password) => {
+    signIn: async (email, password, remember = true) => {
       if (!isSupabaseConfigured || !supabase) return { success: false, error: NOT_CONFIGURED_ERROR }
+      setRememberMe(remember)
       const normalizedEmail = email.trim().toLowerCase()
       const { data, error } = await supabase.auth.signInWithPassword({ email: normalizedEmail, password })
       if (error) return { success: false, error: error.message }
@@ -148,7 +184,8 @@ export const useAuthStore = create<AuthState>()((set) => {
 
     updatePassword: async (newPassword) => {
       if (!isSupabaseConfigured || !supabase) return { success: false, error: NOT_CONFIGURED_ERROR }
-      if (newPassword.length < 6) return { success: false, error: 'Password must be at least 6 characters.' }
+      // 8, not 6 - same reasoning as signUp's own check above.
+      if (newPassword.length < 8) return { success: false, error: 'Password must be at least 8 characters.' }
       const { data, error } = await supabase.auth.updateUser({ password: newPassword })
       if (error) return { success: false, error: error.message }
       const user = toMockUser(data.user)

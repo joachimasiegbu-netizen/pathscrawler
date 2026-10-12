@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Moon, Sun } from 'lucide-react'
+import { Moon, Sun, Volume2, VolumeX } from 'lucide-react'
 import { usePathStore } from '../store/usePathStore'
 
 const options = [
@@ -8,6 +8,7 @@ const options = [
   { key: 'largerText', label: 'Larger text' },
   { key: 'dyslexiaFont', label: 'Dyslexia-friendly font' },
   { key: 'darkMode', label: 'Dark mode' },
+  { key: 'muted', label: 'Mute sounds' },
 ] as const
 
 type OptionKey = (typeof options)[number]['key']
@@ -58,6 +59,9 @@ export default function AccessibilitySettingsPanel() {
             <span className="flex items-center gap-2 text-sm font-semibold">
               {key === 'darkMode' ? (
                 value ? <Moon className="h-4 w-4 shrink-0" /> : <Sun className="h-4 w-4 shrink-0" />
+              ) : null}
+              {key === 'muted' ? (
+                value ? <VolumeX className="h-4 w-4 shrink-0" /> : <Volume2 className="h-4 w-4 shrink-0" />
               ) : null}
               {label}
             </span>

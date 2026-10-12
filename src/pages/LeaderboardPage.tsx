@@ -59,16 +59,22 @@ function LeaderboardRow({ entry, rank, isYou }: { entry: LeaderboardEntry; rank:
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
             {entry.equippedTitleId ? <TitlePill titleId={entry.equippedTitleId} /> : null}
-            <span className="min-w-0 truncate font-semibold text-slate-100">{displayNameFor(entry)}</span>
+            <span className="leaderboard-row-text min-w-0 truncate font-semibold text-slate-100">{displayNameFor(entry)}</span>
             {isYou ? (
-              <span className="shrink-0 rounded-full bg-amber-400/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-300">
+              <span className="you-badge-text shrink-0 rounded-full bg-amber-400/20 px-2 py-0.5 font-bold uppercase tracking-wide text-amber-300">
                 You
               </span>
             ) : null}
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="leaderboard-row-text text-slate-400">
             {entry.totalRolls} {entry.totalRolls === 1 ? 'roll' : 'rolls'} · Best: {bestConfig ? `${bestConfig.emoji} ${bestConfig.label}` : '—'}
           </p>
+          {/* Graduate title's reward (titles.ts) - a "yearbook quote" under
+              the name, only ever present for a player who's both earned
+              Graduate and actually set one (ProfilePage.tsx). */}
+          {entry.graduationQuote ? (
+            <p className="leaderboard-row-text mt-1 truncate italic text-slate-500">"{entry.graduationQuote}"</p>
+          ) : null}
         </div>
       </div>
 
@@ -82,7 +88,7 @@ function LeaderboardRow({ entry, rank, isYou }: { entry: LeaderboardEntry; rank:
             ),
           )}
         </div>
-        <p className="w-14 text-right text-lg font-extrabold text-amber-300">{entry.score}</p>
+        <p className="leaderboard-row-text w-14 text-right font-extrabold text-amber-300">{entry.score}</p>
       </div>
     </div>
   )

@@ -71,11 +71,7 @@ export default function SignupPage() {
         <BackButton to="/" />
 
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary-dark dark:text-primary-light">Get started</p>
-          <h1 className="mt-3 text-2xl font-bold text-slate-950 dark:text-slate-50">Create an account</h1>
-          <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-            Create your PathScrawler account.
-          </p>
+          <h1 className="text-2xl font-bold text-slate-950 dark:text-slate-50">Create an account</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

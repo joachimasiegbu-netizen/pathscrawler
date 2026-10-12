@@ -26,8 +26,10 @@ export type ToggleSelectionResult = 'selected' | 'deselected' | 'max-reached'
 // pathways" - a plain bookmark list used on Results/Search/Career Changer/
 // Easiest Jobs/Highest Paying Jobs cards, no duplicates, no history). This
 // store is specifically the Roll a Job trading-card collection: every copy
-// of every roll you choose to keep is its own entry, duplicates included,
-// capped at MAX_BINDER_SIZE per user.
+// of every roll you choose to keep is its own entry, duplicates included -
+// MAX_BINDER_SIZE caps how many DISTINCT careers an account can hold, not
+// the total entry count, so re-rolling (and re-saving) a career you already
+// have never counts against it and never gets blocked (see addCard below).
 //
 // The Binder is account-gated (see BinderAuthWall / MyBinderPage), so its
 // data is scoped per signed-in user rather than one shared localStorage
@@ -79,8 +81,17 @@ export const useBinderStore = create<BinderState>()(
         const userId = currentUserId()
         if (!userId) return 'unauthenticated'
         const existing = get().cardsByUser[userId] ?? []
-        if (existing.length >= MAX_BINDER_SIZE) return 'full'
         const isDuplicate = existing.some((card) => card.careerId === career.id)
+        // MAX_BINDER_SIZE now caps DISTINCT careers, not total entries - a
+        // duplicate (re-rolling a career already in the Binder) always goes
+        // through regardless of how many total cards (duplicates included)
+        // are already sitting there, per explicit request not to count
+        // duplicates toward "full". Only a genuinely NEW career is checked
+        // against the cap.
+        if (!isDuplicate) {
+          const uniqueCareerCount = new Set(existing.map((card) => card.careerId)).size
+          if (uniqueCareerCount >= MAX_BINDER_SIZE) return 'full'
+        }
         const newCard: BinderCard = {
           id: `${career.id}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
           careerId: career.id,

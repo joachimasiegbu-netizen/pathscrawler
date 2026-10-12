@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Check, Dices, Pencil, Trophy, UserRound } from 'lucide-react'
+import { Check, Dices, GraduationCap, Lock, Pencil, Trophy, UserRound } from 'lucide-react'
 import BackButton from '../components/BackButton'
+import Button from '../components/Button'
 import PageHeader from '../components/PageHeader'
 import TitlePill from '../components/TitlePill'
 import UsernameModal from '../components/UsernameModal'
@@ -9,6 +10,8 @@ import { useAuthStore } from '../store/useAuthStore'
 import { useMyUserProfile, useUserProfileStore } from '../store/useUserProfileStore'
 import { useMyTitleProgress } from '../store/useTitleProgressStore'
 import { getTitlesWithStatus } from '../utils/titles'
+
+const GRADUATION_QUOTE_MAX = 120
 
 // The player's identity page: display name + equipped title, a quick
 // equip/unequip grid of every title they've unlocked, and a jump to the full
@@ -19,26 +22,58 @@ export default function ProfilePage() {
   const currentUser = useAuthStore((state) => state.currentUser)
   const profile = useMyUserProfile()
   const equipTitle = useUserProfileStore((state) => state.equipTitle)
+  const setGraduationQuote = useUserProfileStore((state) => state.setGraduationQuote)
   const progress = useMyTitleProgress()
   const [editingName, setEditingName] = useState(false)
+  // Local draft, not written to the store on every keystroke - only on
+  // Save, same "edit then commit" shape UsernameModal already uses for the
+  // name itself, just inline here instead of a separate modal.
+  const [quoteDraft, setQuoteDraft] = useState(profile?.graduationQuote ?? '')
+  const [quoteSaved, setQuoteSaved] = useState(false)
+
+  // Keeps the draft in sync with whatever the store actually holds - most
+  // importantly the moment hydrateFromSupabase (App.tsx, on sign-in)
+  // resolves a remote quote that wasn't there yet on this device's first
+  // render, which a bare useState initializer would otherwise miss forever.
+  useEffect(() => {
+    setQuoteDraft(profile?.graduationQuote ?? '')
+  }, [profile?.graduationQuote])
 
   const titles = getTitlesWithStatus(progress, !!currentUser)
   const unlocked = titles.filter((title) => title.unlocked)
   const equippedTitleId = profile?.equippedTitleId ?? null
+  const hasGraduated = unlocked.some((title) => title.id === 'graduate')
 
   if (!currentUser) {
+    // Same AuthWall pattern as BinderAuthWall.tsx/My Pathways (lock icon,
+    // heading, description, two buttons) - this used to be a single plain
+    // underlined-link line, the odd one out among the app's three account-
+    // gated pages.
     return (
-      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+      <div className="mx-auto w-full max-w-md px-4 py-10 sm:px-0">
         <BackButton to="/" />
-        <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 text-sm leading-6 text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
-          <button
-            type="button"
-            onClick={() => navigate('/login')}
-            className="font-semibold text-primary underline underline-offset-2 dark:text-primary-light"
-          >
-            Sign in
-          </button>{' '}
-          to set up your profile.
+
+        <div className="mt-6 space-y-5 rounded-2xl bg-white p-8 text-center shadow-soft dark:bg-slate-800">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-soft/60 text-primary dark:bg-primary/15 dark:text-primary-light">
+            <Lock className="h-6 w-6" aria-hidden="true" />
+          </div>
+
+          <div>
+            <h1 className="text-xl font-bold text-slate-950 dark:text-slate-50">Sign in to set up your profile</h1>
+            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+              Your Profile is where you set your name and show off the titles you've earned. Sign in or create an
+              account to get started.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-2.5 pt-1 sm:flex-row">
+            <Button onClick={() => navigate('/login')} className="flex-1 justify-center">
+              Sign In
+            </Button>
+            <Button variant="secondary" onClick={() => navigate('/signup')} className="flex-1 justify-center">
+              Create Account
+            </Button>
+          </div>
         </div>
       </div>
     )
@@ -75,6 +110,50 @@ export default function ProfilePage() {
             </button>
           </div>
         </div>
+
+        {/* Graduation Quote - Graduate title's reward (titles.ts): a custom,
+            up to 120-char "yearbook quote" shown under this player's name
+            on the leaderboard (LeaderboardPage.tsx). Only shown once
+            Graduate is actually unlocked - a locked reward has nothing to
+            edit yet. */}
+        {hasGraduated ? (
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+            <h2 className="flex items-center gap-1.5 text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+              <GraduationCap className="h-4 w-4" />
+              Graduation quote
+            </h2>
+            <p className="mt-1 text-xs leading-5 text-slate-400 dark:text-slate-500">
+              Shows under your name on the leaderboard, like a yearbook quote.
+            </p>
+            <textarea
+              value={quoteDraft}
+              onChange={(event) => {
+                setQuoteDraft(event.target.value.slice(0, GRADUATION_QUOTE_MAX))
+                setQuoteSaved(false)
+              }}
+              maxLength={GRADUATION_QUOTE_MAX}
+              rows={2}
+              placeholder="Write something for the yearbook…"
+              className="mt-3 w-full resize-none rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+            />
+            <div className="mt-2 flex items-center justify-between">
+              <p className="text-xs text-slate-400 dark:text-slate-500">
+                {quoteDraft.length} / {GRADUATION_QUOTE_MAX}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setGraduationQuote(quoteDraft)
+                  setQuoteSaved(true)
+                }}
+                disabled={quoteDraft === (profile?.graduationQuote ?? '')}
+                className="rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-primary-dark disabled:opacity-50 disabled:hover:bg-primary"
+              >
+                {quoteSaved && quoteDraft === (profile?.graduationQuote ?? '') ? 'Saved' : 'Save'}
+              </button>
+            </div>
+          </div>
+        ) : null}
 
         {/* Title picker */}
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">

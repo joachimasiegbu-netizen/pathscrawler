@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @import url('https://fonts.cdnfonts.com/css/open-dyslexic');
 
 @tailwind base;
@@ -493,6 +493,390 @@ html.reduce-motion *::after {
 @keyframes nav-circle-11 { 33% { transform: translate(4px, 4px) translateZ(0); } 66% { transform: translate(68px, 20px) translateZ(0); } }
 @keyframes nav-circle-12 { 33% { transform: translate(56px, 0px) translateZ(0); } 66% { transform: translate(60px, -32px) translateZ(0); } }
 
+/* CyclingPageBackground.tsx - crossfade between whichever of the 6
+   background patterns is entering/leaving. The long from/to position
+   lists for the rain and blob patterns live as computed CSS custom
+   properties (--rain-from/--rain-to, --blob-from/--blob-to) set inline by
+   that component, not hardcoded here - keeps this stylesheet generic and
+   the actual per-pattern data in one place (the component) instead of two. */
+@keyframes bgCycleFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bgCycleFadeOut { from { opacity: 1; } to { opacity: 0; } }
+.bg-cycle-fade-in { animation: bgCycleFadeIn 1.5s ease forwards; }
+.bg-cycle-fade-out { animation: bgCycleFadeOut 1.5s ease forwards; }
+
+@keyframes bgCycleRain {
+  0% { background-position: var(--rain-from); }
+  100% { background-position: var(--rain-to); }
+}
+@keyframes bgCycleBlobsMove {
+  0% { background-position: var(--blob-from); }
+  100% { background-position: var(--blob-to); }
+}
+/* bgCycleBlobHue (animated the blob's own filter) and bgCycleBlobSpin (a
+   second full-viewport backdrop-filter spinning on top) both removed -
+   see CyclingPageBackground.tsx's BlobLayer comment: animating filter/
+   backdrop-filter forces a full re-blur every frame, the single biggest
+   source of the app-wide jank this background was causing. */
+
+/* Belt-and-braces alongside CyclingPageBackground.tsx's own reduceMotion
+   check (which stops the pattern cycle from ever reaching these two
+   heavier, always-looping patterns in the first place): if a browser's own
+   OS-level reduced-motion setting is on independent of this app's toggle,
+   these long-running loops still shouldn't run even in whatever brief
+   window they could otherwise mount in. !important is required to beat
+   the inline `animation` these are set with (see buildRainLayerStyle /
+   BlobLayer) - a plain rule can't win against a style attribute. */
+@media (prefers-reduced-motion: reduce) {
+  .bg-cycle-loop { animation: none !important; }
+}
+
+/* PersonaCarousel.tsx / PersonaCard.tsx - the "What best describes you?"
+   redesign (persona_carousel_prompt.txt). Kept in this shared file rather
+   than a CSS module since every other animation/one-off class in this app
+   already lives here - one place for all of it. */
+@keyframes personaFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.persona-float {
+  animation: personaFloat 3.2s ease-in-out infinite;
+}
+/* Two offset variants so neighboring cards don't bob in perfect unison -
+   a shared single float looks robotic, a slight phase stagger reads as
+   organic/tactile (spec: "cards should feel tactile"). */
+.persona-float-alt {
+  animation: personaFloat 3.2s ease-in-out infinite;
+  animation-delay: -1.6s;
+}
+@keyframes personaPulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.45); }
+  50% { box-shadow: 0 0 0 8px rgba(236, 72, 153, 0); }
+}
+.persona-pulse {
+  animation: personaPulseGlow 2.4s ease-in-out infinite;
+}
+@keyframes personaSparkle {
+  0% { opacity: 0; transform: scale(0.4); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.6); }
+}
+.persona-sparkle {
+  animation: personaSparkle 0.6s ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .persona-float, .persona-float-alt, .persona-pulse, .persona-sparkle {
+    animation: none !important;
+  }
+}
+
+/* StudentPersonaCube.tsx - verbatim port of the "Isometric Hue Cube" CSS/JS
+   artifact, used as the standalone Student persona on RoleSelectionPage.tsx.
+   Classes are prefixed `student-cube-*` and the keyframes renamed from the
+   source's `animate` so nothing here collides with the generic `.face` /
+   `@keyframes animate` that demo used. */
+/* Smooth, not linear, and not the old coarse warp either. Three things
+   were tried before this: a coarse ~12-stop warped timing (fast
+   through the axis-aligned angles where many overlapping preserve-3d
+   faces flatten into a jagged silhouette, slow elsewhere) - fixed the
+   flattening but read as choppy, since velocity jumped sharply at each of
+   those few keyframe boundaries; and a second rotation added around Z at
+   a different speed (mathematically a real fix for the Y=0 crossing
+   specifically, confirmed by matrix expansion) - but the perspective math
+   is genuinely two-dimensional, and the same trick doesn't reliably clear
+   the Y=90/270 crossings too (confirmed empirically: still flattens, just
+   rotated). This keeps the single-axis approach (already proven to fully
+   avoid the flattening) but samples the same fast/slow warp at 41 finely-
+   spaced stops along a smooth sine-modulated curve instead of ~12 coarse
+   ones - each stop only differs slightly from its neighbor, so the speed
+   change reads as continuous acceleration/deceleration rather than a jump
+   cut. */
+@keyframes studentCubeSpin {
+  0% { transform: rotateX(-30deg) rotateY(0deg); }
+  2.5% { transform: rotateX(-30deg) rotateY(16.58deg); }
+  5% { transform: rotateX(-30deg) rotateY(30.26deg); }
+  7.5% { transform: rotateX(-30deg) rotateY(39.26deg); }
+  10% { transform: rotateX(-30deg) rotateY(43.58deg); }
+  12.5% { transform: rotateX(-30deg) rotateY(45deg); }
+  15% { transform: rotateX(-30deg) rotateY(46.42deg); }
+  17.5% { transform: rotateX(-30deg) rotateY(50.74deg); }
+  20% { transform: rotateX(-30deg) rotateY(59.74deg); }
+  22.5% { transform: rotateX(-30deg) rotateY(73.42deg); }
+  25% { transform: rotateX(-30deg) rotateY(90deg); }
+  27.5% { transform: rotateX(-30deg) rotateY(106.58deg); }
+  30% { transform: rotateX(-30deg) rotateY(120.26deg); }
+  32.5% { transform: rotateX(-30deg) rotateY(129.26deg); }
+  35% { transform: rotateX(-30deg) rotateY(133.58deg); }
+  37.5% { transform: rotateX(-30deg) rotateY(135deg); }
+  40% { transform: rotateX(-30deg) rotateY(136.42deg); }
+  42.5% { transform: rotateX(-30deg) rotateY(140.74deg); }
+  45% { transform: rotateX(-30deg) rotateY(149.74deg); }
+  47.5% { transform: rotateX(-30deg) rotateY(163.42deg); }
+  50% { transform: rotateX(-30deg) rotateY(180deg); }
+  52.5% { transform: rotateX(-30deg) rotateY(196.58deg); }
+  55% { transform: rotateX(-30deg) rotateY(210.26deg); }
+  57.5% { transform: rotateX(-30deg) rotateY(219.26deg); }
+  60% { transform: rotateX(-30deg) rotateY(223.58deg); }
+  62.5% { transform: rotateX(-30deg) rotateY(225deg); }
+  65% { transform: rotateX(-30deg) rotateY(226.42deg); }
+  67.5% { transform: rotateX(-30deg) rotateY(230.74deg); }
+  70% { transform: rotateX(-30deg) rotateY(239.74deg); }
+  72.5% { transform: rotateX(-30deg) rotateY(253.42deg); }
+  75% { transform: rotateX(-30deg) rotateY(270deg); }
+  77.5% { transform: rotateX(-30deg) rotateY(286.58deg); }
+  80% { transform: rotateX(-30deg) rotateY(300.26deg); }
+  82.5% { transform: rotateX(-30deg) rotateY(309.26deg); }
+  85% { transform: rotateX(-30deg) rotateY(313.58deg); }
+  87.5% { transform: rotateX(-30deg) rotateY(315deg); }
+  90% { transform: rotateX(-30deg) rotateY(316.42deg); }
+  92.5% { transform: rotateX(-30deg) rotateY(320.74deg); }
+  95% { transform: rotateX(-30deg) rotateY(329.74deg); }
+  97.5% { transform: rotateX(-30deg) rotateY(343.42deg); }
+  100% { transform: rotateX(-30deg) rotateY(360deg); }
+}
+/* The pasted isometric-cube source's `@keyframes animate` colour cycle,
+   kept at its own 5s linear. It rides on .student-cube-stage - the OUTERMOST
+   wrapper, outside the perspective element entirely - because a filter on
+   .student-cube-scene (which holds `perspective`) or on the preserve-3d
+   .student-cube-rubik itself flattens the 3D rendering context and wrecks
+   depth-sorting across the 135 faces. Out here the whole 3D context is
+   contained inside the filtered group, so only the final raster is tinted.
+   It costs the resting cube nothing: every base face below is achromatic, and
+   hue-rotate has no hue to rotate on a grey. So this cycles the hover red and
+   its glow through the full wheel and leaves the white cube alone - which is
+   exactly how it behaves in the source, where the greys sit under the same
+   animated filter. */
+@keyframes studentCubeHue {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+.student-cube-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  animation: studentCubeHue 5s linear infinite;
+}
+.student-cube-scene {
+  perspective: 900px;
+  perspective-origin: 50% 42%;
+}
+.student-cube-rubik {
+  position: relative;
+  width: 1px;
+  height: 1px;
+  transform-style: preserve-3d;
+  animation: studentCubeSpin 9s linear infinite;
+}
+/* Each face carries its own tone so adjacent faces don't blend into one
+   flat-looking grid. The inset shadow is a hairline just inside the true
+   42px edge - a real border would throw off every face's
+   translateZ(21px) math. Colour is reserved for :hover below, not the
+   resting state. */
+.student-cube-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 42px;
+  backface-visibility: hidden;
+  box-shadow: inset 0 0 0 1px rgba(20, 16, 12, 0.28);
+  /* The pasted source's resting `transition: 1.5s`, which is the LEAVE half
+     of its trace (see the trace block below); its :hover snaps the enter to
+     0s. Named properties rather than the source's bare `1.5s` shorthand so
+     `transform` stays out of it - that one is written per-frame from JS here
+     and must never interpolate. */
+  transition: background 1.5s ease-out, box-shadow 1.5s ease-out, filter 1.5s ease-out;
+}
+/* The source's three literal face greys. It is a 2.5D fake, so it only has
+   three planes to colour: the span itself is the front (#dcdcdc), its
+   ::before the left (#fff), its ::after the top (#f2f2f2). A real spinning
+   lattice has five, so right and back are interpolated from the same ramp -
+   one step either side of #dcdcdc - which keeps no two adjacent faces the
+   same tone without inventing a tone outside the source's range. */
+.student-cube-face.front { background: #dcdcdc; }
+.student-cube-face.right { background: #e9e9e9; }
+.student-cube-face.back  { background: #cdcdcd; }
+.student-cube-face.left  { background: #ffffff; }
+.student-cube-face.top   { background: #f2f2f2; }
+/* Hover and glow, straight from the source: one flat #ef4149 across every
+   direction, with its `drop-shadow(0 0 30px #ef4149)` halo. No per-direction
+   pigment pair and no positional hue shift - the source has a single red on
+   every plane, and the colour variety it does have comes from the stage-level
+   hue cycle moving that one red around the wheel over 5s, not from any
+   face-to-face difference. The hairline edge shadow is carried through so an
+   lit face keeps its outline; the pastel two-tone inset shading is gone with
+   the pigments it belonged to, since the source shades nothing.
+   The glow is a filter on a 3D-transformed face, so it is cast in that face's
+   own plane and skews with it - which is how it behaves in the source too,
+   where the same drop-shadow sits on an already-skewed span. */
+.student-cube-face:hover {
+  background: #ef4149;
+  box-shadow: inset 0 0 0 1px rgba(20, 16, 12, 0.28);
+  filter: drop-shadow(0 0 30px #ef4149);
+}
+/* The trace itself, at the source's two durations: colour arrives in 0s and
+   leaves over the base rule's 1.5s, so dragging the cursor across the
+   lattice leaves a tail of fading red stickers behind it. The whole mechanism
+   is that split - a transition declared on the resting state governs the
+   LEAVE, one declared inside :hover governs the ENTER - so no JS, no extra
+   elements and no per-face bookkeeping. Transitions interpolate from the
+   computed value, so reverting the moment the cursor moves off can't cut a
+   fade short. Uniform, like the source: the stride-3 leave-delays that used
+   to dissolve a swept tail raggedly went out with the hue shift they were
+   grouped against. */
+.student-cube-face:hover {
+  transition-duration: 0s;
+}
+/* Trail: a single white glow behind the cube, breathing in step with
+   studentCubeSpin's own quarter-turn rhythm - not chasing the rotation
+   with a phase-delayed copy (tried first: a flat symmetric shape rotated
+   only around Y just foreshortens in place, it never actually displaces
+   on screen, so a "chasing" copy was invisible in practice). Pulsing
+   brighter as each quarter-turn passes reads as a trace of that motion,
+   the same glow-behind-the-shape technique the pasted source's own
+   .cube-top::before snippet uses. White, not colored, to match the cube -
+   color is reserved for hover. */
+.student-cube-trail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border-radius: 50%;
+  background: #fff;
+  filter: blur(28px);
+  animation: studentCubeTrailPulse 9s linear infinite;
+  pointer-events: none;
+  /* Matched to the faces' own 1.5s leave, so the backlight and the tail
+     behind the cursor fade off the same clock. */
+  transition: background 1.5s ease-out;
+}
+@keyframes studentCubeTrailPulse {
+  0%, 25%, 50%, 75%, 100% { opacity: 0.55; transform: scale(1.15); }
+  12.5%, 37.5%, 62.5%, 87.5% { opacity: 0.25; transform: scale(0.85); }
+}
+/* The trace's other half: the backlight takes the hover red and bleeds back
+   to white slower than the face does, so the last thing touched hangs in the
+   air behind the cube. Needed because the face tail only exists while the
+   cursor is MOVING - park on one sticker and there is nothing to trace
+   without this. One rule now rather than five, since every direction lights
+   the same #ef4149. :has() reaches it from a hovered descendant of the scene;
+   a sibling selector can't, since the trail sits before .student-cube-rubik
+   in the DOM (it has to, to render behind it). Keyframed opacity/transform
+   are untouched, so the breathing pulse keeps running underneath. */
+.student-cube-scene:has(.student-cube-face:hover) .student-cube-trail { background: #ef4149; }
+/* App-level reduce-motion toggle (usePathStore) - the OS-level one is the
+   media query below. Static tilt + the hue cycle parked at 0deg (so hover is
+   the source's literal red, not wherever the wheel happened to be) so it
+   still reads as the same object, just not moving. */
+.student-cube-scene[data-reduce-motion='true'] .student-cube-rubik {
+  animation: none;
+  transform: rotateX(-30deg) rotateY(-35deg);
+}
+.student-cube-stage:has(.student-cube-scene[data-reduce-motion='true']) {
+  animation: none;
+}
+.student-cube-scene[data-reduce-motion='true'] .student-cube-trail {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .student-cube-stage { animation: none; }
+  .student-cube-rubik { animation: none; transform: rotateX(-30deg) rotateY(-35deg); }
+  .student-cube-face { transition: none; }
+  .student-cube-trail { display: none; }
+}
+
+/* StudentHubPersonaEarth.tsx - ported from the "Earth Banner" CSS
+   artifact, used as the Student Hub persona's visual on
+   RoleSelectionPage.tsx (the way student-cube-* above is Student's).
+   Classes prefixed `student-hub-earth-*`. */
+.student-hub-earth-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+}
+.student-hub-earth-banner {
+  height: 250px;
+  width: 250px;
+  position: relative;
+  background: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAcFBgYGBQcGBgYICAcJCxIMCwoKCxcQEQ0SGxccHBoXGhkdISokHR8oIBkaJTIlKCwtLzAvHSM0ODQuNyouLy7/2wBDAQgICAsKCxYMDBYuHhoeLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi7/wAARCAFeArwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD6RooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKCQOScUAFFJketG4etAC0Um4e9LQAUUhYDqRQCD0oAWikDA96XIoAKKTI9aNw9aAFoqPzk3bc/Mc8UGT0Vj9BQBJRTFkJXcUZfYjmozPgqPJkwR97AwPrQBPRTdxzjb+tRmfDlDFJ9QuQaAJqKj86LbuLhR/tcYpxZcA5GD05oAdRUTyKvOeOue1Rx3dtLJ5aSqWHYdRQBZopgZSTtYHHBwaUkjsSKAHUUinIzjFGTngUALRSEelNKE4O9h9KAH0U3b7n86AvTk0AOopOaPrQAtFZ+o6zpOlqG1LUrW1B4BmlC/zqJPEWgOYlj1vT3ab/VqlwhL/AEAPNOwXNWisS68V+G7OXybvWrO3fOMSyhP51bsNb0fUWKWGqWdy4GSsM6sQPXANFmBoUUgZSSAQSPegkDqQO1IBaKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKbvTeE3rvPIXPNKSAMngUALRWbqmu6NpKM+palbWwVdx8yQA4+nWptP1Ow1FN9lcpMNob5eu09Dg84ODiiwFyiq73dus6W/nRmdwSse8biB1OKnLKOrAfU0ALRVV7+xRgjXcAcnAXeM/lVjeuM54oAdRVZL6yk37LyBthIfEgO0+h54qL+19K8wRjUbVpD0VZQT+QoAvUVT/tKxM6QLco0rnCqvzds9qtbvSgB1FNDA9KytZ17S9FjRtWv4rMSZCM4JBP4fyoA16M15pda3puqyExfEYR7fuwxqtujH3bG4j6GrFiuoyXM0nh7V7a+kcfvJXvTMYx6LG3CjPTOT6mlcdj0B5ok+9Io+ppwIIyOlcHBq3iUXQt7jwob7aSvnhfK+hy/GO9XYJ/G1vJO39m2t1DId0SzXCxtD/snaCCKLhY6O8v0s0DywTlc4zGm/HvgVUsddstRmaO0mYSRrukhlgdXx7Zxn8M1NZwXMa4MEMLOu+VUO5Gc9cd/8ajnupIm8mK4swwBBBkClT2GKBFYa5FeXMkGnXVrJJGcGGXfHJx14IHtVaTXrhmlik0K7R0wvz4Ic+oH8QFX3bT72fa5trqWJRuwyOUzz0PIqnq09oTbWtxC93FwY1SEyYYDvtHB/xoAxZvFmu2cpjutGikRjtimh8xd7Z6eWRu9eenvVK78f6ja6h9ifTbYyEqEQO4dskDG0jjr1PFSz6nod9LPqN3HJIbF/LnF0kgaIk8cbM9e1Y9vr3wvnuizaysdwDzsL4B9D8ueOnNFpdB3R6SL2/W2jkn0xhM3WFJlOPTJOKbDqV5JvZ7BIIVUl5JpwAuPUgdK8Q+IHxV1HS5ZdK8OXttN2a+W3cFf93cSCfft6V5Fq/ibxFrWP7V1y/u1HRZJjtH/ARxW0aTZm5n19bazpbg3AntZ4STg2Vu8hYg8fMoOa0LDUzfSFYtM1CFR/y0uIfLX8ic/kK+LtG1rUNHm86zaInGNssSuMe2en4V3dh8Wbyze1mi8L6SbmBcecWkBPrwCAP1odGXQXtEfU8aP5ahsBgP4elPC85OM+or5pT47+LPM3HTNJKf3Nkn891dX4Y+Otld3It/EOl/YVI4nt2Mq59CuMj680nSkgVSJ7ZgUgRQSQACevvUGn31pqVlDfWM6T20yho5EPDCrNZmgxY41YsqKGPUgcmn0UUAFJgelLRQAmBUL26FzIoCOwwzAfMR9e1TkgdTWZqtxZiHE+qLax8ElXAyPr6UAZ13fDT9tuyWiPMxKBpdxk9SS2Oat/aXu7BE0q7tY7mRA0byfOvHXC5BNeW/EifTZryJxqwm8pF8vMykYJyMnHTrznpXkPiHWpU11dRttUZ7yL5VaA7ETHQqynn8+wq4R5mQ5WPp28urbQln1HxL4pSOJ18pYhiONCfReWLf5xXIv4i8CxtPcv4xu3QEny4kcKpHcALz265r5tXULpriSeeZ5pZTl2diSx9z1qBnYgr5h25ztzWyo+ZDqH0/pHxK8KWUttbT+KILi3kLEytDKrL/dDcce+a7H/AITbwj9kS7HiLT2hfGCswJ5OOVHI59RXxZ+Jpyvglto3Hv3odFB7Rn0n4j+OOiafcNb6Vp9xfGNsSSORGn/ATyTmsDVvjvP9lWPT9JiMzbleTzTiP+6Rkc14Ux3Nkg5PX3pucAgdDVKlEXtGexeHfHfiHxBd4l8YnR2X5VjaASxtn+J26jnAHFXZZfEVzrwsZPidexgZ3vaYZIm7em5f5V4grOhyjlT0+U4zXQaH4w8RaGvl6ZfCOPBAjeNXUZ7gEcH6GplTf2RqXc9t1GO90WCOPVPiNq01xJJtjFvdxKZF7DBTrz61Xs/HtnoKSrfav4vKx/L5V5aQyEHJ/wCWvfP1+leFX2p6hqEv2m6mLSjgyZ+Y/U9TUc+oahcQLb3F5NJApyI2kJXPrjpn3oVN9Rc56JrXxe8WXtxOml6s9rbNkIrQRb8fUA4NcpdeLPEl6zi78T6g5bC4adyMemOnX2rnAnHSnAIp5XP41qoJEudzW/tTVFVgNWujk5IDHGQcg/nV9da1udfKbUorcgiRA8ao4PXIfAI9eozmsAXEgBCsQpOSoOAajEzZ+6D7HmnYm76HYx+LtWtdTi1hXgvb5MEmWMlC3c4zz/KprH4h3NhezX1ro8VveTk+dJBdPGr555QcHBJxnNcWHduVULjpgcU0kDkr19aXImHOzrdR8eapq15Lc6rLe3KEKEtlvGijUDrwo/8Ar4q/onxAt9OZlfw/DGshJd7d/mHpjd6fWuA3c11vhzwbeazC95d39ppNgmM3F4SM+wUck/lUtRS1KUpPY9H0/wCNOk26JGui3URGN0skxJfjngE8/jWlc/G6yhaFoYbe5ikxvC743i+oKkfrXm8+n/DHSy6z61rWtybSALOBYFVvq341kJqfg21l8238KXt3g8Lfal8hHuqID+tR7OL6Fc7PcJPjR4eKtFsvVuSAY2SHcpJxjPPvUzfE2NYLWVfsjI5G+aWVV29dw27gQeOK+edb1m31FoTZaFp+krGMEWe/L+m4sxzjFZDO7lyzlt5y2Tncfen7JB7Rn1vpfjvSru5kVbiYxbthZ8bFbGcZA4zjitW18S+GkdSPEFv5sxwIpLnOG7gL618ZI7oCquyg4yASM46UbQXLFn3gfKV5JPYZ7fWk6KGqh9EePPi9JpGs26+H59PvrBFInBVid+eVz2rnbf43XEjTSXH2m1kkYbUijWWNFzzjcc5Ix9PevG4rW5u5mJP7wnLNKxyfqa0IdHZsK91hTg/u48/rSapx0ZS5nse8aT8brG7ureybSLtjI+wzoC+D2+UDJzXqNhf6nOy+dp5ijKblkI+UnPQgncD9Rj3r5Z0aybSHivrPUL1JVbJUt5YIz6g13sXxO8RxGaNJIWDDbGP9YY8dwSPm/GsJOH2TRRl1Pb/7WiMcTxo0wZtrFCAF7Zy2MjNX45UkUFT17V8w614r1rWbgPqd/KY1GPJEZWL67AcH61FpniWbT/LlR71ircr5ow2Ogweg9qm4+U+p6K+cX+KfiFWby76SMdR5kSPz6dBxWxpXxhdDFa69fJAQyubq3tDJuXnKsM4BPqAcU1q7IT0PdqK4G8+LXgK1hLnXElfaGEUUbMxz24GM/jXM+JPjho9tvj0CD7dKp4ZwwVvwHbpz+lUoSfQXMj2SmmRAdu9c4zjNeEf8Lx1CNpJH8OxSQLGp+WYodx7Dd97r2H59am8L/Gz7feX6avpMNkIbd5otkpwxXqrEjjP8/XNP2chcyPcwQehor5+k+OVxJfB7KzjW0yS0cqYcD6g89j2+lS2vxyvJL6JZNPsFtHfaSXfeoz14z+WOaHCSHzI98orx67+MlrFehbSC1uLPIBllkeBl7HI2tx3zn8K6S5+Jnh9Sgt7q3nDkAbblY3b1Kh8Z9ueanlfYLo72ivNbj4weE7SWW3uWuEni4dVKSDPsysVP51oad8VfA19GWGtJbsBlkuEZCv6Y/I0+V9gujuqKwdO8W+GdSuYrSw12xubiYEpFFKGYgdTjrW9kYz2qbWGFFIWUAkkYFAYEZHIoAWikLAEAkZPQUo5oA+afEvxGs5nuNVh0nTzrrqFgvbG4lDwcY+fKjPHAxXnEms6xdSNNd63etvJJD3Lcn2GeKnNjaXMhkiEalCAQpOPoapz6ZKJ3VZVKg/KW4rohOC0MpRkanhu70ZNRF14glnmsoORbxsS8x7DJPA/pXVX/AMUL+S2ktPD2kQ6Wsku/dG5ywHCrxjPHXNebzWrwNtkxu/2TmpoBcQDb9myDzllwfwq5ctrkKTvY7BviR4uaNUt/JilGQZvJG4r2Ge2KwJdY8QSF5W1a8EsrbnbzDjP4VXW5Y5/cMG9xS/ao8HenPoDzWLm+iNVFdWdX4R+IviPw1bywLbWV/kgo9yDvUegIwcc55NbFz8UfEN0/myQzqC29FguvLVemO2cde9ebtdLn5LckE8ZpWvgBtEahs9B2pcz7Dsu53158Tb2dfJl8LWro7jzTOTcF07gAgAH3qYfFDQ7QxvZ/Dy0hnBJeQyeWH4xyqj+ZNebnUJ13bRsB7Ukd3NKSEA3ehGad/ILeZ7lpHxqs4rEed4aggRF+7a3Sj6AJtFY8Hx11dLqSSTQrN4CflRCytj3Yk/yryPzQySDyxExBwRxk1CoIHzHPHU0/d7CtLue7Wvxtl1GaS2k02PSI3jO293m4MLY4JjCjd9Mj615lrPjDUdWm87VL+e/iWRljdkCE+4QAD+ormBIR9w4NTQ3UkLBnVHH+0M1NlbYauupfk8QQQbTHYO0mf+W5wNuOwHU59ePrW1pmq3pAubOeaFHOMwqyD6ZUCsB9ZSRViaNSF7lcio0uI1RlQKAw6hMGplBW2sUm773PTbb4g+JreZpBrEjALtMckeVXjHQ96S++IGrXVh9iurp2ljffHcCby22kcowH3ucEZ5rzJGlK4+1NtHAyB0p7ByQXlMg9T2qPZ+Y+Z9j2TwV8SorS2GiaxEIYHzm/jkKuM9zgHJHHNW/EXh20ubVtbh8UxTQuCFkvQIvNbsFdQNxB4JIz714iu8AAFh9DUwdi6GS5lOzIG5s4B6inyq2pN5X2OltNYvtOuruSzu3R3HlONxDFhjDE/wAQHb1p/h/U/Fmoa5a2Mtze3GlFsTfZEIMqDkqWX5upHQ1y0iefIrmSQhOQAe9XLSd7OdLmA7JUOUZeCp9R7+9NNJ3sFnY9A8SeJU1pbnRbA3sV2R5aJGxVgo54XgjIByPTNc5puqnTYpI7uN1LnkRkBR+GOTWda6/c291BeIlvLcpuUT3EYkkO4YxuOTgdfrVTUDcWluss1u8UcvKOFBVz7HofpU+zWyK5nuzoLHxTNaTEQajfi2Z8+RvUxtnsAc4HsKn1DQ/D/i28kGk6f/Z+pFfMYW84ZGHH/LM459l59jXBWd+YYjDCqqhIJ/vZ9RVhpluJSYYHA4OWeteSUXozn9rF6NG5c/De/abyNK1O1vJlXLwTA28q/wDAW61x15Z3NhcG3uoTHIOcHuK6W1vbrSry3njkl8wfMrxscp6CtrzvBXiSZY9Yur3SdTOf9KX95FKccblPIP0q4VnfUqVNW0PPsLjIpo65rota8OPpcDXn9oWb2r8wqZP3sgz/AHR0/HFYC7D0I+ldEZKWqOeScdzufAPi/wASaC5h0dpbiDO97Z/miPqdvUHHoRX0F8PvHFt4thniaFbe/twGkiVw4ZT0ZSPfg18lWgZ50ijkZGdgoIbB598ivbvglpuq6H4nvLW70tFSeA77hWEjRkHIBKsQAeeo64rmqxSZ0Um2j3qigdKKxNQorG1fxNoejzxQahqUEMsmcKzjjHXP93r3rznxv8aPD2n2ht/D8japfOCA8ZKRwn3Yjn6DP1pqLewm0j0nxJcvaaXLMkXm46oImfcPTC85rx3xDbX91ZpNF4a1KZmXewtkKLGffd94DHbNcRcfGrx3MhWOexgJGN0dvk/Xkmue1zx14t15DDqOsSvCWB8pFCqD/OtVSfUhzRF4r8qM2wium81d6SW5BDR8jBPYg5I49K55meVy8jFmPUmpXs5olSR4iA/Tpz+Han/ZLgBS0TKGGRkda2jaKtczk22VwAKUYOeQPw60rI8bYdSG9xScmrIExSZpSDSHFAxMmjJopcUDG0vWnKpJAUZJrRS0hiG+4uI8bQQI8k59DUykojSbKCxSZPyNxwanSCTJBTGBnmpp7yNJCLIGOPpk9W9zVZpZCCTkg9yKz9pLoV7NdSw0Ei/KzRq3oWqu5dGKlQcdxyPzqPdz8wJ96BLjj5iPrTU5dROlENwPYCnrsAznNPWQNwyA/hSbY8ZHA+tWp90RKHZh5mBwKY7Mw56VOGhCr3+lHmooIUnBoc0TGD7EukXNtZ3KzTwCUjpuAZR7kHrV/XNSn1a4aVr5PJxuWBSUVcDHC+v61kb4x/ABThNGp+VRx3rO65uY25ZWsMkjdDhkbP060zIwARj61cSckjDOW/E09pIVP78qx/ugZNP2z7C9l5k9lb20ZJdt79mxgLTJ4IHuhsIUAZJTkn61AsibjsVgueBSAhnwoC4PJPesrvmvcu2lrFlbe1Yhyrtg/dzgAe1PVvsikw8KTu2EZ/XtVdnCbdhCg8ECozOVPXr3BzU3bKSSNT7apUZGcjoT0NIs7N91iRnsOKxpJQcFRginpNvG5yS2McYApcg+Y1HnlQ8ROfqRSLdXTH93Ec9OKqpctgfN93ofSni4JBIbBqbeRVy5I2oAAyuI0PdjnI+lPjCkCTzpZGHcjb+VZTSSNwHO30pVPoT+dHKFzRllK8orK3cseMVXe7TdlUOT1JqLcTjJz9TTHA64P4UKKBska4DEh0DKeDlRT7SWGJpAgWEOMEhclhnpVRm4xmo3HyFs8Z7VVibmmHtJCQzO7ZHOTgD254qndQ3Lho0nBt2I3knk4PUnqaii2jHOOR0q9cSOSW2DDHPA4oTcXoD1M42LBfkfcpPAI5qa3tpE42vg9QBinbTnd1NaFltljKl1SQZxu5DcdDTdSVtwUUV5FViN0PyjoCTiqwtoGc4VmkY5/wBYcVLIJQ2GO39QaiZHU5YE+60k2uoWRDNpzAL5akHvk5zUS6dORndGMepqc8tw7E+hpRG5+be2B1Aq1OSW4uVGpo/ifxH4bkWaxvsBcqMqGwD6EjIr07wh8bEhDp4ltblmJ4mtxuAHuCeTXkGxWx1JNWI2nUYAbA6dMUOaa1QKPY9qu/jhoN1BLbDRtVZDkbrdlQhfr2NNsvjdHcWrGXSHt3C/Jl2cHn+8F64rx8HdxIq4PUEYp8aWsK5i3BeyVHNHsVyvueqWXxnmWQ28fh+dnywjPnea8jdgcgYz1z+lSRfHWUxIJNJginUYlSVnGH74wDx9ea8wtpLdJFa4UsOu1TjNS+RZys7lYwC3AbBIFHPHqg5X3OOJB5yS3vVqO/uvKeFpiyMMEMM8f0qgc0oJFdjSe5y6rYtl41HGfpVmKRjCSZGA7AdTWcTnBxirC3RAA2LwO1KSbVkSlZ3LEjBeQ7SN05FV5OpJ+8fSphcxBc+WS3egskhaRUXk8KAcL7Vg1Jbo6Iyj0JrHS7m7UTOWjtlRpGmKtJtRThjhQTxVmDS7O7umj0yW51BIxk4i8p3/AN1ck/zpZNRubDSptMs7iOS2ndWnkjQ4JwDs3HqPp6VD/bklraSWumwraLKqrJMsjGZyGznfkbc9MAAYpqEmDmkyZdN33b2Nrb30F4OfIvQicY6fNt5znHrVO/0/U9LfN3aSQnOA+MofoRwaltvEms2wTF356o5cLdIs4JPqHByPaul0r4pa/p1l9hFho0tvwCjWSqCM5OQuBz06UOnISqI45ri5UBiQPwqWG9uYwMhWjPUY611Goal4I1IPqZsryzvJnYPp8Cjyohg/Mrd8nHGOPTHNZV94eYW76rody2p6RHKsRlCbZEYjIV4+oPXkcHFRbo0WpX2I4Jo7mN2kjQDByWUf5FZtyiQ8q6yK3AK8ge1QNbykkqXUt0V8j9abLBIluJllWSPdhgDyp9xQopPcdxyBT91h9KRWCk5cDHaoAw7U8EYzwT2HersK5P5uAOuOvSpoX7hsex71UUgqcuMn171J5bbchx+XSpaGXjIoUA8/Q1C08nA+6fSqnCHBbJ9R2qXzO+cr6UuWw7liOVgQckHHala9252klh09Krs4ePCDBqExuBnacVdOCluZ1JuOxYS+kW5jnIBaNgygcDPrWhdax9pWVf8Al03bjBM7M0jeowMA+9YlIa1dOL1MlUkWwsQuEltI2jikJCLI6sQff2q1jU/OyoG4cjGKzYiBIpJ24PWtITMWGD1rOo7PY0guZEi6iolY30T+ecAvjJxV2G90sHzbq3tr+Igp5eSrruGAwHqD6E/SqVxJvjYOFBxgECqKW4eRBlQMAHaOvv8AWoioPXYqTktNyCY75GwzlVOFDnJA9M1Hz2q9qVosD+ZCSYm7HqtUSa6IyTV0YSTTsxQDjNei/CDxDpei+KLafVLiW2DAxmbzD5bBhgBlwehxzkD8q853GlzRKKkrBFuLufd8VxBLDFPFNG8UoBjdWBDg9MHvXnfxd8dv4SsYrSGzMtzfI4jk8wKEwOuOvGR2r5kt9X1C3ltni1G6U2rB7fMrFYiP7oJwPwp3iPXtS8Q6h/aGq3Hn3GwIDjAAHoP1rJUWnqaOrdaGbO7XErzTsZZXOWdySWPqSai2ilorczClXOeDScUtAF21vHtWDx+WzDoHQMPyPFbNt4tntLeS3XSdKuVZdqveWwlePjHBGB+n1zXNYPrRipdOLd7DUmtLklzdT3Lh5WzjhVAACj2A6VDuNLjFOAz0FNK2wmxNxHBppNTi3YqW4CjuaiZSOCpx1oTQWEHFXrbTb25iaaOH90pwXJ4/+vxVPGO1WhdlbTyFUbj1cdSPSpm5L4So2e40RGNt29cjoQc5qvNI7P8AMc+lIyNtB6c96aFBYAtk5rOzvqaJq2hMsJ7nn0FMaTb0NTbiOCST60hRdm/aCB2zWjVloYxld+8Vi+aA2BUr7SMCIfUUxyBxgYqdDZNirLwQwBH+e9IXyACeKFTPTrR5ZIyAaVwsg3MB8uDn0NNBOSWz+NLtOccU7ymbnn8qWgxucDrzSFvlJHan+UenB/Gh4yM4GQPSjQB3nyEBAxCAYxTWJJGO3pTQD1xTwWPBFFgHLIQOKQTtnkGmMMnOB+FIcgUWQyQyMTwefpQSepNMBPc5peKVgHMeOtNSRk4BpOMdaaxyOKdhE3mhurHNPV27MKrc91B96cCQNwNKwFoOc0u4k1VDse9OVyQecUcoFjewAxz7UM7Hp1+tVQzkcAn3qWOPIJkZgaVgFySeTUgbAwOvfHekMD4G0cfWm7GU8gijQY/dtO5OnuM09ribj5vwqHaeOOvvRtIGNmT7GlZAT/amICkL+VWraXzCQ6gNjg9KzM9jj6VZUny2O4AeppOIJmkLa4Vs5Vx0BWQd/So3uXB8uYFiPlDeg9KyjO5PAyAMChZ5BnGfzp+ykL2kS24BYsFPXinRxFgWHrg9qrLdyJ/CvIxwKa80s3ylm2dcHpTVKV7EupFK5fIhA2IQx6ZFO87aAoJBHtVK3jLP5aEDPVmOAo7k08vsJEJJX1bqaHTV7J3F7V2u1Yso+9vm6e55p3l7CX+8D71mGZlxzyKbLM7Lg9PQU/YPuHtV2NB5okHzzYx0A5NV5rlt58u7Zl7dRj2qgXJoUnFaRpJMTm2Jg0oHSpNwXGQD9aQyAqBhRjuBzWhncFQtwOvpTxHtYCVggIznGcD6VFvwMAmkLAnpQFiwHiXBWPdjrvPB/AU2S4dsjO1T/AvC/lUG7tSUrIdh7OxGM8Cm0lFMYUvNJS0gFViCCCQRyCO1XtK1XUtKuGn0+8kgd8Fwp4fHIyOhxVCjNDSe4LQ6LVLltTUX1vHEpWD99BCDiPBxnGe+QfwrnWlkdiSRkjB96mtriW2lEsLsrDrtOMj0Nazvod+JHSKbT7jbkR8SROcevBXPXvWLjymqlcyIVZ0G2LzBnoBzSHbKwCKFIGMZqSOSS3ZvJkymcsnY+9XLm4t7pY28qNJEGAVGDx2PY/Wk2VYp/ZJeAoBprxzxkEq+SPTmuw03TrdoVdgWyMkg8L7VbntLZRujix7npWPttbFKDtc4AxyAZZTjPfilO4DOQD7mugv40YkFDjr1rJktR6fhWkZ33JehVMjDFL5rYwTSzps4BFQHd25q1ZiLG8MOQD/OnKqMduTk9KqqGzmpUcqwYZBHQindolxTJmiIABxg80ok+UhWOB0oe5aRACoBHcd6rknI7GiT5gpppa7lgXDHg+lNEgGHXOAemahDkYHGaQCR+SOnrxUqJblbcuyXYkiIctn26VWcKB1xn1qNlbpxj60KuDnHT0qopx2Ik1IDkUuaOPSjvwK2RkxKTFSEHNNPFAriAZFAp3FH0FAXExn60vApCTR160ALkU0tinYzTWWgEAye1SxRs3IOF71EDxiplkaMbQBzznFKV7aD06lhS8Z2biVPallgLhnQHevUCoklA5lIyePercMwIBRXx6gf1rJqUXdDTTWpmlJCcEE1Yt7dg2ZBtGD1rTkwEJijXJ9Bk1R3MxBUEscklu/0olVvohRhJ76CEBuoH0Jqu0SxvlcDtnOam3bR8ynB9KRR8wYcjsOtSptGnIIsYA3MT6YxSbRtwF6+3SpzMGJBZQRSZVyMHpx61Lm3uNRUdisyEAA5H0pHhGd2QasGJyevAp4UDhj81HMUVkQtjgYHanGJgRhht6n1FWQAoxjAp3l7uw5pcwFYRqUy4/pTkAQAjjnpk4q9Hau30q21lsTKRs/rUuaGkZAiHOEH0FQ3GI9mF/D1rcjt8tgptI65FElirurlOQQcUlMfKYcdu4JYrjPb0qb7MxIOODXSQ6eZHB2YBGST6VM2mA8bTxzik6o+Q5f7N2UDinfZCFJ28etb0mkbQGAyDUQimjfDgsMdKXtOwchjG0GzO3n2FVpIFB6EfhXVRQiUZA2MRznvWbf28kILgKx9KqM9RONjFKAAn7p9cZB9qS2jSYsm0B8HG2pjG8m5FGC3JHTJrTsfDs0qEmMkkcFX+97VbkktRJNmAQYXCOqnByMH+dOaOU4ZgNrf3a6b/hGmjWbd5YwBhXJBb3Ht25xWbBpl1bzESQgMB68Cj2kXsPlaMnyz0Tkjt3pFUnnB+lad3A4Y74dhXoynnFRLBiFpZGYKOMYx+tUpEsZCVC4woIAAxjr3NSNKCmzB46GqysSSI4xz6Dmtaw0yS6+ZhgegNTJpasauZ/nuByR7VF5h65rVuNFul3syjC8fKOKyDGyMUPBpxaewO63DeewP1FKXx945FPWPaQGOM1FN8p28FT3piuSLIhJbZkCmuxc7mGV9AcYpkeTwOcdulKCASAd3b6VSdtiZRuSPEcqAOSM8HOarsMH1qUyNu47YpkgJOSAM9hWydzBJoRG56ZqxHgqSPxqqMA+9TRuF+7+VD1Vh9bk24Bsbf3foO9RyvtOBz7nihyTyeD04qqzHPJ5qYw5RuXOSEq3/ANemEYNJ1p4IXoSDVhsMwTxTlU4pQyk8jNTIFx2/GhCbsVjSUppKCgp2B600UUALRRRQAZozQMUUgDNKM0AUUAFFFJTAXpTlJYjB+YHAxTQacoOVAOCTjPpSewJam/odtC1rNdXKBoySoDHHHfBrPvIohcLJbIfKJ+42c/jXQaFZpdWsdp5YlIHylGzn1FaNxpsDsqPEQy/c2jGO3NcDqWkzr5LoydIv7rT7RlUr5Zb5DL29hWypSVA00uVk5XbySPxqrq+nTRyW9rcRpA7gOPMIB2nufatpoLey0uOO4uIXjhlzE4bILf57Cs5NblJdDnNQtwMrEC2fasmaJkJFdFcxLLMs6ABuQSGJU/l1rKvECkkSqT1xVxZnJGPcK0nAwD1qo0RBGQ2fpVyQMxyPwpje/Fbp2IKm0nJAP40jRkcg/nVxsMF545/Cn+WhQblGc59zV821yNVexnsXAAz9KVYZDjjr3q1LJHnAQj3FRN8zD7xx0ApXKTI9oQ8ncw6DsKOXbPLnvmnFSM5HzUh3Y+vpVqLaIlJJjpFCnhgR6Y6UxT6AU00mRWlu5HoPJHQikGPSkyKBQklsDbe49cYJPP1pjNzSMT0FJVCSFBNOFNBNOBFIGIRzUiFQeajzzS5oBq5KzKSOcVEabnmlJ4p3ElYQ89qUMQMZ/CkzUltGJpNnNS3ZXKSvoNjl2PuwPyrVt5Y5YWYDZt61PB4eEls08k4j2nG0+v17VPb6BPFB9pilQ4GWVjgj9cGuapVhJeZtGnJMzzcMxO19uTj04pscLSI8rvsQHCjqXPoB/Wo7m4WFxiONpAemcjFVpLuaYqi/IM9EojBvUG0XHjCqCGkOQSflCge1QwOUkJJG3H3QOtOs7lAGt52I6jLHAPsfSntZ3MQkltYhPa5ztzuZf6/jTtbRhclCRSfOVAb0qrKVZiVO1h0Ip1uRNuaLcm0gEHmrKLJEduwFc4DYzio2Y9xbdC9uHcBexJ4z70KYfN8kv8/sKfdtdR2u0KCJO464+lZaJIX6Hd19TVwgpK7ZE5NOyNNkRSQWPWhSu47SQvuKovHKi7mDc9zTYThuAxPoO9N0la6ZKm+bU6OwtVuAC543Z4PetSS9gsz9ieNpNo/1nAAz2PrXNQXV1Gy/ZlZCTwrHOT7VFqxuZiJJC+5eXBGCD61jGmpStI1nOUY+6dxpHmajMgfTHjtZAQs5Jwcehxg10K+HCNzlAqhc7jgDGO+ay/h/4xtZLIaRrMA3RBRHcJyXy3Vkxjju30r2Cc2sFkgWAXInYRMUUHCsDliD/D6/WuSvzQna1jpoJShdu7PLdKgsrgkwxl4VKgyL1BOCPlPOOc5rRudGSYusckQucAiIEBivrj+uK0dAjXTmnt7uyCzscqwT5MYx94cdO1Tau6vGZHZBsGAQNuPoe1ZOV5aG0Y+7qcw+jOE3cDA6d6z5bFYwWlXKAclVJ/lVu+1LyYwIHEgJChGO4/UVizazceesUahJGIAOCM1pFSM5OJevrBbeAygwPGRkbZeox64rAmZGuFSJWkUjBJQnH496uF9Tv3ZCsJVSDJ5nCAeh4JOatPo2oSxC4S7tRtTLiBGzED2P6dAa0Wm5m9dhmjaH9teRWjtjGRtQzKePoeua0rzQ5NIkhaK4YDHzRMePqPSoodD1uK3WdzmTeGikjIJbj049+a3Y9JviqNLePKSCNrLnjvwwzUuTvoy4xVtURWMrRGRH2ujjkeZuwevGP5Vl3WjQ3s7yCVomP8BztB9jWx/YqqfMWXYwIVg6jH41ZhtZtm+CXCg4wTwRU7alb6M5BPCV9FcF2iintjyWDEmppPC6TJ5bxHb6JXYNFcNs+eIDOV2cMD+NSQLLEHkvLuOOFT96Q7QfyodSXcapxOKTwlFADtt857nkAUyS2WxkWBlY5PComc/TFdydV0yJdplQQ9SQfvGsfV9b0lFMkCEejKP60Kcm9QcIpXTOI15rjynVCFDHnJGR71jWGktLA0uNzk8cdR3xWi9/ps+oSvcrJKgOUO7Gf0qvqGqwiNo7YOnBwGIwPoMV0x5krI5nZu5jX8CxsVEit7iqcUYbAxvYnGB60TyGQjOTnrnvTN5RlYMcjp7V0Ri7WMm0hbh2U+WMKe471EsbKm4nGenvRuySc5PqadknAJ+laxjbczlK+iFUcYYHnmkbpjmnKV3ckqKjchjx+VWiGtRlSb1CkAc+9NKgcZyabTHuOZ2YY4pooooGB9qKXNJQAU4dOpptKp4oAQ03NBNFIdgooooAXijjmkooCwZAoyaKKB2DJoBOetFFArCk9qSiigBVqe3I81N2MZ5qvnFKGwc0b6C13R3ekzGz1BbtDutbkDeBwA3b8K6aeBm3OrZJ5UBentXnOl6wLW3NtPF50R6eqg+lepaJqGnaxYGS3SSIRgANktk4P0x0NebWhKDuztpSUlYp3QOt6la/bIJvKhjXfIx54GFHPbpXN+K4pobmOJ4Z44sgqWjwuOnYYBro7tL/AE26F3FGksG0h4zxuRu3P51VguW1OWSyNtOqSZcRTc4b1DDtwOKzi2nfoaSSat1MWwiRbYJvBKOy7RyRUU8Mco3MgznjIrZisVWzX7Op2SEkFweDnmqVzbmNSZZANvTiq5tTNxOauotsjADG3jFUmbkAg8nirl+rox3AYY55NU7dwAxwcjua6I7XMXuIR6fjmmOxAABz6kUpYFmY9SO1N288dD2FWhDATnJ5AqSVtiKQcFhnih3RBuOM9PaqssvmBRtAAGPrWkFd3In2QjOc8GmhjknNJRWpNkKWJoHrSZozQA7nNKaQGjNMQuaSjNFAgpM0tIBQMdmkLccGkooAUHmgnmkzSUBYCa09EFu9yUnYJkZDs2AMVmVPZWV1fzCC0gaWTGcDsPUntUTScXdlR3O5tEjVo7hAhjzltzLtYeoqn4mu7OCweOKYR3krZMUbbsKf4ie3AxV/SfBQuFtbW9ebevzTCM42gn1PHFdNp/w90mzufNJ88ltyC4+cr+AwD+teb7SlCV27nbGlUmrJHjC8oVSLIzncASR7VJatLDNHcJCzhGB6HB9sivoyx0HT4sKbKAg/eaRMs34dq2x4S08qZfLQg42J5a/J9KbzGO3KH1Nrdny1cxXH2pvtUZt3kbcfMUqBnn8qsbLjTQrtMCkyNs8mTOe3UdK774uaFfrqcNzZ6JL9jij8r7TBmTzP95R93k4HrXmUiPG5jkRo3XqrLtI/A120pqrBSOapHkk0WYLyZZzJLISHADk98f196taph9jCYbyARGM4Pv7VlgEkAAknoAMk1KVa3kCXNuwOMhJAyHHt7Vbir3RF9Df0dbO6jRZn2uDtHT8K7HQrPSpp2spIUjmQ8y7eQfSvLN5BymV5yMHp+NTWlyYLkzuZmJBzslKFvqw5rGpQcr2ZpColuj0e4h0x70WjIZG5B28jI61VksmRyI7cogHBZcZ/H+lO+EumxXeoz3d7NHDATtUPyXPcD8cV7M9vZwhFhi+QdVwT+P1rz60/ZS5VqddKl7SPNseNW1nayL9nuod7McAIDlcnhv64qHWbe70vTQIAW3gxNNjnB/zivVdZ061upTZiARTEboyCo7A9f89K5397bhLe8iwB/Ew5z/WiFa7TsKdHRo858HXlxpniaxnSZY4ZnEUzE8bCec/TrXtM2rRtcN9gd7qzVionXkt06Ejn61iwaXoZlhlk01Dck7hJtBG71Fbj29sYz5asWXncTjJI7DHH4VVeqqsr2FQpSpqzdxjXcfLYkbd22mq8ltLeNI/zyjkZXOFAzxgHg+9TRRIkUgSQnB4jJ/i/DrWdJcPtcpujbP3UOce5rBLsdDfc5rU9O1K0G8Bdx5OUxx+VOttO094bd3tGMiklmL8Z9lH0rS1SK5kgiMpfbMcQoOST3ODjNcfq51bTZkmYmSPOcH5WX646D2reGuhzysmdxplrbtfFJCkcKsclgFbbj5cE9c55PbHvXWQJZxqZLaKMM3BkVME4457muL0XxE2paYonSOVyCFlUAPGwH3G7EemfarrXjtBiOII4Y8AkEe+AcfpUThruXCWh1DXluhxJKCR2zkmoxqsM0exH2IDjPeuaEm4qZI1yMNnJqneOwkV4jjc3Oex+tRyotyZ113DDF5fkXEbyEbmLjGfTBNcvq13qNtC80EPmxZDFAMqT+FY9zrVxbRCKOQksejn5ay5PFFywkifMeRjKt1P8quMJGcpo6HSfF+mXbwwzwtBcMcKwbKMa2r3USCm4Rm3XLSOR0I+6B+P8q8hl1W8WUSqyh16FVGTVm88T3DRwoiZOPnGePx960eHu7olV9LM6vWr+0eN7iLE0yjJyoOPxrjb+/mmDR5UIQPuf1qpDfxK0jJDKXkJY5bOD9PaoijEZAbb244FbRgomM53HiON4y6ECTrtPH5VWupHQDcgwO5NSsXRRlSPeqd9bTREMZPMVhuyK6aWujOWorSuOdFZPNQDp2qi+dxyanSRFh2nOc54pjKWHmHCrnFaJcrYXuiIZqRVPVsj60oMK8ncWHTFKLnYzGNOCCAG5xTbb2KSRG7DefQUBvQVHRVImw8mjimZNGaYWHUHrRRmgAo5pDRmgBacvSmE0A8UBYSig0UigooooAKKKKACiiigAooooAKKKKACiiigArpvBustptzNAbn7OsyEJIeiSdj+eD+FczTo3MbhgFODnDDIP1FTOKkrMabi7o9Qi1LVdU026S/ZP7UtifOKFR5qno2Bxjtx7UmgeJUWWSK4gDLjjJ4yf5YNc9cahca9DJq0NvHb6hYRruEHyq6d/l9PUdKz1uVEi39sF2tjzIx/yzbv+FcUqKs9P+AbxrNNanqU14ED+bFE8YGckc56Z47VyerTSSyho0BRiSrIPlrc0S6s72xeN2Kyuv3sZXGORgc5qncSWqObV1Cr5YMRYEAnpxXPFWZvN3RwupZc7i4QDjk9aoiNDGCswbn5uefypmqOr39xsfegchT2xVPAr0oU9Dhcmy7K0dvIUDF/XHSpEfzgQmBt5wOtZ9T2cjRzggZB4I9qcoK2gk2tyKQkyNu65ptXmhWaWVlUOEQM+D931x61SdSjFT/PNWndCur2EooopjCiiigAzS0lFMQUUUUALQDSUUCFpM0UUDsFFFKpYH5SQfakMQghQxGFJwD616t8OtHvrbTJ5pLf7PJcuCjMn7woB29O9dB8MfBcFjo0Ov6jEt1fX0W+3gliBEC5JB57ngk13thp8lu6vcSgKw4ZlBwfQ15eKxad4RO7D0LWnI53TtOMAaRkHJ5LDJP1zW3aW8ToWYMmOpJov5JPtJjMgbbnIVea044c6aQflyM+59q8ycm9zvVktCiHtd+0MSF7gdauyzOyBYhtQ/wB44ArHilZJB9jtEMgPG7rz3pb06mr8Is43FcqCDn1x6e9J07hdXL1w65zGxcHhsHAzWL4g8M6F4nFvBqSMZYyTG8L7HUHgjPcdKsRB5GjVAxbuB2rYuofMgeyDOJJx8rRnDL7+1OMnCWjswkk1Z6nJeEvhda+G/EkmqjU/tVp5RSKGaAF0Ykck9OMcYFdpq/hzS9aRk1Sytbtdm1DLGCVB/ut1H4GrOl2zWumRW09wZWC4Lv1zUd7fR2ksMLBiF5Yg9BVTrTlLmb1OeEElyxOG1b4R+ELgA21vfWJA5eCfcv8A3ywP9K5uH4XaBbX039p3t02n+asETouxlcjPztyCMkDgdxXsklxFu5OVJwMDODWRr9qsmnTBdrW0mWZG42t7ex9K0p4qq9OZkujDqjD0qy0HSrJ7LR4d9rA4Rt53kkZzz9T19RWtaPAmZG34P+xnFeMeH9T1HRfE11oGqXMzrO+63lZicMeVx7MOPrXp8etzXsi2htBBEo5ZP/r9KutQmnve/UulVi1bY6Yw2F5GgkXzAmdpHBUmuN8barpfhcQPqMd3dpdblQoBhQAOBnjjjjrzXSKjBY5I+OcE/wCNLrGhWHijRLjR9StQrKPMidDgo+CFYH9DWNOUYyXPsVVT5W4bnJ2M37mJ7dxPaTqJYpAeo6gj3qZ79IZ1jlAELYBZf8OxFeXvqPiT4e6pHpUlxFdp9nSU2knKxb8nA7qw9vWugvvFOo2N/p914j01dNtrmEyRIiGSRTkbS4OOCM8dcc13uhJPTVPY5I14teZ3umyx28jSTpuwMIPX0Jq4LqO4dw6phSC2Vxu7cDua4u28V+Gbpi6a7ZWm1dxV4ZI934Ecmpbjxr4fdSp8QRdcEqjtk/3sY6VnKjJ9GWq0V1Ny6triONbuRuE/eLkjhO2ffiue1jTNR1CPzTZJF+7CordWx3PuevNb8a2Ed550YjupHhRkmVg4XjAA9u/41na9fyxBIDKvzHovqe1ZxbvoE7W1PNDDqWj3jSxq4XOHjJ4fBzj610lp4ks72VFl82B2ODGeR09fT9faopnjXAKmUHOCTnafast7KCW4+cKVPzMV9a6bqXxGF3HY6q8muI+XV0UjP+qyAO3NZct5N5cqb2X5eAVJ59B6fWq1na6jpcnn6ZfXCBhnyg25cY/uniqeoa1rcKsVvm27NhIjUErjocD9alQTehTm7ak0FvbfZ2kkluUYHhlI2qfQ54NZ+q6RNarHIHDpKokymDgHocVUuNQutSeNLyf93GoAGAFUdScdyf1piXV19kNq9w6x4O1WYnGeg/LNbqNjLmKUq4Dng4O3GecEdagIj24Ax3+tWmCqpBQbj/FUG1F3dAfarTEyscBgORz681b88gGMOwZu4PWq2CHyy570gJ3kg4yMA1TVxEj3EhcKecdz3qS+niNnF5asGyQS2OaqqmQ0kjfIOpNQXDySMC4wMfKo7CtIR1uZz10I2YmgOQpX1700YzzmithJBSUtFAwooooAKKKKACiiigQZooooAKUdKSlHSgYlFFFABSUtFABS4zkjBpKVSVYMvBByKAEooJJJJ6migAooooAKKKKACiiigAooooAkt55beVZYXZHU5DA1IbiR7iSYYUyHLKowp/Cq9ANFhNHU6HqjWLgEEx55HpV/XL5buVLiMs0Azyh5UEdD6c4rj4rkqoVxuFXLa5AfKOwB6j1HpXJOjZ8xtGppyszZAVkdW6gmkRS5wtaV7DHLO7rkKeUKjt7ioRGkfyqDvI6nvW6qKxnysqvEUXJZc+gp0Jt/+Wwcn26U65KgIo69T9ar1S1WomaNnNGrkxM0TbSu08gioLkMGVWhCDGAQf61XXhhnIpdw3YJcr6Zos0yeVXuIwUBcOGJHIHakq1JdRvGAbcFv4jnrVclDuO1h/dAOcU031RQ2ij6UUwEopaKACiiimIKKKKQBSUtAGaAAAnpXY/DTRrPV/FlpBfSRiCPMwjf/luy8iP8f5A1yK5Xt711Pga4lj8T6VNGq/up1Zs9Nvf9M1FW/s5WethXtJaaXPpSWSSK6Vy67nGMKpJPso9KZdtN5AyXXvjGDWT/AGhbIDLGp35JV2P3Sa0otasZI8yXIeROPu4zXzLUuiPeukUktbtW3QW25Ac9MA/1rZjDGH/SCoI7dKkj1K0MQZXwW6Keazry7g3SSM67lHTPap1YXb6FiNEkaTaVBxgHriq8VskE7EzNI4OQT3z1H0qKwubYR4Lox9c9qq3M09zcrHaxtuzkOO1Wk72QeZrXqSJL9qgjHnYAPHUev1qBbs6cktzOjSSNgsRjKj/OK2rePdFH57q0qjJbGOfXFOlijIZhFkdWOOv+NQiHNWscna376hcTXG1vkG5QTwKvq/mxK0oEgx0Y8t7n2oWziiDzW6vblshg6FOnse3vTdOAaZppmbCDnfjFOb1ujRWsadmiRW7H5ueRuNZt/HdSwqglJt1YMVA+82en09quI5l3OW+TPbnArNa+ddyPkpuJ+YUQeouU8z+KWgpeacdYjWaGe0U4DHh14LcdsdiPpUvw/vEvtHtb++vTJJCjQyc5cspG0HPqpHJ611viCC11WzmglWR45I2RlDYKAjBxmvDitz4P8U7I3M8IAz/CJomHQ9sj+Yr16X72lydUcFT93Pm6M+j4sTxRyojIW2thu4/xrat9qyH5fm2hQfTmuH8M6j9uiQhmaJogUfJOe+fbj+tdULt0kjt1AjDDknr+VeZVTvY7Y2lG6JNW2IFmS2ha4Y7d5jBYjtz14rE1nw9a61ZmbUoVLA8tIARj1+birmr6tomi+Xd6zqi2y7jtWVuWx1AA5P4V5Z8SPitHqtlNonh+JRaODHLcyL/rFIH3R257n0rbDUas5Ll+8xrVIU42PNvFtvpVpr95baNI8tpG+A7Djd/EF/2QelY1BJJySSaK99KyseXvqdh4R8W3WlgWc1ywiHETNyI+MY9hXUtqv21zIwEm7uvr65ryaum8JXhDyW0rnZwV74rlr0Y2c1uaQnK6j0OlnljUMQMjB2jFQ2z3LOFYoI85bdz+VWhYNdT7i37oDBYHGD65rO1G5j092kkKvkYIJ7eoHeuWOuiN5aas0bq5eNZGg5AGXZm/P6AVyt1qtrI237QSjAlsL3rIv9RluSUjZ47ftHu6+59ao12U8OlrI55zb2Oo0iCO6vY0GGhmcHJ7gZ/wp10kcV3ImNoViMisfQ3m+3xQxZ+ZgeP4feti9QJK25956cdj6Gs5xcZ2GndECAJJ+8QENzgnoKZdmPdI6OjIMZJGCBUqReaypuGcdcZqlqVo4i3IcjJI/wBqiNm7MHew7dA1uZi48tTgjB61TmurcBBBGSw+8x4zVdpyYRCqBQODjvUNdEaaW5ndkkk7u4ZsfL0AHApJpPMkL9M80ypZ4hFtw2SRzWmiYWIqKKKYBRRRQAUUUUAFFFFABRRRQAUUUUAFKOlJSjpQAlFFFABRRRQAUUlLQAUUUUAFFGM0UAFFFFAgooooAKKSloGJS0UlAC0UUUAPDtggscVLFNgAMN2D1quOtSBcc5HNJpPcm9i7b+VKzAKNwGcYqO/i8hVjZBuPRvaoJWAfcvXOalmYXSpsAVkGNpPUVny8sr9ClLmRUoqf7NIOCVD4zsJ5xVqKzEUIe4C7mOQvU49KtzSBIomKUIkhjcI+SrFThsdcGmV0cV4TAnmR7gIzHz94A/XoPYVSGnrPuZMhzyQP6Cs1WXUrl7GSOtHate8sEtljMpU5Azg8j/GsuWMxuQSGGeGXoa0jNS2Jaa3GUU/+HNM+lUJMKKKKBhRRRQAUUUUAOLHrxW94U1E2F+8/kq4CEc9RnjI98Vz1TW87wSb0PsaUo80WidtUelHxJcLFlWwrLgLIc4qpp/iOZSQxC72yWHXFcpDcpcoQBtYep65p4kZPlXHr9K4HRS0Z0Ko3qekQeJI0hjb7VJlSd2Oh46CtG21mJod53iMHOGI5rzWO4UIrGIk4xnFXLS7SR5N2FXGcfhWEqSNVVaPU7fW9OkjUbkIQcoODUmnazZW+RPcSeafu5+7jtXlUUuyfzYCwQHpnGB/hU0l+bmMCJic8H/ZHtWbw6NPrDPYIPEpt3JknWVd+1T/9eq9p49MsR89BDMp2sq/MpwT93vj615LcXbxWyxXFwzFeR8/Ws+a9DkPCwDAfNluP/wBdCw0WTKu7nqeq+M2upQhdEHoT1FJp/iRpZILTcZGblyBgKvr/ACrx2e4C7jvyD71PZa3cWo/cthcY55rT6qraIlYiSdz3L+144YsQu5Rs7yW/zxWHrOvwtau9rdIzBuVB+YetebTeIL24t5IXkR1YjqMEe1UUucBgrMuR0B4NKOGSd2XLFNqyOguPE+oLORbyuxJ+YeoqWSCz8Q6fMlyxN0ACkqE5Tr17Ef41x6v+/L5OfrW9o9x9muDIY5GQqAyKQCVz15rdx5dY7mKlzP3jY0XXG8O2sa318kU1tF5fkqxLSAE7WVe4K+vpS678Vbm4i2abaKsmBmedcgfRP8TWg/h7w/rYgvry2kt5EGGSNyvmj/a9x7Yrd07wj4StbcSrp9tKFGTJM+4ge+fSsnUoJ80k2zojTrWtF2R4pqWqatr1zHJqF1JdSqCIw2AFHUgDgDpWdWt4pv7fUvEOoXlrGq20kuIwowCo4Bx2yBmsmvUh8K0scEnqwoooqhBU1pM0FwkisVweSPSoaShq+gHq1je2s+nDzjtYqR1zwD+tcF4pmM2sytvLDavGeFOORVzw/fW8VvN9qMflou47hluoAx+n5VjakRLcNcqCFl+Y8dDXJRp8k2a1KnNFIqUUUV1mQ5S8e10YqTnBBxV/TZXd3WQsyABjWcckD0HFWbAkSsFOCVNTNe6xdTaivAhKxSIMk7vUf/WqO4lknwJiuAOCoyCM1htuilIJ+ZT371pSXwFpGpI3BMKg6D6msJUrO8TRT01KN4qrOQrbgR1qCnSO0jl3PNMroSsrEMUEggjqDkVZuWWeXf0YqDx06VWHHJ/AVJCRtdSpPcYHNJ9wIyCDgjBop8oO7LDGe1MpoAooopgFJS0UAFFFFABRRSUALRSUtABSjpSUo6UAIaKDRQIKKKKACiiigAooooAKM0UUAFFFFABRRRQAUlLRQAUUYNGDQAUUYooAKMmlApcEigBuaB1pwHNOxTFccju0yHdk5Ayea1bm3M10SGwvXce2BUVjp+UjuJQpjlJWP5v4h1z6YHNFzcqAyRsTg8t/e/8ArVz1Hd2RpDuTyIjuHJCKAAc8Zqrd3KiRUgACjjcvGTVWWYsdxbJ/lUTOCB1FTGHcu5aeaSVlh3nacjnnrSSI1uHjmQMD1AP6g1DFNsdXXqvPIqS4umnOZMbiOT600mnoJ6rUajQ7dpjYD+9nP6VHNEYyCCGVhkEUZXAxnHetXSYo7mOSCYKFYEoxOCG9K057bmUo8qujFoqW5he3laNxgioq0BO6ugooooGFJS0UAFJS0lADlZkOUYg+1XoLqNlCSAIw79jVCkqZRUgTsbQ1C2RNhLOfYcComv4RgnfJjsOMj0JrLpKj2MR8xqNrNwV8tYYlj7gA5I+tasF9aRQCVTG8v8Cs2ME9yPauWpRkHI60SoxYczNaYySO0kpJZjkk9T/9aoZcRggMQDT4y2I0OThcZPTFVLlyzleQo7VmlrYsk27gCehPrTSwHHbtUSuQNueD1pWw3C8VVgHo5DY61chKuRyB2rLBO4DOD0rRiEj7V2FscZHelJCNxdFuBEJxtIYb9meSParOl2Mxv0Bw7E5VcfKfr6irGi6yohis7pY0FuzHe3BKkcg+3Titi5htbeySe3nBLgne3Hv+Fcc5yWjOqnCL1NmfyMD94FnUZMYY49+tYvjrW7aw0UadbYF3drtYqfux9z+PT865O98RS29y0kSq85GMtzj6/wCFczczzXU73FxI0krnLMf89KuhhXzKUtgq4n3XGJGTmiiivROIKKKKACgdDRR2NAgqRpi0IiI6Y5zUdFFrjCiiigAHoelO2sp3KenPFNqSJyvTGTxSYElx+8YMRyQDkVWrQQRylYmITPAYDofeqcqbJGTtn0qYPoAygAdScCpVQDBIycZApmC55HTtTchpXFZQVDYx/Wm7iPukgfzqSVSqKjHkdKi/EULYXUfLIZGyRj2plGOfajFNaaIAooopgFJS0UAFFFFABRRRQAUlLQKBBSikpR0oAQ0UUUDEpaKKACiiigBKWiigApKWigAooooAKKKKACiiigAoyaKKBBk0ZpKWgBRk0u5hnBxmmg4pc+tAADk1Mi5IzUAPNTRnnrj3pomWxv3l1bpoMFqiEXXmu7f7ClVAX68E/jXPGTpgnmugvZYdXQXMNsIZEiVJE37tzAY3g/7WPwNc6wwSMEY9e1c8d3fc3WysGQSeBTcDPXj2ppU0ozx2qwFGQevFLgZyTx7U0fSgUATrsxjac+5p6kiQMMHHSq4yMVbtowx3DJx2PrUPQB+9pM+ZlgeTuGc1F9njcjy3fnqGHSrjQgnk8gYGKktLcMyrvGM5JIqfaWWgciMmaF4Tzgr2YdKjrq4FhRWEyBlP94Aj2rnL9UW5bywAp5wO1aU6vNoTKPKV6KKK1JCiiigAooooAKKKKAClGQQR1FA4pckDigktxI0wL78fzqxOitbpkYZRjOKo285jkGcYPBq6Sz8ArwcE+lc81ZmsHdalGaNkbnkdQaYqO5IHUdea0nCSRbdnzevWi3t0DZwSw4J7EUufQqxnQoTOuQcA9a6LTYkmuDD/ABAjGKzJQjMQF68Z9Kt2hkCmVScqcMV5INKUnuhOKl7r2NU2cdux8xVkkznjB71V8RaiYra3so5NzBSzEds0l5OqWozI/nlgAc8gfQ9K568z5oLHJI5qKUOaV5Gk5cqsiDJJJJyaKSlrtOcKKMUGgVwooooGFFFFABRRRQAUUUUAFFFFAE0L4IGenfuKsyp5kXmN1AHJ71QqdJsx+XITt7YqHGzuhPVAm1vlZgNv3T6051ySQyhR2BpsccbN/rcDHemyR7OjhvoKPdbGroRyZJQueBwvtSNgD5Rx0P1pF3KQwU5HtSZbpyQeeRTsHQAPTinKR/EARTMH0NApiHOFB+QNjHenFOF7Z9qFxt4+/nt6VoPLNHGscq7zjkYzxUyuloNNXszOMTjk4plaJhjuTuQbMDkY4H19KqSoqcDkjuDkGiM77jaIaKUkY4XHvScYqxBRRRQAUUUUAFKOlJSr0oASig0lAC0UUUAFFFFABRRRQAUUUlAC0UUUAFFFFABRRRQAUUUUAFFFFABRRRQACpB8oqOjJoE0aukXIhuBuJ8phtf/AHT1/Lg/hUmuWD28hkUDyz1Knv6/1rKhcqetdXpd9YXemx2F2whnX5Fd2+SQZ4BJ+6RnHpWVVNWkh0nZuLOR470/G7AVTx39a7bUfD0ccDLJbuMJlHUAn6jHBFck6yWVwYJlIORyfTtWcailsbSi1uQIqujBjtYDg5pkajB3cfWpH3vJuXA9CBV6Hy/JKsqMSecnmqbsKxSnVUCLsKkjJ59atW0YV1xnmraRQy/MRvYDC556VL5W3JwNx7DtWbnpYdgCA2ZZFUuh5z+lTW5jtoN235uDkrnd7U+KIJD6k84J44pss8S7VMe4Bc8Ho3as73LWhBqGoGOPBYE4wFA6VzzMzsWbqalug3nMCc1FXXSgoo55yuxKMUtFakXEoxS4ooASilxRQAlLS4oxQAlLRQPpQAAkMGHUcitZEeT5lXDn5mB7Gn+GNPa/1QD5dsEbTMGPHHT9SKuvbyPxGG2t1ZhjJrmrTV7GtOOlzNjLZOQMk8D3prFhJt3FT3xWgbCTbwwyO3pUl1ZmTbJjkKMkDhqy5ka2MwgPtzwo6/Wp4N7YC8Z7emaf9m8stkH5uApx81PQSoocRrnOQzHj6YobCxSDGV1Z3Zmxty3pUGoxKpDAk4wM9qtyCIOrqSpbJ2+lV76RGt1UfeJBHtWkH7ysRLbUzqcATnAzgZOKdDDLMcRIWI64rSa0ewtDM0mJWyuByCD2Fbymo6dTKMWzKoo7UVZIlFLSYoAKKMUUDCilpDQAcUUUUAFFFFABS0mKUUAFA46UGkoEODkHPX2PNKGG7cRn2zxTKkiieU4UZPpSaQXEZmc5Y8eg6VLBatN91hW9ZaHHLDiUsGK53dgauWumx2kLFW3AjLZrCVeKVkaqlNnMNZzIeVwOx9agLEHr06Gurni82NkhKl8dDXNT2s8UjK8bDB644qqVTm3IqQ5WPnkJtx8oBI5IGM1TDEDHaugOnCS1jUqc7cnHUcVz7rscqex704SUroOXl17hnjHSkoorQAooooASloxxmigBKcKSnKDjoaAG+lFFFABRRRQAUUUtAhMUUtFMVxtFOxRigdxtLRRQFwooooAKSloxQAUUUUgCiiigBKWiigYUlLRQIBxTweMUylBoEzr/AARqF014dLd/MtnR3RGP+rcDIIPbpiut1rTo7ixEkkCr/AXeMHJPTkcVxvw9QN4kjkzhoondQehOMY/Wu/1GSC302WaZj5SBiF6gtjgD8f5V52K0q6Hdh9aep5e0OEnjjYbFcgfQVSEe6QgNtAGTmraSHyy7sTI5LHjHWomdSylMAY5Fbq5izQteckAqBjsKsA7gQCCB+lUYJEK/M2COvFI90qngBFA61m02xpl9ZE2Z3ZA6kVSJXe7sCRn5c+3qKrPexov7sn8utV2v5CjKowGGDnmrjSkyXNEFw4kmZhyOxxUVLRXYlZWMBKWiigAooooAKKKKACiiigApaKO9Ajb8LammmanumUG3uEMExxnapI+YfQgGu4vGFpaBEgSVJGJV2Xt7e9eXqa9X0aZdS8CWQkdDc28zx7gOdoPGcdTj9K4sXFK0/kdOHk3eBmixMlsHdFVzztB5qolnI+6ExZcnCbWyWH9K3bSzf+Hkkdzx9arXamPKOcDuR/jXKpHQ42MF7eSCZxNEfMB2cdVqrehIrJgHHmHAKgdq0TPHJKQHyWPI6isu4GWOVGCcFB/Ca1XmZvYw7qVkbaeWxwfSqZJY5JJPrVnUABMBuDHHOO1Va76aVjllubHh8u00kSLnIznGcU/xDOWkSEH7oy31/wD1Va8MDfDLghShJODgmsjVZDJfSluoY55rBLmrPyNb8tL1KdJS0GuowEooxzRQAUUGigAooooASilooASiiloABS0mKKACkwT0pa63wfpdvdQvdTxq8gk2xgn0A7VnUqKnHmZdODnLlRztrpl/dHEFrI3uRgfma7Pw/wCH3tbctcsvnSHlQchRV2VrmF8eYfQqwzirkDgIRIwwOTXn1sRKSsd1LDRTuxptfKynftUMNsXZw7DaeCT0xU6TiWKRWIHPynGTUEkkiwj58kDnArBNmzgkRCzgWfbzgDAx1x7GllsbcMiyRiRT13DinWkbMxLLgHke1bNpa+bGQ3IBxg/56U3Np7i9mpLY56+tJICXERYZ4YdhXIajpkw3XCMHU/MfUV6Tc/utySZ2jux/zxXNagYd5jJQBj909wa2o1GjCrTT0OEKkcGitTV7PyWWSIfu2Gcd6y69GMlJXRxWa0YlKBnOO1FA9RVAFFBOT0ooAAcEGnA5ptKOlACGiiimIKUCgUtAhMUYpaKAACjFLRQAmKMUtFADTSGnGkoASlxRS0AJRSmkoAQ0UtFACUAUtFIYYoxS0UxDcUUtFIYmKcoFAGaeopibOr8CW2+6uZ+6qqLkccnJ59gK6HxFdQnSLmKHaVDBQWfDNk9QvXpz+VY3gIF/7SSMsJ0tnlUZ4IGM5+gJqXVyr/ZzAUJZANgG7AAGfrXn1VerqdlJ2pnOmENJg52gZ46gVAcY8xYz14GOSK2ZLMB1lYszbOQe+f61TQKGJB3Kxxx/KqUjOxTMMm5XIwo7HvUEqtzhgQeozWhM2QVIAGcDNZ988QVY4l+Yffbpn2rSCcmRKSRTbljSUtFdRkJQKWigAoopKAFooooAKKKKBC8UCkooAX3pKWgUAKOMV3fgDVrSOzv9HuwA8zCW2JOMtjDL9SAK4MVPBK8UiOpwysCD6EVnVpqpHlZUJunLmR7PEZYWVwCUC/KQOo9DWJq1yr3XlrHkEg5zwBVWx1uSe3jYuwwBuUHkMc/pxTrqcbSzJjJ+YjFeUoOMtT0nNSjoU5IYI3ZsqF9q5vWWWOOTay5kboDzWnf31vEhdpAcZwozya5KeUzSlzwD0HoK7KMG3dnLVmrWRGKKKWuw5xySSRkmORkyMHacZpufXOaDSUxDqPxpBRQAtFFFACUUUUALRxRiigBKKWigBKKWkoAUUUlL3oADzXR+Fr0QuYDhW3BgQcE1zgqe0l8m4STGcHnNZ1Yc8Wi6c3CSkj0a7uFkA2sOTkEHmoY2GWCsMkE9KyEmEtis+MN6qeufWoV1EJIgXCkk4zyuK832fY9FVl1N4oMbgeGH5UKN67c8eprHbWLKI7WkL+oAyKii8S28blPs7+WT170/YVGtECxFNPU6/SY2mVioztOCCP1zXYXVrFbrEkIBjaHdK2MZ9D7V5/pniC0kw6yOg6HjP5itaDXBLduWkG2NCMZ7kd/oK5505X1RsqkX8LFviphkeVcozYyRwT6VzdxbqWR22uijIB5rZ1C5EkWQQ6jkKrZyfWuZmunEUivjaTwAMY9RWtJMxrNIq6m0ZiYBtq4A6DA7YrmGGGI9DWnfzgxmIEM4I3HOMfhWXXo0VZHBUd2FFJS1sZhRS0YpgJSjpSUooAQ0CnEUgFACiloxS0CEoxS4ooEJRS0UAJijpS0fhQAhpMUtFAxQKMUopKBDaSlooGJRTqSgBKWjFFABRS4pM0AJzSilxRQAo9Klj4B4ycVEKeDgHvQS1c9A+HVskWn6/rU0iIY7RrW2Dc75JMBuO+Ez+dZj7YWZ1IZl6fSn6S722gwwNCrJPOZlZWOQQNvP1/pUd4DKCysCSMkVwTd56nbFWjoU7p53O6Nhn09qqRTqs26WH73BPQ/pTlmVIpCXDZ+7z1qnJM5HAAHtWsKbZhOoloOurgBjjJI6E9qzySTk0880grqSS0Rgr9RuPajHNOxRigq4wrSVJjNIVoC4yin4oxQFxmKXFOxRQA3FGD6U6loAZj2owTTqWgLjMUuKcKTFAriAUtFJQMs299cQAiNgMjHIpj3lyzE+c3PbPFQGkNTyrew02DsznLsSfekHTpSg5opgJRSkc0UwExRTsUY4oAbS0UUAGKMU7GRRgUCG4opaKAEop30pKBiUUUYoAKKDSUAFKOtAFKKAFxQKWloFcnF5cLb+QH+X6VD5kjDBckfWm4pcVKilshuTGU01JTTVAh0E8kLFozgkYrV03UAjlXJKlcEHvWPinAEEEHFZygpLUak07o6xNSTly4LDsG6is+/1KFpdqAEsQdpPA/GshJZFGA2B9KaSrZOF+Y5JA61kqFmaOtcdduslxIyjCluBnP61XxT8e1JjvXQlZWM27u4ylp2KTFMQlKOvNFKB70ADLj6Ug6VNgbMkkYPA9aYBnnFKLuDDApDTiecUhFMkQGlpVwO1B+lACE0g5oxmnAYoASigilxQAmKKXFGKAuJRTsUn4UANopTRQMbijFOxQRigLjaKXFAH5UAJRS0uKAExnpSEAU6g0AJSUtGKAACngEgAdSeKYOOtdZ8PNHbV/FOnxtax3MCTKZI5X2I/oCfc0pOyuG7sa93H9mtNOtxIv7q2VWiBBKt1Ocd+apalPDChlZwJHBPOAfyrrfGcVoNSQRv5kyLiWTbtIOehGSOPbt1zXn+uiyV+SxmI6DpXBFKdSx1yfJTujFZ92OAoxwFqMtlsE8UnSk716Jw2HHHUcUmBQT60mRQFhaP5UcelGc/hQAECkp/AHTpTQaAQlFLSN1oGJRQc0UhgCO9HFJijvQAtFGPWigApKWkoAKOtIM0UDDFBHFHSlzQAmPSlAoFHPSgAxSYpc0UAJSjmigHByKBC449qMCkLZ4pc9qAExRijNJQMMUYqaK1nlt5bmOJmhiIWRh/CTnGfyNQigAxRQc0daAEopSKMe9AXExRilpQBQA3GKWlOKSgBRmilGKVqBDc0tJS0AFNIp1GKAuNxzSilooAAeaRVKhgD8pOce9KOKKLXC9g96DRRnnmgANNIp1FAFjT7Ce/laKAqCqljuPXHp6mrd9FaafL5Nv5jyBMM8mDkn0HYfrWarMv3WIpCSTliSfU1Di29diuZW03AnJyTk0q4xTaeuMVoiRMU7HHNL6YFIaCRMUmM0oNBNAABQaXdmkPXtQAHmkxR2oGTzgkD0oGKBijGa2YPDmqSW4uJFt7eJgSpuJ0QtjsFJz+lZLIUd1OG2HBKnIouDuNxS4HSkOcZ7GkyaBAaTFLmkGaBigYoOKOtJQAmKXApeO4pcCgLjcUU7tSCgBMUYp1B9KAuMxzSgUA0tAXE2iui8Faw+h65a30RXcki53DI25+b9K58g0nTpSaurAmd/wCJJr6K9ZbvCu7sQ0abUc+o9eCPzri76N0mPmEsSMgk54q7p/iLU7JRGHiniB+5cRLIP1GRVK9vpbpizhF9lQAD8qxp03CWhc586Vyp1NSP5OwbN+7vkjFR5Jq1Dp99OpaK1lYAZJ28AfWtmQUzRj2q7JYzR22+RVVy+PLOfMAx1x6c9a2rXwZ4gu7GzuotKeKG5LFZ5pVQFRxkqeQM9+9DaHY5nFTx208mNkTncMr8v3vpXWx+CZjCsElyq3zybd24eTGoJByQcnJ6cV1Z8CzW8r28eo6nqF1axOLdraANAcAh4znvnI7ipc0hqLZ5K+AByBjqav6boeq6jcx29pYTSs+0/KONp75PAH1rXiudMs7Vpmtr9NRZSjLGvl+WwHVs5V1xjK4H4Umn6nqcVo1ppxuVgclgps93XGcEDj29KbbEl3Kd94V16za5aXSrxbeDJaVo+APU44rBzkeo9a9AsPE91aSKkLXN5JEhbE5MhgYfe4x2HftVrxO1x4ug0+fTNDS1uhGI1trZIwbnJ5k4UEAnPBJ5PA70uZ9R2R5qR6ikrqrfwZrF4ZEjSCK8Uf8AHm7bHyOo+bv39KqQ6E6XQiujGssUgE0Nw/kDryN57e9O6FZmBjninpGzuEA5xnBrc1LwvrWnzzqbVZY4wr7oZBIpRjhSCOCOMVe8K+ENV1+SR9IuYswqTM0zeV5fAPuSOSM+1F1uNI5MBs49KGBHWut8WeC7nwyLQyahb3c1wpYwojK8YGM5B+orL0zRZbu3uLiWaG3iiTepnbb5vIyFHc8k/gaLq1wt0MWirgtWnmeOFkYoCTg8EDqQar3EaRuVjk8xBxvCkAn2piIxjPPTvTyqYyvOfQ0WyRyXEaTSiGJmAaQgkKPXArqJdMtdNndbrUxFZlT5MsEZJkYYOASPpzilcZyxXA984xRGAcjj8amu5cuwWbzQTnftxz+VJbxeaTJIcIOpLDknp3pgRuIxgRlie+abgHj881beEJAk5mi3dkVgT+I61HKyeWhwwkOckdGHrQBXIwKSnrhmxuOf9kdaescQwXl5zjaBz/8AWoCxCOtFbWo6S1pDaSLdW7CdN/BwVHq3/wBashgVZlBBxxkUXCw3FGKkCALuIYZHFL5Mi/eG3nGD1/KgRBgCjFajaVcNcLawBJZiAfkkBHT1qtfWN5p03kX1u9vKRnY4wcfSgZT78daXBIPI4qRIpGG5UbbnG7HGanW0ZY4ri4zFbyMQshGc468DnFAEVilu93Cl5I0duWxI6jJUfStXUNBa1jM0d1DcEMQYIgQ6j1wwBx2yAai07RrjVp/s+m7bq6bcUgQEGQD+6SME+ijmtu+8I+I7ZiskHkz2wHmx+dzFkZUY5JJHYZNS3ruM48hkJVgQw6gjBFA5p86NHLJHIcurEHBzzSpE5wThR71QiM0dqmSPc4hwu4tjdnp/SleJY5WWRsBTj5TnNAiDNGBUz28ot1ufKkW3ZiqyMpCsfQHoaRlCqDzQBHilIxSq3BB54/KnrBK0RmEZ8vON2OM0ARUUHg4ozQAZozSUpHGcigLCZpcU0mjNAWHZFOGCOtR5FW7S2N0Gjg8x7rPyRIud4749/agLFcikxTiCCQQQQcEHtQTTEIRSYpaKAExzS4pcUuBigLjMU9enSgAU9duOlAmyLNGa9AT4UeMYrm3ju9JciRwGEMiOUXjLZzjv0zWhH8FfGIlkd1tEiVvlPmBiy+u3+lRzx7l8jPMY45JCRGhYgZIUZpZI5ImxIjKcA8jt2r0q7+Euu20iQQNcySsSHKxYUrxjGDnqec8e9a+ifCpvOs28TXE32XlSbdTnHYFjx39DS9pEfIzxqlAJzgV7hrvwMkVoZPD2rfaInBDLdjaV64bco5HQYxWNH8HbvTw1z4j1eKO1iCl47BDLK2WxgZAA+tHtIsORnk+cVZtY2MqloZHGeFX5dx9M9q9zt/AmnWk0Nta2du1vLJt33g3Sog/iOVwDzXc6d8NvC0OHS1jcu29yyCTf6YLZwPoBUuqkUqbPmK5F1doFjiDRxZBWJCUX6Y6/XOTWWceb5adc4Azivtk+G9EZVQ6dD5aDCxgYRfoo4rn734feFJpSslgMOQyxxkIQR3Dfe/Wkqy7B7JnyO4RQMMCc8gdqlW2kaITbdsZ4yxxn6V9Kap8G/CsunzpZI9vcPgpO0hYp+Zxj2rzDVvAt/wCFrCW91KVL235AW3DZz/DyFI69fbNWqkXsS6bR5kR2z+dJnFaUWi6xdyqtvpt1K8mSqpESWHXgd6c2i6m0Mkg0q8jEX32MTYH1yODV3JsZfPWk/OrX2G/8xoPsFx5qn5l8ptw+opj2d3GWElrMhU4IaMgj60XCxB0p2akaCddu6CUbvu5QjP0p/wBivQu77HPjOP8AVmgViDpR1q3Jpuoogkk0+5RD0ZoiB+dLBp1xPbG4hAlAOCicsPqKdwsVKOgrZ/4RnXPKEp06ZUO7GcZOBzxntVvT/BPibUgpsNKmmLdF27TgdSc8AfU0roLM5r3oycc10z+BfGEYbf4cvsjnAQH8OD1pv/CH+JVk2y+H75QpActGQF5xzRzIdmc4GoByQPX2ruP+EJVmitXle2vXmCYkz5bIc4ZSQPT1qzPoGneHGtJ7y/iuZcEx/Ygx3N2djwcKT2/+tS50HIefE4PPQ11fhPRbObUR/axchVZkt0UOJyAflODkdM/hXQ+HPCN7rUNxJpkE00c0jQzTugSJkIJEh5zkHHGO+cVftfh7r9tqcOoNLZC0EcYSaefmJhwMBcM3PI4FS5rYpQ6nF6xL4ZsZbKfS9OmvUaIiZb4PEnmewBzjv1NX4PGE1zYxafDZQWcAXy5hEv7sqerEtnaTgZ+nGK9S1PwPDqbnz0N2nn73nfCRsf4ivVsHg4BA69c1wHi3S9A8OXv2E22o6heMu4SiMCBCRgKqgjLZIPfGRUqSehTi0Ymk3Mr6hOr+RcgTLIxEwiSSNDnaWPb2/pW74z+Jl1qM8dtp9tZm1jXEgniWYM3cK393gHIx+lS/D/QtL1je11YSfa93lm38xreNB0LFiSc564x1x3r1Kw+FfhCC5keDS5HkGDtll3Re4weoz+NEpRT1BRbWh822UhnuEmvZEMG8A+YC+eeg7969P05/HmqSf2fogu7WyWBFW3EZWJI8nBMhBOe+Qc8165F8NfCQu3vJtIt2lZdu1UCxgegXt9etb72l/DbRWmmSwRRR4VXnBkIT0AGP1qJVU9ilTseP6d8NvF0Su+pHQrgOXZmd5GkYt/FuAHPX0z3Ndx4btIrBVttUitIbyBAltMlwCyoB0UdQvTr3zV+TSNTvrs/2hrN61kihmtzbIoL56ZCnK/jkV0ENlp9jCWEMMK7cO5A5HXknt9ahzbKUUjgPiHp6S+Ht1k0M7PIDIUO4qrdXCpjPqcggDJwayLjw9pVnqNtZ3Ooz214YhnUWuSsk5fqkSg5wTjrWjrXijQ7XVF1rTmvNRu4GaGN0bbbscHIQH7zYJ6dfWur0nUNSlt45L7RVDMokQqFRhnswY8MOOhNO7SFZNnG6J4Y0S1t7+xfU01eUSCSaSWTO0nICA5ODgc/5xcm+EXh24s5LRYpbaJwDHJHOS8RJyQNwIIrrpv7L0uN510aOF2XeWESDcRngt6j1964C/wDFXii8vne10DVXt4Fb90sgEMgI/iYKOmezZ4oTk9gaS3Kml6b4J+Gl3Na6l4gd5ZyoliwcLj7rEDkH1OO9c34z8W/2xeOfDuvGz0tIw7QqxhDsMY+UDLH2qtrmkaPq93bW8UEunpGwkke3ga4Ry3zM28sSGwMYJONtcpqvhm2s3V7XVwysGEdw6kw7u0YcD7xB9MDFaxSvd7kNvZGVq11q8slvHqP7xlw8bNyxDdAT39q3pX1y7sLaabz7mQPJDF5S8RKDgjgeuf0rK0rwvr095C0WjXF1GHwFWMlZMDoM4yPpXonwz0Kxg1G5k1WxlRyDGp+0YWAE/MTgnDDgHngVUmkiUmzW0/4Wm+8PWbuG05pPmuIwNzzZOQ2edvGOufSsLxJ4JXwxJpFpc6fBc6fPJI9xKZSCWPEa545xz0GScele26tpmqDQYbfwxcW1tcJOsxM25llUHcVJzn5uOa5/VfB954htpBq97cpcRuWgkt8RPCCclS5+8vGMAdgc5rFVH1Zq4LoeDeIvCJs7W9vrCIx2ti2y682QSGNmxtUlc4bke3v2rlr9LBWBs7iZ12jKyryDjkZ7j3r1zV/L0+31HRfE8uz7U8RnMChkuCMZIk4+YAblJ6dCK4yDQNOs7qS7YzTaX5YHmNbiZkWQcZUEASAe/Bwfatoy7mbicTjOSO3WpILd55ligAd2ICjgEk9Bz3rZhsrS7upYrOGeCKMfItx9+U/7R6KcfgO1aumaPfwT3TDw9LcXMJDRLHGJ1CglWJxnPPQ4646VTYrHKXFrLbM6T7Y5Uco0bHlSOvtSx2FzLEZo4y0Ybbkc5OM19KaHonga00+11O88MxQTyJuZ7y1kco+OhBBz+AxXWeHdDtZJxq889vOXiEcFvBaiGCFBjG1SNx55yT9KydW3QtUz5CFneJhjbFOer8Y+uenTv6VH5bOylZEZ85IPAB9819deKvDejx6TN9j8Nw3E7dBDEC7N0BOSN3U8M2D0ryrTPCzT+KYtLm8Gw6dDc2xV2ltz8rfxOjZYDkjHpTjVTE4WOI1G3vr+0jeO4ivpP3ecLGQSByo2gEAHg+tc9qGi6pZFDfWzQu/8DA5Udvw/wr3u8+EXhbSi2oyahe4QZZZF8xDkddqgHt2NZdl4Ou7jVJodPttltAQkU00RCAnnIQHIH1x0AoVRdBuDPFjbzW+xrOTzpeGJROVx09/8aGttRuZQ0zN9oZgoSfKsfpng19C6n8OBdWYvbewtk1e3ZQqHEMVwARksgJXOM46dOaW3+HNrcaM0WqXOp3VxuLKkLbVjk/vKCRkY4xk9uTR7VC5GeWnwtqdloaC71uEF9si2FsVfzl4538KCP7pOa4p5bZXkQeflgVIfGfYegH5V7Zrnw0tftMFqb69kh2LLtMCKOuCGfI5BydozWfZ/CES3Y8q9RYpMFUmh3SKuOd4BwDwec0Ka6sHBnl0MVlbwpcS+S207WiE7bs464CkY9feuqsNd0SWxggg00yahbkC28yyWdZCoJ6LtJ555zXca78OLq10MWUdpdXLMjKItPto+DyVZ3ZhuOee2M1wej+F/Gel61Ha2Oiaja+afLa4msy6EZGT0OB70+ZSCzRUvL7xbc3kE06JbIZd0ZWEW8anvjgYOT9c108t78ULy1uJLG2H2SzjOZvISMFSCMKX5Y9eRyc16rollqsjmS50+FJ1HFy1sW+Y9WAJAwcY4Gehrt1mhhigjvJo0kmO1FmZQznrgDucdhWTqeRah5nyK/g/VPIgvzaz3bSgSSpFjcN33cLjrnt+lbXhz4W6xrMZutWvDpk8pOyCa3d5HAH3iB90fXHSvpW6bQtGZ7mZLO0kl4LKqq8n4DlutULbV/Dj7zDL9nMx2vIVaElh0yeORR7V9A5EeOw/AlrmIz2viqJ4mGY3+yk7/AKjPA/OtLwN8JbYXMs+oataX0NvLiFrdFfew65ySMDpjr16V6Pe+KoFsrhdM03Ub2VV2xgW7KkzH0Y/jzVLRQ0NzBbro9lp8E8H+lPA4RY3HRQq/e78k4pc8rahyxudDqmj6bNos1ibVPsyKXMUSKASB0xjFfPtn4S0rxBpY1S2vLVGiRjdmaVi8BXOdyqNqjgYHf1r2GZxLqn9n6ff6q+JFeZjGjxOg52hmIA6Y455qhNqcFgNRM/hWGxsI0kuZi0CBZJBym4ngsxHHPXH1oi2thtJnzOtzFAl1b/Y4p4yxCysnzDB7HqAfSoJoL2IRu1rLCso3RqAw3D1A9OK6fULB/EmtreaBEJJ55N5eOPyURhjqhAVcH0J6V2snibXvD7Wz+LdNh1GbYBDJc2oDBc9FaMcDPqK3cjKx41JFLE7RyxPG69VdSCO/SgoQgbrnsK9v8RXOgfEE6VZNp95o97FJ++cxAIM8BC74J9sc9sUWvwp0m/ufslh4jtpBEzJKrHEsfHdAAc8dCelL2i6hydjxBlMbASLx1PamnYRuyQT29K+lh8G9AaGJW1G7mKx7AZVBAyckj+7Xlvi7wFb6P5r6PqZvmt2CT2nkESqc/eH95cY6d6cakWNwaPPreBriQIrImT96Rwqj6k8Ve/sW52zSedaGOF9jsJ15+g7jtkU+L7Z+9T7CGUsSzvaFypPYEjj9Kuado+qRyErYy3AdNogQkOwP90DOSPpiqbFYwAhDEAbsdSKvWMsum6hb3e9oXjYSIyNzxzwRXQ/8IV4xnuInbQLpWlYDLx4x06ngA+31qLR9C1nUw8MWhXNzYecN1wIgrKM9QxHseeRSuhWOg8ceJPCOuTvqSaRdJfzwiMvuBVSO/Yk9BnsOlecONxZ0UBc9B2Feo2vwpuNRjaTTUvPLJIR7navPYHHGPcHPtXTwfBK1Tie7nA8vPmMyqN5H3ep7/wBKlTjHS43GTPBSpCBzgL9RVuHS9Slsf7QisLl7LcU+0LGSmR1G7pXqM3wv8RWlxDYadfaK7sSwfzssCMZypUk/UVuP8NvEtxaxsdV0wAho2WWI7jxgkZGOoyMAYAGKbqIXIzwyeCe3CGWJkDjcpYcMPUetQk16xrvwn1C0KH+1YbhpAuCUcEc/MR13469vWsCTwLJaLLJf6lYKkMbShPMKmRR0wwU8kggKRk9qammLlZw2aepGK2dL8Oat4iurlfDulXFxFFliAQSq9s5I5+ldNB8IPH0kSyDSoFDAEB7pFYfUdjT5kt2LlZ9YkVGokU44K56k81LRXCdY0KM5xzTJYYZVCyxqwByAR0NS0UAVltI1yVMnJyR5hx+VRx2KxllX543JLiRiTV2igChJplu0qOqImDk7UGT+NW440hTaucDuTmpKQigCPO9uMjHII6UGIHPzNz2zx+FP2LuDY5FLwPagDKTQdNW7e9NspuH+8/Iz+A4q+yosYhWMMuMbTyP1qekwvWi4FX7Khi8k28OzGMY4/KqosWQOJpjIr8sNihAcdQOtaTOiLuLDFMNxBtLGQADrntQBVg0+1jZJPJTcoIGEAHNZGpaJpVw5ltNPgN0/H2lQpKDn19/T1rohNCQDvXB6GmlrdSW3xqfXIFO4rHmd/wCCtYvZTbvDE1qSD5kl2zjrn7hGBjtg/wCNdZofhW30+MG4l+0SY2n5AAB6cCulDqMfMv506m5Ngoozm0rTwd4s4GbOf3i7sfTPSmPomkvlzpdizFcAm3XOPritCZ3RNyKCfeqCX7SYKOm3OOFJpagJBoulxMHisIYyDuwq4AJHPFaQUKoVQMDjA7Cqv2l1ALRls8/KKU3ihtuwlvQMCRSGJeWMFyAJYg6j+AnAP4VjXfhu1mcH9+5Zm8wCcrgEYwOvoK3Bdr/EjA57DNKbu2Gd0yjHXJppsWhiv4V0eaGANbyGS3ZjFJI5JUk5Jx0P4iuD134aPf6wl1eanJMu8eXDbBbaOFO/TJJwOgwM816h/aFuQDGwIzioZLu2lLDcQR143U1JoTimZmiaP4f0KMwaVYfYzIAHYkksTgfMSTk1UTR7D+1hqC20TzKpUHywCuOg98VpS+U4IPzj3BGaWKNTJ5m9QD7UrsdgkDht5XO7+90PtWTqPha41WWPztckh+zgBAiKzLg5O7PDde46VpXcm07F+b1YjrXNeJdQ1aOSQz+Er3VLOHYYUtC0Zb5fmLkH5gDjAAPv0pq99BMS98N+C9GvYyqypd38oEflu8xLDqQnIA9cDoT2ruYRcw26rHbQ7xwdvyDHt1rhvCnjnwh4guRbq/8AZepwBgtvfYV1452k8Z9cc8V6JE4KKVIKnoc5yPWiV+oK3QWMHYNzA8VkG51C2a5kvPLkiaTFvDapl1H+0ScE960kuI50Z7crMFco204wQcEfWqVzfWkE8cd5bzQksfLkeEsuef41yBx64pIowNevfEkMLS6focl48jKqxpdLiM5ADEYXjGScZ/Ksm+1DWjrn9jX0UF9pUwC70XlVJ+YOoPGRwPXFdbf6qbKbcArwgcjpnpyCCfyxmqtz4w8PWUyLc3aI8ozkITke9UvQl+pXsdH+z3ptbWy01NMVAYzAzRTAds4A+nXt2rp4kghYhVIYgZ5zisObxr4UjtTctrtsYg23MZLtn6AE/jipI9XsJrX7VaXlzfwykbfKYcDPpwQKTuNWNa9ijntjE9slzE3WJgCG9OvFYGr6BfXcJXS7yKz34BSeMTLFg5+RegPvnsOBW8l1bvbmVkZEJPyuuCffHWo1uLaBSIoQik5PYfWknYGjyaz8AeK9N1e41O51iJoVVgjWSNvIIwAEx155PXrXT+HPDep3NsB4kkecxNlI2iVVc8/MwGc4B47iuv8AtryKwg8sdg3UVGpkeNRNMxcdSpIzVObYuVIxj4Mt1lmurSXyLqTvMDPGvXhULYUc9sVlx+DrgXrGdrSOJX3xHzXkjBJ5PknA3H13ED0rr3K84zn61A6q2P3rL6hf8aXMwsjUhjjjhSJJAFUYG3AH5Cobu0jnt54fOAEpywc7lzx2zwOOgxVP5APXjuKaeuVBHuOtIZhnwsIpp4PI025sLg7pfNQB92eT0PY4+la+iaRoukBhYQW0Gc7xHkKSfYnrRLbCdlZ+qnhsAH86ctr0AOcdm/zzTbYEtzpOh3EjTGG1WR2DMwVQWI9T1qLT9ItrKExstvNGP4ooxGR9QDj8Rio5rMu4YoGIOfvEVUe0vMOFCIWYdBuHuee9IDp/Pt412+cg29QWyRWfd6jprA20kjs03yhVyC34jp9azLezmjc+a0UiZJ+5g+3OasjzAx6L9O9AFLTjcWc720z3s1oXCDzAoEPcAcZYepya2kurJ5WEKLJjILr0z9fxrMjS8GotK1yfspQARY/i7mr+W7AUAEMUUARbSJIEQYCRjjHpTHtp0d54pSJ5CPNbk5AGBgE4FP3MDyBTvMb1xQBHBF8wLllAbJ3HOafcwLOwEgDRgY2kUvnED+H8aY1zIpIXH5UAVntoTIdyswBBAJYhcDjAzgVcjlkhXbHOpycneD/jVGbUJkHzBmH+yMmsbUNYdYnIsZmO0nBWgVzon1FfNTzNkmDn5OP61Zg1e1mkMe2RSOpIyB+VcHokd9cedcNF9mLtgrInf2x2rpLGFbRD8zPI3LOcDP8A9aiwJmzPqUYVvs8bSsDjkFV688kVn6lZWGrSW0l9awzm2fzIRIu4IxGM4PGcGpIpPNHzEc/w9cVYVVGATmgZQg06ytzuhtIUkyTvVAGOfepGghMnmtChkxjcRyauMV6ACoWxQAmd2cnORggnrSSQwOm3Yg45IUVGxA70gkx0oABaRdFQICcnaMU6W1jeFkMKMhGCrgMGHuDxT0uFA+ahplcYAoAzEtbeMhYraOMAYG1QuB6cVbyXjETcx/3SMip448nhasrbdzQBnyadY3c0V1cW8U1zF9yWRAzL6YzS2+jWUNwbmGyto5WOWdIVDE+ucZ71qrEq9FpxOz2ouFiNF8tAmwkegqMvFCH2JtdjnJ5Oae03bNUpZRzxSAdJczSFkbByMHjgio4bONpTMIoxIRtLhQCR6Z9KQNzgDmp0kkBwqge5pgI+lI1usEcUMcSuHChMAN6/Xk1Q8Q6fqt1ZNaaJqUFpIyhC80PmKAOyrwB+tabTS9A1MLORRcDlJtG+IEFnbQ2fiPR28pSHP2FlPsR8xH8q04bG+vYWh1S6luN6Akg/Krj/AGO4OK1lM3QdKkG7vindisUre1tYA7RR+YXYnJUrt4xt+ntU8lrDbQf6LbqWYr8qYyec854/qastt8oqQT14HOaxIUgwVjmkkiDE7Q2WU9yMfypDNuW3W5ZWmt1EyKVWQD5kz1IOOK4/UPhxp+pa1NeahH9rtXRQISwi2kd1KjP5n8K6WOPVVwYN4Ab+M/eH0Nb0YcIPMILY5IHFNNrYLXKGj6Rp+jWUdlptnHbwIuAq9fxPUn3NX0QIu1c49zmnUVIxu9P7w/OkMsY6uPzrAkuJQR0+6P5UwXTj73PrxTsK50YkjPR1/OgugGSy4+tc79oRuq80vnrjjIxRYLm/58P/AD1X86ikvIEYAsOehzWBJKzMTnB/vdzULSnOS5JosFzok1CF8lVkIHfbwaj+3s/+rjwOzH/CsAzvknccnjOajNw47Z/GiwXOjSaYkF5V9wCBUTzOrtmcup7cDH41z5uX+go+1OaLBc2JMyfMJWV/72Sf06U/KZLNKenIzWMLmQ+oH86kE7dSMj3FAF9niQFhuc9sUzzGYAlTj0FVllQn7mDUglY8EADtjrQA5iMhWJBPvTlclV3jHHIwDzTcg+tKGAPQ/jQA75S+5txA568k1K07E5V5B7M1QmUdOKYzIeoX8KAJnu5ChXzmKnjrmqsMVuSHCMuOmBTgY+wyTT1kZeikfhQBIfMPJk3r2BWmsY/lMiAlejKvIpnmyk8A/iKd2BbJ9qAJG1GIDDMfTlTTHuItxXCjjr600hTk8gHtmqrouMB3HsTkUCLaSRyId+1c9sE4qJtmQA2SvTacY/OqqxgPv8w+4ycfpSTMc8KMfSmBbNwVU5V2PQfMKUXrFcuiqD0NZJWQybhubjHIyB+FKbeXG4ktn1bpQFzTW8hjct5iiTp1zj/CphrjLjiSQ+mz+tYbQv6Y+tO8rnjPTvQFxNcj8P66SNZ8N2t4TwXmRQ+PZhzWxpGo6TYWkdnD9pihiG2MSOX2D0BPOKx/Lx0KfjTjZrNgeYwYcjaBQB1dlqNlICkV4059Xxx7dBSXGr2UcnkyFznIJUZA9s1zkEMds4WRnJP8JOAfwpt7e2kUg8x4w3aNPmb8qVguaF1baRfRyRyXT/M33poEfA9BuU8fr71DHZeGY5keOGO6lA4aKPOPxHA+lUI51mlV44pR2IYlcj2H+NTb5Fyotdig8EtjIpgaQu7FPmg0m2jbPWRVU/oKrzXAnljlaGz3RNuiKxZKHGMgn24qjMJZWX5yoHVSuanh3qQBgE/e/dgZ/WgC2ty5yz5/AVJHcrjA3EH261UmE+NrIDnjPTFRLHMZApTCn+MEECgDVE2ei4OO9P8Anxneo/GqUduh+84J/LFS/Y42GRKwbpw3/wBakMtNjODlqFUMflyD702JZI4tn7sgcA9P6Ux5HDAMEx2O6gCVt6n5j+tKG6c1AtwDkfrTTPg8GgCy3P8AHT1bj71UWuCepFMExFAGlk5ycEUvbIz9KzvtDAUfa2oAv4z1GKay1S+1ml+0k0ATsrDo+KBI6jG5T7mq/mk0wsT3oAueZ3ZvypvmRnkE5qpmlDFTleDQIsvbmUHDHFQmwkH/AC1OfrTd7dd1J5jf3m9KAJfsh/ifikMADbh19aiMh7k0m6gBzpKOm0jPFLg5wVGMdc0zIPc0cdgTQBMj7ORz9Kk+0vtIAAPaqoB/umnbGPagCUTkfecH6CkM/wBaYsZpwjHcigBhkkP8Iz9aXDEcmpAi+1PwvtQMiVR6/pUyy7OAB+VHyjuKN6KeooAsrK3XatSLO4/gFUvPQd6Qz59fyoAutdt2FV3uCTyKgMo64J/CnK56rGc0AKWU8lKTMY7Co5POJ9B70mzIzmgCYPH1A59acZqhEbqeRRsPpQBN53XmlEhNQFccml34HyrkigCVpCOhphackbTVd7hgD+5J+lVrnzbhQsTGJ+wLDn39aALV5JPbwPKjSybeqRj5jz2qPR9T0iBHnuVe0nkJLGVWBP0FUd1xbyKt3eRFiMYCDn0PJrSjuxtDBsjpkUCN6HULOZFkinVlIyCO4p63URJ4bHrjg1hfaFI6j8qBIOu6iw7m/wDaYf7+PqKkV0YZVgR9a5tmz/GauWs0vlnkdfSgLmFff2hHKqWtsbnIHIfaAMd80tvFqkrHfaJEucZd+T+VdObUuAwK4Kj+VH2Juny0XFYwPIv16rE3H8L4/Dmommli/wCPmNoxjlk/eKPbiukNkx67KPsbdPkoGc6ZYnVmVmdFXcSEI/D61XivLeZUMaTndjAMDZ5/CupNiT1EdKbJypXcuPSi4rHJNdRK7K0UoC9WZMCkN5bBScpjqctjH511Q0xBztT8SaBpqgsQEBbr7/pTuFjl7aT7UgeOFth5B4q0kLnA298YI5roRYnGMj8zSf2dySSpz/n0pXCxz4gk+8sRHtg5FBXaRuSQe+w4rfOnHsVpRp+P7n5mi47GCgIcxhGJ9SMAfjTon3khYjwcZZgP0zmt37B/u/nSHTwf4Y/yoCxkM0g48jP+6Qf600tNn/VFR9M1sf2dxj5B9KQ6a2MBkB9etAGMrSAAMV/KhjNj5VQ/UE1sDTpQ2fMiP/AKlFlIOkij6CgDGSKZ+qsP+AYqcQ3AHAOPpWm9rMekiikFpcYwZl/KgDN8uTuD0zk8UbGBwV+XHXd/StMWkndkP50x7KY/dMZ+pNAGUwJH3HB+maqyJO2NnA962/sV1n/lhj6n/CnCwm7+V+BNAGD9knBwZuevFIbVgcNO9dD/AGdn7xWk/s1c/wAH5UXCxzbFI2VfMd3bou4CnLIHXhcZ7nJrof7N90pf7O9CuaLiscq1teSMp86HYM7lZWyfpUj2hYENJn0G3GD69f8AGumOnN2KfrR/Zx/2P1ouFjnLSzSLA8zzDjBDdPy6VoquzBXYuK0v7NHcJ+tA00DoEH50XGZUlukhO/vySOM/Wo10u1zlIUDeoGDW19gYdNlO+wt/eWgDCGlx52rI4Ps3SnCxA63Ezf8AAq2/sTeq0osm9R+dFwsYwtkXADE/7y5pjwSE5WQKAPu7TzW39hJ6spo+wn+8tFwsYqwvjmUZ+hHFK0JA4kye+c1tfYfcUfYv9386LhYw/IfAG8ADoAaRY5lzt5Hb5q3DZN2KH65pVsz/ABBM+xNFwsYEiXZxng44wc0zy5iFJydw9K6P7GfRKPsbeq0XCxznluRn5h+FKIj/AHj+VdD9kbplaQ2RPdaLgc/5XuaPL9zXQGwz3Wm/2efVaLiMLyh60FB7mtz+zvdfzpP7O9SPzoAxQuP4aXHt+dbH9nc/eFB0/wD2hQBkcikGfStn7Bx94UfYPUj8KAMjAz0NBHoDWsbA54KfjS/2e3+x+tAGLhuyml2t/d/Wtj7D/u/nR9gyeCKBmRs5ztH1pwAxzWr/AGec9VI+poNgexUfiaAMvApcegrV+wN6r+dH2FvVaAMvB9KMN6VqfYW9V/Wj7C3qtAGXhwKTD1q/YW/vLS/YW/vLQBkbX9KNr1r/AGFvVaPsLeq0AYxV/Q/nRsc9RWx9hb1Wj7C3qtAGL5cmMYpPLlyemK2/sDeq0fYG9VoCxjqJAehx6ZqTdJ2JH0rU+wH1WkOnn+8PzoAzd0h6nP4UuB6VoHTT/eH50n9mH++PzoAo47ZP50u3Pr+dXRpjD/lp+tO/s9x0kFAFHZnufzpdgz6e2au/YZP+egpfsMn98UAUNnuahktIHO50UnpkjkVrfYX/ALy0fYW/vLQBh/2dbqDtVdxOSdoJJ7ZzVWexmRQsFtDJnhiwC5Hr3rpvsTeq0v2J/wC8tArHF/Zta81tsMCIoIA84gNz/dAHarUNvqOT5jbc9WwCAPQD/Gup+wtjqtH2A9fkp3Cxz8aSYPmOclvlBjwAP8asWsc5jbEkPDY5LCtn7Ew7rViCDy0IOM5zxSuOx//Z");
+  /* The texture above is a 700x350 equirectangular map, and `cover` on this
+     250px circle renders it at exactly 500x250 - so the scroll loop has to
+     travel 500px to land back on a seam. Stated explicitly rather than left
+     as `cover` because the keyframe below has to match it. */
+  background-size: 500px 250px;
+  background-position: left;
+  border-radius: 50%;
+  /* Isolates the blended city-lights layer below so it composites against
+     the globe instead of the page, and the filter is what actually makes
+     the daylight side read bright rather than muddy. */
+  isolation: isolate;
+  filter: saturate(1.3) brightness(1.14) contrast(1.03);
+  animation: studentHubEarthRotate 30s linear infinite;
+  /* Inset only - no outer glow at all, per explicit request (the bloom this
+     briefly had, and the source artifact's own faint white one, are both
+     gone). Sun sits on the RIGHT: a positive-x inset shadow is cast from the
+     left edge inward, so the positive-x entries here are the night side.
+     ONE night wash, not the original's two near-opaque black ones. Stacking
+     several of these is what made the globe read as half-unloaded - three
+     overlapping washes, the widest reaching 200px into a 250px disc, left
+     only a sliver of lit land. A single 95px wash keeps a readable
+     terminator (the city lights below need somewhere dark to sit) without
+     eating the sphere. Black at 30% rather than the atmospheric navy it was
+     briefly - explicit request. */
+  box-shadow: -5px 0px 9px #e6fbff inset, 10px 0px 18px rgba(6, 22, 48, 0.45) inset,
+    -22px -2px 30px #c3f4ffaa inset, 95px 0px 46px rgba(0, 0, 0, 0.3) inset;
+}
+/* The one remaining detail layer: city lights on the night side. (A cloud
+   deck and a specular/limb layer both lived here too - each dropped on
+   explicit request, the cloud deck last.) Screen-blended so it can only
+   ever ADD light, and locked to the surface's own 30s and 500px tile so the
+   lights travel with the land under them rather than sliding across it.
+   Back to the original 9 points on request - a 24-point core-plus-halo pass
+   sat here in between. The mask is what keeps them to the shaded limb, so
+   it's the knob that decides how many are on screen at once. */
+.student-hub-earth-lights {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.7px 1.7px at 8% 36%, rgba(255, 214, 150, 0.95), transparent 60%),
+    radial-gradient(1.4px 1.4px at 13% 48%, rgba(255, 226, 170, 0.9), transparent 60%),
+    radial-gradient(2px 2px at 19% 30%, rgba(255, 205, 130, 0.9), transparent 60%),
+    radial-gradient(1.3px 1.3px at 24% 60%, rgba(255, 232, 185, 0.85), transparent 60%),
+    radial-gradient(1.6px 1.6px at 31% 42%, rgba(255, 214, 150, 0.8), transparent 60%),
+    radial-gradient(1.2px 1.2px at 44% 68%, rgba(255, 226, 170, 0.75), transparent 60%),
+    radial-gradient(1.8px 1.8px at 57% 34%, rgba(255, 205, 130, 0.75), transparent 60%),
+    radial-gradient(1.3px 1.3px at 72% 56%, rgba(255, 232, 185, 0.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 86% 40%, rgba(255, 214, 150, 0.7), transparent 60%);
+  background-size: 500px 100%;
+  background-repeat: repeat-x;
+  opacity: 0.8;
+  -webkit-mask-image: radial-gradient(circle at 14% 50%, #000 0%, #000 30%, transparent 68%);
+  mask-image: radial-gradient(circle at 14% 50%, #000 0%, #000 30%, transparent 68%);
+  animation: studentHubEarthRotate 30s linear infinite;
+}
+@keyframes studentHubEarthRotate {
+  0% { background-position: 0 0; }
+  100% { background-position: 500px 0; }
+}
+/* App-level reduce-motion toggle (usePathStore) - the OS-level one is the
+   media query below. */
+.student-hub-earth-stage[data-reduce-motion='true'] .student-hub-earth-banner,
+.student-hub-earth-stage[data-reduce-motion='true'] .student-hub-earth-lights {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .student-hub-earth-banner,
+  .student-hub-earth-lights { animation: none; }
+}
+
 html.high-contrast {
   color: #000 !important;
   background-color: #fff !important;
@@ -667,6 +1051,26 @@ html.dark-mode .dark\:text-emerald-100 { color: #d1fae5 !important; }
 html.dark-mode .dark\:text-emerald-400 { color: #34d399 !important; }
 html.dark-mode .dark\:text-amber-100 { color: #fef3c7 !important; }
 html.dark-mode .dark\:text-amber-400 { color: #fbbf24 !important; }
+
+/* Another carve-out, same reasoning as the block above: the header's 4 idle
+   "white button" icon buttons (Student Hub pill, Trophy/titles toggle, the
+   signed-out Sign in button, Settings) - App.tsx and RollStandingPanel.tsx,
+   each marked with .header-icon-fixed - are meant to look identical
+   regardless of theme, by explicit request. Three classes each (.dark-mode +
+   .header-icon-fixed + the color class being restored) outweighs the
+   two-class blanket rules above (.bg-white, .text-primary) on specificity
+   alone, so these win without depending on being written later in the file.
+   The color rules also need the trailing `*` descendant selector: the
+   blanket `html.dark-mode body *` rule above sets color directly on every
+   descendant (the icon svg, the label span), not just the button, so
+   fixing the button's own color isn't enough - those children inherit
+   nothing because they each already have their own explicit (if losing)
+   color declaration to beat. */
+html.dark-mode .header-icon-fixed.bg-white { background-color: #ffffff !important; }
+html.dark-mode .header-icon-fixed.text-primary,
+html.dark-mode .header-icon-fixed.text-primary * { color: #1e3a5f !important; }
+html.dark-mode .header-icon-fixed.text-indigo-700,
+html.dark-mode .header-icon-fixed.text-indigo-700 * { color: #4338ca !important; }
 
 html.dark-mode input,
 html.dark-mode select,
@@ -872,7 +1276,18 @@ html.dark-mode .binder-texture {
    new one. */
 .legendary-reveal-card {
   position: relative;
-  width: 300px;
+  /* min(300px, calc(100vw - 64px)), not a bare 300px - JobMarketRollPage.tsx
+     wraps this card in two nested px-4 (16px) padding levels below the sm
+     breakpoint (its own controls row + the result wrapper), consuming 64px
+     of viewport width before this card even starts. A flat 300px overflowed
+     that available width (viewport - 64px) on common ~360px-wide phones -
+     this shrinks the card to fit instead, only kicking in below ~364px
+     where a plain 300px card doesn't actually have room. Same fix applied
+     to .celestial-reveal-card/.mythic-reveal-card below, and to every
+     w-[300px] Tailwind class pinned to match one of these three cards
+     (the floating "click to reveal" sealed cards, and each tier's 3-button
+     action row underneath). */
+  width: min(300px, calc(100vw - 64px));
   height: 440px;
   border-radius: 24px;
   cursor: pointer;
@@ -981,7 +1396,9 @@ html.dark-mode .binder-texture {
    (z-index handled by paint order - this pseudo-element comes first). */
 .celestial-reveal-card {
   position: relative;
-  width: 300px;
+  /* min(300px, calc(100vw - 64px)) - same narrow-phone overflow fix as
+     .legendary-reveal-card above, see its comment for why 64px. */
+  width: min(300px, calc(100vw - 64px));
   height: 440px;
   border-radius: 24px;
   cursor: pointer;
@@ -1086,7 +1503,9 @@ html.dark-mode .binder-texture {
    image/text/::after. */
 .mythic-reveal-card {
   position: relative;
-  width: 300px;
+  /* min(300px, calc(100vw - 64px)) - same narrow-phone overflow fix as
+     .legendary-reveal-card above, see its comment for why 64px. */
+  width: min(300px, calc(100vw - 64px));
   height: 440px;
   border-radius: 24px;
   cursor: pointer;
@@ -4126,4 +4545,858 @@ html.dark-mode .cl-switch > input:checked {
 }
 html.dark-mode .cl-switch > input:checked + span::before {
   background-color: #06b6d4;
+}
+
+/* Site-wide font-size normalization to 16px, headings excluded - per
+   explicit request. Every non-heading text element across the app
+   currently sets its own size through a Tailwind text-* utility class
+   (text-xs/sm/lg/xl/...), each a single class selector - a plain type
+   selector like this one can never out-specificity a class selector
+   through source order alone, so !important is what actually makes this
+   win everywhere at once instead of only on elements with no text-*
+   class of their own. This is intentionally broad: it also overrides
+   small UI chrome (badges, captions, timestamps, pill labels) that used
+   to be genuinely smaller than body text, not just paragraph copy - if
+   any of that reads too large now, it needs its own explicit exception
+   added here rather than reverting the whole rule.
+   :not(h1, ...h6) only excludes an element that IS itself a heading
+   tag - text nested INSIDE a heading (a styled <span> for part of a
+   title, say) still matches this selector and gets forced to 16px too,
+   since :not() only checks the element's own tag, not its ancestors.
+   The Roll a Job page and Binder card tiles are carved out right here in
+   the selector (explicit requests - both keep their own text-* sizes, see
+   JobMarketRollPage.tsx / BinderCardTile.tsx). They used to be undone
+   afterwards with `font-size: revert`, but revert rolls back to the
+   BROWSER default, not to the element's Tailwind class, so their 9-11px
+   text still rendered at 16px (measured). :where() keeps this rule at a
+   single type selector's specificity so the class-based exceptions below
+   keep winning. 1rem (16px by default) rather than a fixed 16px so the
+   Accessibility panel's "Larger text" (html.larger-text raises the root
+   size) still scales body text. */
+body :where(:not(h1, h2, h3, h4, h5, h6):not(.roll-job-page *):not(.binder-card-tile *)) {
+  font-size: 1rem !important;
+}
+
+/* Explicit exceptions to the rule right above - has to be positioned AFTER
+   it (not just carry its own !important) to actually win: two competing
+   !important declarations of equal specificity still resolve by source
+   order, so an exception rule placed BEFORE the blanket one (e.g. relying
+   on Tailwind's own `!` important-variant utilities, generated up at
+   @tailwind utilities near the top of this file) would still lose to it. */
+.title-badge-count {
+  font-size: 11px !important;
+}
+
+/* LeaderboardPage.tsx - the blanket 16px rule above was making every row's
+   name/subtext/score render at the same size as everything else on the
+   page, losing the size hierarchy those elements' own text-* classes used
+   to give them (name bigger than the roll-count line, score in its own
+   text-lg). Explicit request: instead of restoring that old hierarchy,
+   pull name/subtext/score down to one shared smaller size so the whole
+   row reads as compact, secondary information next to the tier pips. */
+.leaderboard-row-text {
+  font-size: 13px !important;
+}
+
+/* TitlePill.tsx - shared by the leaderboard, the Titles tab/panel
+   (RollStandingPanel.tsx), Profile, and the Binder header, so fixing it
+   once here fixes the pill's size everywhere it's used at once. Restores
+   its originally-intended 11px (see that file's own top comment). */
+.title-pill-text {
+  font-size: 11px !important;
+}
+
+/* LeaderboardPage.tsx's "You" badge - same 10px it was always meant to be. */
+.you-badge-text {
+  font-size: 10px !important;
+}
+
+/* The blanket rule lifts text-xs (12px) up to 16px, but Tailwind's text-xs
+   also sets a 1rem (16px) line-height, so wrapped lines of that text sat
+   with no gap between them (stat labels, the debt calculator's notes).
+   This gives them normal body spacing. Anything with its own leading-*
+   class keeps it, the areas the blanket rule skips are skipped here too,
+   and so are the Accessibility panel's text modes (they set their own). */
+.text-xs:not(h1, h2, h3, h4, h5, h6):not([class*='leading-']):not(.roll-job-page *):not(.binder-card-tile *):not(html.larger-text *):not(html.dyslexia-font *) {
+  line-height: 1.5rem;
+}
+
+/* PersonaCard.tsx/RoleSelectionPage.tsx - the carousel's cards deliberately
+   keep one fixed bright/white identity regardless of the site's real
+   light/dark toggle (explicit request - a hero-like featured section, same
+   idea elsewhere in the app). But this file's own `html.dark-mode .text-
+   slate-900 { color: #f8fafc }`-style rules above assume every light-mode-
+   styled element ALSO has a correspondingly-darkening background (the
+   matching `html.dark-mode .bg-white { background-color: #111827 }` rule),
+   which these cards don't - their background is a fixed inline style, not
+   a `.bg-white` class, so it never darkens. Toggling real dark mode on
+   with no carve-out here turned that into literal white-on-white text
+   (confirmed live) - these four rules are what keeps the cards' own text
+   at its intended colors no matter what the toggle is set to, the same
+   "extra class beats the blanket rule's specificity" pattern as every
+   other carve-out in this file. Accent colours vary per persona (so can't
+   be a plain hardcoded value like the other three) - read from a CSS custom
+   property instead, set inline alongside `color` on the same element
+   (custom properties aren't `color`, so the blanket rule never touches
+   them, letting the actual value ride along untouched either way). */
+html.dark-mode .persona-title-text { color: #0f172a !important; }
+html.dark-mode .persona-tagline-text { color: #64748b !important; }
+html.dark-mode .persona-label-text { color: #6366f1 !important; }
+html.dark-mode .persona-accent-text { color: var(--persona-accent) !important; }
+
+/* KnowGoalPersonaTree.tsx - the constellation used as the "I Know My Goal"
+   persona's visual on RoleSelectionPage.tsx (the way student-cube-* is
+   Student's and student-hub-earth-* is Student Hub's). Classes prefixed
+   `goal-tree-*`. Colours are hard-coded rather than themed: the carousel's
+   cards keep one fixed identity regardless of the site toggle, same as the
+   four carve-outs directly above. */
+.goal-tree-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 250px;
+}
+
+/* The sky. Without it this is a flowchart: slate lines and outlined dots on
+   a white card read as a diagram no matter how they're arranged, and the
+   same points as glowing stars over a dark field read as a star chart at
+   once. Three stacked washes - two faint nebulae and the night itself -
+   every one of them fading to FULLY transparent before its own edge, so
+   there is no rim anywhere: it sits as a patch of night on the bright card
+   rather than a dark panel cut into it. Inset is negative so the wash
+   reaches past the drawing's own corners before it runs out. */
+.goal-tree-sky {
+  position: absolute;
+  /* 330x330 around a 250 stage. `closest-side` pins the night's own radius
+     to exactly half of that (165), which is what makes the fade predictable:
+     dark through the chart's widest star (~108 from centre) and fully gone
+     by 165, so the sky sits inside the card instead of bleeding onto its
+     neighbours. Without `closest-side` a circle gradient sizes to the
+     farthest CORNER (233 here) and the whole cloud lands half again too
+     big. The long, early fade is deliberate: a short one gives the sky a
+     defined rim, and a dark disc parked next to Student Hub's dark globe
+     reads as a second planet. Diffuse, it reads as sky. */
+  inset: -14%;
+  background:
+    radial-gradient(ellipse 58% 42% at 30% 30%, rgba(129, 140, 248, 0.2), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 72% 66%, rgba(217, 70, 239, 0.14), transparent 70%),
+    radial-gradient(circle closest-side at 50% 46%, #1b2450 0%, #171f46 28%, rgba(18, 24, 54, 0.82) 46%, rgba(16, 21, 48, 0.42) 70%, rgba(14, 19, 44, 0) 100%);
+  pointer-events: none;
+}
+
+.goal-tree-svg {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  /* Star glows sit slightly outside the box - clipping them would read as a
+     frame around the chart. */
+  overflow: visible;
+  /* The bright stars' own hit circles opt back in below; nothing else in
+     here should swallow a pointer, since a click anywhere on this card is
+     the carousel's "select this persona". */
+  pointer-events: none;
+}
+
+/* The chart's own joining lines - the faint hairlines a constellation is
+   drawn with, always on, under the bright route. Without them the stars
+   read as scatter and the lit polyline as a zig-zag through them; with them
+   every star visibly sits on a branch, so the shape is a tree before
+   anything animates. */
+.goal-tree-branch {
+  fill: none;
+  stroke: rgba(199, 210, 254, 0.3);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+
+/* The field behind the chart. Tiny and dim on purpose - these are the sky,
+   not nodes, and nothing here should ever be mistaken for a charted star. */
+.goal-tree-field {
+  fill: #e0e7ff;
+  opacity: 0.45;
+  animation: goalTreeTwinkle 3.4s ease-in-out infinite;
+}
+@keyframes goalTreeTwinkle {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 0.72; }
+}
+
+/* The traced route, riding on top of the branch it travels along. Drawn by
+   dashoffset over a path normalised to pathLength=1, so one CSS transition
+   covers routes of wildly different real lengths (the component hands each
+   one its own duration inline). */
+.goal-tree-route {
+  fill: none;
+  /* Set here rather than as a `stroke` attribute on the element - CSS beats
+     a presentation attribute, so the attribute would never have won. */
+  stroke: url(#goalTreeRouteGrad);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  transition-property: stroke-dashoffset, opacity;
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1), ease;
+}
+.goal-tree-route[data-active='true'] {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+.goal-tree-route.glow {
+  stroke-width: 7;
+  stroke-opacity: 0.3;
+  filter: blur(4px);
+}
+
+/* The stars. Brightness carries the meaning, the way it does on a real
+   chart: the ending points and the root are the bright ones, the waypoints
+   between them are faint until a route lights them. No stroke on any of
+   them - an outlined dot is a diagram symbol, a filled one with halation
+   around it is a star. `r` is set in CSS as well as on the attribute so the
+   lit state can grow it; the attribute stays as the value anything without
+   CSS geometry properties falls back to. */
+.goal-tree-star {
+  stroke: none;
+  fill: #e8edff;
+  transition: fill 0.36s, r 0.36s, filter 0.36s;
+}
+.goal-tree-star[data-kind='waypoint'] { r: 2; fill: #b9c4ee; }
+.goal-tree-star[data-kind='tip'] { r: 3.4; }
+.goal-tree-star[data-kind='root'] { r: 3.6; }
+.goal-tree-star[data-lit='true'] {
+  fill: #ffffff;
+  filter: drop-shadow(0 0 5px rgba(196, 181, 253, 0.95));
+}
+.goal-tree-star[data-kind='tip'][data-lit='true'] { r: 4.4; }
+.goal-tree-star[data-kind='waypoint'][data-lit='true'] { r: 2.8; }
+
+/* Halation - a filled radial fade, not a stroked ring, which is the whole
+   difference between a star and a target symbol. */
+.goal-tree-glow {
+  fill: url(#goalStarGlow);
+  opacity: 0.4;
+  transition: opacity 0.42s, r 0.42s;
+}
+.goal-tree-glow[data-lit='true'] {
+  r: 17;
+  opacity: 1;
+}
+
+/* Four-point diffraction spikes, on the bright stars only. They are what
+   says "these are the ones you can pick" before anything is hovered, and
+   they flare rather than appear when a route lands on one. */
+.goal-tree-spikes {
+  fill: #dbeafe;
+  opacity: 0.22;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.42s, scale 0.42s;
+  scale: 0.7;
+}
+.goal-tree-spikes[data-lit='true'] {
+  opacity: 0.9;
+  scale: 1;
+}
+.goal-tree-hit {
+  fill: transparent;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Arrival: one ring pulse off the star the route lands on. Mounted only
+   while its own star is active, so it replays every time. */
+.goal-tree-pulse {
+  fill: none;
+  stroke: #c4b5fd;
+  stroke-width: 1.6;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: goalTreePulse 1.08s ease-out backwards;
+}
+@keyframes goalTreePulse {
+  from { opacity: 0.9; transform: scale(1); }
+  to { opacity: 0; transform: scale(3.4); }
+}
+
+/* App-level reduce-motion toggle (usePathStore) - the OS-level one is the
+   media query below. Everything still reads as the same object: one route
+   posed already-drawn, nothing moving. */
+.goal-tree-stage[data-reduce-motion='true'] .goal-tree-field { animation: none; }
+.goal-tree-stage[data-reduce-motion='true'] .goal-tree-route,
+.goal-tree-stage[data-reduce-motion='true'] .goal-tree-star,
+.goal-tree-stage[data-reduce-motion='true'] .goal-tree-spikes,
+.goal-tree-stage[data-reduce-motion='true'] .goal-tree-glow { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .goal-tree-field { animation: none; }
+  .goal-tree-pulse { display: none; }
+  .goal-tree-route,
+  .goal-tree-star,
+  .goal-tree-spikes,
+  .goal-tree-glow { transition: none; }
+}
+
+/* CareerChangerSplitFlap.tsx - the Career Changer persona's visual on
+   RoleSelectionPage.tsx. Port of the "Split-flap board" specimen in the
+   persona artifact. Classes prefixed `career-flap-*`. Colours hard-coded
+   like the goal-tree block above - the carousel keeps one fixed identity
+   regardless of the site toggle. */
+/* Bigger on request, twice now (cells 32x46 -> 40x58 -> 50x72, glyph
+   21 -> 26 -> 32 -> 44px). The board grows by its own geometry rather than by
+   raising PersonaCard's wrapper scale past the 0.72 all four special
+   personas share - a transform scale would have blown up the 1px cell
+   seam and inset hairlines along with everything else. The size lives in
+   the three custom properties below so the phone override at the end of
+   the block is a three-line change. 6 cells at 50 + 5 gaps at 6 + 36 of
+   padding = a 366px board, so the stage widened to 400: as a flex child
+   of a narrower stage it would have been shrunk back down to fit,
+   squeezing the cells with it (flex-shrink below is the belt to that
+   braces). Height stays 250 - the board is only 108 tall and centred, so
+   there is still slack there. */
+.career-flap-stage {
+  --flap-cell-w: 50px;
+  --flap-cell-h: 72px;
+  /* The letter itself, on request again. 44 in a 72px cell puts the cap
+     height at roughly 31px and the mono advance at 26 of the 50px width,
+     so the glyph nearly fills its flap - a real Solari cell - without
+     clipping on the cell's overflow:hidden. */
+  --flap-glyph: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 250px;
+}
+/* Phones: the carousel sets its neighbour spacing at 62% of the viewport,
+   so a full-size board (366 * 0.72 = 264px wide) would reach under the
+   blurred persona either side of the centred one. A size down keeps the
+   gap. */
+@media (max-width: 640px) {
+  .career-flap-stage {
+    --flap-cell-w: 44px;
+    --flap-cell-h: 64px;
+    --flap-glyph: 38px;
+    width: 340px;
+  }
+}
+.career-flap-board {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+  padding: 18px;
+  background: linear-gradient(180deg, #1b2534, #111a26);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 26px -14px rgba(13, 21, 38, 0.6);
+  transition: box-shadow 0.3s;
+}
+.career-flap-board:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 22px -4px rgba(16, 185, 129, 0.45), 0 10px 26px -14px rgba(13, 21, 38, 0.6);
+}
+.career-flap-cell {
+  position: relative;
+  width: var(--flap-cell-w);
+  height: var(--flap-cell-h);
+  background: #0b1220;
+  border-radius: 6px;
+  /* 240 -> 300 -> 375 to hold the original flip: perspective is absolute, so
+     leaving it while the flap it foreshortens grew from 23 to 36px tall would
+     have made the same rotateX read as a harder, more distorted tumble. */
+  perspective: 375px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.16);
+}
+.career-flap-cell::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(2, 6, 15, 0.9);
+  z-index: 3;
+  pointer-events: none;
+}
+.career-flap-glyph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: ui-monospace, "Cascadia Mono", "Cascadia Code", "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--flap-glyph);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #34d399;
+  text-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+}
+.career-flap-flap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 50%;
+  overflow: hidden;
+  transform-origin: 50% 100%;
+  animation: careerFlapFlip 0.13s ease-in forwards;
+  backface-visibility: hidden;
+  z-index: 2;
+}
+.career-flap-flap .career-flap-glyph {
+  height: 200%;
+  background: #0b1220;
+}
+@keyframes careerFlapFlip {
+  from { transform: rotateX(0deg); }
+  to { transform: rotateX(-92deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .career-flap-flap { display: none; }
+}
+
+/* MatureLearnerHourglass.tsx - the Mature Learner persona's visual on
+   RoleSelectionPage.tsx, the last persona that was still drawing its plain
+   Lucide icon. Classes prefixed `mature-glass-*`. Colours hard-coded like
+   the goal-tree and split-flap blocks above - the carousel keeps one fixed
+   identity regardless of the site toggle - and warm on purpose: amber sand
+   and walnut frame off the persona's own #f97316 accent, which also keeps
+   it clear of the cube's white, the earth's blue, the tree's violet and the
+   board's phosphor green.
+   Geometry lives in the component (one 250x250 grid, same as the others);
+   only paint lives here. */
+.mature-glass-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 250px;
+}
+.mature-glass-svg {
+  /* Positioned so it paints ABOVE the absolutely-positioned warmth below -
+     a static sibling would lose that stacking fight and sit behind it. */
+  position: relative;
+  width: 250px;
+  height: 250px;
+  overflow: visible;
+  /* Nothing in here should swallow a pointer: a click anywhere on this card
+     is the carousel's "select this persona", and the hover that speeds the
+     drain is handled on the stage div instead. */
+  pointer-events: none;
+}
+/* Hover affordance, matching .career-flap-board:hover's own warm bloom
+   rather than inventing a second idiom. Nothing at rest. */
+.mature-glass-warmth {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: #fb923c;
+  filter: blur(36px);
+  opacity: 0;
+  transition: opacity 0.45s;
+  pointer-events: none;
+}
+.mature-glass-stage[data-hover='true'] .mature-glass-warmth {
+  opacity: 0.32;
+}
+.mature-glass-chamber {
+  fill: rgba(255, 255, 255, 0.5);
+  stroke: #c7b39b;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.mature-glass-shine {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0.5;
+}
+.mature-glass-stage[data-reduce-motion='true'] .mature-glass-warmth {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mature-glass-warmth { transition: none; }
+}
+
+/* MatureLearnerDeskLamp.tsx - the Mature Learner persona's visual on
+   RoleSelectionPage.tsx, which took over from the hourglass above (that
+   block and its component both stay, unused, to switch back to - same
+   arrangement as the earth banner the pigeonholes replaced). Classes
+   prefixed `mature-lamp-*`. Colours hard-coded like every other persona
+   block here - the carousel keeps one fixed identity regardless of the site
+   toggle.
+   A real volume, like the cube and the pigeonholes: CSS planes in one
+   preserve-3d chain, not a drawing of a lamp. Its first build WAS a drawing
+   (flat SVG) and read as exactly that beside them.
+   It is also the one persona visual that is a DARK object, like the
+   split-flap board - the whole thing is a lamp coming on after dark, so the
+   night is the subject rather than a background. Amber light off the
+   persona's own #f97316 accent.
+   Geometry lives in the component (one 250x250 stage, same as the others,
+   all of it derived from the desk/shade/beam constants at the top of the
+   file); only paint lives here.
+   Nothing between .mature-lamp-cam and a leaf plane may use `filter`,
+   `overflow`, `isolation`, `mix-blend-mode` or a group `opacity`: every one
+   of them flattens the preserve-3d context below it. That is why the glow
+   here is radial-gradient rather than blur, and why the loop writes opacity
+   onto the beam's planes one at a time instead of once onto their wrapper.
+   The two exceptions are deliberate and safe: .mature-lamp-warmth is a
+   sibling of the camera, not inside it, and the clip-path on each cone
+   panel only flattens that panel's own (empty) subtree. */
+.mature-lamp-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 250px;
+  height: 250px;
+  perspective: 1150px;
+  perspective-origin: 50% 44%;
+}
+.mature-lamp-cam {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  /* No plane in the scene may swallow a pointer: a click anywhere on this
+     card is the carousel's "select this persona", and the hover that
+     shortens the night is handled on the stage div, which has to stay
+     hittable for that. */
+  pointer-events: none;
+  /* Written every frame by the component (idle yaw drift, hover pull). */
+  transform: rotateX(-14deg) rotateY(-17deg);
+}
+/* Every piece centres itself on the zero-size anchor with negative margins,
+   so the inline transforms stay purely positional - same arrangement as
+   .student-hub-holes-cam above. */
+.mature-lamp-cam > *,
+.mature-lamp-cone > * {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.mature-lamp-cone {
+  transform-style: preserve-3d;
+}
+
+/* The room the desk stands in. Painted on the stage, BEHIND the camera and
+   outside its 3D chain, so it holds still while the scene yaws - as a plane
+   inside the chain it swung with everything else and read as a dark cloud
+   drifting behind the desk. Fades to nothing at its edges: no rectangle, no
+   hard border, just darkness the lamp is on in. */
+.mature-lamp-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: radial-gradient(ellipse 72% 66% at 50% 44%, #16203a 0%, #0a0f1c 46%, rgba(6, 10, 18, 0.55) 68%, rgba(6, 10, 18, 0) 86%);
+}
+/* Deliberately near-black away from the pool: the whole read of this scene
+   is one warm light in a dark room, and a desk that keeps its own mid-tone
+   everywhere leaves the lamp with nothing to be brighter than. */
+.mature-lamp-desk-top {
+  background: linear-gradient(185deg, #2a3650, #131a28 74%);
+}
+/* The hairline along the top of the front edge is the desk's whole
+   silhouette once the slab itself is this dark - without it the near corner
+   dissolves into the room and the book floats. */
+.mature-lamp-desk-front {
+  background: linear-gradient(180deg, #192133, #0b1019);
+  box-shadow: inset 0 1px 0 rgba(163, 184, 220, 0.4);
+}
+.mature-lamp-desk-side {
+  background: linear-gradient(90deg, #121927, #080c14);
+}
+/* Lamplight landing on the desk, and the book's own contact shadow over it.
+   Both are discs lying flat on the surface - the pool is the beam's base, so
+   it stays exactly under the cone at every yaw. */
+.mature-lamp-pool {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 228, 184, 0.96), rgba(253, 190, 122, 0.46) 40%, rgba(251, 146, 60, 0.14) 62%, rgba(251, 146, 60, 0) 78%);
+}
+.mature-lamp-contact {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(5, 9, 18, 0.42), rgba(5, 9, 18, 0) 74%);
+}
+.mature-lamp-page {
+  border-radius: 1px 2px 2px 1px;
+  background: #182031;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.16);
+}
+.mature-lamp-rules {
+  position: absolute;
+  inset: 0;
+}
+.mature-lamp-rules span {
+  position: absolute;
+  height: 1.5px;
+  border-radius: 1px;
+  background: #5e4525;
+}
+.mature-lamp-spine {
+  border-radius: 3px;
+  background: linear-gradient(90deg, #0d1220, #2f3950 50%, #0d1220);
+}
+/* Post and arm: two crossed planes each, which is the cheapest round bar
+   there is and holds up at every yaw the drift reaches. */
+/* A hard specular stripe down a near-black bar, not a soft mid-grey one:
+   the whole bar is in shadow except the sliver facing the shade, and that
+   contrast is what makes a flat billboard read as turned metal. */
+.mature-lamp-bar {
+  border-radius: 2px;
+  background: linear-gradient(90deg, #0e131d 0%, #7c8aa6 44%, #39435a 58%, #10151f 100%);
+}
+.mature-lamp-base {
+  border-radius: 50%;
+  background: radial-gradient(closest-side at 38% 34%, #4e5b76, #141a26 80%);
+}
+.mature-lamp-knuckle {
+  border-radius: 50%;
+  background: radial-gradient(closest-side at 36% 32%, #6c7b96, #151b27);
+}
+.mature-lamp-shade-panel {
+  /* Flat colour per panel is set inline (baked key light); these three
+     insets are what every panel shares - a highlight along the top, falloff
+     under it, and the warm bleed along the bottom rim where the panel is
+     closest to the bulb. The rim is the one warm thing on the outside of a
+     shade and it stays on: by the time the lamp is dark enough for it to be
+     wrong, the whole scene is near-black anyway. */
+  box-shadow: inset 0 10px 14px -12px rgba(255, 255, 255, 0.18), inset 0 -16px 18px -12px rgba(0, 0, 0, 0.42),
+    inset 0 -5px 7px -4px rgba(253, 190, 122, 0.6);
+}
+/* Radial rather than a vertical ramp, so each panel falls off sideways as
+   well as downward. The sideways falloff is what stops the cone reading as
+   a solid grey fog: with a flat ramp, every panel is as strong at its edge
+   as at its middle, and seven of them crossing at low alpha average out to
+   smoke. Transparent again right at the mouth - a beam at full strength
+   there draws a hard line across the one place the shade should be hiding
+   the bulb. */
+.mature-lamp-beam-panel {
+  background: radial-gradient(ellipse 64% 152% at 50% 1%, rgba(255, 222, 163, 0.98) 0%, rgba(253, 188, 112, 0.52) 30%, rgba(250, 154, 56, 0.2) 55%, rgba(249, 146, 48, 0.06) 78%, rgba(249, 146, 48, 0) 100%);
+}
+/* Spill around the shade's lower rim. The cone hides its own mouth from a
+   camera looking down at it, so this ring of light is what says the lamp is
+   on from up here; it is wide enough to clear the rim at 32px and fades out
+   well before the desk edge. */
+.mature-lamp-halo {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 234, 190, 0.66) 0%, rgba(253, 190, 122, 0.38) 28%, rgba(251, 146, 60, 0.13) 52%, rgba(251, 146, 60, 0) 76%);
+}
+.mature-lamp-mouth {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #fff7e4, rgba(253, 201, 139, 0.6) 46%, rgba(253, 186, 116, 0) 80%);
+}
+.mature-lamp-bulb {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #fffdf7, rgba(255, 240, 207, 0.55) 52%, rgba(255, 240, 207, 0) 100%);
+}
+/* A gradient speck, not a rounded box: at 2-3px a border-radius rasterises
+   to a square in a composited 3D layer, and a mote with a soft edge reads as
+   dust in a beam rather than as a pixel. */
+.mature-lamp-mote {
+  background: radial-gradient(closest-side, rgba(255, 240, 211, 0.95), rgba(255, 236, 203, 0.35) 45%, rgba(255, 236, 203, 0) 100%);
+}
+/* Hover affordance, the same warm bloom .career-flap-board:hover and
+   .mature-glass-warmth use rather than a third idiom. Weaker than the
+   hourglass's (0.24 vs 0.32) and wider: it spills from behind a scene that
+   is already glowing on its own, so the same value read as a haze. Safe to
+   blur - it is a sibling of the camera, not a node inside it. */
+.mature-lamp-warmth {
+  position: absolute;
+  width: 210px;
+  height: 190px;
+  border-radius: 50%;
+  background: #fb923c;
+  filter: blur(42px);
+  opacity: 0;
+  transition: opacity 0.45s;
+  pointer-events: none;
+}
+.mature-lamp-stage[data-hover='true'] .mature-lamp-warmth {
+  opacity: 0.24;
+}
+.mature-lamp-stage[data-reduce-motion='true'] .mature-lamp-warmth {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mature-lamp-warmth { transition: none; }
+}
+
+/* StudentHubPigeonholes.tsx - the Student Hub persona's visual on
+   RoleSelectionPage.tsx, replacing the earth banner above (which stays in
+   the tree, unused, in case the globe is wanted back). Classes prefixed
+   `student-hub-holes-*`. Colours hard-coded like the goal-tree, split-flap
+   and mature-glass blocks - the carousel keeps one fixed identity
+   regardless of the site toggle.
+   A library card index, not a filing cabinet: pale ply carcass, warm dark
+   cavities, cyan label plates off the persona's own #06b6d4 accent. The
+   earlier draft was cool slate and read as office furniture - the material
+   was doing more of that damage than the form was.
+   Geometry lives in the component (one 250x250 stage, same as the others,
+   all of it derived from GRID and CELL); only paint lives here.
+   Nothing in this block may use `filter`, `overflow`, `isolation` or
+   `mix-blend-mode`: every one of them flattens the preserve-3d context
+   below it, which is exactly what stopped the earth banner from ever
+   becoming a real volume. */
+.student-hub-holes-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 250px;
+  height: 250px;
+  perspective: 1050px;
+  perspective-origin: 50% 46%;
+}
+.student-hub-holes-cam {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(-12deg) rotateY(-21deg);
+}
+/* Every carcass piece centres itself on the zero-size anchor with negative
+   margins, so the inline `transform` the component writes stays purely
+   rotational and never has to re-state the centring. */
+.student-hub-holes-cam > * {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.student-hub-holes-face {
+  transform-style: preserve-3d;
+  background: linear-gradient(162deg, #efe8da, #ddd4c3 62%, #cfc5b2);
+  border-radius: 3px;
+}
+.student-hub-holes-top {
+  background: linear-gradient(180deg, #f6f1e7, #ddd5c5);
+}
+.student-hub-holes-side {
+  background: linear-gradient(90deg, #c9bfac, #b4a996);
+}
+/* Grounds the carcass instead of leaving it floating on the page. Sized in
+   the component to stay inside the 250px stage - a wider shadow looks
+   better in isolation and overlaps the tagline in the real slot. */
+.student-hub-holes-shadow {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(58, 48, 30, 0.26), rgba(58, 48, 30, 0) 72%);
+}
+.student-hub-holes-hole {
+  position: absolute;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #3f3a31, #57503f 58%, #4a4438);
+  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(255, 255, 255, 0.07);
+}
+.student-hub-holes-drawer {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+.student-hub-holes-front {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(168deg, #fdfaf4, #e8e0d1 70%, #dcd3c2);
+  border: 1px solid rgba(74, 62, 40, 0.22);
+  /* The padding lifts the mark off centre so the label plate below it has
+     its own room at every cell size. */
+  display: grid;
+  place-items: center;
+  padding-bottom: 16%;
+}
+.student-hub-holes-front svg {
+  display: block;
+  fill: none;
+  stroke: #7a7061;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s;
+}
+/* The label plate doubles as the pull - a card index's own detail, and the
+   one place the accent is allowed to sit at rest. Student Hub has never
+   held the cube's greyscale-until-touched rule: the earth banner it
+   replaces shipped in full colour. */
+.student-hub-holes-plate {
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 7%;
+  height: 11%;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #d4dfe3, #b9c8ce);
+  box-shadow: inset 0 0 0 1px rgba(74, 62, 40, 0.18);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+/* Lid and wall both hinge on the carcass edge and sweep FORWARD to the
+   drawer front, which pins the origin and the sign of each rotation:
+   hinging on the top edge with rotateX(90deg) leaves the lid's front face
+   pointing up, where a -12deg pitch can see it (origin on the bottom edge
+   with rotateX(-90deg) sweeps the same distance but shows its back). Same
+   reasoning mirrored for the wall, which faces +X because that is the side
+   the -21deg yaw puts toward the viewer. The component sizes both per
+   frame; the hinge edge stays put. */
+.student-hub-holes-lid {
+  position: absolute;
+  transform-origin: 50% 0%;
+  transform: rotateX(90deg);
+  background: linear-gradient(180deg, #e4dccc, #c6bca9);
+}
+.student-hub-holes-wall {
+  position: absolute;
+  transform-origin: 100% 50%;
+  transform: rotateY(90deg);
+  background: linear-gradient(90deg, #cdc3b0, #aea394);
+}
+/* Something actually in the drawer, rising as it opens - the reason an open
+   drawer reads as holding a guide rather than being an empty box. */
+.student-hub-holes-card {
+  position: absolute;
+  left: 8%;
+  width: 84%;
+  height: 78%;
+  transform: translateZ(-5px);
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, #ffffff, #f1ece0);
+  border: 1px solid rgba(74, 62, 40, 0.2);
+  border-bottom: none;
+  box-shadow: 0 -1px 4px rgba(58, 48, 30, 0.14);
+}
+.student-hub-holes-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: #9fb8bf;
+  border-radius: 2px 2px 0 0;
+  transition: background 0.3s;
+}
+/* Whichever drawer is open takes the accent - the interaction colour, on
+   the one element that was already a label. */
+.student-hub-holes-drawer[data-live='true'] .student-hub-holes-front svg {
+  stroke: #0e7490;
+}
+.student-hub-holes-drawer[data-live='true'] .student-hub-holes-plate {
+  background: linear-gradient(180deg, #7fd6e6, #22b8d4);
+  box-shadow: inset 0 0 0 1px rgba(8, 110, 130, 0.45), 0 0 10px rgba(6, 182, 212, 0.4);
+}
+.student-hub-holes-drawer[data-live='true'] .student-hub-holes-card::before {
+  background: #06b6d4;
+}
+/* App-level reduce-motion toggle (usePathStore) - the OS-level one is the
+   media query below. The component already composes a static open-drawer
+   pose; these just stop the colour transitions easing into it. */
+.student-hub-holes-stage[data-reduce-motion='true'] .student-hub-holes-front svg,
+.student-hub-holes-stage[data-reduce-motion='true'] .student-hub-holes-plate,
+.student-hub-holes-stage[data-reduce-motion='true'] .student-hub-holes-card::before {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .student-hub-holes-front svg,
+  .student-hub-holes-plate,
+  .student-hub-holes-card::before { transition: none; }
 }

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { usePathStore } from '../../store/usePathStore'
 
@@ -19,8 +20,21 @@ export default function AiSafeExposureChart({ data }: { data: SectorExposureDatu
   const gridColor = isDark ? '#2c2c2a' : '#e1e0d9'
   const tickColor = isDark ? '#c3c2b7' : '#52514e'
   const sorted = [...data].sort((a, b) => a.exposure - b.exposure)
+  // On phones the 150px label column leaves the plot area too narrow for
+  // the tooltip, so Recharts pins it there and it gets clipped - anchor it
+  // to the chart's left edge (over the labels) instead, where it fits.
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 639px)').matches)
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 639px)')
+    const onChange = () => setIsMobile(query.matches)
+    query.addEventListener('change', onChange)
+    return () => query.removeEventListener('change', onChange)
+  }, [])
 
+  // overflow-hidden: see DemandBarChart - stops the parked tooltip wrapper
+  // from widening the page on mobile.
   return (
+    <div className="overflow-hidden">
     <ResponsiveContainer width="100%" height={260}>
       <BarChart data={sorted} layout="vertical" margin={{ top: 8, right: 24, left: 8, bottom: 0 }}>
         <CartesianGrid horizontal={false} stroke={gridColor} />
@@ -34,8 +48,9 @@ export default function AiSafeExposureChart({ data }: { data: SectorExposureDatu
         />
         <YAxis type="category" dataKey="sector" tick={{ fill: tickColor, fontSize: 11 }} axisLine={false} tickLine={false} width={150} />
         <Tooltip
+          position={isMobile ? { x: 0 } : undefined}
           formatter={(value: any) => [`${value}%`, 'AI task exposure']}
-          contentStyle={{ background: '#0f172a', border: 'none', borderRadius: 8, color: '#fff', fontSize: 12 }}
+          contentStyle={{ background: '#0f172a', border: 'none', borderRadius: 8, color: '#fff', fontSize: 12, maxWidth: 200, whiteSpace: 'normal' }}
         />
         <Bar
           dataKey="exposure"
@@ -48,5 +63,6 @@ export default function AiSafeExposureChart({ data }: { data: SectorExposureDatu
         />
       </BarChart>
     </ResponsiveContainer>
+    </div>
   )
 }

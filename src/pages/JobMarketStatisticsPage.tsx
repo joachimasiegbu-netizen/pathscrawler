@@ -249,8 +249,8 @@ export default function JobMarketStatisticsPage() {
 
       <MarketTicker items={tickerItems} />
 
-      <RevealSection className="rounded-3xl bg-gradient-to-br from-primary-soft/50 via-white to-white px-8 py-8 shadow-soft ring-1 ring-primary/10 dark:from-primary/10 dark:via-slate-800 dark:to-slate-900 dark:ring-primary/20">
-        <div className="flex items-center justify-between gap-3">
+      <RevealSection className="rounded-3xl bg-gradient-to-br from-primary-soft/50 via-white to-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft ring-1 ring-primary/10 dark:from-primary/10 dark:via-slate-800 dark:to-slate-900 dark:ring-primary/20">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
             <TrendingUp className="h-5 w-5" />
             UK earnings
@@ -291,7 +291,7 @@ export default function JobMarketStatisticsPage() {
         </a>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <TrendingUp className="h-5 w-5 text-green-600 dark:text-green-400" />
           Trending up
@@ -303,7 +303,7 @@ export default function JobMarketStatisticsPage() {
         </div>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <TrendingDown className="h-5 w-5 text-red-600 dark:text-red-400" />
           Trending down
@@ -315,7 +315,7 @@ export default function JobMarketStatisticsPage() {
         </div>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <BarChart3 className="h-5 w-5" />
           Most in-demand careers
@@ -326,7 +326,7 @@ export default function JobMarketStatisticsPage() {
         </div>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <LineChartIcon className="h-5 w-5" />
           Salary trends (6 months)
@@ -337,7 +337,7 @@ export default function JobMarketStatisticsPage() {
         </div>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <ListChecks className="h-5 w-5" />
           Hot skills in demand
@@ -348,7 +348,7 @@ export default function JobMarketStatisticsPage() {
         </div>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <PieChartIcon className="h-5 w-5" />
           Career distribution by sector
@@ -359,7 +359,7 @@ export default function JobMarketStatisticsPage() {
         </div>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <button
           type="button"
           onClick={() => setMoreDataOpen((open) => !open)}

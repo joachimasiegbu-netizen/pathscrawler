@@ -123,7 +123,7 @@ export default function JobMarketAiEndangeredJobsPage() {
         </div>
       </div>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400" />
           Jobs Most at Risk from AI
@@ -154,7 +154,7 @@ export default function JobMarketAiEndangeredJobsPage() {
         <div className="h-px flex-1 bg-gradient-to-l from-transparent via-slate-200 to-slate-200 dark:via-slate-700 dark:to-slate-700" />
       </div>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="flex items-center gap-2 text-xl font-bold text-slate-950 dark:text-slate-50">
           <ShieldCheck className="h-5 w-5 text-green-600 dark:text-green-400" />
           Careers Least at Risk from AI
@@ -206,7 +206,7 @@ export default function JobMarketAiEndangeredJobsPage() {
         <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">{aiSafeSource}</p>
       </RevealSection>
 
-      <RevealSection className="rounded-3xl bg-white px-8 py-8 shadow-soft dark:bg-slate-800">
+      <RevealSection className="rounded-3xl bg-white px-4 py-6 sm:px-8 sm:py-8 shadow-soft dark:bg-slate-800">
         <div className="text-xl font-bold text-slate-950 dark:text-slate-50">More UK labour market data</div>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           The rest of PathScrawler's labour-market deep dives.

@@ -410,7 +410,7 @@ export default function JobMarketRollPage() {
         // top edge, not eyeballed. Leaving this transparent and relying
         // entirely on the one correctly-fixed layer underneath is what
         // actually gets a seamless result, not two competing gradients.
-        className="dark-mode relative left-1/2 w-screen min-h-screen -translate-x-1/2 flex flex-col overflow-hidden"
+        className="dark-mode roll-job-page relative left-1/2 w-screen min-h-screen -translate-x-1/2 flex flex-col overflow-hidden"
       >
       {/* This row lives BELOW the header (App.tsx's own logo/nav-cluster
           bar), not merged into it, but deliberately matches that header's
