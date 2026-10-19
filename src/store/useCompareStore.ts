@@ -1,9 +1,14 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-// Same pure-localStorage pattern as useAuthStore.ts / pathwayStorage.ts - no
-// backend, so "compare list" just lives in this browser. Capped at 3 careers
-// since that's what fits a readable side-by-side comparison.
+// LOCAL, on purpose (see PERSISTENCE.md for the whole table): a compare list
+// is the side-by-side you are building right now, so syncing it would push a
+// half-finished comparison onto your other devices. Capped at 3 careers since
+// that's what fits a readable side-by-side.
+//
+// (The "no backend" this comment used to cite is no longer true of the app -
+// the binder, saved pathways, profile and titles all sync now. Staying local
+// here is a decision about what this data IS, not a limitation.)
 //
 // This is the ONE shared compare list for the whole app - CareerDetailPage's
 // simple always-visible "Add to compare"/"Added" toggle, the header's

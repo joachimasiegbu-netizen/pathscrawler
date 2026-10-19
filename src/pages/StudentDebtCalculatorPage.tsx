@@ -270,9 +270,16 @@ export default function StudentDebtCalculatorPage() {
           onClick={() => document.getElementById('debt-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
           className="flex w-full items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 text-left shadow-lg backdrop-blur dark:border-slate-700 dark:bg-slate-800/95"
         >
-          <span className="text-sm text-slate-500 dark:text-slate-400">{compareOn ? 'Course A repaid' : 'Total repaid'}</span>
-          <span className="font-bold tabular-nums text-slate-900 dark:text-white">{gbp(resultA.totalRepaid)}</span>
-          <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Details ↓</span>
+          {/* The label is the only part that may shrink/ellipsis (min-w-0 +
+              truncate); the figure and the cue are shrink-0. All three sit at
+              16px here, not text-sm, because of index.css's site-wide size
+              rule - at that size "Course A repaid" + the figure + "Details ↓"
+              fill a 360px column almost exactly, and under Larger text or the
+              dyslexia font they overflow it, which without this left the row
+              wrapping into a two/three-line block. */}
+          <span className="min-w-0 truncate text-sm text-slate-500 dark:text-slate-400">{compareOn ? 'Course A repaid' : 'Total repaid'}</span>
+          <span className="shrink-0 font-bold tabular-nums text-slate-900 dark:text-white">{gbp(resultA.totalRepaid)}</span>
+          <span className="shrink-0 text-sm font-semibold text-indigo-600 dark:text-indigo-300">Details ↓</span>
         </button>
       </div>
 

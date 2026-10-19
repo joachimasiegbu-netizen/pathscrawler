@@ -98,7 +98,7 @@ export default function LeaderboardPage() {
   const navigate = useNavigate()
   const reduceMotion = usePathStore((state) => state.accessibilitySettings.reduceMotion)
   const currentUser = useAuthStore((state) => state.currentUser)
-  const { entries, loading } = useLeaderboardEntries()
+  const { entries, loading, error, retry } = useLeaderboardEntries()
 
   const yourRank = useMemo(
     () => (currentUser ? entries.findIndex((entry) => entry.userId === currentUser.id) : -1),
@@ -142,7 +142,10 @@ export default function LeaderboardPage() {
             </button>{' '}
             to start earning your own spot on this board - rolls made while signed out are just for you, they don't count here.
           </div>
-        ) : yourRank === -1 && !loading ? (
+        ) : yourRank === -1 && !loading && !error ? (
+          // `!error` matters: a failed fetch leaves `entries` empty, which
+          // would otherwise tell someone with a full board behind it that they
+          // have never rolled.
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm leading-6 text-slate-300">
             You haven't rolled anything yet - your first roll will put you on the board.
           </div>
@@ -150,6 +153,23 @@ export default function LeaderboardPage() {
 
         {loading ? (
           <p className="text-center text-sm text-slate-400">Loading the leaderboard…</p>
+        ) : error ? (
+          // The branch this page was missing. Before, a failed load fell
+          // through to the empty state below and read as "nobody has ever
+          // played" - the one thing that is definitely not true.
+          <div className="rounded-2xl border border-red-400/30 bg-red-400/10 p-4 text-sm leading-6 text-red-200">
+            <p className="font-semibold">{error}</p>
+            <p className="mt-1 text-red-200/80">
+              The board is still there - this device just couldn't reach it. Check your connection and try again.
+            </p>
+            <button
+              type="button"
+              onClick={retry}
+              className="mt-3 rounded-lg border border-red-300/40 px-4 py-2 text-sm font-semibold text-red-100 transition hover:bg-red-400/20"
+            >
+              Try again
+            </button>
+          </div>
         ) : entries.length === 0 ? (
           <EmptyState
             icon={Dices}

@@ -3,7 +3,12 @@ import { persist } from 'zustand/middleware'
 import { TIERS, type TierKey } from '../utils/careerTiers'
 import type { RollContext } from '../utils/rollEngine'
 
-// Same pure-localStorage pattern as useCompareStore.ts.
+// LOCAL (see PERSISTENCE.md): the authoritative roll history is already
+// server-side - every roll is its own row in `rolls`, and user_best_cards
+// keeps the real lifetime count - so the tallies here are a per-device fast
+// path for the stats panel, not the record. A fresh browser showing zero
+// local rolls while the leaderboard still shows your true total is the
+// accepted cost of that.
 // The Recent Rolls list and the pity system (soft/hard guaranteed rolls)
 // have been removed - this store now only keeps `lastRolledCareerId`
 // (needed so rollEngine.ts can still avoid repeating the same career twice

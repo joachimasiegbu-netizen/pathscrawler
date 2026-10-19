@@ -1,6 +1,19 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+// LOCAL (see PERSISTENCE.md): this holds the IN-FLIGHT assessment - selected
+// role/subjects/level, progress, the Career Changer answers - which is
+// deliberately scratch state, reset on entering /role (RoleSelectionPage's
+// own mount effect) and finished with the moment a pathway is saved. The
+// saved pathway itself is the durable artifact, and that one syncs
+// (useSavedPathwaysStore).
+// The exception inside this store is accessibilitySettings below: a
+// reduced-motion, dyslexia-font or muted preference arguably belongs to the
+// person rather than the browser, which makes it the one genuine sync
+// candidate in here. Left local for now because it has to work signed out -
+// an accessibility setting that only applies once you have an account would
+// be worse than one that doesn't travel.
+
 export interface SubjectOption {
   id: string
   label: string

@@ -395,8 +395,13 @@ export default function PersonaCarousel({ personas, onConfirm }: { personas: Per
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
-        {/* Each tab is a 24px-tall tap area around its visible dot; the 3px side
-            padding keeps the same 6px visual gap the dots had before. */}
+        {/* Each tab is a 44px-tall tap area around its visible dot (the
+            header's own h-11 touch-target convention) - free vertically,
+            since the arrows either side already set this row's height, so
+            nothing moves. The 3px side padding stays: it keeps the same 6px
+            visual gap the dots had before, and five 44px-WIDE tabs plus the
+            two arrows and their gap-6 would need ~356px, i.e. wider than a
+            360px phone's content column. */}
         <div className="flex" role="tablist" aria-label="Persona indicator">
           {personas.map((persona, i) => (
             <button
@@ -406,7 +411,7 @@ export default function PersonaCarousel({ personas, onConfirm }: { personas: Per
               aria-selected={i === activeIndex}
               aria-label={persona.label}
               onClick={guardedClick(() => goToIndex(i))}
-              className="flex h-6 items-center px-[3px]"
+              className="flex h-11 items-center px-[3px]"
             >
               <span
                 className="block h-1.5 rounded-full transition-all"

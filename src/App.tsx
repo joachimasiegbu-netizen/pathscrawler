@@ -10,6 +10,8 @@ import UsernameModal from './components/UsernameModal'
 import SetYourNameBanner from './components/SetYourNameBanner'
 import TitlePill from './components/TitlePill'
 import { useMyUserProfile, useUserProfileStore } from './store/useUserProfileStore'
+import { useBinderStore } from './store/useBinderStore'
+import { useSavedPathwaysStore } from './store/useSavedPathwaysStore'
 import SearchResultsPage from './pages/SearchResultsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
@@ -37,6 +39,10 @@ import TitlesPreviewPage from './pages/TitlesPreviewPage'
 import MyBinderPage from './pages/MyBinderPage'
 import ProfilePage from './pages/ProfilePage'
 import TestimonialsPage from './pages/TestimonialsPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import TermsOfUsePage from './pages/TermsOfUsePage'
+import SiteFooter from './components/SiteFooter'
+import StorageNotice from './components/StorageNotice'
 import StudentHubPage from './pages/StudentHubPage'
 import StudentHubTopicPage from './pages/StudentHubTopicPage'
 import StudentHubFaqPage from './pages/StudentHubFaqPage'
@@ -140,12 +146,20 @@ function App() {
     setShowAccountMenu(false)
   }, [location.pathname])
 
-  // Pull this account's profile (username + equipped title) from Supabase
-  // once per sign-in, so a name set on another device shows up here and the
-  // setup modal below isn't flashed at a player who already has one.
+  // Pull everything account-scoped out of Supabase once per sign-in. The
+  // profile (username + equipped title) is why the setup modal below isn't
+  // flashed at a player who already has a name on another device; the binder
+  // and saved pathways are the two collections that used to live only in
+  // localStorage, so this is also where a device's pre-sync local data gets
+  // merged up into the account (see each store's hydrateFromSupabase - the
+  // first run for an account is a union, never a remote-wins overwrite).
+  // One effect, keyed on the user id, so switching accounts re-pulls all
+  // three rather than leaving the previous account's rows on screen.
   useEffect(() => {
     if (!currentUser) return
     void useUserProfileStore.getState().hydrateFromSupabase()
+    void useBinderStore.getState().hydrateFromSupabase()
+    void useSavedPathwaysStore.getState().hydrateFromSupabase()
   }, [currentUser?.id])
 
   // Blocking first-run setup: signed in, profile finished loading, still no
@@ -594,8 +608,14 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/testimonials" element={<TestimonialsPage />} />
           <Route path="/binder/compare" element={<BinderComparePage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsOfUsePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        {/* Legal links under every page except the splash, Roll a Job's
+            full-screen game view and the QA previews. */}
+        {!isHome && !isPreviewRoute && location.pathname !== '/job-market/roll' ? <SiteFooter onDark={isRollActive} /> : null}
+        {!isPreviewRoute ? <StorageNotice /> : null}
       </MobileContainer>
     </div>
   )

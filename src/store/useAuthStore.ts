@@ -18,6 +18,22 @@ import { isDisposableEmail } from '../utils/disposableEmailDomains'
 // every previous breaking storage change in this app (useBinderStore's
 // v1->v2 migration, useRollStore's pity-system removal): dropped rather
 // than guessing at how to carry stale data forward.
+//
+// SESSION, not LOCAL or SYNCED (see PERSISTENCE.md): no zustand/persist
+// here at all, deliberately - Supabase's own client durably persists the
+// real session and this store only mirrors it into reactive state.
+//
+// WHERE THE LOCAL-DATA MERGE LIVES: not here, despite this being the
+// obvious-looking home for it. The account-scoped collections
+// (useBinderStore, useSavedPathwaysStore) each own their own
+// hydrateFromSupabase(), which unions local with remote and uploads the
+// local-only half the first time it runs for an account; App.tsx fires all
+// of them from one effect keyed on currentUser.id. Doing it from this file
+// would mean useAuthStore importing the stores that already import IT,
+// which is the circular dependency every one of them is careful to avoid
+// (see each store's own currentUserId() comment). Keying on the user id
+// also covers session restore on page load and account switching, not just
+// the signIn() success path - three entry points, one effect.
 
 export interface MockUser {
   id: string

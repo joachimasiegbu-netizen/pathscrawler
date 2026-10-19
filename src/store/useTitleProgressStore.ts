@@ -16,6 +16,12 @@ import {
 } from '../utils/titles'
 import { useAuthStore } from './useAuthStore'
 
+// SYNCED (see PERSISTENCE.md): earned titles count toward the leaderboard
+// score, so they can't be per-browser - each unlock is inserted into
+// `title_unlocks` (by the sync effect in RollStandingPanel.tsx), and
+// syncedTitleIds below tracks which ones have made it up. The local copy
+// stays the source of the one-way-latch progress logic.
+//
 // Account-scoped, same pattern as useBinderStore.ts (cardsByUser ->
 // progressByUser here) rather than useRollStore.ts's flat per-browser
 // counters - several of these titles are inherently tied to an account

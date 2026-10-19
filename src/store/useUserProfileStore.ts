@@ -10,6 +10,10 @@ import { useAuthStore } from './useAuthStore'
 // (profilesByUser keyed on the real Supabase auth.users.id) so switching or
 // signing out accounts swaps the visible profile cleanly.
 //
+// SYNCED (see PERSISTENCE.md): a name and equipped title are how OTHER
+// players see you on the leaderboard, so they're global by definition - this
+// store is the pattern the binder and saved pathways were later built on.
+//
 // Two-layer storage, mirroring recordRoll in useLeaderboardStore.ts:
 //   - zustand/persist to localStorage      -> instant, offline, per-device
 //   - upsert into Supabase's `profiles`    -> global, so OTHER players see

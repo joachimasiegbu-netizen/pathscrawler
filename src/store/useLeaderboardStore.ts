@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { RealtimeChannel } from '@supabase/supabase-js'
 import type { Career } from '../data/demoCareers'
 import type { TierKey } from '../utils/careerTiers'
 import { isSupabaseConfigured, supabase } from '../lib/supabaseClient'
+import { reportError } from '../utils/reportError'
 import { useAuthStore } from './useAuthStore'
 
 // GLOBAL NOW - this used to be a per-browser localStorage tally (every
@@ -23,6 +24,11 @@ import { useAuthStore } from './useAuthStore'
 // leaderboard, signed in or not (that's the point of a leaderboard), but a
 // player can only ever INSERT rolls under their own account - nobody can
 // write a fake score for someone else.
+//
+// SERVER-READ (see PERSISTENCE.md): the one store here with no
+// zustand/persist and no local mirror at all. It reads `user_best_cards` +
+// `profiles` live and subscribes to realtime, so there is no local copy that
+// could go stale or be lost - the local/synced question doesn't apply.
 
 /** How many of a player's best rolls show in the leaderboard's tier-pip
  * showcase (LeaderboardPage.tsx) - display only now, NOT the score (see
@@ -80,8 +86,10 @@ export async function recordRoll(career: Career, tier: TierKey): Promise<void> {
     p_tier: tier,
   })
   if (error) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to record roll for the leaderboard:', error.message)
+    // Silent to the user by design (a roll still succeeded locally), but it
+    // means their score never reached the board - exactly the class of failure
+    // nobody would ever hear about without a report.
+    reportError(error, { where: 'leaderboard.recordRoll', extra: { careerId: career.id, tier } })
   }
 }
 
@@ -109,8 +117,9 @@ export async function recordTitleUnlock(titleId: string, points: number): Promis
     p_points: points,
   })
   if (error) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to record title unlock for the leaderboard:', error.message)
+    // Same reasoning as recordRoll: the title shows as unlocked locally while
+    // the points never land on the board.
+    reportError(error, { where: 'leaderboard.recordTitleUnlock', extra: { titleId, points } })
   }
 }
 
@@ -150,6 +159,14 @@ function compareEntries(a: LeaderboardEntry, b: LeaderboardEntry): number {
 export interface LeaderboardResult {
   entries: LeaderboardEntry[]
   loading: boolean
+  /** Set when the fetch itself failed, so a board that could not load reads
+   * differently from a board that is genuinely empty. Those two were
+   * indistinguishable before - both rendered as "no entries", which told a
+   * user with a flaky connection that nobody had ever played. */
+  error: string | null
+  /** Re-runs the fetch. Lets the failed state offer a retry that does not
+   * cost a full page reload. */
+  retry: () => void
 }
 
 // Module-level shared subscription, not one per component instance - was
@@ -174,6 +191,7 @@ export interface LeaderboardResult {
 // tiny local listener set (no separate store/library needed for this).
 let sharedEntries: LeaderboardEntry[] = []
 let sharedLoading = isSupabaseConfigured
+let sharedError: string | null = null
 let sharedChannel: RealtimeChannel | null = null
 let subscriberCount = 0
 const listeners = new Set<() => void>()
@@ -210,12 +228,15 @@ async function fetchSharedEntries() {
     .order('score', { ascending: false })
     .limit(200)
   if (error) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to load the leaderboard:', error.message)
+    reportError(error, { where: 'leaderboard.fetch' })
+    // Kept as a message rather than a boolean so the UI can stay generic while
+    // the real PostgREST text still reaches the error report above.
+    sharedError = 'We could not load the leaderboard.'
     sharedLoading = false
     notifyListeners()
     return
   }
+  sharedError = null
   const rows = (data ?? []) as UserBestCardsRow[]
   const entries = rows.map(rowToEntry)
 
@@ -300,10 +321,55 @@ async function fetchSharedEntries() {
   notifyListeners()
 }
 
+/** How long the board may sit on "Loading…" before it gives up and offers a
+ * retry instead. Long enough not to punish a slow phone connection, short
+ * enough that nobody watches a dead spinner. */
+const FETCH_TIMEOUT_MS = 12000
+
+/**
+ * fetchSharedEntries above only clears `sharedLoading` along paths where the
+ * request *answers* - success, or PostgREST returning `{ error }`. Two things
+ * break that, and both were found by blocking Supabase in a real browser
+ * rather than by reading the code:
+ *
+ *  1. A thrown rejection (CORS, DNS) exits the function before the line that
+ *     clears the flag.
+ *  2. Worse, and the one actually observed: with the request blocked at the
+ *     network layer the promise **never settles at all**. No value, no
+ *     rejection - so a plain try/catch cannot help, because there is nothing
+ *     to catch. The page shows "Loading the leaderboard…" forever.
+ *
+ * Hence a race rather than only a catch: the timeout is what guarantees the
+ * spinner always resolves into either a board or a retry. This is the likelier
+ * failure in the wild - a student on flaky mobile data hits it, not a
+ * PostgREST error response. Every call site goes through this wrapper so no
+ * caller has to remember.
+ */
+async function fetchSharedEntriesSafe(): Promise<void> {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  try {
+    await Promise.race([
+      fetchSharedEntries(),
+      new Promise<never>((_resolve, reject) => {
+        timer = setTimeout(() => reject(new Error(`Leaderboard fetch timed out after ${FETCH_TIMEOUT_MS}ms`)), FETCH_TIMEOUT_MS)
+      }),
+    ])
+  } catch (thrown) {
+    reportError(thrown, { where: 'leaderboard.fetch.network' })
+    sharedError = 'We could not load the leaderboard.'
+    sharedLoading = false
+    notifyListeners()
+  } finally {
+    // The losing side of a race is never cancelled, so without this a
+    // successful fetch would still leave a 12s timer holding a reference.
+    if (timer !== undefined) clearTimeout(timer)
+  }
+}
+
 function acquireSharedSubscription() {
   subscriberCount += 1
   if (sharedChannel || !isSupabaseConfigured || !supabase) return
-  fetchSharedEntries()
+  void fetchSharedEntriesSafe()
   // Any insert/update on ANY row (not just this user's) should refresh the
   // whole board - a roll on a different device is exactly the case this
   // subscription exists for.
@@ -320,7 +386,7 @@ function acquireSharedSubscription() {
   sharedChannel = supabase
     .channel('leaderboard-user-best-cards')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'user_best_cards' }, () => {
-      fetchSharedEntries()
+      void fetchSharedEntriesSafe()
     })
     .subscribe()
 }
@@ -353,5 +419,12 @@ export function useLeaderboardEntries(): LeaderboardResult {
     }
   }, [])
 
-  return { entries: sharedEntries, loading: sharedLoading }
+  const retry = useCallback(() => {
+    sharedError = null
+    sharedLoading = true
+    notifyListeners()
+    void fetchSharedEntriesSafe()
+  }, [])
+
+  return { entries: sharedEntries, loading: sharedLoading, error: sharedError, retry }
 }

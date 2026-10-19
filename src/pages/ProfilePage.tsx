@@ -147,7 +147,12 @@ export default function ProfilePage() {
                   setQuoteSaved(true)
                 }}
                 disabled={quoteDraft === (profile?.graduationQuote ?? '')}
-                className="rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-primary-dark disabled:opacity-50 disabled:hover:bg-primary"
+                // min-h-[44px] + px-4: a real touch target on a phone, same
+                // figure Button.tsx uses app-wide. The other small buttons
+                // on this page only ever sit next to one another; this one is
+                // the primary action of its own section, so it's the one that
+                // actually gets thumbed.
+                className="min-h-[44px] rounded-lg bg-primary px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-primary-dark disabled:opacity-50 disabled:hover:bg-primary"
               >
                 {quoteSaved && quoteDraft === (profile?.graduationQuote ?? '') ? 'Saved' : 'Save'}
               </button>

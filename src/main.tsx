@@ -2,7 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
+import ErrorBoundary from './components/ErrorBoundary'
+import { installGlobalErrorHandlers } from './utils/reportError'
 import './index.css'
+
+// Catches what a React boundary structurally cannot: throws from event
+// handlers, timers and rAF callbacks, plus promise rejections nobody awaited.
+// Installed before render so an error during the first paint is still caught.
+installGlobalErrorHandlers()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -12,8 +19,15 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         dependency-audit fix) made both the only behavior, and BrowserRouter
         no longer accepts a `future` prop at all - passing it is now a type
         error, not a harmless opt-in. */}
+    {/* The boundary sits INSIDE BrowserRouter so its fallback can read the
+        current path when reporting, and outside <App /> so it covers all 62
+        routes at once rather than being wired per page. It is mounted here
+        rather than in App.tsx purely so this file owns it - App.tsx is edited
+        by nearly every feature, and this is a line that should never move. */}
     <BrowserRouter>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </BrowserRouter>
   </React.StrictMode>,
 )

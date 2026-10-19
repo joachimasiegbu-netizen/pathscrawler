@@ -5,7 +5,13 @@
 -- (safe to re-run) via `if not exists` / `create or replace` / `drop ...
 -- if exists` everywhere it matters.
 --
--- Three tables:
+-- Tables, in the order they appear below:
+--   rolls, title_unlocks, user_best_cards, profiles  - the leaderboard set,
+--                       all publicly readable (that's what a leaderboard is).
+--   binder_cards, saved_pathways                     - private per-player
+--                       collections, owner-only reads. See their own section
+--                       further down.
+--
 --   rolls            - one permanent row per roll a signed-in player makes.
 --                       The client only ever INSERTs here.
 --   title_unlocks    - one permanent row per title a signed-in player has
@@ -366,6 +372,96 @@ alter table public.profiles add constraint profiles_graduation_quote_length
 -- browser. null until they've ever changed it once (picking a name for the
 -- very first time doesn't start the clock - see that file's own comment).
 alter table public.profiles add column if not exists username_changed_at timestamptz;
+
+-- ===========================================================================
+-- binder_cards + saved_pathways - the two "my stuff" collections. Both were
+-- localStorage-only until now (useBinderStore.ts / useSavedPathwaysStore.ts),
+-- which meant clearing the browser, or moving from phone to laptop, lost
+-- them: for a product whose value is "the path you built", that was the
+-- biggest remaining gap. The stores keep their localStorage mirror as the
+-- instant/offline fast path; these tables are the source of truth across
+-- devices.
+--
+-- Two deliberate differences from the five tables above:
+--   * No `email` column. The leaderboard tables denormalise email because
+--     they're read publicly, by other players; nothing reads these two but
+--     their owner, so the copy would be duplication with no reader.
+--   * No public read policy, and no "for update" policy either. These are
+--     private collections, not a leaderboard - and every row is immutable
+--     once written (the client only ever adds or removes whole entries), so
+--     UPDATE is a verb neither table needs granted to anyone.
+-- ===========================================================================
+
+create table if not exists public.binder_cards (
+  user_id uuid not null references auth.users (id) on delete cascade,
+  -- The client's own per-copy id (useBinderStore.ts's BinderCard.id,
+  -- `${careerId}-${ms}-${random}`), not a server-side gen_random_uuid():
+  -- the Binder deliberately keeps duplicate rolls of the same career as
+  -- distinct entries, so row identity has to be the id the client already
+  -- generates, renders keys from, and deletes by. (user_id, card_id) as the
+  -- primary key also makes the insert of an already-synced card a harmless
+  -- conflict rather than a second copy - same reasoning as title_unlocks.
+  card_id text not null,
+  career_id integer not null,
+  title text not null,
+  tier text not null,
+  -- Text, not numeric: the app's career data carries salary as a display
+  -- string ("£28,000 - £35,000"), and this column exists to redisplay the
+  -- card exactly as it was rolled, not to be summed.
+  salary text not null,
+  date_rolled timestamptz not null,
+  roll_attempt_number integer not null,
+  primary key (user_id, card_id)
+);
+
+-- The Binder grid renders newest-first, which is also the order the store
+-- asks for on hydrate.
+create index if not exists binder_cards_user_date_idx on public.binder_cards (user_id, date_rolled desc);
+
+create table if not exists public.saved_pathways (
+  user_id uuid not null references auth.users (id) on delete cascade,
+  career_id integer not null,
+  saved_at timestamptz not null default now(),
+  -- A pathway is a bookmark: one per career per account, no duplicates and
+  -- no history, so the natural key is the whole row identity (unlike
+  -- binder_cards above, which is explicitly a collection WITH duplicates).
+  primary key (user_id, career_id)
+);
+
+alter table public.binder_cards enable row level security;
+alter table public.saved_pathways enable row level security;
+
+-- Owner-only, all three verbs. The anon key is public by design, so these
+-- policies are the only thing standing between one player's binder and
+-- everyone else's - there is no public-read variant here on purpose.
+drop policy if exists "Users read their own binder" on public.binder_cards;
+create policy "Users read their own binder" on public.binder_cards
+  for select to authenticated using (auth.uid() = user_id);
+
+drop policy if exists "Users add to their own binder" on public.binder_cards;
+create policy "Users add to their own binder" on public.binder_cards
+  for insert to authenticated with check (auth.uid() = user_id);
+
+drop policy if exists "Users remove from their own binder" on public.binder_cards;
+create policy "Users remove from their own binder" on public.binder_cards
+  for delete to authenticated using (auth.uid() = user_id);
+
+drop policy if exists "Users read their own saved pathways" on public.saved_pathways;
+create policy "Users read their own saved pathways" on public.saved_pathways
+  for select to authenticated using (auth.uid() = user_id);
+
+drop policy if exists "Users add their own saved pathways" on public.saved_pathways;
+create policy "Users add their own saved pathways" on public.saved_pathways
+  for insert to authenticated with check (auth.uid() = user_id);
+
+drop policy if exists "Users remove their own saved pathways" on public.saved_pathways;
+create policy "Users remove their own saved pathways" on public.saved_pathways
+  for delete to authenticated using (auth.uid() = user_id);
+
+-- No realtime publication for either table, unlike user_best_cards/profiles
+-- above: both are single-player data, and the one client that can read a row
+-- is the same client that just wrote it. Cross-device freshness comes from
+-- the hydrate-on-sign-in path instead (App.tsx), not a live subscription.
 
 -- ===========================================================================
 -- Security hardening pass.
