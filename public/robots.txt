@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+# QA-only pages that render components in isolation
+Disallow: /preview/
+
+Sitemap: https://pathscrawler.vercel.app/sitemap.xml

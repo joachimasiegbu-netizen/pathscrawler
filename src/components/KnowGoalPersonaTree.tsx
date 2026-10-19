@@ -3,7 +3,7 @@ import { usePathStore } from '../store/usePathStore'
 
 /**
  * The "I Know My Goal" persona's visual on RoleSelectionPage.tsx - the way
- * StudentPersonaCube.tsx is Student's and StudentHubPersonaEarth.tsx is
+ * StudentPersonaCube.tsx is Student's and StudentHubPigeonholes.tsx is
  * Student Hub's.
  *
  * A constellation: a branching tree of stars rooted at "you are here", with

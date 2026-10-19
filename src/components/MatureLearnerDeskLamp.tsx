@@ -12,8 +12,9 @@ import { usePathStore } from '../store/usePathStore'
  * candidates (claude.ai/code/artifact/effc911e-6343-4742-84d7-14791e18b642)
  * over a date-due library card, a kintsugi bowl, and a staircase upgrade to
  * the turning hourglass it replaces; MatureLearnerHourglass.tsx and
- * PersonaCard's `glass` branch both stay in the tree to switch back to, the
- * same way the earth banner the pigeonholes took over from did.
+ * PersonaCard's `glass` branch have both since been deleted, the same way
+ * the earth banner the pigeonholes took over from was. Git history has them
+ * if either is ever wanted back.
  *
  * Real volume, not a drawing of one. The first build of this was flat SVG
  * and read as exactly that next to the cube and the cabinet, so it is now

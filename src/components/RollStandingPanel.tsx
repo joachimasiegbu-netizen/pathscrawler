@@ -9,17 +9,19 @@ import { useMyUserProfile, useUserProfileStore } from '../store/useUserProfileSt
 import { TIERS } from '../utils/careerTiers'
 import { TIER_BAR_COLOR } from '../utils/tierStyles'
 import {
-  COMMON_CAREER_IDS,
   EARLY_ROLL_WINDOW,
   GAMBLING_ADDICT_ROLLS_TARGET,
   getTitlesWithStatus,
-  GRADUATE_CAREER_IDS,
   SHADOW_BANNED_DRY_SPELL_TARGET,
   SWEAT_LORD_ROLLS_TARGET,
   TITLES,
   type TitleIcon,
   type TitleWithStatus,
 } from '../utils/titles'
+// Loads the 657 KB career dataset on demand rather than in the initial chunk
+// (this component is in the app's permanent header). Null until it arrives -
+// the two collection-count rows below just omit their figures until then.
+import { useTitleCareerSets, type TitleCareerSets } from '../utils/titleCareerSets'
 import { playSound } from '../utils/sound'
 import TitleUnlockToast from './TitleUnlockToast'
 
@@ -81,6 +83,10 @@ function getProgressInfo(
   commonCollected: number,
   yourRank: number,
   graduateCollected: number,
+  /** Null until the career dataset chunk has loaded - the two rows that need
+   * a set SIZE fall back to a count-less label rather than rendering "N / 0"
+   * or holding the whole header back on a 657 KB download. */
+  careerSets: TitleCareerSets | null,
 ): TitleProgressInfo | null {
   if (title.unlocked || title.isHidden) return null
   switch (title.id) {
@@ -104,14 +110,16 @@ function getProgressInfo(
             : `${progress.totalRolls} / ${EARLY_ROLL_WINDOW} rolls used`,
       }
     case 'working-class-hero':
+      if (!careerSets) return { label: 'Common careers collected: counting…' }
       return {
-        label: `${commonCollected} / ${COMMON_CAREER_IDS.size} Common careers collected`,
-        percent: Math.min(100, (commonCollected / COMMON_CAREER_IDS.size) * 100),
+        label: `${commonCollected} / ${careerSets.common.size} Common careers collected`,
+        percent: Math.min(100, (commonCollected / careerSets.common.size) * 100),
       }
     case 'graduate':
+      if (!careerSets) return { label: 'Entry-level careers collected: counting…' }
       return {
-        label: `${graduateCollected} / ${GRADUATE_CAREER_IDS.size} entry-level careers collected`,
-        percent: Math.min(100, (graduateCollected / GRADUATE_CAREER_IDS.size) * 100),
+        label: `${graduateCollected} / ${careerSets.graduate.size} entry-level careers collected`,
+        percent: Math.min(100, (graduateCollected / careerSets.graduate.size) * 100),
       }
     case 'job':
       // Rank-based like Icarus above, not a fixed climbing counter - no
@@ -169,10 +177,16 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
   const { entries: leaderboardEntries } = useLeaderboardEntries()
   const yourRank = currentUser ? leaderboardEntries.findIndex((entry) => entry.userId === currentUser.id) : -1
 
+  const careerSets = useTitleCareerSets()
+
   const titles = getTitlesWithStatus(progress, !!currentUser)
   const earnedCount = titles.filter((t) => t.unlocked).length
-  const commonCollectedCount = new Set(cards.map((card) => card.careerId).filter((id) => COMMON_CAREER_IDS.has(id))).size
-  const graduateCollectedCount = new Set(cards.map((card) => card.careerId).filter((id) => GRADUATE_CAREER_IDS.has(id))).size
+  const commonCollectedCount = careerSets
+    ? new Set(cards.map((card) => card.careerId).filter((id) => careerSets.common.has(id))).size
+    : 0
+  const graduateCollectedCount = careerSets
+    ? new Set(cards.map((card) => card.careerId).filter((id) => careerSets.graduate.has(id))).size
+    : 0
 
   // Two reactive syncs into useTitleProgressStore - neither is something
   // recordRoll (fired once per roll, JobMarketRollPage.tsx) can determine
@@ -193,7 +207,10 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
 
   useEffect(() => {
     const binderCareerIds = new Set(cards.map((card) => card.careerId))
-    useTitleProgressStore.getState().syncBinderCompletion(binderCareerIds)
+    // Async now (it awaits the lazily imported career dataset) and never
+    // rejects - fire and forget, same as before from this effect's point of
+    // view.
+    void useTitleProgressStore.getState().syncBinderCompletion(binderCareerIds)
   }, [cards])
 
   // Queue + one-at-a-time display for newly-unlocked titles' one-time
@@ -456,7 +473,7 @@ export default function RollStandingPanel({ align = 'right' }: { align?: 'left' 
       {selectedTitle ? (
         <TitleDetailModal
           title={selectedTitle}
-          progress={getProgressInfo(selectedTitle, progress, commonCollectedCount, yourRank, graduateCollectedCount)}
+          progress={getProgressInfo(selectedTitle, progress, commonCollectedCount, yourRank, graduateCollectedCount, careerSets)}
           isEquipped={equippedTitleId === selectedTitle.id}
           onEquip={() => equipTitle(equippedTitleId === selectedTitle.id ? null : selectedTitle.id)}
           onClose={() => setSelectedTitle(null)}

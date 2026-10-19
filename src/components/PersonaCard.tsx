@@ -1,9 +1,7 @@
 import type { CSSProperties, ComponentType } from 'react'
 import StudentPersonaCube from './StudentPersonaCube'
-import StudentHubPersonaEarth from './StudentHubPersonaEarth'
 import KnowGoalPersonaTree from './KnowGoalPersonaTree'
 import CareerChangerSplitFlap from './CareerChangerSplitFlap'
-import MatureLearnerHourglass from './MatureLearnerHourglass'
 import MatureLearnerDeskLamp from './MatureLearnerDeskLamp'
 import StudentHubPigeonholes from './StudentHubPigeonholes'
 
@@ -27,41 +25,24 @@ export interface PersonaDef {
    * `style` transform and confirms-to-select like every other card. */
   cube?: boolean
   /** Render the drawer cabinet (StudentHubPigeonholes.tsx) as this card's
-   * visual instead of `icon` - the Student Hub persona only. Took over
-   * from `earth` below, which stays here (with its component) in case the
-   * globe is wanted back. Same chrome-less treatment as the rest. */
+   * visual instead of `icon` - the Student Hub persona only. Same
+   * chrome-less treatment as the rest. */
   holes?: boolean
-  /** Render the rotating-earth banner (StudentHubPersonaEarth.tsx) as this
-   * card's visual instead of `icon` - was the Student Hub persona's, now
-   * superseded by `holes` above and unused. Same chrome-less treatment as
-   * `cube` above (drops panel,
-   * border, shadow, brackets, "Persona" eyebrow, confirm sparkle - just the
-   * banner, the label, and the tagline), so the two special persona
-   * visuals read as one consistent design language rather than one styled
-   * and one not. */
-  earth?: boolean
   /** Render the line-drawn tree (KnowGoalPersonaTree.tsx) as this card's
    * visual instead of `icon` - the "I Know My Goal" persona only,
-   * currently. Same chrome-less treatment as `cube`/`earth` above, so all
-   * three special persona visuals read as one design language. */
+   * currently. Same chrome-less treatment as `cube` above, so all the
+   * special persona visuals read as one design language. */
   tree?: boolean
   /** Render the split-flap board (CareerChangerSplitFlap.tsx) as this card's
    * visual instead of `icon` - the Career Changer persona only, currently.
-   * Same chrome-less treatment as `cube`/`earth`/`tree` above. */
+   * Same chrome-less treatment as `cube`/`tree` above. */
   flap?: boolean
-  /** Render the turning hourglass (MatureLearnerHourglass.tsx) as this card's
-   * visual instead of `icon` - was the Mature Learner persona's, now
-   * superseded by `lamp` below and unused. Same chrome-less treatment as
-   * `cube`/`earth`/`tree`/`flap` above. It stays here, with its component,
-   * in case the hourglass is wanted back. */
-  glass?: boolean
   /** Render the desk lamp coming on over a book (MatureLearnerDeskLamp.tsx)
    * as this card's visual instead of `icon` - the Mature Learner persona
-   * only. Took over from `glass` above. Same chrome-less treatment as the
-   * rest; with this one set, every persona in the carousel has its own
-   * visual and the plain-icon branch at the bottom of this file is no longer
-   * reachable from RoleSelectionPage - it stays for any persona added
-   * later. */
+   * only. Same chrome-less treatment as the rest; with this one set, every
+   * persona in the carousel has its own visual and the plain-icon branch at
+   * the bottom of this file is no longer reachable from RoleSelectionPage -
+   * it stays for any persona added later. */
   lamp?: boolean
 }
 
@@ -172,44 +153,7 @@ export default function PersonaCard({
     )
   }
 
-  // Earth persona: same chrome-less treatment as the cube branch above,
-  // just swapping in the rotating-earth banner as the visual. Superseded by
-  // the `holes` branch above and no longer reached from RoleSelectionPage -
-  // kept in case the globe is wanted back.
-  if (persona.earth) {
-    return (
-      <button
-        type="button"
-        onClick={onClick}
-        aria-current={active ? 'true' : undefined}
-        aria-label={active ? `${persona.label} - selected, tap to confirm` : `Show ${persona.label}`}
-        className="persona-card group absolute left-1/2 top-1/2 flex h-72 w-56 flex-col items-center justify-center text-center sm:h-80 sm:w-64"
-        style={style}
-      >
-        <span className={`flex flex-col items-center ${floatClass}`}>
-          {/* Same scale-down-a-fixed-size-stage approach as the cube branch
-              above (its own stage is a fixed 250x250 circle). */}
-          <span
-            aria-hidden="true"
-            className="flex h-44 w-full shrink-0 items-center justify-center overflow-visible"
-          >
-            <span className="shrink-0" style={{ transform: 'scale(0.72)', transformOrigin: 'center' }}>
-              <StudentHubPersonaEarth />
-            </span>
-          </span>
-          <span
-            className="persona-title-text mt-3 text-xl font-semibold text-slate-900"
-            style={{ letterSpacing: '-0.01em' }}
-          >
-            {persona.label}
-          </span>
-          <span className="persona-tagline-text mt-2 text-sm leading-5 text-slate-500">{persona.tagline}</span>
-        </span>
-      </button>
-    )
-  }
-
-  // Tree persona: same chrome-less treatment as the two branches above. The
+  // Tree persona: same chrome-less treatment as the branch above. The
   // tree's balls need pointer hits for their own hover (trace the route to
   // that tip), and a hit on one still bubbles to this button to select the
   // persona - exactly how the cube's faces behave.
@@ -313,44 +257,6 @@ export default function PersonaCard({
           >
             <span className="shrink-0" style={{ transform: 'scale(0.72)', transformOrigin: 'center' }}>
               <MatureLearnerDeskLamp />
-            </span>
-          </span>
-          <span
-            className="persona-title-text mt-3 text-xl font-semibold text-slate-900"
-            style={{ letterSpacing: '-0.01em' }}
-          >
-            {persona.label}
-          </span>
-          <span className="persona-tagline-text mt-2 text-sm leading-5 text-slate-500">{persona.tagline}</span>
-        </span>
-      </button>
-    )
-  }
-
-  // Hourglass persona: the lamp branch above took this persona over, so this
-  // is now unreachable from RoleSelectionPage - kept to switch back to. Its
-  // stage owns the pointer hover that drains it fast, and a click on it still
-  // bubbles to this button to select the persona.
-  if (persona.glass) {
-    return (
-      <button
-        type="button"
-        onClick={onClick}
-        aria-current={active ? 'true' : undefined}
-        aria-label={active ? `${persona.label} - selected, tap to confirm` : `Show ${persona.label}`}
-        className="persona-card group absolute left-1/2 top-1/2 flex h-72 w-56 flex-col items-center justify-center text-center sm:h-80 sm:w-64"
-        style={style}
-      >
-        <span className={`flex flex-col items-center ${floatClass}`}>
-          {/* Same scale-down-a-fixed-size-stage approach as the branches
-              above, at the same 0.72 (its own stage is a fixed 250x250
-              square). */}
-          <span
-            aria-hidden="true"
-            className="flex h-44 w-full shrink-0 items-center justify-center overflow-visible"
-          >
-            <span className="shrink-0" style={{ transform: 'scale(0.72)', transformOrigin: 'center' }}>
-              <MatureLearnerHourglass />
             </span>
           </span>
           <span

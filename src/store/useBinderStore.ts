@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware'
 import type { Career } from '../data/demoCareers'
 import type { TierKey } from '../utils/careerTiers'
 import { isSupabaseConfigured, supabase } from '../lib/supabaseClient'
+import { reportError } from '../utils/reportError'
 import { useAuthStore } from './useAuthStore'
 import { MAX_COMPARE_CAREERS } from './useCompareStore'
 
@@ -109,8 +110,7 @@ async function pushCards(userId: string, cards: BinderCard[]): Promise<void> {
     .from('binder_cards')
     .upsert(cards.map((card) => toRow(userId, card)), { onConflict: 'user_id,card_id' })
   if (error) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to sync binder cards to Supabase:', error.message)
+    reportError(error, { where: 'binder.pushCards', extra: { count: cards.length } })
   }
 }
 
@@ -118,8 +118,7 @@ async function deleteCardRow(userId: string, cardId: string): Promise<void> {
   if (!isSupabaseConfigured || !supabase) return
   const { error } = await supabase.from('binder_cards').delete().eq('user_id', userId).eq('card_id', cardId)
   if (error) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to remove binder card from Supabase:', error.message)
+    reportError(error, { where: 'binder.deleteCard', extra: { cardId } })
   }
 }
 
@@ -127,8 +126,7 @@ async function deleteAllCardRows(userId: string): Promise<void> {
   if (!isSupabaseConfigured || !supabase) return
   const { error } = await supabase.from('binder_cards').delete().eq('user_id', userId)
   if (error) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to clear binder in Supabase:', error.message)
+    reportError(error, { where: 'binder.clearAll' })
   }
 }
 
@@ -149,9 +147,18 @@ interface BinderState {
    * consumer tell "no cards yet" apart from "not loaded yet", the same way
    * useUserProfileStore.hydratedUserId does. Not persisted. */
   hydratedUserId: string | null
+  /** Why the last hydrate failed, or null if it didn't. The Binder page
+   * needs this to tell "your collection is empty" apart from "we could not
+   * reach your collection" - the same distinction LeaderboardPage.tsx draws,
+   * and for the same reason: showing a player with 180 cards an empty binder
+   * and a "roll your first career!" prompt is the one wrong answer. The
+   * local mirror is still rendered underneath; this only drives the banner.
+   * Not persisted - it describes this page load. */
+  loadError: string | null
   /** Pulls this account's real collection from Supabase and, the first time
    * it runs for an account, pushes up anything this browser has that the
-   * account doesn't. Called from App.tsx on sign-in. */
+   * account doesn't. Called from App.tsx on sign-in, and again by the
+   * Binder page's own "Try again" button. */
   hydrateFromSupabase: () => Promise<void>
   // Every BinderCard requires rollAttemptNumber/dateRolled, and addCard is
   // only ever called from RollResultCard's "Add to Binder" button - there is
@@ -178,14 +185,21 @@ export const useBinderStore = create<BinderState>()(
       cardsByUser: {},
       mergedUserIds: [],
       hydratedUserId: null,
+      loadError: null,
 
       hydrateFromSupabase: async () => {
         const userId = currentUserId()
         if (!userId) return
         if (!isSupabaseConfigured || !supabase) {
-          set({ hydratedUserId: userId })
+          // Not an error to report at the row level - a deployment with no
+          // backend configured is a whole-app condition the page says its
+          // own way (see MyBinderPage's isSupabaseConfigured branch).
+          set({ hydratedUserId: userId, loadError: null })
           return
         }
+        // Clears a previous failure so a retry doesn't render the old banner
+        // underneath the new attempt's spinner.
+        set({ loadError: null })
         const { data, error } = await supabase
           .from('binder_cards')
           .select('card_id, career_id, title, tier, salary, date_rolled, roll_attempt_number')
@@ -196,9 +210,11 @@ export const useBinderStore = create<BinderState>()(
           // whole collection until the next successful hydrate, and the
           // account stays out of mergedUserIds so its local-only cards still
           // get their upload attempt next time.
-          // eslint-disable-next-line no-console
-          console.error('Failed to load binder from Supabase:', error.message)
-          set({ hydratedUserId: userId })
+          reportError(error, { where: 'binder.hydrate', extra: { userId } })
+          set({
+            hydratedUserId: userId,
+            loadError: "We couldn't reach your collection just now.",
+          })
           return
         }
 
@@ -213,6 +229,7 @@ export const useBinderStore = create<BinderState>()(
           set({
             cardsByUser: { ...get().cardsByUser, [userId]: remote },
             hydratedUserId: userId,
+            loadError: null,
           })
           return
         }
@@ -230,6 +247,7 @@ export const useBinderStore = create<BinderState>()(
           cardsByUser: { ...get().cardsByUser, [userId]: merged },
           mergedUserIds: [...get().mergedUserIds, userId],
           hydratedUserId: userId,
+          loadError: null,
         })
         void pushCards(userId, localOnly)
       },
@@ -324,9 +342,10 @@ export const useBinderStore = create<BinderState>()(
       // Selection mode is a transient UI session, not collection data - if
       // it were persisted, reloading mid-selection would resurrect stale
       // gray cards/circles from a comparison that never happened.
-      // hydratedUserId is deliberately out too: it describes this page load's
-      // progress, and a persisted `true` would claim a sync that hasn't
-      // happened yet on the next one.
+      // hydratedUserId and loadError are deliberately out too: both describe
+      // this page load's progress, and a persisted value would claim a sync
+      // that hasn't happened yet (or re-show a stale failure banner) on the
+      // next one.
       partialize: (state) => ({ cardsByUser: state.cardsByUser, mergedUserIds: state.mergedUserIds }),
     },
   ),

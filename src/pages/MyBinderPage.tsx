@@ -6,9 +6,11 @@ import BinderAuthWall from '../components/BinderAuthWall'
 import BinderCardTile from '../components/BinderCardTile'
 import BinderStatsPanel from '../components/BinderStatsPanel'
 import FloatingCompareButton from '../components/FloatingCompareButton'
+import SkeletonCard from '../components/SkeletonCard'
 import Toast from '../components/Toast'
 import Button from '../components/Button'
 import TitlePill from '../components/TitlePill'
+import { isSupabaseConfigured } from '../lib/supabaseClient'
 import { useAuthStore } from '../store/useAuthStore'
 import { useMyUserProfile } from '../store/useUserProfileStore'
 import { useBinderStore, useMyBinderCards } from '../store/useBinderStore'
@@ -57,6 +59,15 @@ export default function MyBinderPage() {
   const exitSelectionMode = useBinderStore((state) => state.exitSelectionMode)
   const toggleBinderSelection = useBinderStore((state) => state.toggleBinderSelection)
   const clearBinder = useBinderStore((state) => state.clearBinder)
+  // The three states this page was missing. `cards` is the local mirror, so
+  // it renders instantly and is usually right - but on a first visit from a
+  // new device it is empty until the hydrate lands, and on a failed hydrate
+  // it stays empty while the account's real collection sits there unread.
+  // Both used to look identical to "you have never rolled anything".
+  const hydratedUserId = useBinderStore((state) => state.hydratedUserId)
+  const loadError = useBinderStore((state) => state.loadError)
+  const hydrateFromSupabase = useBinderStore((state) => state.hydrateFromSupabase)
+  const [retrying, setRetrying] = useState(false)
   const [activeTab, setActiveTab] = useState<TabKey>('all')
   const [sort, setSort] = useState<SortKey>('newest')
   const [search, setSearch] = useState('')
@@ -92,6 +103,21 @@ export default function MyBinderPage() {
   const flashToast = (message: string) => {
     setToast(message)
     window.setTimeout(() => setToast((current) => (current === message ? null : current)), 2500)
+  }
+
+  // True only before the first hydrate for THIS account resolves. Keyed on
+  // the user id, not a boolean, so switching accounts shows the skeleton
+  // again rather than the previous account's collection.
+  const isLoadingCollection =
+    isSupabaseConfigured && !!currentUser && hydratedUserId !== currentUser.id
+
+  const handleRetry = async () => {
+    setRetrying(true)
+    try {
+      await hydrateFromSupabase()
+    } finally {
+      setRetrying(false)
+    }
   }
 
   const handleToggleSelect = (careerId: number) => {
@@ -207,7 +233,52 @@ export default function MyBinderPage() {
               instead of respecting the 1fr track and scrolling internally
               via the tab row's own overflow-x-auto. */}
           <div className="min-w-0 space-y-4 lg:order-1">
-            {cards.length === 0 ? (
+            {/* FAILED. Sits above whatever else renders, because a failed
+                hydrate does not stop the local mirror below from being worth
+                showing - it just means it might be incomplete. Styled as a
+                warning rather than a blocking error for exactly that reason. */}
+            {loadError ? (
+              <div
+                role="alert"
+                className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-900 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-100"
+              >
+                <p className="font-semibold">{loadError}</p>
+                <p className="mt-1 text-amber-800 dark:text-amber-200/80">
+                  {cards.length > 0
+                    ? "You're seeing the copy saved on this device, which may be missing cards added elsewhere."
+                    : 'Your cards are safe - this device just could not reach them. Nothing has been deleted.'}
+                </p>
+                <button
+                  type="button"
+                  onClick={handleRetry}
+                  disabled={retrying}
+                  className="mt-3 min-h-[44px] rounded-lg border border-amber-400/60 px-4 py-2 text-sm font-semibold text-amber-900 transition hover:bg-amber-100 disabled:opacity-60 dark:text-amber-100 dark:hover:bg-amber-500/20"
+                >
+                  {retrying ? 'Trying…' : 'Try again'}
+                </button>
+              </div>
+            ) : null}
+
+            {/* LOADING. The grid's own shape, not a spinner - this column is
+                the page, and collapsing it to a line of text makes the whole
+                layout jump when the real cards arrive. */}
+            {isLoadingCollection ? (
+              <div aria-busy="true" role="status" aria-live="polite">
+                <span className="sr-only">Loading your collection…</span>
+                <div className="rounded-3xl border border-slate-200 bg-slate-100 p-4 shadow-soft dark:border-white/10 dark:bg-slate-800/60 sm:p-6">
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                    {Array.from({ length: 8 }).map((_, index) => (
+                      <SkeletonCard key={index} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : cards.length === 0 ? (
+              // EMPTY - but only once we actually know it is empty. With a
+              // loadError standing, an empty mirror proves nothing, so the
+              // "roll your first career!" prompt would be a guess; the banner
+              // above has already said what happened.
+              loadError ? null : (
               <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-10 text-center dark:border-white/15 dark:bg-white/5">
                 <BookOpen className="mx-auto h-10 w-10 text-slate-400 dark:text-slate-500" aria-hidden="true" />
                 <p className="mt-4 text-base font-semibold text-slate-900 dark:text-white">Your binder is empty.</p>
@@ -217,6 +288,7 @@ export default function MyBinderPage() {
                   Roll a Job
                 </Button>
               </div>
+              )
             ) : (
               <>
                 <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0" role="tablist" aria-label="Filter by tier">

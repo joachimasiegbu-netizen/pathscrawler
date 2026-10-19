@@ -6,7 +6,37 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#1E3A5F" />
-    <title>PathScrawler</title>
+    <!-- Plus Jakarta Sans lives here rather than behind an @import in
+         index.css: a <link> is visible to the browser's preload scanner
+         straight away, whereas an @import cannot begin downloading until the
+         stylesheet that contains it has already arrived. One variable file
+         covers 200-800, so every weight the app uses costs a single request. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..600&display=swap"
+    />
+    <title>PathScrawler | Explore careers and the routes into them</title>
+    <!-- What search engines and link previews (WhatsApp, iMessage, Slack,
+         LinkedIn...) read before any JavaScript runs. Preview scrapers never
+         run the app, so every shared link previews with these defaults;
+         RouteMeta.tsx then sets the per-page title and description for
+         browsers and Google. The title and description mirror DEFAULT_TITLE
+         and DEFAULT_DESCRIPTION in src/data/seo.ts. No canonical or og:url
+         here on purpose: this same file is served for every route, so a
+         static one would claim every page is the homepage. -->
+    <meta name="description" content="Find careers that fit you and the qualifications, apprenticeships and courses that get you there. Careers guidance for UK students and career changers." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PathScrawler" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content="PathScrawler | Explore careers and the routes into them" />
+    <meta property="og:description" content="Find careers that fit you and the qualifications, apprenticeships and courses that get you there. Careers guidance for UK students and career changers." />
+    <meta property="og:image" content="https://pathscrawler.vercel.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="PathScrawler logo: a winding path rising to an arrow, with the line Explore careers and the routes into them" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <div id="root"></div>

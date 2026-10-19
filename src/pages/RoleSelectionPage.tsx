@@ -58,9 +58,9 @@ const personas: PersonaDef[] = [
     // off a spec sheet of four candidates
     // (claude.ai/code/artifact/effc911e-6343-4742-84d7-14791e18b642) over a
     // date-due library card, a kintsugi bowl, and a staircase upgrade to the
-    // turning hourglass it replaces - that one (`glass: true`, with its
-    // component and PersonaCard branch) is still there to switch back to,
-    // same as the earth banner the pigeonholes took over from.
+    // turning hourglass it replaces - that one (MatureLearnerHourglass.tsx,
+    // `glass: true`) has since been deleted along with its PersonaCard
+    // branch and CSS; it is in git history if it is ever wanted back.
     lamp: true,
   },
   {
@@ -76,9 +76,10 @@ const personas: PersonaDef[] = [
     // visual instead of the Compass icon - drops the pulse glow along with
     // the rest of the card chrome (see PersonaCard.tsx's `holes` branch),
     // so `pulse` no longer applies here. Took over from the rotating-earth
-    // banner (`earth: true`), which was the one persona visual that wasn't
-    // really 3D and the only one carrying an embedded ~44 KB texture; the
-    // component and its branch are both still there to switch back to.
+    // banner (StudentHubPersonaEarth.tsx, `earth: true`), which was the one
+    // persona visual that wasn't really 3D and the only one carrying an
+    // embedded ~44 KB texture; it has since been deleted along with its
+    // PersonaCard branch and CSS, and is in git history if wanted back.
     holes: true,
   },
   // Was its own block below the carousel ("If you already know the job you

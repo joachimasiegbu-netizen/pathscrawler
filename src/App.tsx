@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { BookOpen, FolderClock, GitCompare, GraduationCap, LogOut, Settings2, TrendingUp, Trophy, UserRound, X } from 'lucide-react'
 import { usePathStore } from './store/usePathStore'
@@ -12,72 +12,95 @@ import TitlePill from './components/TitlePill'
 import { useMyUserProfile, useUserProfileStore } from './store/useUserProfileStore'
 import { useBinderStore } from './store/useBinderStore'
 import { useSavedPathwaysStore } from './store/useSavedPathwaysStore'
-import SearchResultsPage from './pages/SearchResultsPage'
-import LoginPage from './pages/LoginPage'
-import SignupPage from './pages/SignupPage'
-import ForgotPasswordPage from './pages/ForgotPasswordPage'
-import ResetPasswordPage from './pages/ResetPasswordPage'
-import SharedPathwayPage from './pages/SharedPathwayPage'
-import MyPathwaysPage from './pages/MyPathwaysPage'
-import PathwayFlowPage from './pages/PathwayFlowPage'
-import ComparePage from './pages/ComparePage'
-import JobMarketPage from './pages/JobMarketPage'
-import JobMarketSpotlightPage from './pages/JobMarketSpotlightPage'
-import JobMarketStatisticsPage from './pages/JobMarketStatisticsPage'
-import JobMarketUkStatsPage from './pages/JobMarketUkStatsPage'
-import JobMarketHeritageCraftsPage from './pages/JobMarketHeritageCraftsPage'
-import JobMarketHighDemandCareersPage from './pages/JobMarketHighDemandCareersPage'
-import JobMarketVanishedJobsPage from './pages/JobMarketVanishedJobsPage'
-import JobMarketAiEndangeredJobsPage from './pages/JobMarketAiEndangeredJobsPage'
-import JobMarketEasiestPage from './pages/JobMarketEasiestPage'
-import JobMarketHighestPayingPage from './pages/JobMarketHighestPayingPage'
-import JobMarketRollPage from './pages/JobMarketRollPage'
-import LeaderboardPage from './pages/LeaderboardPage'
-import MythicRevealPreviewPage from './pages/MythicRevealPreviewPage'
-import UsernameModalPreviewPage from './pages/UsernameModalPreviewPage'
-import TitlesPreviewPage from './pages/TitlesPreviewPage'
-import MyBinderPage from './pages/MyBinderPage'
-import ProfilePage from './pages/ProfilePage'
-import TestimonialsPage from './pages/TestimonialsPage'
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
-import TermsOfUsePage from './pages/TermsOfUsePage'
 import SiteFooter from './components/SiteFooter'
 import StorageNotice from './components/StorageNotice'
-import StudentHubPage from './pages/StudentHubPage'
-import StudentHubTopicPage from './pages/StudentHubTopicPage'
-import StudentHubFaqPage from './pages/StudentHubFaqPage'
-import StudentHubChecklistsPage from './pages/StudentHubChecklistsPage'
-import SkillsPage from './pages/SkillsPage'
-import StudentDebtCalculatorPage from './pages/StudentDebtCalculatorPage'
-import BinderComparePage from './pages/BinderComparePage'
-import LoadingPage from './pages/LoadingPage'
-import QuickAssessmentPage from './pages/QuickAssessmentPage'
-import RoleSelectionPage from './pages/RoleSelectionPage'
-import CareerChangerCurrentRolePage from './pages/CareerChangerCurrentRolePage'
-import CareerChangerPreferencesPage from './pages/CareerChangerPreferencesPage'
-import CareerChangerResultsPage from './pages/CareerChangerResultsPage'
-import SubjectSelectionPage from './pages/SubjectSelectionPage'
-import SubjectDetailPage from './pages/SubjectDetailPage'
-import RefugeeWelcomePage from './pages/RefugeeWelcomePage'
-import RefugeeSubjectLevelsPage from './pages/RefugeeSubjectLevelsPage'
-import RefugeeSubjectPage from './pages/RefugeeSubjectPage'
-import TLevelSubjectPage from './pages/TLevelSubjectPage'
-import ResultPage from './pages/ResultPage'
-import CareerDetailPage from './pages/CareerDetailPage'
-import CareerPathwayStepperPage from './pages/CareerPathwayStepperPage'
-import ESOLSubjectPage from './pages/ESOLSubjectPage'
-import QualificationRecognitionPage from './pages/QualificationRecognitionPage'
-import DisabledWelcomePage from './pages/DisabledWelcomePage'
-import DisabledSupportNeedsPage from './pages/DisabledSupportNeedsPage'
-import BacktrackCategoriesPage from './pages/BacktrackCategoriesPage'
-import BacktrackCareersListPage from './pages/BacktrackCareersListPage'
-import BacktrackPathwayOverviewPage from './pages/BacktrackPathwayOverviewPage'
-import BacktrackPathwayOptionsPage from './pages/BacktrackPathwayOptionsPage'
-import BacktrackSubjectSelectionPage from './pages/BacktrackSubjectSelectionPage'
-import NotFoundPage from './pages/NotFoundPage'
 import MobileContainer from './components/MobileContainer'
 import Logo from './components/Logo'
 import NavGlowOrbs from './components/NavGlowOrbs'
+import RouteFallback from './components/RouteFallback'
+// The splash at "/" is the one page kept as a static import. It is the first
+// thing most visitors see, it is tiny (a logo and a motion wrapper), and a
+// Suspense fallback flashing in its place would be the single worst placement
+// of one in the app.
+import LoadingPage from './pages/LoadingPage'
+
+/* ─── Routes, split ────────────────────────────────────────────────────────
+   Every page below was a static import until this point, which meant one
+   chunk holding all 62 routes: 2,166 KB of JS (533 KB gzipped), with Vite
+   warning about it on every build. A student on mobile data downloaded the
+   whole app - the Roll a Job reveal animations, the career dataset, recharts,
+   every Job Market page - to read one page.
+
+   React.lazy + the <Suspense> around <Routes> below is the mechanical fix:
+   each page becomes its own chunk, fetched when its route is first visited.
+   Anything shared between pages (framer-motion, the career data, the shared
+   components) is hoisted by Rollup into common chunks automatically, so a
+   second page that needs the dataset does not re-download it.
+
+   Keep these as plain `lazy(() => import('./pages/X'))` one-liners with a
+   literal path: the bundler has to see the specifier statically to make a
+   chunk out of it, so a computed path silently collapses this back into one
+   bundle. */
+const SearchResultsPage = lazy(() => import('./pages/SearchResultsPage'))
+const LoginPage = lazy(() => import('./pages/LoginPage'))
+const SignupPage = lazy(() => import('./pages/SignupPage'))
+const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'))
+const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage'))
+const SharedPathwayPage = lazy(() => import('./pages/SharedPathwayPage'))
+const MyPathwaysPage = lazy(() => import('./pages/MyPathwaysPage'))
+const PathwayFlowPage = lazy(() => import('./pages/PathwayFlowPage'))
+const ComparePage = lazy(() => import('./pages/ComparePage'))
+const JobMarketPage = lazy(() => import('./pages/JobMarketPage'))
+const JobMarketSpotlightPage = lazy(() => import('./pages/JobMarketSpotlightPage'))
+const JobMarketStatisticsPage = lazy(() => import('./pages/JobMarketStatisticsPage'))
+const JobMarketUkStatsPage = lazy(() => import('./pages/JobMarketUkStatsPage'))
+const JobMarketHeritageCraftsPage = lazy(() => import('./pages/JobMarketHeritageCraftsPage'))
+const JobMarketHighDemandCareersPage = lazy(() => import('./pages/JobMarketHighDemandCareersPage'))
+const JobMarketVanishedJobsPage = lazy(() => import('./pages/JobMarketVanishedJobsPage'))
+const JobMarketAiEndangeredJobsPage = lazy(() => import('./pages/JobMarketAiEndangeredJobsPage'))
+const JobMarketEasiestPage = lazy(() => import('./pages/JobMarketEasiestPage'))
+const JobMarketHighestPayingPage = lazy(() => import('./pages/JobMarketHighestPayingPage'))
+const JobMarketRollPage = lazy(() => import('./pages/JobMarketRollPage'))
+const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'))
+const MythicRevealPreviewPage = lazy(() => import('./pages/MythicRevealPreviewPage'))
+const UsernameModalPreviewPage = lazy(() => import('./pages/UsernameModalPreviewPage'))
+const TitlesPreviewPage = lazy(() => import('./pages/TitlesPreviewPage'))
+const MyBinderPage = lazy(() => import('./pages/MyBinderPage'))
+const ProfilePage = lazy(() => import('./pages/ProfilePage'))
+const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'))
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
+const TermsOfUsePage = lazy(() => import('./pages/TermsOfUsePage'))
+const StudentHubPage = lazy(() => import('./pages/StudentHubPage'))
+const StudentHubTopicPage = lazy(() => import('./pages/StudentHubTopicPage'))
+const StudentHubFaqPage = lazy(() => import('./pages/StudentHubFaqPage'))
+const StudentHubChecklistsPage = lazy(() => import('./pages/StudentHubChecklistsPage'))
+const SkillsPage = lazy(() => import('./pages/SkillsPage'))
+const StudentDebtCalculatorPage = lazy(() => import('./pages/StudentDebtCalculatorPage'))
+const BinderComparePage = lazy(() => import('./pages/BinderComparePage'))
+const QuickAssessmentPage = lazy(() => import('./pages/QuickAssessmentPage'))
+const RoleSelectionPage = lazy(() => import('./pages/RoleSelectionPage'))
+const CareerChangerCurrentRolePage = lazy(() => import('./pages/CareerChangerCurrentRolePage'))
+const CareerChangerPreferencesPage = lazy(() => import('./pages/CareerChangerPreferencesPage'))
+const CareerChangerResultsPage = lazy(() => import('./pages/CareerChangerResultsPage'))
+const SubjectSelectionPage = lazy(() => import('./pages/SubjectSelectionPage'))
+const SubjectDetailPage = lazy(() => import('./pages/SubjectDetailPage'))
+const RefugeeWelcomePage = lazy(() => import('./pages/RefugeeWelcomePage'))
+const RefugeeSubjectLevelsPage = lazy(() => import('./pages/RefugeeSubjectLevelsPage'))
+const RefugeeSubjectPage = lazy(() => import('./pages/RefugeeSubjectPage'))
+const TLevelSubjectPage = lazy(() => import('./pages/TLevelSubjectPage'))
+const ResultPage = lazy(() => import('./pages/ResultPage'))
+const CareerDetailPage = lazy(() => import('./pages/CareerDetailPage'))
+const CareerPathwayStepperPage = lazy(() => import('./pages/CareerPathwayStepperPage'))
+const ESOLSubjectPage = lazy(() => import('./pages/ESOLSubjectPage'))
+const QualificationRecognitionPage = lazy(() => import('./pages/QualificationRecognitionPage'))
+const DisabledWelcomePage = lazy(() => import('./pages/DisabledWelcomePage'))
+const DisabledSupportNeedsPage = lazy(() => import('./pages/DisabledSupportNeedsPage'))
+const BacktrackCategoriesPage = lazy(() => import('./pages/BacktrackCategoriesPage'))
+const BacktrackCareersListPage = lazy(() => import('./pages/BacktrackCareersListPage'))
+const BacktrackPathwayOverviewPage = lazy(() => import('./pages/BacktrackPathwayOverviewPage'))
+const BacktrackPathwayOptionsPage = lazy(() => import('./pages/BacktrackPathwayOptionsPage'))
+const BacktrackSubjectSelectionPage = lazy(() => import('./pages/BacktrackSubjectSelectionPage'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 function App() {
   const location = useLocation()
@@ -138,9 +161,41 @@ function App() {
   // Client-side routing never touches window scroll on its own - every new
   // page just renders wherever the old page happened to leave the
   // scrollbar. Force every navigation to start at the top.
+  //
+  // ...unless the URL names a section. A plain scrollTo(0, 0) here is what
+  // made every in-app anchor link silently do nothing (e.g. the figure
+  // disclaimers' /terms#information-not-advice): the browser's own hash
+  // handling doesn't run on a client-side navigation, and this effect would
+  // have overridden it anyway. Both branches are inside one effect keyed on
+  // the hash as well as the path so a hash-only change still fires.
   useEffect(() => {
+    if (location.hash) {
+      // The target usually belongs to a route chunk that is still in flight
+      // (every page is lazy now), so it cannot be queried synchronously - and
+      // a single rAF would miss it for exactly the common case of arriving
+      // from another page. Retry each frame until the element appears or the
+      // deadline passes, then give up and go to the top rather than leaving
+      // the reader parked mid-page.
+      const id = decodeURIComponent(location.hash.slice(1))
+      const deadline = performance.now() + 2000
+      let frame = 0
+      const tryScroll = () => {
+        const target = document.getElementById(id)
+        if (target) {
+          target.scrollIntoView({ behavior: 'auto', block: 'start' })
+          return
+        }
+        if (performance.now() < deadline) {
+          frame = requestAnimationFrame(tryScroll)
+          return
+        }
+        window.scrollTo(0, 0)
+      }
+      frame = requestAnimationFrame(tryScroll)
+      return () => cancelAnimationFrame(frame)
+    }
     window.scrollTo(0, 0)
-  }, [location.pathname])
+  }, [location.pathname, location.hash])
 
   useEffect(() => {
     setShowAccountMenu(false)
@@ -541,6 +596,15 @@ function App() {
         {/* First-run username setup - blocking, but not on the /preview/*
             routes (they render components in isolation for QA). */}
         {needsUsername && !isPreviewRoute ? <UsernameModal /> : null}
+        {/* One boundary around the whole switch rather than one per route:
+            every page below is a lazy chunk now, they are mutually exclusive,
+            and a single <Suspense> here keeps the header, footer and the
+            modals above it mounted while a chunk is in flight - a per-route
+            boundary would do the same but 62 times over. The ErrorBoundary in
+            main.tsx is what catches a chunk that fails to load outright
+            (a deploy mid-session, a dropped connection), so a failed import
+            lands on the recoverable fallback rather than a blank page. */}
+        <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<LoadingPage />} />
           <Route path="/assessment" element={<QuickAssessmentPage />} />
@@ -612,6 +676,7 @@ function App() {
           <Route path="/terms" element={<TermsOfUsePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        </Suspense>
         {/* Legal links under every page except the splash, Roll a Job's
             full-screen game view and the QA previews. */}
         {!isHome && !isPreviewRoute && location.pathname !== '/job-market/roll' ? <SiteFooter onDark={isRollActive} /> : null}

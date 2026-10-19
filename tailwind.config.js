@@ -31,7 +31,15 @@ const config: Config = {
         error: '#F43F5E',
       },
       fontFamily: {
-        sans: ['Poppins', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        // Plus Jakarta Sans replaces Poppins. Poppins is a geometric display
+        // face doing text work: perfectly circular bowls, a single-storey 'a'
+        // and very wide letterforms, which is why headings fitted badly on a
+        // 360px phone and small print read poorly. Plus Jakarta Sans keeps the
+        // same friendly, slightly geometric voice - this is still a card game
+        // for students, not a bank - but it is a humanist design underneath,
+        // so it holds up at 13-14px in the tables and calculators. Loaded as
+        // one variable file (200-800) from index.html.
+        sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
       },
       borderRadius: {
         xl2: '24px',

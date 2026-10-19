@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import ErrorBoundary from './components/ErrorBoundary'
+import RouteMeta from './components/RouteMeta'
 import { installGlobalErrorHandlers } from './utils/reportError'
 import './index.css'
 
@@ -25,6 +26,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         rather than in App.tsx purely so this file owns it - App.tsx is edited
         by nearly every feature, and this is a line that should never move. */}
     <BrowserRouter>
+      {/* Title, description and canonical tag per route - see src/data/seo.ts. */}
+      <RouteMeta />
       <ErrorBoundary>
         <App />
       </ErrorBoundary>

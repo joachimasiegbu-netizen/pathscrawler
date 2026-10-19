@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { isSupabaseConfigured, supabase } from '../lib/supabaseClient'
+import { reportError } from '../utils/reportError'
 import { isFallbackName, randomFallbackName } from '../utils/usernameValidation'
 import { useAuthStore } from './useAuthStore'
 
@@ -101,8 +102,7 @@ async function syncProfile(userId: string, email: string, profile: UserProfile):
     { onConflict: 'user_id' },
   )
   if (error) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to sync profile to Supabase:', error.message)
+    reportError(error, { where: 'userProfile.sync', extra: { userId } })
   }
 }
 
@@ -115,8 +115,7 @@ export async function isUsernameTaken(name: string, selfUserId: string | null): 
   // .ilike with no % wildcards is a case-insensitive exact match.
   const { data, error } = await supabase.from('profiles').select('user_id').ilike('username', name).limit(2)
   if (error) {
-    // eslint-disable-next-line no-console
-    console.error('Username availability check failed:', error.message)
+    reportError(error, { where: 'userProfile.isUsernameTaken' })
     return false
   }
   return (data ?? []).some((row) => row.user_id !== selfUserId)
@@ -129,6 +128,12 @@ interface UserProfileState {
    * so a returning player with a name on another device doesn't get the
    * modal flashed at them. */
   hydratedUserId: string | null
+  /** Why the last hydrate failed, or null if it didn't. ProfilePage needs
+   * this to tell "no name set yet" apart from "we could not read your
+   * profile" - without it a failed load renders the account's email as the
+   * display name and an empty title grid, which reads as "you have earned
+   * nothing", the one thing it definitely does not mean. Not persisted. */
+  loadError: string | null
   /** Returns false (and leaves the profile untouched) if a change isn't
    * allowed yet - either not signed in, or still within
    * USERNAME_CHANGE_COOLDOWN_MS of the last real change. The UI should
@@ -153,6 +158,7 @@ export const useUserProfileStore = create<UserProfileState>()(
     (set, get) => ({
       profilesByUser: {},
       hydratedUserId: null,
+      loadError: null,
 
       setUsername: (name) => {
         const user = currentUser()
@@ -225,18 +231,23 @@ export const useUserProfileStore = create<UserProfileState>()(
         const user = currentUser()
         if (!user) return
         if (!isSupabaseConfigured || !supabase) {
-          set({ hydratedUserId: user.id })
+          set({ hydratedUserId: user.id, loadError: null })
           return
         }
+        // Clear any previous failure so a retry doesn't render the old banner
+        // under the new attempt.
+        set({ loadError: null })
         const { data, error } = await supabase
           .from('profiles')
           .select('user_id, email, username, equipped_title_id, is_fallback_name, graduation_quote, username_changed_at, updated_at')
           .eq('user_id', user.id)
           .maybeSingle()
         if (error) {
-          // eslint-disable-next-line no-console
-          console.error('Failed to load profile from Supabase:', error.message)
-          set({ hydratedUserId: user.id })
+          reportError(error, { where: 'userProfile.hydrate', extra: { userId: user.id } })
+          set({
+            hydratedUserId: user.id,
+            loadError: "We couldn't load your profile just now.",
+          })
           return
         }
         const row = data as ProfileRow | null
@@ -252,6 +263,7 @@ export const useUserProfileStore = create<UserProfileState>()(
           set({
             profilesByUser: { ...get().profilesByUser, [user.id]: remote },
             hydratedUserId: user.id,
+            loadError: null,
           })
           return
         }
@@ -259,7 +271,7 @@ export const useUserProfileStore = create<UserProfileState>()(
         // the two agree; otherwise leave it unset so App.tsx shows the modal.
         const local = get().profilesByUser[user.id]
         if (local?.username) void syncProfile(user.id, user.email, local)
-        set({ hydratedUserId: user.id })
+        set({ hydratedUserId: user.id, loadError: null })
       },
 
       getProfile: () => {

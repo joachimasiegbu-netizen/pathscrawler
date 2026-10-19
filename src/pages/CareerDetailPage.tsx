@@ -24,6 +24,7 @@ import demoCareers from '../data/demoCareers'
 import { getTestimonialsForCareer } from '../data/testimonials'
 import { getDayInTheLife } from '../data/dayInTheLife'
 import { usePathStore } from '../store/usePathStore'
+import { usePageMeta } from '../utils/pageMeta'
 
 const resourceLinks = [
   { label: 'Evenbreak', href: 'https://www.evenbreak.co.uk' },
@@ -98,6 +99,15 @@ export default function CareerDetailPage() {
   const career = useMemo(
     () => demoCareers.find((item) => String(item.id) === id),
     [id],
+  )
+
+  usePageMeta(
+    career
+      ? {
+          title: `${career.title}: salary, qualifications and how to get in`,
+          description: `${career.description} Typical salary ${career.salary}.`,
+        }
+      : { title: 'Career not found', noindex: true },
   )
 
   if (!career) {

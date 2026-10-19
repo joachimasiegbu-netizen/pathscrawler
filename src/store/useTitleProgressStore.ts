@@ -3,17 +3,17 @@ import { persist } from 'zustand/middleware'
 import type { Career } from '../data/demoCareers'
 import { TIERS, type TierKey } from '../utils/careerTiers'
 import {
-  COMMON_CAREER_IDS,
   EARLY_ROLL_WINDOW,
-  GRADUATE_CAREER_IDS,
   JOB_RANK_DROP_TARGET,
-  MONEY_BAGS_CAREER_IDS,
   MONEY_BAGS_ROLL_WINDOW,
-  MYTHIC_CAREER_IDS,
   SWEAT_LORD_ROLLS_TARGET,
   SWEAT_LORD_WINDOW_MS,
   type TitleUnlockProgress,
 } from '../utils/titles'
+// The four per-career id sets moved out of titles.ts and behind an
+// `await import()` so the 657 KB career dataset stays out of the initial
+// chunk - which is why syncBinderCompletion below is async now.
+import { getTitleCareerSets } from '../utils/titleCareerSets'
 import { useAuthStore } from './useAuthStore'
 
 // SYNCED (see PERSISTENCE.md): earned titles count toward the leaderboard
@@ -49,8 +49,8 @@ export interface TitleProgress {
   hasCompletedMythicSet: boolean
   hasCompletedMoneyBagsSet: boolean
   hasRolledAiEndangered: boolean
-  /** Graduate's condition (titles.ts) - every GRADUATE_CAREER_IDS career in
-   * the Binder at once. */
+  /** Graduate's condition (titles.ts) - every career in titleCareerSets.ts's
+   * `graduate` set in the Binder at once. */
   hasCompletedGraduateSet: boolean
   /** Best (lowest, 0-indexed) leaderboard rank this account has ever been
    * observed at - null until the first observation. Job's own condition
@@ -122,8 +122,14 @@ interface TitleProgressState {
   /** Reactively checked against LIVE Binder contents whenever the Binder
    * changes (see RollStandingPanel.tsx) - a career-id superset check, not
    * something recordRoll can determine on its own since rolling a career
-   * doesn't necessarily mean it's IN the Binder (the player has to add it). */
-  syncBinderCompletion: (binderCareerIds: Set<number>) => void
+   * doesn't necessarily mean it's IN the Binder (the player has to add it).
+   *
+   * Async because the id sets it checks against now arrive with the lazily
+   * imported career dataset (titleCareerSets.ts). Callers fire-and-forget it;
+   * it never throws, and never rejects on a failed chunk load - a title that
+   * cannot be evaluated this tick is simply left unlatched, and the next
+   * Binder change re-runs the whole check from scratch. */
+  syncBinderCompletion: (binderCareerIds: Set<number>) => Promise<void>
   markTitleSeen: (titleId: string) => void
   markTitleSynced: (titleId: string) => void
   getProgress: () => TitleUnlockProgress
@@ -195,18 +201,37 @@ export const useTitleProgressStore = create<TitleProgressState>()(
         })
       },
 
-      syncBinderCompletion: (binderCareerIds) => {
+      syncBinderCompletion: async (binderCareerIds) => {
+        // Checked before the await purely to avoid importing a 657 KB chunk
+        // for a signed-out visitor; re-checked after it, because signing out
+        // mid-flight is exactly the kind of thing that happens here.
+        if (!currentUserId()) return
+
+        let sets
+        try {
+          sets = await getTitleCareerSets()
+        } catch {
+          // The dataset chunk didn't load. Latch nothing - every check below
+          // is a one-way `existing.x || ...`, so skipping a run can only ever
+          // delay an unlock, never undo one, and the next Binder change
+          // re-runs it.
+          return
+        }
+
+        // Re-read everything the await could have invalidated. Reading
+        // `existing` before it would risk writing a snapshot that a roll
+        // recorded during the import has already moved past.
         const userId = currentUserId()
         if (!userId) return
         const existing = get().progressByUser[userId] ?? emptyProgress()
         // targets.size === 0 guard: a vacuous for...of over an empty set
         // never enters the loop, so this fell straight through to `return
-        // true` for ANY empty target set - genuinely happened for
-        // MONEY_BAGS_CAREER_IDS (titles.ts) when parseSalaryAvg had a
-        // parsing bug that made every real career's salary compute near
-        // zero (fixed in careerTiers.ts), silently unlocking Money Bags for
-        // every account regardless of their Binder. An empty target set
-        // should never count as "collected the full set" for any reason.
+        // true` for ANY empty target set - genuinely happened for the
+        // moneyBags set when parseSalaryAvg had a parsing bug that made every
+        // real career's salary compute near zero (fixed in careerTiers.ts),
+        // silently unlocking Money Bags for every account regardless of their
+        // Binder. An empty target set should never count as "collected the
+        // full set" for any reason.
         const hasAll = (targets: Set<number>) => {
           if (targets.size === 0) return false
           for (const id of targets) {
@@ -214,16 +239,16 @@ export const useTitleProgressStore = create<TitleProgressState>()(
           }
           return true
         }
-        const hasCompletedCommonSet = existing.hasCompletedCommonSet || hasAll(COMMON_CAREER_IDS)
-        const hasCompletedMythicSet = existing.hasCompletedMythicSet || hasAll(MYTHIC_CAREER_IDS)
+        const hasCompletedCommonSet = existing.hasCompletedCommonSet || hasAll(sets.common)
+        const hasCompletedMythicSet = existing.hasCompletedMythicSet || hasAll(sets.mythic)
         // Money Bags additionally has to have completed within the first
         // MONEY_BAGS_ROLL_WINDOW rolls - checked at the moment the set is
         // FIRST detected as complete, not re-checked afterward (so it stays
         // permanently earned, or permanently missed, the instant that
         // window closes).
         const hasCompletedMoneyBagsSet =
-          existing.hasCompletedMoneyBagsSet || (hasAll(MONEY_BAGS_CAREER_IDS) && existing.totalRolls <= MONEY_BAGS_ROLL_WINDOW)
-        const hasCompletedGraduateSet = existing.hasCompletedGraduateSet || hasAll(GRADUATE_CAREER_IDS)
+          existing.hasCompletedMoneyBagsSet || (hasAll(sets.moneyBags) && existing.totalRolls <= MONEY_BAGS_ROLL_WINDOW)
+        const hasCompletedGraduateSet = existing.hasCompletedGraduateSet || hasAll(sets.graduate)
         if (
           hasCompletedCommonSet === existing.hasCompletedCommonSet &&
           hasCompletedMythicSet === existing.hasCompletedMythicSet &&

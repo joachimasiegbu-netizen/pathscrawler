@@ -1,6 +1,9 @@
-import demoCareers from '../data/demoCareers'
-import { getCareerTier, parseSalaryAvg } from './careerTiers'
-import { getEasyEntryCareers } from './easyEntryCareers'
+// Deliberately NO import of demoCareers (or of careerTiers/easyEntryCareers,
+// which both pull it in). This file is reached from RollStandingPanel, which
+// lives in the app's permanent header, so anything it imports lands in the
+// initial chunk - and the career dataset is 657 KB of it. The four per-career
+// id sets that used to be module constants here now live in
+// titleCareerSets.ts, behind an `await import()`.
 
 export type TitleIcon = 'crown' | 'flame' | 'skull' | 'sparkles' | 'trophy'
 
@@ -330,31 +333,13 @@ export const TITLES: TitleDef[] = [
   },
 ]
 
-// Static per-career id sets, computed once from the bundled career list -
-// these never change at runtime, so there's no reason to recompute them on
-// every render/roll.
-export const COMMON_CAREER_IDS: Set<number> = new Set(
-  demoCareers.filter((career) => getCareerTier(career) === 'common').map((career) => career.id),
-)
-export const MYTHIC_CAREER_IDS: Set<number> = new Set(
-  demoCareers.filter((career) => getCareerTier(career) === 'mythic').map((career) => career.id),
-)
-export const MONEY_BAGS_CAREER_IDS: Set<number> = new Set(
-  demoCareers.filter((career) => parseSalaryAvg(career.salary) >= MONEY_BAGS_SALARY_THRESHOLD).map((career) => career.id),
-)
-// Graduate's "entry-level jobs" - reuses the Easy Entry Careers system
-// (easyEntryCareers.ts, already built for the Job Market "Easiest Jobs to
-// Get Into" page) rather than inventing a second, competing definition of
-// "entry-level". Specifically the 'very-easy' barrier tier ("No formal
-// qualifications beyond GCSEs - most employers train you on the job") -
-// the actual literal entry-level end of that list, not the wider 'easy'
-// tier (apprenticeships/short courses), which happens to land at exactly
-// 20 careers, matching "~15-20 entry-level jobs" as given.
-export const GRADUATE_CAREER_IDS: Set<number> = new Set(
-  getEasyEntryCareers()
-    .filter((entry) => entry.barrier === 'very-easy')
-    .map((entry) => entry.career.id),
-)
+// The four per-career id sets these titles are scored against (Common,
+// Mythic, Money Bags, Graduate) used to be module constants right here,
+// derived from the bundled career list at import time. They now live in
+// titleCareerSets.ts, reached with `await import()` - see the note at the top
+// of this file for why. Nothing in titles.ts needs them: every check below
+// reads booleans off TitleUnlockProgress, which useTitleProgressStore.ts
+// computes against those sets on its own.
 
 /** The minimum progress shape every unlock check below reads from -
  * satisfied by useTitleProgressStore.ts's TitleProgress, kept as its own

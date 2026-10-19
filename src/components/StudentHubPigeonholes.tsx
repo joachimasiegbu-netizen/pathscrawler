@@ -3,9 +3,9 @@ import { usePathStore } from '../store/usePathStore'
 
 /**
  * The Student Hub persona's visual on RoleSelectionPage.tsx - the way
- * StudentPersonaCube.tsx is Student's and MatureLearnerHourglass.tsx is
- * Mature Learner's. Replaces StudentHubPersonaEarth.tsx, which stays in the
- * tree unused in case the globe is wanted back.
+ * StudentPersonaCube.tsx is Student's and MatureLearnerDeskLamp.tsx is
+ * Mature Learner's. Replaced StudentHubPersonaEarth.tsx, which has since
+ * been deleted (git history has it if the globe is ever wanted back).
  *
  * Why it was replaced: the earth banner was the only persona visual that
  * wasn't really 3D (a flat 250px circle with a 700x350 equirectangular
