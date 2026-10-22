@@ -7645,7 +7645,7 @@ const rawDemoCareers = [
       'Advise homeowners and conservation officers on materials and regional style',
     ],
     whereToStudy: [
-      { name: 'National Society of Master Thatchers', url: 'https://www.nsmt.co.uk', description: 'Apprenticeships and trade body for UK thatchers' },
+      { name: 'National Society of Master Thatchers', url: 'https://nsmtltd.co.uk/', description: 'Apprenticeships and trade body for UK thatchers' },
       { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/thatching/', description: 'Endangered crafts directory and training routes' },
     ],
     progression: [
@@ -7871,7 +7871,7 @@ const rawDemoCareers = [
       'Publish research and train the next generation of practitioners',
     ],
     whereToStudy: [
-      { name: 'British Association for Forensic Anthropology', url: 'https://bafa.org.uk', description: 'Professional body and case accreditation' },
+      { name: 'Chartered Society of Forensic Sciences', url: 'https://www.csofs.org/', description: 'Professional body, accreditation and CPD' },
       { name: 'Royal Anthropological Institute', url: 'https://therai.org.uk', description: 'Professional registration and CPD' },
     ],
     progression: [
@@ -7931,7 +7931,7 @@ const rawDemoCareers = [
       'Run and maintain a traditional coal or gas forge and workshop',
     ],
     whereToStudy: [
-      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/blacksmithing-architectural/', description: 'Endangered crafts directory and training routes' },
+      { name: 'Heritage Crafts', url: 'https://heritagecrafts.org.uk/craft/blacksmithing/', description: 'Endangered crafts directory and training routes' },
       { name: 'National Heritage Ironwork Group', url: 'https://nhig.org.uk', description: 'Standards, training and accreditation for heritage blacksmiths' },
     ],
     progression: [
@@ -8956,7 +8956,7 @@ const rawDemoCareers = [
       'Write incident reports',
     ],
     whereToStudy: [
-      { name: 'Security Industry Authority', url: 'https://www.sia.homeoffice.gov.uk', description: 'SIA licensing and training requirements' },
+      { name: 'Security Industry Authority', url: 'https://www.gov.uk/government/organisations/security-industry-authority', description: 'SIA licensing and training requirements' },
     ],
     progression: [
       'Security Guard (£20k-£23k)',
@@ -9383,7 +9383,7 @@ const rawDemoCareers = [
       'Run or oversee community and outreach programmes',
     ],
     whereToStudy: [
-      { name: 'Church of England Ministry', url: 'https://www.churchofengland.org/careers-and-vocations', description: 'Ordained ministry training pathways' },
+      { name: 'Church of England Ministry', url: 'https://www.churchofengland.org/life-events/vocations', description: 'Ordained ministry training pathways' },
     ],
     progression: [
       'Trainee / Curate (£18k-£24k)',

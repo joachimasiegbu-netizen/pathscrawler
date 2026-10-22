@@ -8,14 +8,14 @@ import { usePathStore } from '../store/usePathStore'
 
 const providers = [
   { name: 'British Council', description: "Learn English with the world's English experts. Online and face-to-face courses.", url: 'https://www.britishcouncil.org/english' },
-  { name: 'ESOL Entry (UK Government)', description: 'Free English courses for speakers of other languages at local colleges.', url: 'https://www.gov.uk/guidance/english-for-speakers-of-other-languages-esol' },
+  { name: 'Free courses (UK Government)', description: 'Free English, maths and IT courses at local colleges if you do not have a GCSE grade 4 or equivalent.', url: 'https://www.gov.uk/improve-english-maths-it-skills' },
   { name: 'OpenLearn (The Open University)', description: 'Free online English language courses at all levels.', url: 'https://www.open.edu/openlearn/languages' },
   { name: 'BBC Learning English', description: 'Free online English lessons, videos, and quizzes for all levels.', url: 'https://www.bbc.co.uk/learningenglish' },
   { name: 'FutureLearn', description: 'Online English courses from top universities and institutions.', url: 'https://www.futurelearn.com/subjects/english-language-courses' },
   { name: 'Coursera', description: 'English for career development and academic study from global universities.', url: 'https://www.coursera.org/browse/language-learning/learning-english' },
   { name: 'Duolingo', description: 'Free app-based English learning with gamified lessons.', url: 'https://www.duolingo.com/course/en/en/Learn-English' },
   { name: 'Cambridge English', description: 'Official Cambridge English preparation and testing resources.', url: 'https://www.cambridgeenglish.org/learning-english/' },
-  { name: 'IELTS Official', description: 'Free IELTS preparation materials and practice tests.', url: 'https://www.ielts.org/for-test-takers/prepare' },
+  { name: 'IELTS Official', description: 'Free IELTS preparation materials and practice tests.', url: 'https://ielts.org/take-a-test/preparation-resources' },
   { name: 'UK ENIC', description: 'Information on English language requirements for UK study and work.', url: 'https://www.enic.org.uk/' },
 ]
 

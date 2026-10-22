@@ -97,7 +97,7 @@ export const SKILLS: Skill[] = [
     cost: 'under50',
     costLabel: 'Often £30 to £90, sometimes employer-paid',
     resources: [
-      { label: 'St John Ambulance courses', url: 'https://www.sja.org.uk/courses/' },
+      { label: 'St John Ambulance courses', url: 'https://www.sja.org.uk/' },
       { label: 'British Red Cross first aid', url: 'https://www.redcross.org.uk/first-aid' },
     ],
     careerIds: [48, 82, 94, 23],

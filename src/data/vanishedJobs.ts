@@ -89,16 +89,19 @@ export const fullyExtinctJobs: VanishedJob[] = [
     title: 'Resurrectionist (body snatcher)',
     status: 'Extinct',
     detail: 'The Anatomy Act 1832 legalised a supply of unclaimed bodies for medical schools, ending the trade.',
-    sources: [
-      { label: 'Timedive', url: 'https://timedive.co.uk/10-forgotten-historical-professions-that-no-longer-exist/' },
-      { label: 'Business Insider', url: 'https://www.businessinsider.com/jobs-that-no-longer-exist' },
-    ],
+    // Timedive dropped 2026-10-22: the domain no longer resolves. Not
+    // substituted - the remaining source already covers this entry, and
+    // swapping in a page nobody has read is worse than one fewer citation.
+    sources: [{ label: 'Business Insider', url: 'https://www.businessinsider.com/jobs-that-no-longer-exist' }],
   },
   {
     title: 'Gong Farmer / Night-Soil Man',
     status: 'Extinct',
     detail: 'Modern sewage systems replaced the need to empty cesspits by hand.',
-    sources: [{ label: 'Timedive', url: 'https://timedive.co.uk/10-forgotten-historical-professions-that-no-longer-exist/' }],
+    // Timedive dropped 2026-10-22 (dead domain). Findmypast replaces it
+    // rather than leaving this entry with no source at all: its list covers
+    // the "Nightsoilman" under that name.
+    sources: [{ label: 'Findmypast', url: 'https://www.findmypast.co.uk/blog/history/quirky-extinct-jobs' }],
   },
   {
     title: 'Petrol Pump Attendant (full-service)',

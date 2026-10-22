@@ -257,6 +257,21 @@ function App() {
 
   return (
     <div className={appClassName}>
+      {/* First focusable thing on every page. A keyboard or screen-reader user
+          would otherwise tab through the whole header - logo, Compare, Job
+          Market, Student Hub, account menu, accessibility button - before
+          reaching the page itself, on all 62 routes. Hidden until focused
+          (sr-only -> focus:not-sr-only), which is why it costs sighted users
+          nothing. A plain <a>, not a <Link>: react-router does not intercept
+          it, so the browser does its native fragment jump and moves focus to
+          the <main> below, which carries tabIndex={-1} to be able to receive
+          it. */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary focus:shadow-lg focus:ring-2 focus:ring-primary"
+      >
+        Skip to main content
+      </a>
       {/* /role gets the full page width (not the max-w-5xl column) so the
           persona carousel can spread across it - only the width, not the rest
           of what isFullBleed changes. */}
@@ -604,6 +619,13 @@ function App() {
             main.tsx is what catches a chunk that fails to load outright
             (a deploy mid-session, a dropped connection), so a failed import
             lands on the recoverable fallback rather than a blank page. */}
+        {/* The one <main> on the page, and the skip link's target. Every route
+            below renders inside it, so the landmark is declared once here
+            rather than 62 times - and a page can never accidentally ship two
+            of them. tabIndex={-1} lets the fragment jump actually move focus
+            here; without it the browser scrolls but focus stays on the link,
+            so the next Tab goes back into the header. */}
+        <main id="main-content" tabIndex={-1} className="focus:outline-none">
         <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<LoadingPage />} />
@@ -677,6 +699,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         </Suspense>
+        </main>
         {/* Legal links under every page except the splash, Roll a Job's
             full-screen game view and the QA previews. */}
         {!isHome && !isPreviewRoute && location.pathname !== '/job-market/roll' ? <SiteFooter onDark={isRollActive} /> : null}
