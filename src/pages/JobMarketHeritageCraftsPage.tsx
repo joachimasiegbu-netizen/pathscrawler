@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { Hammer } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import Card from '../components/Card'
+import FiguresDisclaimer from '../components/FiguresDisclaimer'
 import RevealSection from '../components/RevealSection'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import StaggerGrid from '../components/StaggerGrid'
@@ -69,6 +70,8 @@ export default function JobMarketHeritageCraftsPage() {
       <RevealSection className="text-center text-xs text-slate-400 dark:text-slate-500">
         <p>Source: {statsSources[2]}.</p>
       </RevealSection>
+
+      <FiguresDisclaimer />
 
       <ScrollToTopButton />
     </div>

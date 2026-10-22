@@ -1,0 +1,15 @@
+{
+  // The root tsconfig only includes "src", which is right for the build - it
+  // keeps test and config files out of what ships. But it also meant nothing
+  // typechecked them at all, so a test referring to a prop that no longer
+  // exists would fail only when the suite ran. This config exists purely so
+  // `npm run typecheck` covers them too.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"],
+    // Playwright's runner transpiles each spec on its own, so nothing here is
+    // emitted either way.
+    "noEmit": true
+  },
+  "include": ["tests", "playwright.config.ts", "vite.config.ts"]
+}

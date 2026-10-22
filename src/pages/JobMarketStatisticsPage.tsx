@@ -21,6 +21,7 @@ import {
 import BackButton from '../components/BackButton'
 import CountUpStat from '../components/CountUpStat'
 import MarketTicker from '../components/MarketTicker'
+import FiguresDisclaimer from '../components/FiguresDisclaimer'
 import RevealSection from '../components/RevealSection'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import DemandBarChart from '../components/charts/DemandBarChart'
@@ -420,6 +421,8 @@ export default function JobMarketStatisticsPage() {
         </p>
         <p className="mt-1">Last updated: {LAST_UPDATED}</p>
       </RevealSection>
+
+      <FiguresDisclaimer />
 
       <ScrollToTopButton />
     </div>

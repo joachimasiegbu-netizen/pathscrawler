@@ -2,6 +2,7 @@ import { ArrowRight, BadgeCheck, Dices, Ghost, Hammer, TrendingUp, Users } from 
 import { Link } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 import CountUpStat from '../components/CountUpStat'
+import FiguresDisclaimer from '../components/FiguresDisclaimer'
 import RevealSection from '../components/RevealSection'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import StaggerGrid from '../components/StaggerGrid'
@@ -254,6 +255,8 @@ export default function JobMarketUkStatsPage() {
           .
         </p>
       </RevealSection>
+
+      <FiguresDisclaimer />
 
       <ScrollToTopButton />
     </div>

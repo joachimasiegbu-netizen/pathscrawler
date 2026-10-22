@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { isSupabaseConfigured, setRememberMe, supabase } from '../lib/supabaseClient'
 import { isDisposableEmail } from '../utils/disposableEmailDomains'
+import { reportError } from '../utils/reportError'
 
 // REAL AUTH NOW - this used to be a from-scratch mock (accounts/passwords
 // hashed and stored directly in this browser's localStorage, no server at
@@ -68,6 +69,13 @@ interface AuthState {
    * would be too late for that very first write. */
   signIn: (email: string, password: string, remember?: boolean) => Promise<AuthResult>
   signOut: () => Promise<void>
+  /** Permanently deletes the signed-in account and everything attached to it
+   * (UK GDPR right to erasure - the privacy policy commits to this). Runs the
+   * delete_own_account() RPC, then signs out locally. Every app table
+   * cascades from auth.users, so one server-side delete removes the lot; the
+   * caller is responsible for clearing this browser's own per-account
+   * localStorage slices afterwards (see clearLocalAccountData). */
+  deleteAccount: () => Promise<AuthResult>
   /** Sends the "click here to reset your password" email via Supabase - no
    * AuthResult needed the way signUp/signIn have one, since this never
    * signs anyone in or out, it just triggers an email. */
@@ -176,6 +184,40 @@ export const useAuthStore = create<AuthState>()((set) => {
       }
       await supabase.auth.signOut()
       set({ currentUser: null, user: null, isAuthenticated: false })
+    },
+
+    deleteAccount: async () => {
+      if (!isSupabaseConfigured || !supabase) return { success: false, error: NOT_CONFIGURED_ERROR }
+
+      // One RPC, because deleting a row from auth.users is not something a
+      // browser client is allowed to do directly - see delete_own_account()
+      // in supabase/schema.sql. It takes no arguments: the function reads
+      // auth.uid() from the caller's own JWT, so it can only ever delete the
+      // account making the request.
+      const { error } = await supabase.rpc('delete_own_account')
+      if (error) {
+        reportError(error, { where: 'auth.deleteAccount' })
+        // A missing function is the one failure worth naming specifically -
+        // it means the schema in this repo has not been applied to the
+        // project, which is a deployment problem, not something the person
+        // clicking the button can fix by trying again.
+        const missingFunction = error.code === 'PGRST202' || /function .*delete_own_account/i.test(error.message)
+        return {
+          success: false,
+          error: missingFunction
+            ? "Account deletion isn't set up on this deployment yet. Please contact us and we'll delete it for you."
+            : "We couldn't delete your account just now. Please try again, or contact us if it keeps failing.",
+        }
+      }
+
+      // The account is gone server-side, but this tab still holds its JWT and
+      // every store still holds its rows under that user id. signOut() clears
+      // the session; clearLocalAccountData() below drops the per-account
+      // slices out of localStorage, so the next person to use this browser
+      // does not find the deleted account's binder sitting in it.
+      await supabase.auth.signOut()
+      set({ currentUser: null, user: null, isAuthenticated: false })
+      return { success: true }
     },
 
     requestPasswordReset: async (email) => {

@@ -5,6 +5,7 @@ import CompareButton from '../components/CompareButton'
 import CompareFloatingButton from '../components/CompareFloatingButton'
 import EasyEntryCareerCard from '../components/EasyEntryCareerCard'
 import EmptyState from '../components/EmptyState'
+import FiguresDisclaimer from '../components/FiguresDisclaimer'
 import JobMarketFilterBar from '../components/JobMarketFilterBar'
 import PageHeader from '../components/PageHeader'
 import SelectableCareerCard from '../components/SelectableCareerCard'
@@ -51,6 +52,8 @@ export default function JobMarketEasiestPage() {
           ))}
         </StaggerGrid>
       )}
+
+      <FiguresDisclaimer sources="Entry requirements and salaries are typical examples, not an employer's offer - what a given role actually asks for varies by employer and region." />
 
       <CompareFloatingButton />
     </div>

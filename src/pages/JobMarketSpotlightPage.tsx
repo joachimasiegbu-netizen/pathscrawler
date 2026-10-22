@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Sparkles } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import EmptyState from '../components/EmptyState'
+import FiguresDisclaimer from '../components/FiguresDisclaimer'
 import PageHeader from '../components/PageHeader'
 import SparkleBurst from '../components/SparkleBurst'
 import SpotlightCareerCard from '../components/SpotlightCareerCard'
@@ -119,6 +120,10 @@ export default function JobMarketSpotlightPage() {
           {showBurst ? <SparkleBurst /> : null}
         </div>
       )}
+
+      {/* Only once a card is actually on screen - there are no figures to
+          qualify while this page is still a "tap to reveal" button. */}
+      {phase === 'revealed' && spotlight ? <FiguresDisclaimer /> : null}
     </div>
   )
 }

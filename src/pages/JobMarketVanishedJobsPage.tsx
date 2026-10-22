@@ -1,5 +1,6 @@
 import { ExternalLink, Ghost } from 'lucide-react'
 import BackButton from '../components/BackButton'
+import FiguresDisclaimer from '../components/FiguresDisclaimer'
 import RevealSection from '../components/RevealSection'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import StaggerGrid from '../components/StaggerGrid'
@@ -117,6 +118,8 @@ export default function JobMarketVanishedJobsPage() {
       <RevealSection className="text-center text-xs text-slate-400 dark:text-slate-500">
         <p>Compiled {vanishedJobsCompiledDate}. Sources linked individually above.</p>
       </RevealSection>
+
+      <FiguresDisclaimer />
 
       <ScrollToTopButton />
     </div>

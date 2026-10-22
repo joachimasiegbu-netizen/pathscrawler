@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import { usePathStore } from '../store/usePathStore'
+import { track } from '../utils/analytics'
 
 // Rebuilt matcher. The old version summed one "vote" per question with no
 // constraints, so e.g. "Under 16" could still surface Undergraduate and
@@ -271,6 +272,12 @@ export default function QuickAssessmentPage() {
   }
 
   const goToPath = () => {
+    // The other half of the funnel this app most needs to see: how many of
+    // the people who start the 5 questions actually reach a recommendation.
+    // Records the persona it landed on, not any of their answers. Sends
+    // nothing anywhere unless a sink is installed - see utils/analytics.ts.
+    track('assessment_completed', { recommended: primary })
+
     setAssessmentCompleted(true)
     setMatchedRoles([primary, ...match.alternatives])
     setRecommendedRole(primary)

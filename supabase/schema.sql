@@ -579,3 +579,54 @@ $$;
 -- just the inverse (granting to auth instead of taking from everyone else).
 grant execute on function public.hook_reject_disposable_email(jsonb) to supabase_auth_admin;
 revoke execute on function public.hook_reject_disposable_email(jsonb) from public, anon, authenticated;
+
+-- ===========================================================================
+-- Account deletion (UK GDPR right to erasure).
+-- ===========================================================================
+
+-- Deleting your own account, called from ProfilePage.tsx's danger zone.
+--
+-- Why this needs to be a database function at all: removing a row from
+-- auth.users requires either the service_role key (which must never reach a
+-- browser - it bypasses RLS entirely) or a SECURITY DEFINER function like
+-- this one. The client cannot touch auth.users directly, by design.
+--
+-- Why deleting that ONE row is enough: every table in this file references
+-- auth.users (id) ON DELETE CASCADE - rolls, title_unlocks, user_best_cards,
+-- profiles, binder_cards, saved_pathways. Postgres removes all six accounts'
+-- worth of rows as part of this statement, so there is no list here to keep
+-- in sync with the schema above. Add a new user-scoped table WITH that same
+-- cascade and it is covered automatically; add one without, and it is not -
+-- which is the real reason every table above has it.
+--
+-- auth.uid() is the whole authorisation check: it reads the caller's own JWT,
+-- so this function can only ever delete the account of whoever called it.
+-- There is no user_id parameter on purpose - one would turn this into
+-- "delete any account by id", which is exactly the shape of bug the revokes
+-- in the hardening pass above exist to prevent.
+create or replace function public.delete_own_account()
+returns void
+language plpgsql
+security definer
+-- Empty search_path so an unqualified name inside this function can never be
+-- resolved against a schema the caller controls (the standard SECURITY
+-- DEFINER hardening Supabase's advisor asks for); every reference below is
+-- fully qualified.
+set search_path = ''
+as $$
+declare
+  v_user_id uuid := auth.uid();
+begin
+  if v_user_id is null then
+    raise exception 'delete_own_account: no authenticated user';
+  end if;
+
+  delete from auth.users where id = v_user_id;
+end;
+$$;
+
+-- Signed-in callers only. `anon` must never have this: an unauthenticated
+-- caller has no auth.uid() and would only hit the exception above, but
+-- leaving the grant in place would still expose the endpoint for probing.
+revoke execute on function public.delete_own_account() from public, anon;
+grant execute on function public.delete_own_account() to authenticated;

@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Lets a run be kicked off by hand from the Actions tab, which is the
+  # quickest way to confirm a fix without pushing an empty commit.
+  workflow_dispatch:
+
+# A second push to the same branch makes the first run pointless - cancel it
+# rather than queueing behind it. `main` is excluded from cancellation via the
+# ref in the group key only incidentally; what matters is that two runs of the
+# same branch never both finish.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Typecheck, build and smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          # Restores ~/.npm between runs, keyed on package-lock.json.
+          cache: npm
+
+      # `npm ci` rather than `npm install`: it installs exactly what the
+      # lockfile says and fails if the lockfile and package.json disagree,
+      # which is the whole point of running this in CI.
+      - name: Install dependencies
+        run: npm ci
+
+      # First, because it is the fastest way to fail and needs no browser.
+      # Covers src/ and (via tsconfig.test.json) the tests and configs.
+      - name: Typecheck
+        run: npm run typecheck
+
+      # The smoke tests run against `vite preview`, so the build has to exist
+      # before Playwright starts - and a broken build fails here with a clear
+      # message rather than as a confusing wall of failed page loads.
+      - name: Build
+        run: npm run build
+
+      # Only Chromium: the suite runs it at a desktop and a phone viewport,
+      # which is where this app's users actually are. Adding Firefox/WebKit
+      # would roughly triple install time for a smoke suite.
+      # `--with-deps` installs the system libraries the browser needs on a
+      # bare ubuntu runner.
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Smoke tests
+        run: npm test
+
+      # Only on failure, and only kept briefly: these are traces and
+      # screenshots for debugging a red run, not an artifact worth storing for
+      # every green one.
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePathStore } from '../store/usePathStore'
+import { track } from '../utils/analytics'
 import PersonaCarousel from '../components/PersonaCarousel'
 import type { PersonaDef } from '../components/PersonaCard'
 import { ArrowLeftRight, BookOpen, Compass, Lightbulb, Target, Wand2 } from 'lucide-react'
@@ -119,6 +120,12 @@ export default function RoleSelectionPage() {
   }, [setMatchedRoles, setProgress, setRecommendedRole, setSelectedLevel, setSelectedSubjects, setAssessmentCompleted])
 
   const chooseRole = (id: string) => {
+    // Counted before the branching below, so every persona is recorded the
+    // same way regardless of where it goes next. Sends nothing anywhere
+    // unless an analytics sink has been installed - see utils/analytics.ts,
+    // which explains why none is installed by default.
+    track('persona_selected', { persona: id })
+
     // Student Hub and "I Know My Goal" aren't career-path personas - each
     // navigates straight to its own destination and never touches
     // selectedRole/currentPath, same as before either was a plain button.

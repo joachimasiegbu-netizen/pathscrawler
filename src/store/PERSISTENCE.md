@@ -40,3 +40,30 @@ behind `BinderAuthWall`), there is no anonymous data to adopt at signup. The
 merge covers the case that actually exists — a signed-in device whose data
 predates the sync — not "build a binder logged out, then sign up", which the
 product doesn't allow in the first place.
+
+## Deleting an account
+
+Erasure has to cover both layers, and they are cleared by different code.
+
+Server-side is one call: `useAuthStore.deleteAccount()` runs the
+`delete_own_account()` RPC (`supabase/schema.sql`), which deletes the caller's
+`auth.users` row. Every table in that file references `auth.users (id)`
+**`on delete cascade`**, so `rolls`, `title_unlocks`, `user_best_cards`,
+`profiles`, `binder_cards` and `saved_pathways` all go with it in the same
+statement. There is no per-table delete list to keep in sync here — which is
+the practical reason a new user-scoped table must carry that same cascade.
+
+Locally, the four account-keyed stores above are still mirrored in
+localStorage under the deleted user's id, so `clearLocalAccountData(userId)`
+(`src/utils/clearLocalAccountData.ts`) removes that account's slice from
+`useBinderStore`, `useSavedPathwaysStore`, `useTitleProgressStore` and
+`useUserProfileStore`, including its `mergedUserIds` entry. It lives outside
+`useAuthStore` because all four of those stores import `useAuthStore`, and it
+takes the id as an argument because the session is already cleared by the time
+it runs. `DeleteAccountPanel` is the one caller.
+
+The **LOCAL** stores are deliberately left alone: they hold no account-scoped
+data (`useRollStore`'s tallies and `usePathStore`'s settings are per-browser
+and not attributable to an account), so clearing them would be wiping a
+different person's settings on a shared device, not honouring an erasure
+request.

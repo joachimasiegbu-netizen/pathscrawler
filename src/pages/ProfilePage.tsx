@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Check, Dices, GraduationCap, Lock, Pencil, Trophy, UserRound } from 'lucide-react'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
+import DeleteAccountPanel from '../components/DeleteAccountPanel'
 import PageHeader from '../components/PageHeader'
 import TitlePill from '../components/TitlePill'
 import UsernameModal from '../components/UsernameModal'
@@ -290,6 +291,14 @@ export default function ProfilePage() {
             </p>
           ) : null}
         </div>
+
+        {/* Danger zone - the UK GDPR right to erasure, which the privacy
+            policy commits to. Last block on the page, visually separated and
+            in the app's error colour, because it is the only control here
+            that destroys something. Two-step (checkbox, then a typed
+            confirmation inside the modal) rather than a single button: this
+            cannot be undone and there is no "deleted accounts" recovery. */}
+        <DeleteAccountPanel />
         </>
         )}
       </div>

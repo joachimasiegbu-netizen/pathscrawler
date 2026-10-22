@@ -11,7 +11,7 @@ import { useAuthStore } from '../store/useAuthStore'
 import { useBinderStore, useMyBinderCards } from '../store/useBinderStore'
 import { useRollStore } from '../store/useRollStore'
 import { usePathStore } from '../store/usePathStore'
-import AuthPromptModal from './AuthPromptModal'
+import AuthPromptModal, { type AuthPromptReason } from './AuthPromptModal'
 import CardParticles from './CardParticles'
 import RarityInfoModal from './RarityInfoModal'
 import Toast from './Toast'
@@ -64,6 +64,7 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
   // clicking it still works.
   const hasAdded = justAdded || binderCards.some((card) => card.careerId === career.id)
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
+  const [authPromptReason, setAuthPromptReason] = useState<AuthPromptReason>('signed-out')
   const cardRef = useRef<HTMLDivElement>(null)
 
   // 3D tilt: raw values updated on mousemove, springed for a smooth
@@ -108,6 +109,7 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
     // attribute has visually registered.
     if (hasAdded) return
     if (!currentUser) {
+      setAuthPromptReason('signed-out')
       setShowAuthPrompt(true)
       return
     }
@@ -120,7 +122,10 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
     if (result === 'unauthenticated') {
       // Shouldn't happen given the currentUser check above, but if the
       // session expired between the check and the click, fall back to the
-      // same prompt rather than silently doing nothing.
+      // same prompt rather than silently doing nothing. Flagged as
+      // 'session-expired' so the modal doesn't tell someone who already has
+      // an account to go and create one.
+      setAuthPromptReason('session-expired')
       setShowAuthPrompt(true)
       return
     }
@@ -352,7 +357,9 @@ export default function RollResultCard({ career, tier, onDismiss, onRollAgain }:
         </motion.div>
       </div>
       {toast ? <Toast message={toast} type="success" /> : null}
-      {showAuthPrompt ? <AuthPromptModal onClose={() => setShowAuthPrompt(false)} /> : null}
+      {showAuthPrompt ? (
+        <AuthPromptModal reason={authPromptReason} onClose={() => setShowAuthPrompt(false)} />
+      ) : null}
       {showRarityInfo ? <RarityInfoModal onClose={() => setShowRarityInfo(false)} /> : null}
     </>
   )

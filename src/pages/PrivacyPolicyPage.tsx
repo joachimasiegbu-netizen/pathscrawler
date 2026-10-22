@@ -199,8 +199,8 @@ export default function PrivacyPolicyPage() {
           <List>
             <li>
               <strong>Account information</strong> (email, username, title, quote, Roll a Job results, Binder and
-              saved pathways): until you ask us to delete your account. We then delete it within one month. Copies in our providers' backups are
-              removed when those backups expire.
+              saved pathways): until you delete your account, which you can do yourself at any time from your
+              profile. Deletion is immediate. Copies in our providers' backups are removed when those backups expire.
             </li>
             <li>
               <strong>Technical information</strong> in our providers' logs: for a short time, as set by those
@@ -223,9 +223,17 @@ export default function PrivacyPolicyPage() {
             <li>get your information in a format you can take elsewhere</li>
           </List>
           <p>
-            To do any of these, email <strong>{contactEmailText()}</strong> from the address on your account. There
-            isn't a delete-account button in the app yet, so email us and we'll do it for you. It's free, and we'll
-            reply within one month.
+            You can delete your account yourself, straight away, from{' '}
+            <Link to="/profile" className="font-semibold text-primary underline dark:text-primary-light">
+              your profile
+            </Link>{' '}
+            - look for "Delete account". That removes your account and everything attached to it (your username and
+            title, every roll, your Binder and your saved pathways) immediately and permanently. Copies in our
+            providers' backups are removed when those backups expire.
+          </p>
+          <p>
+            For any of the others, email <strong>{contactEmailText()}</strong> from the address on your account. It's
+            free, and we'll reply within one month.
           </p>
           <p>
             If you're unhappy with how we've handled your information, you can complain to the Information

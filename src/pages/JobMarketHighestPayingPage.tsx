@@ -4,6 +4,7 @@ import BackButton from '../components/BackButton'
 import CompareButton from '../components/CompareButton'
 import CompareFloatingButton from '../components/CompareFloatingButton'
 import EmptyState from '../components/EmptyState'
+import FiguresDisclaimer from '../components/FiguresDisclaimer'
 import HighestPayingCareerCard from '../components/HighestPayingCareerCard'
 import HighestPayingFilterBar from '../components/HighestPayingFilterBar'
 import PageHeader from '../components/PageHeader'
@@ -50,10 +51,9 @@ export default function JobMarketHighestPayingPage() {
         </StaggerGrid>
       )}
 
-      <p className="border-t border-slate-100 pt-4 text-xs leading-5 text-slate-400 dark:border-slate-700 dark:text-slate-500">
-        Salary data sourced from ONS ASHE 2025 and industry reports. Figures are median full-time gross annual pay and
-        the top 10% of earners in each role. Actual earnings vary by location, employer and experience.
-      </p>
+      <FiguresDisclaimer
+        sources="Salary data sourced from ONS ASHE 2025 and industry reports. Figures are median full-time gross annual pay and the top 10% of earners in each role. Actual earnings vary by location, employer and experience."
+      />
 
       <CompareFloatingButton />
     </div>

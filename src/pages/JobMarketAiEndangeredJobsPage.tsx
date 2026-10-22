@@ -1,6 +1,7 @@
 import { AlertTriangle, ArrowRight, Ghost, Hammer, ShieldCheck, TrendingUp } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import BackButton from '../components/BackButton'
+import FiguresDisclaimer from '../components/FiguresDisclaimer'
 import RevealSection from '../components/RevealSection'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import StaggerGrid from '../components/StaggerGrid'
@@ -232,6 +233,11 @@ export default function JobMarketAiEndangeredJobsPage() {
           ))}
         </div>
       </RevealSection>
+
+      {/* This page makes automation-risk claims about named jobs, which is
+          about as consequential as a figure on this site gets - it needs the
+          not-advice line more than the salary pages do, not less. */}
+      <FiguresDisclaimer sources="Automation-risk groupings are an editorial reading of published research, not a prediction about any individual job or person." />
 
       <ScrollToTopButton />
     </div>
