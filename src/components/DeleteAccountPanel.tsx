@@ -96,7 +96,17 @@ export default function DeleteAccountPanel() {
                 aria-modal="true"
                 aria-labelledby="delete-account-title"
                 onClick={(event) => event.stopPropagation()}
-                className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-800"
+                // max-h-full + overflow-y-auto, which the app's shorter
+                // modals don't need: this is the tallest one here (heading,
+                // paragraph, a three-item list, a typed-confirmation field
+                // and two stacked buttons). At 360px wide that stack runs
+                // past a short phone's viewport, and under Larger text or
+                // the dyslexia font it does so comfortably - with the
+                // overlay centring it and nothing scrollable, the Delete and
+                // Cancel buttons at the bottom were simply unreachable.
+                // max-h-full resolves against the overlay's content box, so
+                // it already accounts for that px-4 py-6 inset.
+                className="relative max-h-full w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-800"
               >
                 <button
                   type="button"

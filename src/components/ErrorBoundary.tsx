@@ -69,17 +69,23 @@ export default class ErrorBoundary extends Component<Props, State> {
           <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
             {/* Full navigations, not router pushes: the router lives inside
                 this boundary, so a client-side navigation would keep the same
-                broken tree mounted. */}
+                broken tree mounted.
+                min-h-[44px] on both: px-5 py-2.5 text-sm is only 40px tall,
+                and when this screen is showing these two are the ONLY controls
+                on the page - there is no header left to fall back to - so they
+                have to be real touch targets. inline-flex + centring is what
+                gives the anchor that height (a plain <a> wouldn't grow to a
+                min-height). */}
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-110"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-110"
             >
               Reload the page
             </button>
             <a
               href="/"
-              className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
             >
               Go to the start
             </a>

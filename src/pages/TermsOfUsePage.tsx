@@ -8,9 +8,14 @@ import { LEGAL_LAST_UPDATED, MINIMUM_ACCOUNT_AGE, contactEmailText, operatorName
 // Same plain-language approach as PrivacyPolicyPage.tsx: readers include
 // 13-17 year olds, so rules are written as things you can and can't do.
 
+// scroll-mt-6 matches PrivacyPolicyPage's Section and StudentHubFaqPage's:
+// these ids are deep-link targets, and FiguresDisclaimer links to
+// #information-not-advice from nine pages, so without it the heading someone
+// jumps to lands flush against the top edge of a phone viewport (worst where
+// the browser's own UI overlaps it) instead of under a little breathing room.
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section id={id} className="space-y-3">
+    <section id={id} className="scroll-mt-6 space-y-3">
       <h2 className="text-xl font-bold text-slate-950 dark:text-slate-50">{title}</h2>
       <div className="space-y-3 leading-7 text-slate-700 dark:text-slate-200">{children}</div>
     </section>

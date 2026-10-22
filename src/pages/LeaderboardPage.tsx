@@ -165,7 +165,11 @@ export default function LeaderboardPage() {
             <button
               type="button"
               onClick={retry}
-              className="mt-3 rounded-lg border border-red-300/40 px-4 py-2 text-sm font-semibold text-red-100 transition hover:bg-red-400/20"
+              // min-h-[44px]: same real touch target as the retry buttons on
+              // ProfilePage/MyBinderPage - px-4 py-2 text-sm alone is only
+              // 36px tall, and on a phone this is the one control that gets
+              // thumbed on a failed load.
+              className="mt-3 min-h-[44px] rounded-lg border border-red-300/40 px-4 py-2 text-sm font-semibold text-red-100 transition hover:bg-red-400/20"
             >
               Try again
             </button>
