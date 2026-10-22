@@ -3,28 +3,18 @@
  * a real analytics tool later is a single call in main.tsx rather than an
  * edit in every file that wants to count something.
  *
- * NOTHING IS SENT ANYWHERE UNTIL A SINK IS INSTALLED. There is deliberately
- * no provider here, for three reasons, all of which are the project owner's
- * call rather than a default worth assuming:
+ * NOTHING IS SENT ANYWHERE UNTIL A SINK IS INSTALLED. No provider is named in
+ * this file on purpose - it stays the seam. Plausible is installed into it by
+ * `src/utils/monitoring.ts`, and only when VITE_PLAUSIBLE_DOMAIN is set.
  *
- *  1. It needs an account and a domain with whichever tool is chosen.
- *  2. It sends data about real users (many of them under 18) to a third
- *     party, which is a decision, not an implementation detail.
- *  3. `src/data/legal.ts` currently states, in terms the privacy policy
- *     renders verbatim, that there is nothing for advertising or tracking.
- *     Turning this on makes that sentence false.
+ * Plausible was chosen because it is cookieless and stores no identifier,
+ * which is what keeps this out of consent-banner territory under PECR and
+ * leaves DEVICE_STORAGE in legal.ts unchanged. A tool that stores an
+ * identifier is NOT a drop-in swap here: it would need a consent mechanism, a
+ * row in DEVICE_STORAGE and different policy wording.
  *
- * So before installing a sink: pick a cookieless, no-personal-data tool
- * (Plausible, Fathom, Umami and similar need no consent banner under PECR
- * because they set no cookies and store no identifiers), then update
- * DEVICE_STORAGE / the "no analytics" wording in legal.ts and name the
- * processor in the privacy policy. The code change is one line:
- *
- *     import { setAnalyticsSink } from './utils/analytics'
- *     setAnalyticsSink((event, props) => window.plausible?.(event, { props }))
- *
- * Until that exists, events are counted in memory and logged in dev, so the
- * call sites can be verified without shipping anything.
+ * With no sink installed, events are counted in memory and logged in dev, so
+ * the call sites can be verified without shipping anything.
  */
 
 /** The events worth counting, named rather than free-form so a typo at a call

@@ -170,4 +170,30 @@ test.describe('legal pages', () => {
       await expect(page.getByText(/aren't careers or financial advice/i).first()).toBeVisible()
     }
   })
+
+  // The privacy policy names Sentry and Plausible from the same env vars that
+  // switch them on (src/utils/monitoring.ts), so that the disclosure cannot
+  // lag behind the wiring. This asserts that link in both directions, against
+  // whatever the build under test was configured with - so it holds on a
+  // default build and on a monitored one, and fails only if the two genuinely
+  // disagree. That is the failure worth catching: shipping analytics while
+  // the policy still says there are none.
+  //
+  // Reads the vars from the test process, which assumes `npm run build` and
+  // `npm test` saw the same environment - true locally and in CI, where both
+  // run in one job. Building with a DSN and testing without one is the only
+  // way to get a false failure here.
+  test('the privacy policy matches what this build actually sends', async ({ page }) => {
+    const analyticsOn = !!process.env.VITE_PLAUSIBLE_DOMAIN
+    const errorsOn = !!process.env.VITE_SENTRY_DSN
+
+    await page.goto('/privacy')
+    const policy = page.locator('main, body').first()
+
+    await expect(policy.getByText('Plausible').first()).toBeVisible({ visible: analyticsOn })
+    await expect(policy.getByText('PathScrawler has no analytics').first()).toBeVisible({
+      visible: !analyticsOn,
+    })
+    await expect(policy.getByText('Sentry').first()).toBeVisible({ visible: errorsOn })
+  })
 })

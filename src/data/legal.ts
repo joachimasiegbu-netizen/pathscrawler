@@ -50,8 +50,14 @@ export interface DeviceStorageItem {
 // Everything PathScrawler itself writes to the user's device. All of it is
 // strictly necessary for a feature the user chose to use (or a setting they
 // picked), so it needs disclosure under PECR rather than consent. There are
-// no analytics, advertising or tracking cookies - keep it that way, or this
-// list (and the consent position) has to change.
+// no advertising or tracking cookies - keep it that way, or this list (and
+// the consent position) has to change.
+//
+// Analytics (src/utils/monitoring.ts) does not change that and adds no row
+// here: Plausible is cookieless and writes nothing to the device, which is
+// why it needs no consent banner under PECR. Anything that DOES store an
+// identifier would need both a row below and a consent mechanism, so that
+// choice is not interchangeable with this one.
 export const DEVICE_STORAGE: DeviceStorageItem[] = [
   {
     key: 'pathscrawler-storage',

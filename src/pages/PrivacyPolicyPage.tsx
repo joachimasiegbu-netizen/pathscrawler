@@ -10,6 +10,7 @@ import {
   contactEmailText,
   operatorNameText,
 } from '../data/legal'
+import { analyticsEnabled, errorMonitoringEnabled } from '../utils/monitoring'
 
 // Written for the people who actually use PathScrawler - including 13-17
 // year olds (see MINIMUM_ACCOUNT_AGE in legal.ts) - so plain words first,
@@ -41,6 +42,13 @@ function DataRow({ what, why }: { what: string; why: string }) {
 
 export default function PrivacyPolicyPage() {
   const location = useLocation()
+
+  // Read from the same module that installs them, so this page states what
+  // the build actually does. Both are off unless their env var is set, which
+  // means the deployed policy changes the moment monitoring is switched on -
+  // no separate edit to remember, and no window where the page is wrong.
+  const analytics = analyticsEnabled()
+  const errorMonitoring = errorMonitoringEnabled()
 
   // /privacy#device-storage (the storage notice links here). App.tsx scrolls
   // to the top on every route change after this effect runs, so wait a frame.
@@ -149,12 +157,32 @@ export default function PrivacyPolicyPage() {
             <li>Vercel, which hosts the website.</li>
             <li>Supabase, which runs our database and sign-in.</li>
             <li>Google Fonts and cdnfonts.com, which supply the app's fonts.</li>
+            {errorMonitoring ? <li>Sentry, which receives a report when something in the app breaks.</li> : null}
+            {analytics ? <li>Plausible, which counts page views without cookies.</li> : null}
           </List>
           <p>
             We rely on our "legitimate interests" in running a website that works and is secure. We don't use this
-            information to track you, build a profile of you, or show you adverts. PathScrawler has no analytics and
-            never asks for your location.
+            information to track you, build a profile of you, or show you adverts, and PathScrawler never asks for
+            your location.
           </p>
+          {analytics ? (
+            <p>
+              We do count how the app is used, with <strong>Plausible</strong>. It sets no cookies, saves nothing on
+              your device and keeps no identifier for you, so it can tell us a page was opened but not who opened it.
+              Beyond page views we count exactly two things: which starting point someone picks, and that a quick
+              assessment was finished. Neither carries your name, your email or anything you typed.
+            </p>
+          ) : (
+            <p>PathScrawler has no analytics.</p>
+          )}
+          {errorMonitoring ? (
+            <p>
+              When something in the app goes wrong, a report goes to <strong>Sentry</strong> so that we find out
+              without waiting for someone to tell us. It holds the error message, where in our code it happened, and
+              your browser and device type. We have deliberately turned off the setting that would attach your IP
+              address, and we don't send performance recordings of your visit.
+            </p>
+          ) : null}
         </Section>
 
         <Section id="public" title="What other people can see">
@@ -186,6 +214,18 @@ export default function PrivacyPolicyPage() {
               <strong>Google Fonts</strong> and <strong>cdnfonts.com</strong> receive your IP address when your browser
               downloads the fonts.
             </li>
+            {errorMonitoring ? (
+              <li>
+                <strong>Sentry</strong> receives error reports, as described under "Technical information" above. It
+                gets nothing about you unless the error message itself happens to mention it.
+              </li>
+            ) : null}
+            {analytics ? (
+              <li>
+                <strong>Plausible</strong> receives page views and the two events named above. It stores no cookies
+                and no identifiers, and its servers are in the EU.
+              </li>
+            ) : null}
           </List>
           <p>
             Some of these companies are based in, or may handle information in, countries outside the UK, including

@@ -5,12 +5,19 @@ import App from './App'
 import ErrorBoundary from './components/ErrorBoundary'
 import RouteMeta from './components/RouteMeta'
 import { installGlobalErrorHandlers } from './utils/reportError'
+import { startMonitoring } from './utils/monitoring'
 import './index.css'
 
 // Catches what a React boundary structurally cannot: throws from event
 // handlers, timers and rAF callbacks, plus promise rejections nobody awaited.
 // Installed before render so an error during the first paint is still caught.
 installGlobalErrorHandlers()
+
+// Points those handlers (and the analytics seam) at Sentry and Plausible, but
+// only when their env vars are set - see src/utils/monitoring.ts. Called after
+// installGlobalErrorHandlers so the handlers exist before a reporter is
+// attached to them, and before render so a first-paint throw is still sent.
+startMonitoring()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

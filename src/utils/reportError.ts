@@ -4,18 +4,14 @@
  * rather than an edit in every file that currently holds a bare
  * `console.error`.
  *
- * Deliberately NOT a Sentry integration yet. That needs an account, a DSN in
- * the env, and a dependency, and it ships user data to a third party - all
- * decisions for the owner of the project, not defaults to assume. This is the
- * seam those choices plug into:
+ * No provider is named in this file on purpose - it stays the seam. Sentry is
+ * wired into it by `src/utils/monitoring.ts`, which only does so when
+ * VITE_SENTRY_DSN is set, and which the privacy policy reads to decide whether
+ * to name Sentry as a processor.
  *
- *     import * as Sentry from '@sentry/react'
- *     Sentry.init({ dsn: import.meta.env.VITE_SENTRY_DSN })
- *     setErrorReporter((error, context) => Sentry.captureException(error, { extra: context }))
- *
- * Until that line exists, reports go to the console in dev and are counted in
- * production so the app can at least say "this has failed N times" rather than
- * failing silently.
+ * With no reporter installed, reports go to the console in dev and are counted
+ * in production, so the app can still say "this has failed N times" rather
+ * than failing silently.
  */
 
 export interface ErrorContext {
