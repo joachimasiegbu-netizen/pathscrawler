@@ -1,6 +1,10 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const PORT = 4173
+// Deliberately NOT 4173: `vite.config.ts` pins the dev server to that port and
+// this project's convention is to leave it running, so sharing it made
+// `reuseExistingServer` below adopt the dev server and quietly test source
+// instead of the build - defeating the whole point stated above.
+const PORT = 4273
 const BASE_URL = `http://localhost:${PORT}`
 
 /**
@@ -51,8 +55,8 @@ export default defineConfig({
     { name: 'mobile-chromium', use: { ...devices['Pixel 7'] } },
   ],
   webServer: {
-    // `--strictPort` so a stale process on 4173 fails loudly instead of the
-    // suite silently testing whatever else is listening there.
+    // `--strictPort` so a stale process on this port fails loudly instead of
+    // the suite silently testing whatever else is listening there.
     command: `npm run preview -- --port ${PORT} --strictPort`,
     url: BASE_URL,
     // Locally this reuses the dev server if one is already up, which is the
